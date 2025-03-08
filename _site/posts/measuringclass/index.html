@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlo Knotz">
+<meta name="dcterms.date" content="2025-05-08">
+
+<title>Measuring class with survey data – Home</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Home</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/cknotz"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://cknotz.github.io"> <i class="bi bi-globe" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Measuring class with survey data</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Survey data</div>
+                <div class="quarto-category">Class</div>
+                <div class="quarto-category">ISSP</div>
+                <div class="quarto-category">Political science</div>
+                <div class="quarto-category">Sociology</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Carlo Knotz </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 8, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#class-still-matters" id="toc-class-still-matters" class="nav-link active" data-scroll-target="#class-still-matters">Class (still) matters</a></li>
+  <li><a href="#what-information-do-you-need-and-where-do-you-get-it" id="toc-what-information-do-you-need-and-where-do-you-get-it" class="nav-link" data-scroll-target="#what-information-do-you-need-and-where-do-you-get-it">What information do you need, and where do you get it?</a></li>
+  <li><a href="#installing-the-digclass-package" id="toc-installing-the-digclass-package" class="nav-link" data-scroll-target="#installing-the-digclass-package">Installing the <code>DIGCLASS</code> package</a></li>
+  <li><a href="#getting-issp-data" id="toc-getting-issp-data" class="nav-link" data-scroll-target="#getting-issp-data">Getting ISSP data</a></li>
+  <li><a href="#importing-the-dataset" id="toc-importing-the-dataset" class="nav-link" data-scroll-target="#importing-the-dataset">Importing the dataset</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a>
+  <ul class="collapse">
+  <li><a href="#preparing-the-isco-08-scores" id="toc-preparing-the-isco-08-scores" class="nav-link" data-scroll-target="#preparing-the-isco-08-scores">Preparing the ISCO-08 scores</a></li>
+  <li><a href="#self-employment" id="toc-self-employment" class="nav-link" data-scroll-target="#self-employment">Self-employment</a></li>
+  <li><a href="#number-of-employees" id="toc-number-of-employees" class="nav-link" data-scroll-target="#number-of-employees">Number of employees</a></li>
+  </ul></li>
+  <li><a href="#generating-a-class-variable" id="toc-generating-a-class-variable" class="nav-link" data-scroll-target="#generating-a-class-variable">Generating a class variable</a></li>
+  <li><a href="#example-analysis" id="toc-example-analysis" class="nav-link" data-scroll-target="#example-analysis">Example analysis</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="class-still-matters" class="level2">
+<h2 class="anchored" data-anchor-id="class-still-matters">Class (still) matters</h2>
+<p>Class is a key concept in the social and political sciences, and it explains many important phenomena, from party preferences and voting over social attitudes to health outcomes <span class="citation" data-cites="Elo2009 Gingrich2017 Schwander2013 Hausermannetal2022 Evans2000">(e.g., <a href="#ref-Elo2009" role="doc-biblioref">Elo 2009</a>; <a href="#ref-Gingrich2017" role="doc-biblioref">Gingrich 2017</a>; <a href="#ref-Schwander2013" role="doc-biblioref">Schwander and Häusermann 2013</a>; <a href="#ref-Hausermannetal2022" role="doc-biblioref">Häusermann et al. 2022</a>; <a href="#ref-Evans2000" role="doc-biblioref">Evans 2000</a>)</span>. Therefore, it is important for every empirical social and political researcher to know how to measure people’s positions in class structures.</p>
+<p>Sociologists have spent a lot of time on developing <em>class schemes</em> that make the abstract concept of “class” empirically measurable. The probably most famous class scheme is the Erikson-Goldthorpe-Portocarero (EGP) class scheme that was developed in the 1970s <span class="citation" data-cites="Eriksonetal1979">(<a href="#ref-Eriksonetal1979" role="doc-biblioref">Erikson, Goldthorpe, and Portocarero 1979</a>)</span>, but there are also more recent schemes that take into account the fact that, as a result of technological change, increased educational attainment, and other factors, societies and labor markets in the 21st century look quite different than they did in the 1970s or 1980s. Daniel Oesch’s <span class="citation" data-cites="Oesch2006a">(<a href="#ref-Oesch2006a" role="doc-biblioref">2006</a>)</span> scheme is an important modern class scheme.</p>
+<p>The basis for class schemes is generally <strong>occupation</strong> – what job does someone have? For example, someone who is a medical doctor would typically be seen as a “higher-skilled professional”, whereas a welder would usually be classified as a “skilled manual worker”. People’s occupations are usually measured with occupational classification schemes, the most widely used is the International Labour Organization’s (ILO) <em>International Standard Classification of Occupations</em> (ISCO) scheme.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> This scheme comes in different versions reflecting the years they were adopted: ISCO-68, ISCO-88, and ISCO-08.</p>
+<p>There are of course some people who’s occupation is being <strong>self-employed</strong> – they run their own businesses, which can be a small one-person business (e.g., a shop) but it can also be a medium-sized company with 500 employees. Obviously, this has effects on their class membership: A small shop owner would often be considered to be a member of the “petite bourgeoisie”, while someone who owns a larger company might be considered a “capital owner”.</p>
+</section>
+<section id="what-information-do-you-need-and-where-do-you-get-it" class="level2">
+<h2 class="anchored" data-anchor-id="what-information-do-you-need-and-where-do-you-get-it">What information do you need, and where do you get it?</h2>
+<p>Class is an individual-level variable: A person can be a member of the working class, but a country cannot. This means that we use individual-level data – survey data – to measure class. Such survey data need to contain three pieces of information (variables) that reflect people’s class membership:</p>
+<ol type="1">
+<li>Their occupation. This needs to be measured at the <em>highest level of detail</em>, meaning with the four-digit ISCO-88 or ISCO-08 scheme.</li>
+<li>Whether or not they are self-employed.</li>
+<li>If they are self-employed, how many employees they have.</li>
+</ol>
+<p>Many survey datasets contain this information in some form, but it is usually easiest to use either data from large and well-known <em>comparative</em> social survey projects like the <em>International Social Survey Project</em> (ISSP) or the <em>European Social Survey</em> (ESS).<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Both are free to use (but you do need to register as a user). Many national survey projects also contain that information, but occupation is often coded based on the ISCO scheme but based on national occupational classification schemes (e.g., ANZSCO for Australia and New Zealand or SOC for the United States). These can be translated to the ISCO scheme with specific <em>conversion tables</em>, but this often takes quite a bit of time and effort.</p>
+<p>Technically speaking, applying a class scheme to survey data is quite a bit of work because you need to go over a long list of occupations – the four-digit ISCO08 scheme contains 473 different occupations – and decide which class they belong to. Following this, you have to write code to group all the different observations in your dataset into their classes. Obviously, this would take a lot of time.</p>
+<p>Fortunately, people have written packages for <code>R</code> that make this a quick and (normally) easy thing to do. Two relevant packages are the <code>DIGCLASS</code> package, which was developed by researchers at the EU, and the <code>occupar</code> package.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>The rest of this tutorial shows how you can measure people’s class with data from the ISSP and using the <code>DIGCLASS</code> package for <code>R</code>. Most of this also applies if you work with data from the ESS, but some data import and cleaning steps might be different. Below is an example of how your dataset needs to look like that you can use to guide your data cleaning and preparation when you work with the ESS.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="installing-the-digclass-package" class="level2">
+<h2 class="anchored" data-anchor-id="installing-the-digclass-package">Installing the <code>DIGCLASS</code> package</h2>
+<p>The <code>DIGCLASS</code> package is not on <em>CRAN</em> (the official <code>R</code> “app store”), but you can install it with the <code>remotes</code>-package (which you need to have installed first, of course):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">"https://code.europa.eu/digclass/digclass.git"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we load the package with <code>library()</code>, in addition to the <code>tidyverse</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DIGCLASS)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="getting-issp-data" class="level2">
+<h2 class="anchored" data-anchor-id="getting-issp-data">Getting ISSP data</h2>
+<p>In this tutorial, we will work with data from the 2016 <em>Role of Government</em> round of the ISSP (v. 2.0.0; 19.09.2018), which you can download from the <em>GESIS</em> data repository: <a href="https://www.gesis.org/en/issp/data-and-documentation/role-of-government/2016#c127852" class="uri">https://www.gesis.org/en/issp/data-and-documentation/role-of-government/2016#c127852</a>. As mentioned earlier, you need to register as a user, but this is free – and also gives you access to many other survey datasets like the <em>Eurobarometer</em> or the <em>European Values Study</em>.</p>
+<p>Make sure that you download the data in SPSS (<code>.sav</code>) format and that you store them in the folder that you are working in (ideally your <em>RStudio Project</em> folder).</p>
+</section>
+<section id="importing-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="importing-the-dataset">Importing the dataset</h2>
+<p>To import the dataset, you can use the <code>read_sav()</code> function from the <code>haven</code> package. <strong>Important:</strong> Simply import the dataset for now, do not yet convert it with <code>labelled::unlabelled()</code>! I have stored the dataset as <code>issp16.sav</code>, so I need to specify this in my code – you obviously need to use the name that you gave your dataset file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>issp <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">"issp16.sav"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As other large survey datasets, the ISSP dataset is very large and contains almost 400 variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(issp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48720   395</code></pre>
+</div>
+</div>
+<p>To make things easier for now, we trim the data to the variables we actually need plus one variable (<code>v19</code>) that we can later use as a dependent variable in an example analysis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(studyno,country, <span class="co"># good to keep these in </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         ISCO08, <span class="co"># ISCO-08 occupational codes</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         EMPREL, <span class="co"># Employment relationship, to identify self-employed</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>         NEMPLOY, <span class="co"># number of employees if self-employed</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>         v19 <span class="co"># a variable measuring respondents' views on whether the government should spend more on the unemployed</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="ot">-&gt;</span> issp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="data-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
+<p>The <code>DIGCLASS</code> package expects the data it works with to be in a specific format. If you for example call up the help file for the <code>DIGCLASS::isco08_to_oesch()</code> function with <code>?DIGCLASS::isco08_to_oesch</code> and scroll down a bit, you see that the function needs three main inputs:</p>
+<ol type="1">
+<li><code>x</code>, which is the four-digit ISCO-08 scores. They need to be stored as text (<code>character</code>)</li>
+<li><code>self_employed</code>, which needs to be a “numeric vector indicating whether each individual is self-employed (1) or an employee (0).”</li>
+<li><code>n_employees</code>, which needs to be a “numeric vector indicating the number of employees under each respondent.”</li>
+</ol>
+<p>This means we need to have three variables that correspond exactly to this: ISCO-08 scores as text, a 0/1 dummy indicating whether someone is self-employed, and a variable containing the number of employees for those who are self-employed.</p>
+<section id="preparing-the-isco-08-scores" class="level3">
+<h3 class="anchored" data-anchor-id="preparing-the-isco-08-scores">Preparing the ISCO-08 scores</h3>
+<p>Let’s start the data preparation with <code>ISCO08</code>, and let’s first take a closer look at how it is stored now:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(issp<span class="sc">$</span>ISCO08)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "haven_labelled" "vctrs_vctr"     "double"        </code></pre>
+</div>
+</div>
+<p>From the result of <code>class()</code>, we see that the variable is stored in a <code>labelled</code>-type format – which is because the dataset was imported with <code>haven</code> – and this is also the case for all the other variables (see the <em>Environment</em>).</p>
+<p>To see a bit more clearly how the <code>ISCO08</code> variable looks like, let’s look at the first few observations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ISCO08) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="co"># to get first ten observations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   ISCO08                                                               
+   &lt;dbl+lbl&gt;                                                            
+ 1 2611 [Lawyers]                                                       
+ 2 2512 [Software developers]                                           
+ 3 1212 [Human resource managers]                                       
+ 4 1439 [Services managers not elsewhere classified]                    
+ 5 4419 [Clerical support workers not elsewhere classified]             
+ 6 1345 [Education managers]                                            
+ 7 3230 [Traditional and complementary medicine associate professionals]
+ 8 2654 [Film, stage and related directors and producers]               
+ 9 2611 [Lawyers]                                                       
+10 5131 [Waiters]                                                       </code></pre>
+</div>
+</div>
+<p>You see that the first observation is a lawyer, which has the ISCO-08 code 2611, the next is a software developer (ISCO-08 code 2512), and so on.</p>
+<p><strong>Now comes an important step:</strong> We need to convert the <code>ISCO08</code> variable to a character-type variable – for some reason, the <code>DIGCLASS</code> package expects that the ISCO codes are stored as text (e.g., “2611”, “2512”), and that is what we need to deliver for the package to work.</p>
+<p>To do that, we simply use <code>as.character()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">isco_nums_as_text =</span> <span class="fu">as.character</span>(ISCO08)) <span class="ot">-&gt;</span> issp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The new variable should now be a character-type variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(issp<span class="sc">$</span>isco_nums_as_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>This means that the ISCO-08 scores are taken care off and we can move on to the next piece of information that we need: a 0/1 variable that tells us if people are self-employed.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="self-employment" class="level3">
+<h3 class="anchored" data-anchor-id="self-employment">Self-employment</h3>
+<p>Information about how people earn their living in general is contained in the <code>EMPREL</code> variable. To see how this looks like, we can quickly tabulate the individual categories:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(issp<span class="sc">$</span>EMPREL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1     2     3     4 
+33504  4169  1797  1185 </code></pre>
+</div>
+</div>
+<p>Unfortunately, we only get numbers. This is because the dataset is still stored in the <code>labelled</code> format, and we can quickly fix this by using <code>unlabelled()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>issp <span class="ot">&lt;-</span> labelled<span class="sc">::</span><span class="fu">unlabelled</span>(issp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now the tabulation should work as intended:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(issp<span class="sc">$</span>EMPREL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+NAP (Code 3 in WORK; NZ: Code 2-9 MAINSTAT) 
+                                          0 
+                                   Employee 
+                                      33504 
+            Self-employed without employees 
+                                       4169 
+               Self-employed with employees 
+                                       1797 
+          Working for own family's business 
+                                       1185 
+                                  No answer 
+                                          0 </code></pre>
+</div>
+</div>
+<p>You see that most respondents fall into the “Employee” category, but there are also people who are self-employed with and without employees. Some also work in a family business. Finally, there are some empty categories that have no observations, but we ignore them for now.</p>
+<div style="page-break-after: always;"></div>
+<p>All we really need to do is to re-code this variable into a 0/1 dummy that is equal to 1 if people are self-employed and 0 otherwise. Here, we can use the <code>case_match()</code> function, which is simply put a more advanced version of <code>if_else()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">selfemp =</span> <span class="fu">case_match</span>(EMPREL,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">c</span>(<span class="st">"Self-employed without employees"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Self-employed with employees"</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">c</span>(<span class="st">"Employee"</span>,<span class="st">"Working for own family's business"</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">.default =</span> <span class="cn">NA</span>)) <span class="ot">-&gt;</span> issp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Maybe you can already see that we are here telling <code>R</code> to create a new variable called <code>selfemp</code> that is 1 if the <code>EMPREL</code> variable is either “Self-employed without employees” or “Self-employed with employees” and 0 otherwise. To make sure that observations that do not fit either of these conditions are excluded, we specify <code>.default = NA</code>.</p>
+<p>We can do a quick cross-tabulation to see if the re-coding worked as intended:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(issp<span class="sc">$</span>EMPREL,issp<span class="sc">$</span>selfemp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                             
+                                                  0     1
+  NAP (Code 3 in WORK; NZ: Code 2-9 MAINSTAT)     0     0
+  Employee                                    33504     0
+  Self-employed without employees                 0  4169
+  Self-employed with employees                    0  1797
+  Working for own family's business            1185     0
+  No answer                                       0     0</code></pre>
+</div>
+</div>
+<p>It looks like things did work: the self-employed are coded as 1, all others are 0.</p>
+</section>
+<section id="number-of-employees" class="level3">
+<h3 class="anchored" data-anchor-id="number-of-employees">Number of employees</h3>
+<p>The final variable we need is how many employees those respondents who are self-employed have. Here, we can use the <code>NEMPLOY</code> variable from the ISSP dataset, but let’s again begin by simply checking what type this variable is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(issp<span class="sc">$</span>NEMPLOY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>The variable is already numeric, which means we do not really have to do anything with it – it is good to go. But we can nevertheless quickly visualize it to see how it is distributed:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> NEMPLOY)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 46996 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There are a few extreme outliers which make it difficult to see anything. We can get a clearer picture by removing those with more than 100 employees from the graph (obviously, we only do this for the graph!):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(NEMPLOY<span class="sc">&lt;</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> NEMPLOY)) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Most respondents who have employees have only relatively small businesses with less than 25 employees.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="generating-a-class-variable" class="level2">
+<h2 class="anchored" data-anchor-id="generating-a-class-variable">Generating a class variable</h2>
+<p>We now have all pieces of information we need and can get to the class variable. Let’s start by generating two of Daniel Oesch’s <span class="citation" data-cites="Oesch2006a">(<a href="#ref-Oesch2006a" role="doc-biblioref">2006</a>)</span> class schemes, the very simple one with five classes and the more advanced one with eight classes. Each can be generated with the <code>isco08_to_oesch()</code> function. The following code shows how to create both class schemes at once:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">oesch_5 =</span> DIGCLASS<span class="sc">::</span><span class="fu">isco08_to_oesch</span>(<span class="at">x =</span> isco_nums_as_text,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">self_employed =</span> selfemp,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">n_employees =</span> NEMPLOY,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">n_classes =</span> <span class="dv">5</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">label =</span> T,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">to_factor =</span> F),</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">oesch_8 =</span> DIGCLASS<span class="sc">::</span><span class="fu">isco08_to_oesch</span>(<span class="at">x =</span> isco_nums_as_text,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">self_employed =</span> selfemp,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">n_employees =</span> NEMPLOY,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">n_classes =</span> <span class="dv">8</span>,</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">label =</span> T,</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">to_factor =</span> F)) <span class="ot">-&gt;</span> issp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ ISCO variable has occupations with digits less than 4. Converting to 4 digits.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Converted `110` to `0110`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Converted `310` to `0310`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Converted `210` to `0210`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ ISCO variable has occupations with digits less than 4. Converting to 4 digits.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Converted `110` to `0110`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Converted `310` to `0310`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Converted `210` to `0210`</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Let’s have a look at the results:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(issp<span class="sc">$</span>oesch_5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+'Higher-grade service class'  'Lower-grade service class' 
+                        6374                         7058 
+           'Skilled workers'      'Small business owners' 
+                       12478                         1117 
+         'Unskilled workers' 
+                        7558 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(issp<span class="sc">$</span>oesch_8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                           '(Associate) managers' 
+                                             5541 
+                                         'Clerks' 
+                                             4043 
+                             'Production workers' 
+                                             8309 
+'Self-employed professionals and large employers' 
+                                              493 
+                                'Service workers' 
+                                             7684 
+                          'Small business owners' 
+                                             1117 
+            'Socio-cultural (semi-)professionals' 
+                                             4667 
+                 'Technical (semi-)professionals' 
+                                             2731 </code></pre>
+</div>
+</div>
+<p>And we have what we want: Two class schemes, one simpler and the other a bit more detailed. The second one is used by for example Gingrich <span class="citation" data-cites="Gingrich2017">(<a href="#ref-Gingrich2017" role="doc-biblioref">2017</a>)</span> or Schwander &amp; Häusermann <span class="citation" data-cites="Schwander2013">(<a href="#ref-Schwander2013" role="doc-biblioref">2013</a>)</span>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="example-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="example-analysis">Example analysis</h2>
+<p>Let’s say we wanted to find out if people’s class has an effect on how they think about the welfare state, specifically whether the government should do more to support the unemployed. As mentioned earlier, the ISSP includes a variable that measures these attitudes and which looks like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(issp<span class="sc">$</span>v19)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(issp<span class="sc">$</span>v19)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+             NAV (PH)       Spend much more            Spend more 
+                    0                  7209                 12422 
+Spend the same as now            Spend less       Spend much less 
+                16760                  6546                  2390 
+         Can't choose             No answer 
+                    0                     0 </code></pre>
+</div>
+</div>
+<p>The variable is stored as a factor (i.e., as a categorical variable), but it has five categories – so we can, sort of, get away with treating it as if it were numeric <span class="citation" data-cites="Thewissen2019">(this is what <a href="#ref-Thewissen2019" role="doc-biblioref">Thewissen and Rueda 2019</a> also do)</span>. To be able to do that, we first have to check how it looks internally and then convert it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>bst290<span class="sc">::</span><span class="fu">visfactor</span>(<span class="at">dataset =</span> issp,</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">variable =</span> <span class="st">"v19"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> values                labels
+      1              NAV (PH)
+      2       Spend much more
+      3            Spend more
+      4 Spend the same as now
+      5            Spend less
+      6       Spend much less
+      7          Can't choose
+      8             No answer</code></pre>
+</div>
+</div>
+<p>There is a bit of a divergence between values and labels – the <code>NAV (PH)</code> category is empty (see above), which means the lowest <em>actual</em> category has the value of 2 and so on. We can fix this by simply using <code>droplevels()</code> to get rid of empty categories and then <code>as.numeric()</code>.</p>
+<p>One thing we need to pay attention to is that, right now, <em>lower</em> scores correspond to <em>more</em> support for government aid to the unemployed. This is a bit strange to work with, so we reverse the scale of the new variable by subtracting it from 6 (so that the score of 1 becomes 6-1 = 5, 2 becomes 6-2 = 4, and so on:)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">v19 =</span> <span class="fu">droplevels</span>(v19),</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">unemspend =</span> <span class="dv">6</span> <span class="sc">-</span> <span class="fu">as.numeric</span>(v19)) <span class="ot">-&gt;</span> issp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The new numeric variable has values from 1 to 5, which is what we want:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(issp<span class="sc">$</span>unemspend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1     2     3     4     5 
+ 2390  6546 16760 12422  7209 </code></pre>
+</div>
+</div>
+<p>Let’s now see to class influences attitudes toward help for the unemployed in Sweden (it is <strong>important</strong> to focus on one country alone, otherwise a simple linear regression model will give wrong results!):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>issp <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"SE-Sweden"</span>) <span class="ot">-&gt;</span> swe_data</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(unemspend <span class="sc">~</span> oesch_5,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> swe_data)</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = unemspend ~ oesch_5, data = swe_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.38053 -0.38053  0.03929  0.43478  2.43478 
+
+Coefficients:
+                                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                         2.80315    0.05211  53.793  &lt; 2e-16 ***
+oesch_5'Lower-grade service class'  0.15756    0.07196   2.190   0.0288 *  
+oesch_5'Skilled workers'            0.50707    0.07234   7.010 4.56e-12 ***
+oesch_5'Small business owners'     -0.23793    0.18084  -1.316   0.1886    
+oesch_5'Unskilled workers'          0.57738    0.09391   6.148 1.16e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8305 on 939 degrees of freedom
+  (196 observations deleted due to missingness)
+Multiple R-squared:  0.07685,   Adjusted R-squared:  0.07291 
+F-statistic: 19.54 on 4 and 939 DF,  p-value: 1.842e-15</code></pre>
+</div>
+</div>
+<p>As always, one category (here: “Higher-grade service class”) is omitted from the model and the coefficients show us the difference from each other class to the omitted one. This means that all classes except for small business owners are significantly more supportive of government help for the unemployed than the higher-grade service class.</p>
+<p>To get a better sense, we can use <code>prediction::prediction_summary()</code> to get predicted support scores per class based on the model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>prediction<span class="sc">::</span><span class="fu">prediction_summary</span>(<span class="at">model =</span> mod1,</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">at =</span> <span class="fu">list</span>(<span class="at">oesch_5 =</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(swe_data<span class="sc">$</span>oesch_5))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  at(oesch_5) Prediction      SE     z         p lower upper
+            'Skilled workers'      3.310 0.05017 65.98 0.000e+00 3.212 3.409
+ 'Higher-grade service class'      2.803 0.05211 53.79 0.000e+00 2.701 2.905
+  'Lower-grade service class'      2.961 0.04963 59.65 0.000e+00 2.863 3.058
+          'Unskilled workers'      3.381 0.07813 43.27 0.000e+00 3.227 3.534
+      'Small business owners'      2.565 0.17317 14.81 1.202e-49 2.226 2.905</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>We can get an ever better picture of the results if we just visualize the result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>prediction<span class="sc">::</span><span class="fu">prediction_summary</span>(<span class="at">model =</span> mod1,</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">at =</span> <span class="fu">list</span>(<span class="at">oesch_5 =</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(swe_data<span class="sc">$</span>oesch_5)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Prediction, </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> <span class="fu">reorder</span>(<span class="st">`</span><span class="at">at(oesch_5)</span><span class="st">`</span>,Prediction), </span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper)) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>() <span class="sc">+</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">1</span>),</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Predicted support for government aid to the unemployed"</span>,</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Class"</span>, <span class="at">caption =</span> <span class="st">"95% confidence intervals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that we use <code>reorder()</code> to arrange the classes from highest to lowest support. Clearly, small business owners in Sweden are least supportive of government help for the unemployed, while unskilled and skilled workers (i.e., the “working class”) are most supportive. Looks like class does still matter in Sweden!</p>
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Elo2009" class="csl-entry" role="listitem">
+Elo, Irma T. 2009. <span>“Social Class Differentials in Health and Mortality: <span>Patterns</span> and Explanations in Comparative Perspective.”</span> <em>Annual Review of Sociology</em> 35 (1): 553–72.
+</div>
+<div id="ref-Eriksonetal1979" class="csl-entry" role="listitem">
+Erikson, Robert, John H Goldthorpe, and Lucienne Portocarero. 1979. <span>“Intergenerational Class Mobility in Three <span>Western European</span> Societies: <span class="nocase">England, France and Sweden</span>.”</span> <em>The British Journal of Sociology</em> 30 (4): 415–41.
+</div>
+<div id="ref-Evans2000" class="csl-entry" role="listitem">
+Evans, Geoffrey. 2000. <span>“The Continued Significance of Class Voting.”</span> <em>Annual Review of Political Science</em> 3 (1): 401–17.
+</div>
+<div id="ref-Gingrich2017" class="csl-entry" role="listitem">
+Gingrich, Jane. 2017. <span>“A New Progressive Coalition? <span>The European</span> Left in a Time of Change.”</span> <em>The Political Quarterly</em> 88 (1): 39–51.
+</div>
+<div id="ref-Hausermannetal2022" class="csl-entry" role="listitem">
+Häusermann, Silja, Michael Pinggera, Macarena Ares, and Matthias Enggist. 2022. <span>“Class and Social Policy in the Knowledge Economy.”</span> <em>European Journal of Political Research</em> 61 (2): 462–84.
+</div>
+<div id="ref-Oesch2006a" class="csl-entry" role="listitem">
+Oesch, Daniel. 2006. <em>Redrawing the Class Map. Stratification and Institutions in Britain, Germany, Sweden and Switzerland</em>. Basingstoke: Palgrave Macmillan.
+</div>
+<div id="ref-Schwander2013" class="csl-entry" role="listitem">
+Schwander, Hanna, and Silja Häusermann. 2013. <span>“Who Is in and Who Is Out? <span>A</span> Risk-Based Conceptualization of Insiders and Outsiders.”</span> <em>Journal of European Social Policy</em> 23 (3): 248–69.
+</div>
+<div id="ref-Thewissen2019" class="csl-entry" role="listitem">
+Thewissen, Stefan, and David Rueda. 2019. <span>“Automation and the Welfare State: Technological Change as a Determinant of Redistribution Preferences.”</span> <em>Comparative Political Studies</em> 52 (2): 171–208.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>See also <a href="https://isco-ilo.netlify.app/en/isco-08/#download-isco-08-material" class="uri">https://isco-ilo.netlify.app/en/isco-08/#download-isco-08-material</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See <a href="https://issp.org/" class="uri">https://issp.org/</a> and <a href="https://www.europeansocialsurvey.org/" class="uri">https://www.europeansocialsurvey.org/</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>See <a href="https://code.europa.eu/digclass/digclass" class="uri">https://code.europa.eu/digclass/digclass</a> and <a href="https://github.com/DiogoFerrari/occupar" class="uri">https://github.com/DiogoFerrari/occupar</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Gingrich calls “socio-cultural (semi-) professionals” the “new middle class”, “technical (semi-) professionals”, “clerks”, and “(Associate) managers” are the “old middle class”, “service workers” are the “new working class”, and “Production workers” are the “old working class”. If you wanted, you could use <code>case_match()</code> to re-code the <code>oesch_5</code> variable into a new and simpler class scheme that corresponds to what Gingrich is using.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
