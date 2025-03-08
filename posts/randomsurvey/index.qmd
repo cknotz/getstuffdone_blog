@@ -1,0 +1,86 @@
+---
+title: "Using a website as a simple survey randomizer"
+author: "Carlo Knotz"
+date: "2025-03-08"
+bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
+format:
+  html:
+    toc: true
+categories:
+  - Survey
+  - Experiment
+  - HTML
+  - Javascript
+  - Political science
+  - Sociology
+---
+
+## Survey experiments in the social sciences
+
+Social scientists are often interested in how people’s attitudes or behavior changes when they are exposed to different information. For example, many suspect that people’s political attitudes can influenced by the “framing” of the news they consume (i.e., whether they watch *Fox News* or *MSNBC*) — and political scientists have been studying whether that is true or not [@Nelsonetal1997]. Similarly, many social scientists study the effects of gender — for example if voters hold male and female politicians to different standards [@Cucchi2021].
+
+The probably most important tool to study these things are survey experiments. The logic of a survey experiment is simple. If, for example, you want to see how the framing of news stories shapes attitudes, you recruit a group of participants and divide them randomly into two groups. One group gets to read one framing of a news story, the other group reads the alternative, and then you record their attitudes (plus other information you are intersted in). 
+
+```{mermaid}
+flowchart TD
+  A(Recruit participants) --> B{Randomly assign to...}
+  B --> C(News story version 1)
+  B --> D(News story version 2)
+  C --> E(Compare responses)
+  D --> E
+```
+
+Once you have collected the data, you compare the two groups and see if they differ in their attitudes. Because participants are randomly allocated to different framings, you can be confident that whatever effects you found are really due to the framing and not other variables [@Rubin1974]. Because you split your participants into two groups, this is also called a split-sample survey experiment. Medical resarchers would probably call this a randomized controlled trial (RCT), and people in marketing or UX research might know it as A/B testing.
+
+## Implementing your own survey experiment
+
+**The problem:** Some survey software tools (e.g., *Qualtrics*) have in-built randomization features that allow you to implement a split-sample experiment directly within your survey — but others do not. *Nettskjema*, the survey platform used at many Norwegian universities, only allows users to randomize the *order* of answer categories *within* a single question -- but it is not possible to randomly assign respondents to different questions or different versions of the same question, without which a survey experiment is not possible. This means that if you do not have access to survey software with included randomization, you need to get creative.
+
+**The solution, in a nutshell:** Create two versions of your survey questionnaires in your standard survey platform. Each version is exactly identical --- except for the *one* experimental question (e.g., one where you ask respondents to read a brief news story and then ask them to state their opinion), which is different. Then you build a simple website that uses `Javascript` to randomly forward participants to one or the other version of your questionnaire. You can deploy your website via *GitHub Pages*. Once you have collected enough data, you merge the two datasets and compare response patterns between them.
+
+```{mermaid}
+flowchart TD
+  A(Welcome page)
+  A --> B{Randomization}
+  B --> C(Questionnaire with news story version 1)
+  B --> D(Questionnaire with news story version 2)
+  C --> E[Merge responses & analyze differences]
+  D --> E
+```
+
+**In more detail:** When you deploy a survey online, the first thing participants will normally see is a starting page that gives them some information about the purpose of the survey, about how their information is collected, and whom they can contact in case of questions. Participants then click on a button to confirm their willingness to do the survey and then begin answering questions.
+
+You can create a starting page that, when participants click the button, forwards them to one of two (or potentially more) versions of your survey. Creating a simple starting page is easy thanks to *ChatGPT* (which is what I used to create a first version of my website; see [here for the protocol](https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4)). Do make sure to make that the website responsive so that it works on different types of devices. Below is a screenshot of my mock starting page:
+
+![Screenshot of my mock starting page](screenshot_randompage.png){width=80%; fig-alt="A screenshot of a text box shown on a website with random text and a button at the bottom."}
+
+You can also see the page in action [here](https://cknotz.github.io/survey_splitter/) and inspect the source code [here](https://github.com/cknotz/survey_splitter).
+
+The central [“under-the-hood” component](https://www.oncrawl.com/technical-seo/javascript-redirects-seo-ultimate-guide/) is the JavaScript code that gets run when people click on the “Take me to the survey!” button:
+
+```
+<script>
+    function randomizeButton() {
+        if (Math.random() > 0.5){
+        window.location.href = "https://skateistan.org/";
+    } else {
+        window.location.href = "https://www.honnoldfoundation.org";
+    }}
+  </script>
+```
+
+It should not be too difficult to see what is going on here: When a participant clicks the button, `Math.random()` essentially performs a coin flip by drawing a random number between 0 and 1. When that number is greater than 0.5, the function forwards to skateistan.org; if the number is below 0.5, participants instead get forwarded to the Alex Honnold foundation. When running a survey experiment, you would obviously include links to the two versions of your survey.
+
+The function is then linked to the *Take me to the survey!* button using this code:
+
+```
+<button id="button" onclick="randomizeButton()">Take me to the survey!</button>
+```
+
+And that is pretty much it. When you route your participants via this page, about 50% should randomly get forwarded to questionnaire version 1, the others get forwarded to version 2 [you do need a large sample for this to work out; @Tversky1971].
+
+It may make sense to start each of your two questionnaire versions by asking participants to again explicitly consent to participating in the survey so that you have that recorded in your data. Also, you obviously need to make absolutely sure that your two surveys are really identical except for the “treatment” you want to test. This means: Pretest, pretest, pretest!
+
+## Deploying your randomizer website
+
+Deploying the website is free and fairly easy and quick if you use *GitHub Pages*. See here for a step-by-step instruction: <https://pages.github.com/#project-site>.

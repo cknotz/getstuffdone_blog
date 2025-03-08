@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Carlo Knotz">
+<meta name="dcterms.date" content="2025-03-08">
 
-<title>Testing big ideas with simple methods – Home</title>
+<title>Using a website as a simple survey randomizer – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,29 +22,47 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,67 +90,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -140,7 +105,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Home</span>
     </a>
   </div>
@@ -151,7 +116,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About this blog</span></a>
   </li>  
 </ul>
@@ -165,213 +130,152 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Testing big ideas with simple methods</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Using a website as a simple survey randomizer</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Survey</div>
+                <div class="quarto-category">Experiment</div>
+                <div class="quarto-category">HTML</div>
+                <div class="quarto-category">Javascript</div>
+                <div class="quarto-category">Political science</div>
+                <div class="quarto-category">Sociology</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Carlo Knotz </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 8, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Class">Class <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Comparative analysis">Comparative analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ESS">ESS <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Experiment">Experiment <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Gender">Gender <span class="quarto-category-count">(1)</span></div><div class="category" data-category="HTML">HTML <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ISSP">ISSP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Javascript">Javascript <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Political science">Political science <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Sociology">Sociology <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Survey">Survey <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Survey data">Survey data <span class="quarto-category-count">(2)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#survey-experiments-in-the-social-sciences" id="toc-survey-experiments-in-the-social-sciences" class="nav-link active" data-scroll-target="#survey-experiments-in-the-social-sciences">Survey experiments in the social sciences</a></li>
+  <li><a href="#implementing-your-own-survey-experiment" id="toc-implementing-your-own-survey-experiment" class="nav-link" data-scroll-target="#implementing-your-own-survey-experiment">Implementing your own survey experiment</a></li>
+  <li><a href="#deploying-your-randomizer-website" id="toc-deploying-your-randomizer-website" class="nav-link" data-scroll-target="#deploying-your-randomizer-website">Deploying your randomizer website</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="survey-experiments-in-the-social-sciences" class="level2">
+<h2 class="anchored" data-anchor-id="survey-experiments-in-the-social-sciences">Survey experiments in the social sciences</h2>
+<p>Social scientists are often interested in how people’s attitudes or behavior changes when they are exposed to different information. For example, many suspect that people’s political attitudes can influenced by the “framing” of the news they consume (i.e., whether they watch <em>Fox News</em> or <em>MSNBC</em>) — and political scientists have been studying whether that is true or not <span class="citation" data-cites="Nelsonetal1997">(<a href="#ref-Nelsonetal1997" role="doc-biblioref">Nelson, Clawson, and Oxley 1997</a>)</span>. Similarly, many social scientists study the effects of gender — for example if voters hold male and female politicians to different standards <span class="citation" data-cites="Cucchi2021">(<a href="#ref-Cucchi2021" role="doc-biblioref">Cucchi and Cavazza 2021</a>)</span>.</p>
+<p>The probably most important tool to study these things are survey experiments. The logic of a survey experiment is simple. If, for example, you want to see how the framing of news stories shapes attitudes, you recruit a group of participants and divide them randomly into two groups. One group gets to read one framing of a news story, the other group reads the alternative, and then you record their attitudes (plus other information you are intersted in).</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A(Recruit participants) --&gt; B{Randomly assign to...}
+  B --&gt; C(News story version 1)
+  B --&gt; D(News story version 2)
+  C --&gt; E(Compare responses)
+  D --&gt; E
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Once you have collected the data, you compare the two groups and see if they differ in their attitudes. Because participants are randomly allocated to different framings, you can be confident that whatever effects you found are really due to the framing and not other variables <span class="citation" data-cites="Rubin1974">(<a href="#ref-Rubin1974" role="doc-biblioref">Rubin 1974</a>)</span>. Because you split your participants into two groups, this is also called a split-sample survey experiment. Medical resarchers would probably call this a randomized controlled trial (RCT), and people in marketing or UX research might know it as A/B testing.</p>
+</section>
+<section id="implementing-your-own-survey-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="implementing-your-own-survey-experiment">Implementing your own survey experiment</h2>
+<p><strong>The problem:</strong> Some survey software tools (e.g., <em>Qualtrics</em>) have in-built randomization features that allow you to implement a split-sample experiment directly within your survey — but others do not. <em>Nettskjema</em>, the survey platform used at many Norwegian universities, only allows users to randomize the <em>order</em> of answer categories <em>within</em> a single question – but it is not possible to randomly assign respondents to different questions or different versions of the same question, without which a survey experiment is not possible. This means that if you do not have access to survey software with included randomization, you need to get creative.</p>
+<p><strong>The solution, in a nutshell:</strong> Create two versions of your survey questionnaires in your standard survey platform. Each version is exactly identical — except for the <em>one</em> experimental question (e.g., one where you ask respondents to read a brief news story and then ask them to state their opinion), which is different. Then you build a simple website that uses <code>Javascript</code> to randomly forward participants to one or the other version of your questionnaire. You can deploy your website via <em>GitHub Pages</em>. Once you have collected enough data, you merge the two datasets and compare response patterns between them.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A(Welcome page)
+  A --&gt; B{Randomization}
+  B --&gt; C(Questionnaire with news story version 1)
+  B --&gt; D(Questionnaire with news story version 2)
+  C --&gt; E[Merge responses &amp; analyze differences]
+  D --&gt; E
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>In more detail:</strong> When you deploy a survey online, the first thing participants will normally see is a starting page that gives them some information about the purpose of the survey, about how their information is collected, and whom they can contact in case of questions. Participants then click on a button to confirm their willingness to do the survey and then begin answering questions.</p>
+<p>You can create a starting page that, when participants click the button, forwards them to one of two (or potentially more) versions of your survey. Creating a simple starting page is easy thanks to <em>ChatGPT</em> (which is what I used to create a first version of my website; see <a href="https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4">here for the protocol</a>). Do make sure to make that the website responsive so that it works on different types of devices. Below is a screenshot of my mock starting page:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshot_randompage.png" class="img-fluid figure-img" alt="A screenshot of a text box shown on a website with random text and a button at the bottom."></p>
+<figcaption>Screenshot of my mock starting page</figcaption>
+</figure>
+</div>
+<p>You can also see the page in action <a href="https://cknotz.github.io/survey_splitter/">here</a> and inspect the source code <a href="https://github.com/cknotz/survey_splitter">here</a>.</p>
+<p>The central <a href="https://www.oncrawl.com/technical-seo/javascript-redirects-seo-ultimate-guide/">“under-the-hood” component</a> is the JavaScript code that gets run when people click on the “Take me to the survey!” button:</p>
+<pre><code>&lt;script&gt;
+    function randomizeButton() {
+        if (Math.random() &gt; 0.5){
+        window.location.href = "https://skateistan.org/";
+    } else {
+        window.location.href = "https://www.honnoldfoundation.org";
+    }}
+  &lt;/script&gt;</code></pre>
+<p>It should not be too difficult to see what is going on here: When a participant clicks the button, <code>Math.random()</code> essentially performs a coin flip by drawing a random number between 0 and 1. When that number is greater than 0.5, the function forwards to skateistan.org; if the number is below 0.5, participants instead get forwarded to the Alex Honnold foundation. When running a survey experiment, you would obviously include links to the two versions of your survey.</p>
+<p>The function is then linked to the <em>Take me to the survey!</em> button using this code:</p>
+<pre><code>&lt;button id="button" onclick="randomizeButton()"&gt;Take me to the survey!&lt;/button&gt;</code></pre>
+<p>And that is pretty much it. When you route your participants via this page, about 50% should randomly get forwarded to questionnaire version 1, the others get forwarded to version 2 [you do need a large sample for this to work out; <span class="citation" data-cites="Tversky1971">Tversky and Kahneman (<a href="#ref-Tversky1971" role="doc-biblioref">1971</a>)</span>].</p>
+<p>It may make sense to start each of your two questionnaire versions by asking participants to again explicitly consent to participating in the survey so that you have that recorded in your data. Also, you obviously need to make absolutely sure that your two surveys are really identical except for the “treatment” you want to test. This means: Pretest, pretest, pretest!</p>
+</section>
+<section id="deploying-your-randomizer-website" class="level2">
+<h2 class="anchored" data-anchor-id="deploying-your-randomizer-website">Deploying your randomizer website</h2>
+<p>Deploying the website is free and fairly easy and quick if you use <em>GitHub Pages</em>. See here for a step-by-step instruction: <a href="https://pages.github.com/#project-site" class="uri">https://pages.github.com/#project-site</a>.</p>
 
 
 
+</section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Survey data,Comparative analysis,Gender,ESS,Political science,Sociology" data-listing-date-sort="1741388400000" data-listing-file-modified-sort="1741445231918" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2150">
-<div class="thumbnail">
-<p><a href="./posts/compa_survey/index.html" class="no-external"></a></p><a href="./posts/compa_survey/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/compa_survey/index_files/figure-html/unnamed-chunk-8-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/compa_survey/index.html" class="no-external"></a></p>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Cucchi2021" class="csl-entry" role="listitem">
+Cucchi, Silvia, and Nicoletta Cavazza. 2021. <span>“More Guilty If Woman: The Role of Gender and Causal Attribution in Political Scandals’ Impact.”</span> <em>The Journal of Social Psychology</em> 161 (2): 173–81.
 </div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/compa_survey/index.html" class="no-external">Simple cross-country analyses with survey data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/compa_survey/index.html" class="no-external"></a>
+<div id="ref-Nelsonetal1997" class="csl-entry" role="listitem">
+Nelson, Thomas E., Rosalee A. Clawson, and Zoe M. Oxley. 1997. <span>“Media Framing of a Civil Liberties Conflict and Its Effect on Tolerance.”</span> <em>American Political Science Review</em> 91 (3): 567–83.
 </div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Survey data'); return false;">
-Survey data
+<div id="ref-Rubin1974" class="csl-entry" role="listitem">
+Rubin, Donald B. 1974. <span>“Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies.”</span> <em>Journal of Educational Psychology</em> 66 (5): 688–701.
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('Comparative analysis'); return false;">
-Comparative analysis
+<div id="ref-Tversky1971" class="csl-entry" role="listitem">
+Tversky, Amos, and Daniel Kahneman. 1971. <span>“Belief in the Law of Small Numbers.”</span> <em>Psychological Bulletin</em> 76 (2): 105–10.
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('Gender'); return false;">
-Gender
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('ESS'); return false;">
-ESS
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Political science'); return false;">
-Political science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Sociology'); return false;">
-Sociology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/compa_survey/index.html" class="no-external"><strong>Many students are interested in how people’s opinions, behaviors, or perceptions are affected by the environments (or “macro-level contexts”) they live in.</strong> Students in…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/compa_survey/index.html" class="no-external">
-<div class="listing-date">
-Mar 8, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1741388400000" data-listing-file-modified-sort="1741459949656" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="170">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">What this blog is about</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">I often find that students have quite smart ideas that they want to test in a course paper or thesis project and which <em>could</em> be tested with a relatively simple quantitative…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Mar 8, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Survey,Experiment,HTML,Javascript,Political science,Sociology" data-listing-date-sort="1741388400000" data-listing-file-modified-sort="1741459870698" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="993">
-<div class="thumbnail">
-<p><a href="./posts/randomsurvey/index.html" class="no-external"></a></p><a href="./posts/randomsurvey/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/randomsurvey/screenshot_randompage.png" alt="A screenshot of a text box shown on a website with random text and a button at the bottom."  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/randomsurvey/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/randomsurvey/index.html" class="no-external">Using a website as a simple survey randomizer</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/randomsurvey/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Survey'); return false;">
-Survey
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Experiment'); return false;">
-Experiment
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('HTML'); return false;">
-HTML
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Javascript'); return false;">
-Javascript
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Political science'); return false;">
-Political science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Sociology'); return false;">
-Sociology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/randomsurvey/index.html" class="no-external">Social scientists are often interested in how people’s attitudes or behavior changes when they are exposed to different information. For example, many suspect that people’s…<em></em><em></em><span class="citation" data-cites="Nelsonetal1997"></span><span class="citation" data-cites="Cucchi2021"></span></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/randomsurvey/index.html" class="no-external">
-<div class="listing-date">
-Mar 8, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Survey data,Class,ISSP,Political science,Sociology" data-listing-date-sort="1741388400000" data-listing-file-modified-sort="1741445273689" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3251">
-<div class="thumbnail">
-<p><a href="./posts/measuringclass/index.html" class="no-external"></a></p><a href="./posts/measuringclass/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/measuringclass/index_files/figure-html/unnamed-chunk-17-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/measuringclass/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/measuringclass/index.html" class="no-external">Measuring class with survey data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/measuringclass/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Survey data'); return false;">
-Survey data
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Class'); return false;">
-Class
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('ISSP'); return false;">
-ISSP
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Political science'); return false;">
-Political science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Sociology'); return false;">
-Sociology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/measuringclass/index.html" class="no-external">Class is a key concept in the social and political sciences, and it explains many important phenomena, from party preferences and voting over social attitudes to health…<span class="citation" data-cites="Elo2009 Gingrich2017 Schwander2013 Hausermannetal2022 Evans2000"></span></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/measuringclass/index.html" class="no-external">
-<div class="listing-date">
-Mar 8, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

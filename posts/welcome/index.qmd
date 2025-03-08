@@ -8,4 +8,4 @@ I often find that students have quite smart ideas that they want to test in a co
 
 The aim of this blog is to show students (in the social sciences so far) how they can **test big ideas** -- e.g., about the role of class, social norms, or gender -- **with relatively simple methods** that they should be familiar with from their introductory statistics course and with the free and open-source `R` statistical programming language.
 
-The posts are very much focussed on explaining the general logic of an analysis and assume that readers are at least a bit familiar with basic statistics and data analysis methods and how to do them in `R`. Each post also gives pointers to more advanced resources (textbooks, journal articles) on quantitative methods.
+The posts are very much focussed on explaining the general logic of an analysis and assume that readers are at least a bit familiar with basic statistics and data analysis methods and how to do them in `R` (mainly; some posts also use other languages such as `Javascript`). Each post also gives pointers to more advanced resources (textbooks, journal articles) on quantitative methods.

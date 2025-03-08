@@ -1,0 +1,68 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Using a website as a simple survey randomizer\"\n",
+        "author: \"Carlo Knotz\"\n",
+        "date: \"2025-03-08\"\n",
+        "bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib\n",
+        "format:\n",
+        "  html:\n",
+        "    toc: true\n",
+        "categories:\n",
+        "  - Survey data\n",
+        "  - Comparative analysis\n",
+        "  - Gender\n",
+        "  - ESS\n",
+        "  - Political science\n",
+        "  - Sociology\n",
+        "---\n",
+        "\n",
+        "\n",
+        "## Survey experiments in the social sciences\n",
+        "\n",
+        "Social scientists are often interested in how people’s attitudes or behavior changes when they are exposed to different information. For example, many suspect that people’s political attitudes can influenced by the “framing” of the news they consume (i.e., whether they watch *Fox News* or *MSNBC*) — and political scientists have been studying whether that is true or not. Similarly, many social scientists study the effects of gender — for example if voters hold male and female politicians to different standards.\n",
+        "\n",
+        "The probably most important tool to study these things are survey experiments. The logic of a survey experiment is simple. If, for example, you want to see how the framing of news stories shapes attitudes, you recruit a group of participants and divide them randomly into two groups. One group gets to read one framing of a news story, the other group reads the alternative, and then you record their attitudes (plus other information you are intersted in). Once you have collected the data, you compare the two groups and see if they differ in their attitudes. Because participants are randomly allocated to different framings, you can be confident that whatever effects you found are really due to the framing and not other variables [@Rubin1974]. Because you split your participants into two groups, this is also called a split-sample survey experiment. Medical resarchers would probably call this a randomized controlled trial (RCT), and people in marketing or UX research might know it as A/B testing.\n",
+        "\n",
+        "**The problem:** Some survey software tools (e.g., *Qualtrics*) have in-built randomization features that allow you to implement a split-sample experiment directly within your survey — but others do not. *Nettskjema*, the survey platform used at many Norwegian universities, only allows users to randomize the *order* of answer categories *within* a single question -- but it is not possible to randomly assign respondents to different questions or different versions of the same question, without which a survey experiment is not possible. This means that if you do not have access to survey software with included randomization, you need to get creative.\n",
+        "\n",
+        "**The solution, in a nutshell:** Create two versions of your survey in your standard software, and then build a simple website that uses `Javascript` to randomly forward participants to one or the other version. You can deploy your website via *GitHub Pages*. Once you have collected enough data, you pool the two samples and compare response patterns between them.\n",
+        "\n",
+        "**In more detail:** When you deploy a survey online, the first thing participants will normally see is a starting page that gives them some information about the purpose of the survey, about how their information is collected, and whom they can contact in case of questions. Participants then click on a button to confirm their willingness to do the survey and then begin answering questions.\n",
+        "\n",
+        "You can create a starting page that, when participants click the button, forwards them to one of two (or potentially more) versions of your survey. Creating a simple starting page is easy thanks to *ChatGPT* (which is what I used to create a first version of my website; see [here for the protocol](https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4)). Do make sure to make that the website responsive so that it works on different types of devices. Below is a screenshot of my mock starting page:\n",
+        "\n",
+        "![Screenshot of my mock starting page](screenshot_randompage.png)\n",
+        "You can also see the page in action [here](https://cknotz.github.io/survey_splitter/) and inspect the source code [here](https://github.com/cknotz/survey_splitter).\n",
+        "\n",
+        "The central [“under-the-hood” component](https://www.oncrawl.com/technical-seo/javascript-redirects-seo-ultimate-guide/) is the JavaScript code that gets run when people click on the “Take me to the survey!” button:\n",
+        "\n",
+        "```{javascript}\n",
+        "<script>\n",
+        "    function randomizeButton() {\n",
+        "        if (Math.random() > 0.5){\n",
+        "        window.location.href = \"https://skateistan.org/\";\n",
+        "    } else {\n",
+        "        window.location.href = \"https://www.honnoldfoundation.org\";\n",
+        "    }}\n",
+        "  </script>\n",
+        "```"
+      ],
+      "id": "3d6fb456"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/carloknotz/Library/Python/3.11/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
