@@ -9,7 +9,6 @@ format:
 categories:
   - Survey
   - Experiment
-  - HTML
   - Javascript
   - Political science
   - Sociology
@@ -56,7 +55,9 @@ flowchart TD
 
 **In more detail:** When you deploy a survey online, the first thing participants will normally see is a starting page that gives them some information about the purpose of the survey, about how their information is collected, and whom they can contact in case of questions. Participants then click on a button to confirm their willingness to do the survey and then begin answering questions.
 
-You can create a starting page that, when participants click the button, forwards them to one of two (or potentially more) versions of your survey. Creating a simple starting page is easy thanks to *ChatGPT* (which is what I used to create a first version of my website; see [here for the protocol](https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4)). Do make sure to make that the website responsive so that it works on different types of devices. Below is a screenshot of my mock starting page:
+You can create a starting page that, when participants click the button, forwards them to one of two (or potentially more) versions of your survey. Creating a simple starting page is easy thanks to *ChatGPT*, which can write `HTML`, `CSS`, and `Javascript` code for a complete and functioning website. This is what I used (see [here for the protocol](https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4)). If you are not familiar with `HTML` or web development in general, it can help to re-create the chat with *ChatGPT*, have a good look at the `HTML` code there, and ask the AI for exlanations. In any case, when you build the website, do make sure to make that it is *responsive* so that it works on different types of devices. 
+
+Below is a screenshot of the starting page that *ChatGPT* created for me:
 
 ![Screenshot of my mock starting page](screenshot_randompage.png){width=80%; fig-alt="A screenshot of a text box shown on a website with random text and a button at the bottom."}
 
@@ -89,4 +90,9 @@ It may make sense to start each of your two questionnaire versions by asking par
 
 ## Deploying your randomizer website
 
-Deploying the website is free and fairly easy and quick if you use *GitHub Pages*. See here for a step-by-step instruction: <https://pages.github.com/#project-site>.
+Deploying the website is free and fairly easy and quick if you use *GitHub Pages*. See here for a step-by-step instruction: <https://pages.github.com/#project-site>: 
+
+1. Create a "Project site"
+2. Choose "Start from scratch"
+3. Paste the code for the website you got from *ChatGPT* into the `index.html` document on *GitHub* and commit.
+4. If necessary, make changes to the `HTML` document on *GitHub* and re-commit.

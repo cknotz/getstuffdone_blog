@@ -135,7 +135,6 @@ div.csl-indent {
                                 <div class="quarto-categories">
                 <div class="quarto-category">Survey</div>
                 <div class="quarto-category">Experiment</div>
-                <div class="quarto-category">HTML</div>
                 <div class="quarto-category">Javascript</div>
                 <div class="quarto-category">Political science</div>
                 <div class="quarto-category">Sociology</div>
@@ -244,7 +243,8 @@ Ethical issues
 </div>
 </div>
 <p><strong>In more detail:</strong> When you deploy a survey online, the first thing participants will normally see is a starting page that gives them some information about the purpose of the survey, about how their information is collected, and whom they can contact in case of questions. Participants then click on a button to confirm their willingness to do the survey and then begin answering questions.</p>
-<p>You can create a starting page that, when participants click the button, forwards them to one of two (or potentially more) versions of your survey. Creating a simple starting page is easy thanks to <em>ChatGPT</em> (which is what I used to create a first version of my website; see <a href="https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4">here for the protocol</a>). Do make sure to make that the website responsive so that it works on different types of devices. Below is a screenshot of my mock starting page:</p>
+<p>You can create a starting page that, when participants click the button, forwards them to one of two (or potentially more) versions of your survey. Creating a simple starting page is easy thanks to <em>ChatGPT</em>, which can write <code>HTML</code>, <code>CSS</code>, and <code>Javascript</code> code for a complete and functioning website. This is what I used (see <a href="https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4">here for the protocol</a>). If you are not familiar with <code>HTML</code> or web development in general, it can help to re-create the chat with <em>ChatGPT</em>, have a good look at the <code>HTML</code> code there, and ask the AI for exlanations. In any case, when you build the website, do make sure to make that it is <em>responsive</em> so that it works on different types of devices.</p>
+<p>Below is a screenshot of the starting page that <em>ChatGPT</em> created for me:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="screenshot_randompage.png" class="img-fluid figure-img" alt="A screenshot of a text box shown on a website with random text and a button at the bottom."></p>
@@ -269,7 +269,13 @@ Ethical issues
 </section>
 <section id="deploying-your-randomizer-website" class="level2">
 <h2 class="anchored" data-anchor-id="deploying-your-randomizer-website">Deploying your randomizer website</h2>
-<p>Deploying the website is free and fairly easy and quick if you use <em>GitHub Pages</em>. See here for a step-by-step instruction: <a href="https://pages.github.com/#project-site" class="uri">https://pages.github.com/#project-site</a>.</p>
+<p>Deploying the website is free and fairly easy and quick if you use <em>GitHub Pages</em>. See here for a step-by-step instruction: <a href="https://pages.github.com/#project-site" class="uri">https://pages.github.com/#project-site</a>:</p>
+<ol type="1">
+<li>Create a “Project site”</li>
+<li>Choose “Start from scratch”</li>
+<li>Paste the code for the website you got from <em>ChatGPT</em> into the <code>index.html</code> document on <em>GitHub</em> and commit.</li>
+<li>If necessary, make changes to the <code>HTML</code> document on <em>GitHub</em> and re-commit.</li>
+</ol>
 
 
 
