@@ -5,7 +5,7 @@ bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
 format:
   html:
     toc: true
-date: "2025-05-08"
+date: "2025-03-08"
 categories:
   - Survey data
   - Class
