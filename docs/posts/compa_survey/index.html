@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Carlo Knotz">
-<meta name="dcterms.date" content="2025-05-08">
+<meta name="dcterms.date" content="2025-03-08">
 
-<title>Simple cross-country analyses with survey data – Home</title>
+<title>Comparing people’s behavior and attitudes across countries – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -162,7 +162,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Simple cross-country analyses with survey data</h1>
+      <h1 class="title">Comparing people’s behavior and attitudes across countries</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Survey data</div>
                 <div class="quarto-category">Comparative analysis</div>
@@ -187,7 +187,7 @@ div.csl-indent {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 8, 2025</p>
+        <p class="date">March 8, 2025</p>
       </div>
     </div>
     
@@ -230,7 +230,7 @@ div.csl-indent {
 
 <section id="are-people-influenced-by-the-environments-they-live-in" class="level2">
 <h2 class="anchored" data-anchor-id="are-people-influenced-by-the-environments-they-live-in">Are people influenced by the environments they live in?</h2>
-<p><strong>Many students are interested in how people’s opinions, behaviors, or perceptions are affected by the environments (or “macro-level contexts”) they live in.</strong> Students in sociology, for example, are often interested in how general societal norms shape people’s behavior (e.g., are men doing more of the housework in societies with egalitarian gender norms?). Similarly, political science students often want to find out how political institutions influence attitudes and behavior (e.g., do people participate more in elections in proportional or majoritarian electoral systems?).</p>
+<p>Social and political scientists are often interested in how people’s opinions, behaviors, or perceptions are affected by the environments (or “macro-level contexts”) they live in. Students in sociology, for example, are often interested in how general societal norms shape people’s behavior (e.g., are men doing more of the housework in societies with egalitarian gender norms?). Similarly, political science students often want to find out how political institutions influence attitudes and behavior (e.g., do people participate more in elections in proportional or majoritarian electoral systems?).</p>
 <p>To answer these types of questions, one needs to compare people’s opinions or behavior across contexts, and this is usually done with <strong>comparative survey data</strong> such as data from the <em>European Social Survey</em>, the <em>International Social Survey Program</em>, the <em>Eurobarometer</em>, the <em>OECD Risks that Matter</em> survey, or the <em>World Values Study</em>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The big advantage that comparative survey data offer is that they are <em>standardized</em>: The same survey with the exact same questions is conducted in multiple countries at the same time, so that people’s responses to the questions – i.e., their attitudes or behavior – can be directly compared.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> This means that one can use these survey data to find out for macro-level environmental factors influence (or at least are correlated with) people’s individual behaviors and attitudes.</p>
 <p>This type of analysis can seem daunting to students but – as always in life – there are easier and more complicated ways of doing this. <strong>This post shows you how to do it in the easiest way possible</strong>, using <code>R</code> and techniques that undergraduate students usually learn in their introductory statistics courses: Descriptive statistics and linear regression models <span class="citation" data-cites="Blekesaune2021">(taking inspiration from <a href="#ref-Blekesaune2021" role="doc-biblioref">Blekesaune and Bjørkhaug 2021</a>)</span>.</p>
 <p>Simply put (<strong>TL;DR</strong>), you pick a comparative survey dataset that contains relevant variables and covers countries that differ in relevant ways. For example, to study the effects of gender norms on the household division of work, you would find a survey dataset that contains questions about how much time people spend on housework and which covers countries with very egalitarian gender norms and countries with very inegalitarian gender norms. Then you pick one country that has, based on other studies or datasets, egalitarian norms and one that has very inegalitarian norms and you analyze how couples divide household chores between them <span class="citation" data-cites="Iversen2006a">(see e.g., <a href="#ref-Iversen2006a" role="doc-biblioref">Iversen and Rosenbluth 2006</a>)</span>. Ideally, the countries you pick are otherwise as similar as possible so that you can be more sure that any differences you find are really the result of gender norms and not other factors.</p>
