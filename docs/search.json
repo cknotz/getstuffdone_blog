@@ -144,7 +144,7 @@
     "href": "posts/randomsurvey/index.html#deploying-your-randomizer-website",
     "title": "Implement your own survey experiment",
     "section": "Deploying your randomizer website",
-    "text": "Deploying your randomizer website\nDeploying the website is free and fairly easy and quick if you use GitHub Pages. See here for a step-by-step instruction: https://pages.github.com/#project-site:\n\nCreate a “Project site”\nChoose “Start from scratch”\nPaste the HTML code for your randomizer website into the index.html document on GitHub and commit.\nAdjust the repository settings on GitHub as shown in their instructions.\nIf necessary, make changes to the HTML document on GitHub and re-commit."
+    "text": "Deploying your randomizer website\nDeploying the website is free and fairly easy and quick if you use GitHub Pages. See here for a step-by-step instruction: https://pages.github.com/#project-site:\n\nCreate a “Project site”\nChoose “Start from scratch”\nPaste the HTML code for your randomizer website into the index.html document on GitHub and commit.\nAdjust the repository settings on GitHub as shown below.\nIf necessary, make changes to the HTML document on GitHub and re-commit.\n\n\n\n\nGitHub settings"
   },
   {
     "objectID": "posts/randomsurvey/index.html#footnotes",

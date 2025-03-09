@@ -177,5 +177,8 @@ Deploying the website is free and fairly easy and quick if you use *GitHub Pages
 1. Create a "Project site"
 2. Choose "Start from scratch"
 3. Paste the `HTML` code for your randomizer website into the `index.html` document on *GitHub* and commit.
-4. Adjust the repository settings on *GitHub* as shown in their instructions.
+4. Adjust the repository settings on *GitHub* as shown below.
 5. If necessary, make changes to the `HTML` document on *GitHub* and re-commit.
+
+![*GitHub* settings](gh_settings.png){width=80%; fig-alt="A screenshot of repository settings on GitHub. Shown is the submenu for Pages . Under Build and deployment, Deploy from a branch is selected as Source, and main/(root) as Branch."}
+
