@@ -1,5 +1,5 @@
 ---
-title: "Simple cross-country analyses with survey data"
+title: "Comparing people's behavior and attitudes across countries"
 author: "Carlo Knotz"
 date: "2025-03-08"
 bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
@@ -17,7 +17,7 @@ categories:
 
 ## Are people influenced by the environments they live in?
 
-**Many students are interested in how people's opinions, behaviors, or perceptions are affected by the environments (or "macro-level contexts") they live in.** Students in sociology, for example, are often interested in how general societal norms shape people's behavior (e.g., are men doing more of the housework in societies with egalitarian gender norms?). Similarly, political science students often want to find out how political institutions influence attitudes and behavior (e.g., do people participate more in elections in proportional or majoritarian electoral systems?).
+Social and political scientists are often interested in how people's opinions, behaviors, or perceptions are affected by the environments (or "macro-level contexts") they live in. Students in sociology, for example, are often interested in how general societal norms shape people's behavior (e.g., are men doing more of the housework in societies with egalitarian gender norms?). Similarly, political science students often want to find out how political institutions influence attitudes and behavior (e.g., do people participate more in elections in proportional or majoritarian electoral systems?).
 
 To answer these types of questions, one needs to compare people's opinions or behavior across contexts, and this is usually done with **comparative survey data** such as data from the *European Social Survey*, the *International Social Survey Program*, the *Eurobarometer*, the *OECD Risks that Matter* survey, or the *World Values Study*.^[See <https://github.com/erikgahner/PolData?tab=readme-ov-file#cross-sectional> for a list of comparative survey data projects.] The big advantage that comparative survey data offer is that they are *standardized*: The same survey with the exact same questions is conducted in multiple countries at the same time, so that people's responses to the questions -- i.e., their attitudes or behavior -- can be directly compared.^[Obviously, questionnaires are translated where languages differ, and there are sometimes cases where some questions are only asked in a subset of all countries that are included in a given survey.] This means that one can use these survey data to find out for macro-level environmental factors influence (or at least are correlated with) people's individual behaviors and attitudes. 
 

@@ -9,7 +9,7 @@
 <meta name="author" content="Carlo Knotz">
 <meta name="dcterms.date" content="2025-03-08">
 
-<title>Using a website as a simple survey randomizer – Home</title>
+<title>Implement your own survey experiment – Home</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -131,11 +131,12 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Using a website as a simple survey randomizer</h1>
+      <h1 class="title">Implement your own survey experiment</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Survey</div>
                 <div class="quarto-category">Experiment</div>
                 <div class="quarto-category">Javascript</div>
+                <div class="quarto-category">HTML</div>
                 <div class="quarto-category">Political science</div>
                 <div class="quarto-category">Sociology</div>
               </div>
@@ -222,8 +223,9 @@ Ethical issues
 </section>
 <section id="implementing-your-own-survey-experiment" class="level2">
 <h2 class="anchored" data-anchor-id="implementing-your-own-survey-experiment">Implementing your own survey experiment</h2>
-<p><strong>The problem:</strong> Some survey software tools (e.g., <em>Qualtrics</em>) have in-built randomization features that allow you to implement a split-sample experiment directly within your survey — but others do not. <em>Nettskjema</em>, the survey platform used at many Norwegian universities, only allows users to randomize the <em>order</em> of answer categories <em>within</em> a single question – but it is not possible to randomly assign respondents to different questions or different versions of the same question, without which a survey experiment is not possible. This means that if you do not have access to survey software with included randomization, you need to get creative.</p>
-<p><strong>The solution, in a nutshell:</strong> Create two versions of your survey questionnaires in your standard survey platform. Each version is exactly identical — except for the <em>one</em> experimental question (e.g., one where you ask respondents to read a brief news story and then ask them to state their opinion), which is different. Then you build a simple website that uses <code>Javascript</code> to randomly forward participants to one or the other version of your questionnaire. You can deploy your website via <em>GitHub Pages</em>. Once you have collected enough data, you merge the two datasets and compare response patterns between them.</p>
+<p>Some survey software tools (e.g., <em>Qualtrics</em>) have in-built randomization features that allow you to implement a split-sample experiment directly within your survey. If you have access to these platforms (e.g., via your university), you should be all good to go.</p>
+<p>However, not everyone has access to these tools. For example, <em>Nettskjema</em>, the survey platform used at many Norwegian universities, only allows users to randomize the <em>order</em> of answer categories <em>within</em> a single question – but it is not possible to randomly assign respondents to different questions or different versions of the same question, without which a proper survey experiment is not possible. This means that if you do not have access to survey software with included randomization, you need to get creative.</p>
+<p><strong>The solution, in a nutshell:</strong> Create two versions of your survey questionnaires in your standard survey platform. Each version is exactly identical — except for the <em>one</em> experimental question (e.g., one where you ask respondents to read a brief news story and then ask them to state their opinion), which is different. Then you build a simple website that uses <code>Javascript</code> to randomly assign participants to one or the other version of your questionnaire. You can deploy your website via <em>GitHub Pages</em>. Once you have collected enough data, you merge the two datasets and compare response patterns between them.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -243,16 +245,90 @@ Ethical issues
 </div>
 </div>
 <p><strong>In more detail:</strong> When you deploy a survey online, the first thing participants will normally see is a starting page that gives them some information about the purpose of the survey, about how their information is collected, and whom they can contact in case of questions. Participants then click on a button to confirm their willingness to do the survey and then begin answering questions.</p>
-<p>You can create a starting page that, when participants click the button, forwards them to one of two (or potentially more) versions of your survey. Creating a simple starting page is easy thanks to <em>ChatGPT</em>, which can write <code>HTML</code>, <code>CSS</code>, and <code>Javascript</code> code for a complete and functioning website. This is what I used (see <a href="https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4">here for the protocol</a>). If you are not familiar with <code>HTML</code> or web development in general, it can help to re-create the chat with <em>ChatGPT</em>, have a good look at the <code>HTML</code> code there, and ask the AI for exlanations. In any case, when you build the website, do make sure to make that it is <em>responsive</em> so that it works on different types of devices.</p>
-<p>Below is a screenshot of the starting page that <em>ChatGPT</em> created for me:</p>
+<p>Usually, this starting page is part of the survey questionnaire. But you can also create an external website that provides all the required information and a “confirm” button. Importantly, you can use <code>Javascript</code> to let the button send your respondents to one of two versions of your questionnaire at random.</p>
+<p>Creating a simple starting page is easy thanks to <em>ChatGPT</em>, which can write <code>HTML</code>, <code>CSS</code>, and <code>Javascript</code> code for a complete and functioning website. This is what I used to build an example of such a site (see <a href="https://chat.openai.com/share/075735e7-8792-4c3a-b831-9c5577af32a4">here for the protocol</a>). The final code, after some adjustments, looks like this:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Responsive Website&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    #content {
+      max-width: 600px;
+      width: 100%;
+      text-align: justify;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin: 20px; /* Add extra margin around the content */
+    }
+
+    #button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #button:hover {
+      background-color: #2980b9;
+    }
+
+    #footnote {
+      font-size: 12px;
+      color: #777;
+      margin-top: 20px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;div id="content"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt lorem vel nisi venenatis tristique.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;button id="button" onclick="myFunction()"&gt;Click me&lt;/button&gt;
+
+  &lt;div id="footnote"&gt;
+    &lt;p&gt;This is a footnote at the bottom of the page.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    function myFunction() {
+      alert("Button clicked!");
+    }
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>This is really nothing more than a simple website with some <code>CSS</code> code for styling (within the <code>&lt;style&gt;&lt;/style&gt;</code> tags), a small text box with random <em>Lorem ipsum</em> text, and a button. I also made sure to ask <em>ChatGPT</em> to make the website <em>responsive</em> so that it works on different types of devices, which is important. If you are not familiar with <code>HTML</code> or web development in general, it can help to re-create the chat with <em>ChatGPT</em> and ask it to explain the code in more detail. The screenshot below shows how the site (with different text) looks like, but you can also see the site directly in action <a href="https://cknotz.github.io/survey_splitter/">here</a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="screenshot_randompage.png" class="img-fluid figure-img" alt="A screenshot of a text box shown on a website with random text and a button at the bottom."></p>
 <figcaption>Screenshot of my mock starting page</figcaption>
 </figure>
 </div>
-<p>You can also see the page in action <a href="https://cknotz.github.io/survey_splitter/">here</a> and inspect the source code <a href="https://github.com/cknotz/survey_splitter">here</a>.</p>
-<p>The central <a href="https://www.oncrawl.com/technical-seo/javascript-redirects-seo-ultimate-guide/">“under-the-hood” component</a> is the JavaScript code that gets run when people click on the “Take me to the survey!” button:</p>
+<p>Next, I replaced the <code>Javascript</code> code linked to the button (within the <code>&lt;script&gt;&lt;/script&gt;</code> tags above), which initially only creates a popup window, with code to randomly forward people to different websites<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
 <pre><code>&lt;script&gt;
     function randomizeButton() {
         if (Math.random() &gt; 0.5){
@@ -262,9 +338,10 @@ Ethical issues
     }}
   &lt;/script&gt;</code></pre>
 <p>It should not be too difficult to see what is going on here: When a participant clicks the button, <code>Math.random()</code> essentially performs a coin flip by drawing a random number between 0 and 1. When that number is greater than 0.5, the function forwards to skateistan.org; if the number is below 0.5, participants instead get forwarded to the Alex Honnold foundation. When running a survey experiment, you would obviously include links to the two versions of your survey.</p>
-<p>The function is then linked to the <em>Take me to the survey!</em> button using this code:</p>
+<p>The function is then linked to the <em>Take me to the survey!</em> button in the <code>HTML</code> code by replacing <code>myFunction()</code> (see above) with <code>randomizeButton()</code>:</p>
 <pre><code>&lt;button id="button" onclick="randomizeButton()"&gt;Take me to the survey!&lt;/button&gt;</code></pre>
-<p>And that is pretty much it. When you route your participants via this page, about 50% should randomly get forwarded to questionnaire version 1, the others get forwarded to version 2 [you do need a large sample for this to work out; <span class="citation" data-cites="Tversky1971">Tversky and Kahneman (<a href="#ref-Tversky1971" role="doc-biblioref">1971</a>)</span>].</p>
+<p>And that is pretty much it: This website provides some basic information and randonly forwards users to one of two alternative websites when they click on a button. This is all you need to implement the randomization-part of your survey experiment. If you like, you can inspect (and copy) the source code for the final page <a href="https://github.com/cknotz/survey_splitter">here</a>.</p>
+<p>As it is now, the website forwards people either to the Alex Honnold Foundation or Skateistan — but it is easy to just replace the links in the <code>HTML</code> code with links to the two versions of your survey. When you then route your participants via this page, about 50% should randomly get forwarded to questionnaire version 1, the others get forwarded to version 2 <span class="citation" data-cites="Tversky1971">(you do need a large sample for this to work out: <a href="#ref-Tversky1971" role="doc-biblioref">Tversky and Kahneman 1971</a>)</span>.</p>
 <p>It may make sense to start each of your two questionnaire versions by asking participants to again explicitly consent to participating in the survey so that you have that recorded in your data. Also, you obviously need to make absolutely sure that your two surveys are really identical except for the “treatment” you want to test. This means: Pretest, pretest, pretest!</p>
 </section>
 <section id="deploying-your-randomizer-website" class="level2">
@@ -273,13 +350,15 @@ Ethical issues
 <ol type="1">
 <li>Create a “Project site”</li>
 <li>Choose “Start from scratch”</li>
-<li>Paste the code for the website you got from <em>ChatGPT</em> into the <code>index.html</code> document on <em>GitHub</em> and commit.</li>
+<li>Paste the <code>HTML</code> code for your randomizer website into the <code>index.html</code> document on <em>GitHub</em> and commit.</li>
+<li>Adjust the repository settings on <em>GitHub</em> as shown in their instructions.</li>
 <li>If necessary, make changes to the <code>HTML</code> document on <em>GitHub</em> and re-commit.</li>
 </ol>
 
 
 
 </section>
+
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Cucchi2021" class="csl-entry" role="listitem">
@@ -294,7 +373,12 @@ Rubin, Donald B. 1974. <span>“Estimating Causal Effects of Treatments in Rando
 <div id="ref-Tversky1971" class="csl-entry" role="listitem">
 Tversky, Amos, and Daniel Kahneman. 1971. <span>“Belief in the Law of Small Numbers.”</span> <em>Psychological Bulletin</em> 76 (2): 105–10.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>With help from <a href="https://www.oncrawl.com/technical-seo/javascript-redirects-seo-ultimate-guide/" class="uri">https://www.oncrawl.com/technical-seo/javascript-redirects-seo-ultimate-guide/</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
