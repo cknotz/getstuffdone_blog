@@ -1,0 +1,256 @@
+---
+title: "How vulnerable are workers to globalization (and what effects does this have)?"
+author: "Carlo Knotz"
+date: "2025-03-10"
+bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
+format:
+  html:
+    toc: true
+categories:
+  - Survey
+  - Globalization
+  - Indicator
+  - Merging
+  - Political science
+  - Sociology
+  - Economics
+---
+
+## The losers of globalization and trade
+
+'Globalization destroys jobs' or similar statements are often made by politicians or business and labor leaders, especially when new trade agreements are in the process of being negotiated. And indeed, even though free trade is generally beneficial to countries' economies as a whole, there are usually some workers who are negatively affected by increased competition from abroad [@Autoretal2013;@Heckscher1919;@Ohlin1933]. These negative economic effects can then also have further political and social effects, for example in the form of increased demands for social protection [@Walter2010], increased political polarization and conflict [@Autoretal2020], and rising rates of divorce and out-of-wedlock births [@Anellietal2024].
+
+To be able to study these (and potentially other) effects, researchers obviously need some of measurement of how exposed and vulnerable workers are to the negative effects of trade and international competition. One way to measure this is with **indicators of 'offshoreability'** --- how easy or difficult is it to move the work done by people in different occupations to other countries? Different such indicators have been developed, but one that is relatively widely used are the indicators of offshoreability by Blinder & Krueger [-@Blinder2013]. They use a survey-based approach, where they ask workers about their perceptions of how easy it would be to move their jobs abroad and confirm this with a second survey of experts.
+
+The rest of this post will show you how you can access the data, import them into `R`, and merge them with data from round 7 (2014) of the *European Social Survey* so that you can analyze how vulnerability to globalization affects people's attitudes and behavior.
+
+## Accessing the data
+
+Luckily, the Blinder/Krueger data are publicly available as part of the *replication data package* of a second (important) research article, which compares the effects of globalization and technological change on workers [@Goosetal2014]. Goos et al. have archived the research data they use in the *ICPSR* Data Archive: [https://doi.org/10.3886/E112846V1](https://doi.org/10.3886/E112846V1){target="_blank"}. There, under *Data*, is the `task.dta` dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology [from @Autoretal2003, and used by e.g., @Thewissen2019]. You can download the dataset for free, after a quick login.
+
+## Importing and merging the data with *ESS* data
+
+### Preparation
+
+Merging the data with *ESS* survey data is not as difficult as it might seem. The first step is to make sure that you also have access to *ESS* data (which can be downloaded for free from [europeansocialsurvey.org](https://www.europeansocialsurvey.org/){target="_blank"}), and that both datasets are stored in your current *working directly* ("folder") so that `R` can directly find and import them. As mentioned above, the example here uses data from the 7th *ESS* round, so if you do not already have the data on your computer, quickly download them (in `Stata`/`.dta` format).
+
+In `R`, we first load the `tidyverse` because it contains functions that we need to be able to work with and visualize the data. I am also setting the `ggplot` theme to `classic`:
+```{r}
+library(tidyverse)
+theme_set(theme_classic())
+```
+
+### Data import
+
+Then we first import the *ESS* dataset with `haven`:
+```{r, eval=T, echo=F}
+ess7 <- haven::read_dta("/Users/carloknotz/Documents/Work/Stavanger/Teaching/Statistics/bst290_tutorials/bst290_tutorials/ess7.dta")
+```
+
+```{r, eval=F, echo=T}
+ess7 <- haven::read_dta("ess7.dta")
+```
+
+The *ESS* is quite big, so to make things easier we select only a few variables that we want to work with:
+```{r}
+ess7 %>% 
+  select(idno,cntry,essround,isco08,gndr,agea,trstplt) -> ess7
+```
+
+* `idno`, `cntry`, and `essround` are "administrative variables that are always good to keep
+* `isco08` is the respondents' occupation as measured by the 2008 version of the *International Standard Classification of Occupations* (*ISCO*; see also the other post on [measuring class](https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/){target="_blank"}). This is important because we will use this to link the *ESS* data with the vulnerability indicators
+* `agea`, `gndr`, and `trstplt` measure the respondents' age, gender, and their trust in politicans (on a 0-10 scale)
+
+Next, we import the vulnerability indicator scores -- **importantly*, we import the data without converting them directly
+```{r, eval=T, echo=F}
+scores <- haven::read_dta("/Users/carloknotz/Documents/R-code/task.dta")
+```
+
+```{r, eval=F, echo=T}
+scores <- haven::read_dta("task.dta")
+```
+
+### A quick exploration
+
+It is time to take a quick look at the data to get a sense of what we are working with:
+```{r}
+head(scores)
+```
+
+You might notice that every row in the dataset is an *occupation*: Row #1 is "Corporate managers", row #2 is "Managers of small enterprises", and so on. The first column (or variable) indicates the title of the occupation and a 2-digit code based on the 1988 version of the *International Standard Classifiation of Occupations* (*ISCO*) classification, where "Corporate managers" have the code `12`. The other variables are different indicators of vulnerability: 
+
+* `RTI_alm_isco_77` is an indicator of vulnerability to automation ("routine task intensity") that was developed by Autor, Levy, and Murnane [-@Autoretal2003];
+* `BK` is the indicator of offshoreability by Blinder & Krueger [@Blinder2013];
+* `OFF1_ffl` to `OFF3_ffl` are alternative indicators of offshoreability by Firpo et al. [see their paper for details: @Firpoetal2011];
+* `OFF_gms` is the `BK` indicator in a normalized ("rescaled") version;
+
+Let's take a closer look at the `BK` indicator:
+```{r}
+summary(scores$BK)
+```
+
+The indicator ranges from (almost) -1 to 2.35 and is centered on 0. Maybe more interesting is to see which occupations are particularly exposed to globalization. To see that, we reorder the data from the highest to lowest `BK` score and let `R` display the five highest-scoring occupations:
+```{r}
+scores %>% 
+  arrange(-BK) %>% 
+  head()
+```
+
+Evidently, typical manual or industrial occupations are the most vulnerable to globalization, but so are physcists and mathematicians!
+
+Just to complete the picture, we also look at the least exposed occupations:
+```{r}
+scores %>% 
+  arrange(BK) %>% 
+  head()
+```
+
+Here, it is again some manual workers (e.g., drivers and builders) but also salespersons and medical professionals, who obviously cannot do their jobs from abroad.
+
+### Adjusting the ISCO scores
+
+As mentioned, the vulnerability score data are based on the ISCO-88 occupational classification, which is an older version of the ISCO-08 classifcation that is used to measure the occupation of *ESS* respondents. In addition, you may have noticed that the ISCO-scores in the *ESS* data have four numbers while those in the vulnerability data have two. The latter is because the vulnerability data use a simplified or less fine-grained version of the ISCO classification.
+
+This means that to be able to merge the two datasets, we need to make sure that both use the same ISCO-classification so that we can match the different occupations, and that they are measured at the same level of detail.
+
+Fortunately, there are methods to convert the scores back and forth between the different versions of the ISCO classification, and one of these is the `occupar` package (similar to the `DIGCLASS` package that is used in the the other post on [measuring class](https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/){target="_blank"}). In case you do not already have it installed, you can do so by running the following in your *Console*:
+```{r, eval=F}
+remotes::install_github("DiogoFerrari/occupar")
+```
+
+Technically, we could either adjust the ISCO-08 scores in the *ESS* to match the ISCO-88 scores used in the other dataset, or the other way around, and the `occupar` package has functions to do both. The only important thing is that both datasets contain the same version of the ISCO classication.
+
+We will use the `isco08to88()` function which, as the name suggests, converts ISCO-08 scores in the *ESS* to ISCO-88 scores, so that we can then match the *ESS* data and the vulnerability indicators along these scores and merge the two datasets. This function needs the numerical ISCO scores (not the titles of the occupations but the associated numbers). 
+
+This means that we need to extract the numerical scores from the ISCO-08 variable in the *ESS*. The following code does this and stores the converted scores into a new variable:
+```{r}
+ess7 %>% 
+  mutate(isco08_scores = as.numeric(isco08)) -> ess7
+
+```
+
+We can take a quick look at the data to see if the conversion worked:
+```{r}
+head(ess7)
+```
+
+Indeed, the function correctly extracted the ISCO-08 score `7126` for "Plumbers" and saved it as `7126` in the new variable.
+
+This means we can now convert the new scores to the ISCO-88 scheme:
+```{r}
+ess7 %>% 
+  mutate(isco88 = occupar::isco08to88(isco08_scores)) -> ess7
+```
+
+If we take another quick look at the dataset, you can see the new ISCO-88 scores in the last column; you may also notice that the scores are slightly different (`9321` in the ISCO-08 classification is `9322` in the old one):
+```{r}
+head(ess7)
+```
+
+The almost last step in the data preparation is to "simplify" the new ISCO-88 scores in the *ESS* data to the same level of detail that the vulnerability data have. This is relatively easy, we simply "extract" the first two numbers of the four-number ISCO-scores.^[This works because the numbers reflect the hierarchical structure of the ISCO classification. If we cut off the last two numbers, we get to a higher level of aggregation. See [https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2){target="_blank"} for details.) The following code does that:
+```{r}
+ess7 %>% 
+  mutate(isco88_2d = as.numeric(substr(as.character(isco88), 1,2))) -> ess7
+
+```
+
+In human language, this code first converts the `isco88` variable to text (`as.character()`), then uses `substr()` to extract the first two items ("from 1 to 2"), and then converts the result back to numbers with `as.numeric()`.
+
+If we take a look at the final result (with variables re-arranged so that we can see them next to each other), we can confirm that all worked as it should:
+```{r}
+ess7 %>% 
+  relocate(idno,cntry,essround,isco08,isco88,isco88_2d) %>% 
+  head()
+```
+
+Finally, we quickly convert the ISCO-88 scores in the vulnerability dataset to a pure numerical score. We also give it the same name as the corresponding variable in the *ESS* dataset to make merging the two datasets more straightforward:
+```{r}
+scores %>% 
+  mutate(isco88_2d = as.numeric(occupation)) -> scores
+```
+
+### Merging the datasets
+
+Merging two datasets can seem a bit daunting to beginners, but it is actually quite easy. The `dplyr` package has functions for so-called "mutating joins" (see [https://dplyr.tidyverse.org/reference/mutate-joins.html](https://dplyr.tidyverse.org/reference/mutate-joins.html){target="_blank"}), which in essence simply merge two datasets along one (or potentially more) "identifier" variable. As long as one has one (or more) variables that can directly match observations between datasets -- which in our case is the two-number ISCO-88 score -- one can use these functions to merge two datasets.
+
+Usually, the correct function to use to merge datasets is `left_join()`. In our case, we want to join the *ESS* dataset with the vulnerability scores dataset along the two-digit ISCO-88 scores, so we specify this in our code:
+```{r}
+ess7 %>% 
+  left_join(scores, by = "isco88_2d") -> ess7
+```
+
+And that is it.
+
+If we take a look at relevant variables in the final dataset, we can see the vulnerability scores matched to th *ESS* data:
+```{r}
+ess7 %>% 
+  select(idno,isco08,isco88_2d,BK,RTI_alm_isco_77) %>% 
+  head()
+```
+
+You see that respondent with ID number 1 (the plumber) has a `BK` offshorability score of -9.34 and also an automation-vulnerability (RTI) score of -0.185.
+
+As a last step, we convert the final dataset to the traditional `R` format so that it is easier to work with later:
+```{r}
+ess7 <- labelled::unlabelled(ess7)
+```
+
+## Vulnerability to globalization, gender, age, and political trust
+
+With the merged data in hand, you can now do lots of different analyses. For example, you can use the vulnerabiility scores in a regression analysis to see if they are related to some other variable you are interested in.
+
+Just to illustrate this, we will do a few quick visual analyses of the relationship between the offshoreability scores and gender, age, and political trust.
+
+For example, let's see if men or women are on average more exposed to globalization:
+```{r}
+ess7 %>% 
+  group_by(gndr) %>% 
+  summarise(avg_BK = mean(BK, na.rm = T)) %>% 
+  drop_na() %>%
+  ggplot(aes(x = gndr, y = avg_BK)) +
+    geom_col()
+```
+
+There is a tiny difference: Women are very slightly less exposed to globalization than men.
+
+Next, we can see if there is a relation to age. To do that, we can calculate the average age in a given occupational group and relate that average age to the vulnerability score in a scatterplot:
+```{r}
+ess7 %>% 
+  group_by(isco88_2d) %>% 
+  summarise(avg_age = mean(agea, na.rm = T),
+            avg_BK = mean(BK, na.rm = T)) %>% 
+  drop_na() %>% 
+  ggplot(aes(x = avg_age, y = avg_BK)) +
+    geom_point() +
+    geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = F)
+```
+
+There does seem to be a positive relationship: Occupations where workers are older are also more exposed to globalization.
+
+Finally, let's see if exposure to globalization has political effects by testing if there is a relationship to trust in politicians. We do this with a box plot:
+```{r}
+ess7 %>% 
+  ggplot(aes(x = trstplt, y = BK)) +
+    geom_boxplot()
+```
+
+At least based on this (admittedly) very quick and superficial look at the data, there does not seem to be a strong relationship.
+
+## Next steps
+
+Even if there is not link to political trust, maybe you can think of other variables that are measured in the *ESS* that globalization vulnerability could have an effect on? And maybe you can even think of macro-level variables that could make these effects stronger or weaker (and then use [the other post](https://cknotz.github.io/getstuffdone_blog/posts/compa_survey/){target="_blank"} to compare the effects of globalization vulnerability between two or more selected countries)?
+
+Finally, you can also merge the vulnerability scores to other survey datasets such as the *ISSP* or the *Eurobarometer* so long as the survey dataset contains ISCO occupation scores.
+
+
+
+
+
+
+
+
+
+
+
+
+

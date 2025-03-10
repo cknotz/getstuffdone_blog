@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/globalization/index.html",
       "/posts/compa_survey/index.html",
       "/posts/measuringclass/index.html"
     ]
