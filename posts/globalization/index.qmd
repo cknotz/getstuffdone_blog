@@ -77,7 +77,7 @@ It is time to take a quick look at the data to get a sense of what we are workin
 head(scores)
 ```
 
-You might notice that every row in the dataset is an *occupation*: Row #1 is "Corporate managers", row #2 is "Managers of small enterprises", and so on. The first column (or variable) indicates the title of the occupation and a 2-digit code based on the 1988 version of the *International Standard Classifiation of Occupations* (*ISCO*) classification, where "Corporate managers" have the code `12`. The other variables are different indicators of vulnerability: 
+You might notice that every row in the dataset is an *occupation*: Row #1 is "Corporate managers", row #2 is "Managers of small enterprises", and so on. The first column (or variable) indicates the title of the occupation and a 2-digit code based on the 1988 version of the *International Standard Classifiation of Occupations* (*ISCO*) classification, where "Corporate managers" have the code `12`.^[See [https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/){target="_blank"} for details on the ISCO classification.] The other variables are different indicators of vulnerability: 
 
 * `RTI_alm_isco_77` is an indicator of vulnerability to automation ("routine task intensity") that was developed by Autor, Levy, and Murnane [-@Autoretal2003];
 * `BK` is the indicator of offshoreability by Blinder & Krueger [@Blinder2013];
@@ -96,7 +96,7 @@ scores %>%
   head()
 ```
 
-Evidently, typical manual or industrial occupations are the most vulnerable to globalization, but so are physcists and mathematicians!
+Evidently, typical manual or industrial occupations are the most vulnerable to globalization, but so are physicists and mathematicians!
 
 Just to complete the picture, we also look at the least exposed occupations:
 ```{r}
@@ -105,7 +105,7 @@ scores %>%
   head()
 ```
 
-Here, it is again some manual workers (e.g., drivers and builders) but also salespersons and medical professionals, who obviously cannot do their jobs from abroad.
+Here, it is again some manual workers (e.g., drivers and builders) that top the list (or, rather, are at the bottom). However, salespersons and medical professionals, who obviously cannot do their jobs from abroad, also have low exposure to globalization.
 
 ### Adjusting the ISCO scores
 
@@ -147,7 +147,7 @@ If we take another quick look at the dataset, you can see the new ISCO-88 scores
 head(ess7)
 ```
 
-The almost last step in the data preparation is to "simplify" the new ISCO-88 scores in the *ESS* data to the same level of detail that the vulnerability data have. This is relatively easy, we simply "extract" the first two numbers of the four-number ISCO-scores.^[This works because the numbers reflect the hierarchical structure of the ISCO classification. If we cut off the last two numbers, we get to a higher level of aggregation. See [https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2){target="_blank"} for details.) The following code does that:
+The almost last step in the data preparation is to "simplify" the new ISCO-88 scores in the *ESS* data to the same level of detail that the vulnerability data have. This is relatively easy, we simply "extract" the first two numbers of the four-number ISCO-scores.^[This works because the numbers reflect the hierarchical structure of the ISCO classification. If we cut off the last two numbers, we get to a higher level of aggregation. See [https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2){target="_blank"} for details.] The following code does that:
 ```{r}
 ess7 %>% 
   mutate(isco88_2d = as.numeric(substr(as.character(isco88), 1,2))) -> ess7
@@ -181,7 +181,7 @@ ess7 %>%
 
 And that is it.
 
-If we take a look at relevant variables in the final dataset, we can see the vulnerability scores matched to th *ESS* data:
+If we take a look at the relevant variables in the final dataset, we can see the vulnerability scores matched to the *ESS* data:
 ```{r}
 ess7 %>% 
   select(idno,isco08,isco88_2d,BK,RTI_alm_isco_77) %>% 
@@ -197,9 +197,7 @@ ess7 <- labelled::unlabelled(ess7)
 
 ## Vulnerability to globalization, gender, age, and political trust
 
-With the merged data in hand, you can now do lots of different analyses. For example, you can use the vulnerabiility scores in a regression analysis to see if they are related to some other variable you are interested in.
-
-Just to illustrate this, we will do a few quick visual analyses of the relationship between the offshoreability scores and gender, age, and political trust.
+With the merged data in hand, we can now do lots of different analyses. For example, we could use the vulnerabiility scores in a regression analysis to see if they are related to some other variable. Just to illustrate this, we will do a few quick visual analyses of the relationships between the offshoreability scores and gender, age, and political trust.
 
 For example, let's see if men or women are on average more exposed to globalization:
 ```{r}
@@ -211,9 +209,9 @@ ess7 %>%
     geom_col()
 ```
 
-There is a tiny difference: Women are very slightly less exposed to globalization than men.
+There is only a tiny difference: Women are very slightly less exposed to globalization than men.
 
-Next, we can see if there is a relation to age. To do that, we can calculate the average age in a given occupational group and relate that average age to the vulnerability score in a scatterplot:
+Next, we can see if there is a relation to age. To do that, we can calculate the average age in a given occupation and relate that average age to the vulnerability score in a scatterplot:
 ```{r}
 ess7 %>% 
   group_by(isco88_2d) %>% 
@@ -241,16 +239,4 @@ At least based on this (admittedly) very quick and superficial look at the data,
 Even if there is not link to political trust, maybe you can think of other variables that are measured in the *ESS* that globalization vulnerability could have an effect on? And maybe you can even think of macro-level variables that could make these effects stronger or weaker (and then use [the other post](https://cknotz.github.io/getstuffdone_blog/posts/compa_survey/){target="_blank"} to compare the effects of globalization vulnerability between two or more selected countries)?
 
 Finally, you can also merge the vulnerability scores to other survey datasets such as the *ISSP* or the *Eurobarometer* so long as the survey dataset contains ISCO occupation scores.
-
-
-
-
-
-
-
-
-
-
-
-
 

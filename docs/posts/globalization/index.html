@@ -297,7 +297,7 @@ div.csl-indent {
 6 31 [Physical, mathe…          -0.397 -0.123    0.116   -0.393   -0.433  -0.272</code></pre>
 </div>
 </div>
-<p>You might notice that every row in the dataset is an <em>occupation</em>: Row #1 is “Corporate managers”, row #2 is “Managers of small enterprises”, and so on. The first column (or variable) indicates the title of the occupation and a 2-digit code based on the 1988 version of the <em>International Standard Classifiation of Occupations</em> (<em>ISCO</em>) classification, where “Corporate managers” have the code <code>12</code>. The other variables are different indicators of vulnerability:</p>
+<p>You might notice that every row in the dataset is an <em>occupation</em>: Row #1 is “Corporate managers”, row #2 is “Managers of small enterprises”, and so on. The first column (or variable) indicates the title of the occupation and a 2-digit code based on the 1988 version of the <em>International Standard Classifiation of Occupations</em> (<em>ISCO</em>) classification, where “Corporate managers” have the code <code>12</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The other variables are different indicators of vulnerability:</p>
 <ul>
 <li><code>RTI_alm_isco_77</code> is an indicator of vulnerability to automation (“routine task intensity”) that was developed by Autor, Levy, and Murnane <span class="citation" data-cites="Autoretal2003">(<a href="#ref-Autoretal2003" role="doc-biblioref">2003</a>)</span>;</li>
 <li><code>BK</code> is the indicator of offshoreability by Blinder &amp; Krueger <span class="citation" data-cites="Blinder2013">(<a href="#ref-Blinder2013" role="doc-biblioref">Blinder and Krueger 2013</a>)</span>;</li>
@@ -329,7 +329,7 @@ div.csl-indent {
 6 41 [Office clerks]              2.24  0.400    0.301    1.26   0.913     1.21 </code></pre>
 </div>
 </div>
-<p>Evidently, typical manual or industrial occupations are the most vulnerable to globalization, but so are physcists and mathematicians!</p>
+<p>Evidently, typical manual or industrial occupations are the most vulnerable to globalization, but so are physicists and mathematicians!</p>
 <p>Just to complete the picture, we also look at the least exposed occupations:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">%&gt;%</span> </span>
@@ -347,7 +347,7 @@ div.csl-indent {
 6 22 [Life science an…         -1.00   -0.758  -1.92     0.544   -1.70    -0.639</code></pre>
 </div>
 </div>
-<p>Here, it is again some manual workers (e.g., drivers and builders) but also salespersons and medical professionals, who obviously cannot do their jobs from abroad.</p>
+<p>Here, it is again some manual workers (e.g., drivers and builders) that top the list (or, rather, are at the bottom). However, salespersons and medical professionals, who obviously cannot do their jobs from abroad, also have low exposure to globalization.</p>
 </section>
 <section id="adjusting-the-isco-scores" class="level3">
 <h3 class="anchored" data-anchor-id="adjusting-the-isco-scores">Adjusting the ISCO scores</h3>
@@ -400,7 +400,7 @@ div.csl-indent {
 6     6 AT           7  9321 [Hand p… 2 [Fem… 67    0 [No …          9321   9322</code></pre>
 </div>
 </div>
-<p>The almost last step in the data preparation is to “simplify” the new ISCO-88 scores in the <em>ESS</em> data to the same level of detail that the vulnerability data have. This is relatively easy, we simply “extract” the first two numbers of the four-number ISCO-scores.^[This works because the numbers reflect the hierarchical structure of the ISCO classification. If we cut off the last two numbers, we get to a higher level of aggregation. See <a href="https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2" target="_blank">https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2</a> for details.) The following code does that:</p>
+<p>The almost last step in the data preparation is to “simplify” the new ISCO-88 scores in the <em>ESS</em> data to the same level of detail that the vulnerability data have. This is relatively easy, we simply “extract” the first two numbers of the four-number ISCO-scores.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The following code does that:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ess7 <span class="sc">%&gt;%</span> </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">isco88_2d =</span> <span class="fu">as.numeric</span>(<span class="fu">substr</span>(<span class="fu">as.character</span>(isco88), <span class="dv">1</span>,<span class="dv">2</span>))) <span class="ot">-&gt;</span> ess7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -439,7 +439,7 @@ div.csl-indent {
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(scores, <span class="at">by =</span> <span class="st">"isco88_2d"</span>) <span class="ot">-&gt;</span> ess7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And that is it.</p>
-<p>If we take a look at relevant variables in the final dataset, we can see the vulnerability scores matched to th <em>ESS</em> data:</p>
+<p>If we take a look at the relevant variables in the final dataset, we can see the vulnerability scores matched to the <em>ESS</em> data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ess7 <span class="sc">%&gt;%</span> </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(idno,isco08,isco88_2d,BK,RTI_alm_isco_77) <span class="sc">%&gt;%</span> </span>
@@ -465,8 +465,7 @@ div.csl-indent {
 </section>
 <section id="vulnerability-to-globalization-gender-age-and-political-trust" class="level2">
 <h2 class="anchored" data-anchor-id="vulnerability-to-globalization-gender-age-and-political-trust">Vulnerability to globalization, gender, age, and political trust</h2>
-<p>With the merged data in hand, you can now do lots of different analyses. For example, you can use the vulnerabiility scores in a regression analysis to see if they are related to some other variable you are interested in.</p>
-<p>Just to illustrate this, we will do a few quick visual analyses of the relationship between the offshoreability scores and gender, age, and political trust.</p>
+<p>With the merged data in hand, we can now do lots of different analyses. For example, we could use the vulnerabiility scores in a regression analysis to see if they are related to some other variable. Just to illustrate this, we will do a few quick visual analyses of the relationships between the offshoreability scores and gender, age, and political trust.</p>
 <p>For example, let’s see if men or women are on average more exposed to globalization:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ess7 <span class="sc">%&gt;%</span> </span>
@@ -483,8 +482,8 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>There is a tiny difference: Women are very slightly less exposed to globalization than men.</p>
-<p>Next, we can see if there is a relation to age. To do that, we can calculate the average age in a given occupational group and relate that average age to the vulnerability score in a scatterplot:</p>
+<p>There is only a tiny difference: Women are very slightly less exposed to globalization than men.</p>
+<p>Next, we can see if there is a relation to age. To do that, we can calculate the average age in a given occupation and relate that average age to the vulnerability score in a scatterplot:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ess7 <span class="sc">%&gt;%</span> </span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(isco88_2d) <span class="sc">%&gt;%</span> </span>
@@ -534,6 +533,7 @@ div.csl-indent {
 
 </section>
 
+
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Anellietal2024" class="csl-entry" role="listitem">
 Anelli, Massimo, Osea Giuntella, and Luca Stella. 2024. <span>“Robots, Marriageable Men, Family, and Fertility.”</span> <em>Journal of Human Resources</em> 59 (2): 443–69.
@@ -568,7 +568,13 @@ Thewissen, Stefan, and David Rueda. 2019. <span>“Automation and the Welfare St
 <div id="ref-Walter2010" class="csl-entry" role="listitem">
 Walter, Stefanie. 2010. <span>“Globalization and the Welfare State: Testing the Microfoundations of the Compensation Hypothesis.”</span> <em>International Studies Quarterly</em> 54 (2): 403–26.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>See <a href="https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/" target="_blank">https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/</a> for details on the ISCO classification.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This works because the numbers reflect the hierarchical structure of the ISCO classification. If we cut off the last two numbers, we get to a higher level of aggregation. See <a href="https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2" target="_blank">https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2</a> for details.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
