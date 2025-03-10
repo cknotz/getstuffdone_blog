@@ -3,8 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Home"
-  page-navigation: true
+  title: "Testing big ideas with simple methods"
   navbar:
     right:
       - about.qmd

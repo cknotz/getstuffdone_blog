@@ -1,5 +1,4 @@
 ---
-title: "Testing big ideas with simple methods"
 listing:
   contents: posts
   sort: "date desc"
