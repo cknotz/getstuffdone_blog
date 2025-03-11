@@ -7,10 +7,10 @@ format:
   html:
     toc: true
 categories:
-  - Survey
+  - Survey data
   - Globalization
-  - Indicator
-  - Merging
+  - Merging data
+  - ESS
   - Political science
   - Sociology
   - Economics
