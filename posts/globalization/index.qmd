@@ -81,7 +81,7 @@ head(scores)
 You might notice that every row in the dataset is an *occupation*: Row #1 is "Corporate managers", row #2 is "Managers of small enterprises", and so on. The first column (or variable) indicates the title of the occupation and a 2-digit code based on the 1988 version of the *International Standard Classifiation of Occupations* (*ISCO*) classification, where "Corporate managers" have the code `12`.^[See [https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/](https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/){target="_blank"} for details on the ISCO classification.] The other variables are different indicators of vulnerability: 
 
 * `RTI_alm_isco_77` is an indicator of vulnerability to automation ("routine task intensity") that was developed by Autor, Levy, and Murnane [-@Autoretal2003];
-* `BK` is the indicator of offshoreability by Blinder & Krueger [@Blinder2013];
+* `BK` is the indicator of offshoreability by Blinder & Krueger [-@Blinder2013];
 * `OFF1_ffl` to `OFF3_ffl` are alternative indicators of offshoreability by Firpo et al. [see their paper for details: @Firpoetal2011];
 * `OFF_gms` is the `BK` indicator in a normalized ("rescaled") version;
 
