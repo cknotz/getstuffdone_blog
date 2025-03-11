@@ -271,11 +271,12 @@ div.csl-indent {
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(idno,cntry,essround,isco08,gndr,agea,trstplt) <span class="ot">-&gt;</span> ess7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><code>idno</code>, <code>cntry</code>, and <code>essround</code> are “administrative variables that are always good to keep</li>
-<li><code>isco08</code> is the respondents’ occupation as measured by the 2008 version of the <em>International Standard Classification of Occupations</em> (<em>ISCO</em>; see also the other post on <a href="https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/" target="_blank">measuring class</a>). This is important because we will use this to link the <em>ESS</em> data with the vulnerability indicators</li>
+<li><code>idno</code> and <code>essround</code> are “administrative” variables that are always good to keep</li>
+<li><code>cntry</code> designates which country a given respondent comes from, and this one should always be kept</li>
+<li><code>isco08</code> is the respondents’ occupation as measured by the 2008 version of the <em>International Standard Classification of Occupations</em> (<em>ISCO</em>; see also the other post on <a href="https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/" target="_blank">measuring class</a>). This variable is important because we will use it to link the <em>ESS</em> data with the vulnerability indicator data</li>
 <li><code>agea</code>, <code>gndr</code>, and <code>trstplt</code> measure the respondents’ age, gender, and their trust in politicans (on a 0-10 scale)</li>
 </ul>
-<p>Next, we import the vulnerability indicator scores – **importantly*, we import the data without converting them directly</p>
+<p>Next, we import the vulnerability indicator scores:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"task.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -379,13 +380,13 @@ div.csl-indent {
 6     6 AT           7  9321 [Hand packers]  2 [Fem… 67    0 [No …          9321</code></pre>
 </div>
 </div>
-<p>Indeed, the function correctly extracted the ISCO-08 score <code>7126</code> for “Plumbers” and saved it as <code>7126</code> in the new variable.</p>
-<p>This means we can now convert the new scores to the ISCO-88 scheme:</p>
+<p>Indeed, the function worked as intended. For example, it correctly extracted the ISCO-08 score <code>7126</code> for the “plumber” in row #1 and saved it as <code>7126</code> in the new variable.</p>
+<p>This means we can now convert the new scores to the ISCO-88 classification:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ess7 <span class="sc">%&gt;%</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">isco88 =</span> occupar<span class="sc">::</span><span class="fu">isco08to88</span>(isco08_scores)) <span class="ot">-&gt;</span> ess7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If we take another quick look at the dataset, you can see the new ISCO-88 scores in the last column; you may also notice that the scores are slightly different (<code>9321</code> in the ISCO-08 classification is <code>9322</code> in the old one):</p>
+<p>If we take another quick look at the dataset, you can see the new ISCO-88 scores in the last column; you may also notice that the scores are slightly different (for example, <code>9321</code> in the ISCO-08 classification is <code>9322</code> in the old one):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ess7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

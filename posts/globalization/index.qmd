@@ -57,11 +57,12 @@ ess7 %>%
   select(idno,cntry,essround,isco08,gndr,agea,trstplt) -> ess7
 ```
 
-* `idno`, `cntry`, and `essround` are "administrative variables that are always good to keep
-* `isco08` is the respondents' occupation as measured by the 2008 version of the *International Standard Classification of Occupations* (*ISCO*; see also the other post on [measuring class](https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/){target="_blank"}). This is important because we will use this to link the *ESS* data with the vulnerability indicators
+* `idno` and `essround` are "administrative" variables that are always good to keep
+* `cntry` designates which country a given respondent comes from, and this one should always be kept
+* `isco08` is the respondents' occupation as measured by the 2008 version of the *International Standard Classification of Occupations* (*ISCO*; see also the other post on [measuring class](https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/){target="_blank"}). This variable is important because we will use it to link the *ESS* data with the vulnerability indicator data
 * `agea`, `gndr`, and `trstplt` measure the respondents' age, gender, and their trust in politicans (on a 0-10 scale)
 
-Next, we import the vulnerability indicator scores -- **importantly*, we import the data without converting them directly
+Next, we import the vulnerability indicator scores:
 ```{r, eval=T, echo=F}
 scores <- haven::read_dta("/Users/carloknotz/Documents/R-code/task.dta")
 ```
@@ -134,15 +135,15 @@ We can take a quick look at the data to see if the conversion worked:
 head(ess7)
 ```
 
-Indeed, the function correctly extracted the ISCO-08 score `7126` for "Plumbers" and saved it as `7126` in the new variable.
+Indeed, the function worked as intended. For example, it correctly extracted the ISCO-08 score `7126` for the "plumber" in row #1 and saved it as `7126` in the new variable.
 
-This means we can now convert the new scores to the ISCO-88 scheme:
+This means we can now convert the new scores to the ISCO-88 classification:
 ```{r}
 ess7 %>% 
   mutate(isco88 = occupar::isco08to88(isco08_scores)) -> ess7
 ```
 
-If we take another quick look at the dataset, you can see the new ISCO-88 scores in the last column; you may also notice that the scores are slightly different (`9321` in the ISCO-08 classification is `9322` in the old one):
+If we take another quick look at the dataset, you can see the new ISCO-88 scores in the last column; you may also notice that the scores are slightly different (for example, `9321` in the ISCO-08 classification is `9322` in the old one):
 ```{r}
 head(ess7)
 ```
