@@ -6,6 +6,7 @@ bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
 format:
   html:
     toc: true
+lightbox: true
 categories:
   - Survey data
   - Comparative analysis

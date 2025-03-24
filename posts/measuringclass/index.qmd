@@ -6,6 +6,7 @@ format:
   html:
     toc: true
 date: "2025-03-08"
+lightbox: true
 categories:
   - Survey data
   - Class
@@ -184,7 +185,7 @@ The variable is already numeric, which means we do not really have to do anythin
 ```{r}
 issp %>% 
   ggplot(aes(x = NEMPLOY)) +
-    geom_histogram()
+    geom_histogram(color = "white")
 ```
 
 There are a few extreme outliers which make it difficult to see anything. We can get a clearer picture by removing those with more than 100 employees from the graph (obviously, we only do this for the graph!):
@@ -192,7 +193,7 @@ There are a few extreme outliers which make it difficult to see anything. We can
 issp %>% 
   filter(NEMPLOY<100) %>% 
   ggplot(aes(x = NEMPLOY)) +
-    geom_histogram()
+    geom_histogram(color = "white")
 ```
 
 Most respondents who have employees have only relatively small businesses with less than 25 employees.
