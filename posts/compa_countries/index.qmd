@@ -31,7 +31,7 @@ Many important questions that political scientists, sociologists, or economists 
 Luckily, we are now sitting on a mountain of (usually) freely available macro-level data on all kinds of economic, social, political, or environmental aspects for many countries and over long periods of time. To name just a few examples:
 
 * International institutions such as the [*World Bank*](https://data.worldbank.org/){target="_blank"}, the [*OECD*](https://www.oecd.org/en/data.html){target="_blank"}, the [*European Union*](https://ec.europa.eu/eurostat/web/main/data/database){target="_blank"}, or the [*UN*](https://data.un.org/){target="_blank"} offer free data on a vast number of economic, social, environmental, and political variables for their member countries.
-* The [*V-DEM*](https://www.v-dem.net/){target="_blank"} project provides very detailed data on how democratic countries are for many countries going back to the 18-hundreds.
+* The [*V-DEM*](https://www.v-dem.net/){target="_blank"} project provides very detailed data on how democratic countries are for many countries going back to the 17-hundreds.
 * There are also many different datasets that measure countries' political institutions, constitutional structures, party systems, election outcomes, and the representation of parties in parliaments and governments (see the [*Dataset of Political Datasets*](https://github.com/erikgahner/PolData){target="_blank"}.)
 * Researchers in international relations and peace & conflict studies have created many datasets on countries' military strengths, alliances, conflicts, wars, terrorist attacks, and many other aspects (see <https://github.com/erikgahner/PolData?tab=readme-ov-file#international-relations>.)
 
