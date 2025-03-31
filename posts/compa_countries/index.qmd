@@ -74,7 +74,7 @@ cpds |>
 
 ```
 
-You see that the individual observations for each country and year (country-years) are "stacked" on top of each other, and that we have variables telling us which year and which country a given row corresponds to. These are *important*: You absolutely need to keep these variables in your dataset, otherwise you no longer know what each row in your dataset corresponds to.
+You see that the individual observations for each country and year (country-years) are "stacked" on top of each other, and that we have two variables, `country` and `year` telling us which year and which country a given row corresponds to. These are *important*: You absolutely need to keep these variables in your dataset, otherwise you no longer know what each row in your dataset corresponds to. In addition, it is important to be aware that `country` and `year` **in combination** identify each unique observation: There is one "Norway in 1990", one "Norway in 1991", etc. observation, and you need to have both the `country` **and** the `year` variable to identify these observations.
 
 The table also shows countries in two different formats: The plain English name, and the three-digit *ISO* country code. Many datasets use either of them (or different country codes), which can sometimes be a hassle to work with. Luckily, there is the `countrycode` package, which allows you to convert different country codes and names to other formats with a few lines of code.
 
