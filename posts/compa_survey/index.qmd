@@ -9,7 +9,7 @@ format:
 lightbox: true
 categories:
   - Survey data
-  - Comparative analysis
+  - Comparing countries
   - Gender
   - ESS
   - Political science

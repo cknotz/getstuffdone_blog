@@ -1,0 +1,339 @@
+---
+title: "Comparing countries with macro-level data"
+author: "Carlo Knotz"
+bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
+format:
+  html:
+    toc: true
+date: "2025-03-30"
+lightbox: true
+lang: en
+categories:
+  - Macro
+  - Comparing countries
+  - Economics
+  - Political science
+  - Sociology
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, echo=F, warning=F, message=F}
+library(tidyverse)
+theme_set(theme_classic())
+cpds <- haven::read_dta("/Users/carloknotz/Documents/Data/cpds_2024.dta") 
+```
+
+## Why we do macro-level comparisons
+
+Many important questions that political scientists, sociologists, or economists are asking are about patterns at the *macro*- or country-level: Why do some countries have bigger welfare states than others [@Esping-Andersen1990;@Allan2004;@Korpi2003a;@Iversen2006] or how do the political structures of a country affect its economic or environmental performance [@Roller2005;@Acemogluetal2001;@Scruggs2003]? Answering these questions usually requires some form of cross-country comparison with macro-level data on the size and shape of welfare states, political institutions, environmental performance, or economic growth. This analysis *can* be quantitative --- also known as a *time series cross-sectional regression analysis* [see e.g., @Beck2001] --- but it can also be a qualitative comparative case study --- and even in the latter case, a few nice graphs that show relevant developments, patterns, and trends at the country-level can make the case study much more convincing and easy to follow.
+
+Luckily, we are now sitting on a mountain of (usually) freely available macro-level data on all kinds of economic, social, political, or environmental aspects for many countries and over long periods of time. To name just a few examples:
+
+* International institutions such as the [*World Bank*](https://data.worldbank.org/){target="_blank"}, the [*OECD*](https://www.oecd.org/en/data.html){target="_blank"}, the [*European Union*](https://ec.europa.eu/eurostat/web/main/data/database){target="_blank"}, or the [*UN*](https://data.un.org/){target="_blank"} offer free data on a vast number of economic, social, environmental, and political variables for their member countries.
+* The [*V-DEM*](https://www.v-dem.net/){target="_blank"} project provides very detailed data on how democratic countries are for many countries going back to the 18-hundreds.
+* There are also many different datasets that measure countries' political institutions, constitutional structures, party systems, election outcomes, and the representation of parties in parliaments and governments (see the [*Dataset of Political Datasets*](https://github.com/erikgahner/PolData){target="_blank"}.)
+* Researchers in international relations and peace & conflict studies have created many datasets on countries' military strengths, alliances, conflicts, wars, terrorist attacks, and many other aspects (see <https://github.com/erikgahner/PolData?tab=readme-ov-file#international-relations>.)
+
+In addition, many datasets come with associated `R` packages that allow you do directly import the datasets (see e.g., the [`vdemdata`](https://github.com/vdeminstitute/vdemdata){target="_blank"}, [`WDI`](https://github.com/vincentarelbundock/WDI){target="_blank"}, or [`manifestoR`](https://manifesto-project.wzb.eu/information/documents/manifestoR){target="_blank"} packages).
+
+There are different ways to work with macro-level data. A beginner-friendly way to work with macro-level data is to do *descriptive analyses*, and that is what the rest of this post is going to focus on.
+
+More specifically, we will go over some example techniques using the *Comparative Political Data Set* (*CPDS*; <https://cpds-data.org/>), which is a very popular and fairly easy-to-work-with dataset in political science. It is a kind of Swiss army knife of macro-level data that includes the (usually) most relevant political, economic, and social macro-level indicators for a set of wealthy democracies in Europe, North America, and Australasia for the post-World War II period in one single source (e.g., GDP growth, the partisan composition of parliaments and governments, welfare state spending, or political institutions).
+
+## Setup
+
+If you want to follow along, make sure you have the `tidyverse` loaded and, if you like, pre-set the `ggplot2` graph theme to save time later:
+
+```{r, echo=T, eval=F}
+library(tidyverse)
+theme_set(theme_classic())
+```
+
+## What macro-level data (should) look like
+
+The first important thing to understand is how a macro-level dataset should look like if you want to analyze it in `R`. As per Hadley Wickham's *Rules for Tidy Data* [-@Wickham2014], *all* datasets should be structured in a way that:
+
+* Every row is an *observation*
+* Every column is a *variable*
+
+This is easy when we work with a typical micro-level survey dataset like the *European Social Survey*, where the unit of observation is a single person. Here, every person is a row and every aspect that is recorded about them (their gender, income, age, etc.) is a column.
+
+In a typical macro-level dataset, the unit of observation is usually a *country-year*: We observe Norway in 1990, 1991, 1992, and so on, and then we observe the France, Sweden, Japan, etc. in the same years.^[An exception are many peace & conflict datasets, where the unit of observation is a country-pair (*dyad*) or a conflict-year. This can make these datasets a bit more difficult to work with.] Here is a simple example of how this should look like using data on GDP growth (`realgdpgr`) from the *CPDS* dataset:
+
+::: {.callout-important}
+This is how your dataset **should** look like!
+:::
+
+```{r, echo=F, warning=F, message=F}
+cpds |> 
+  select(year,country,iso,realgdpgr) |> 
+  filter(year %in% c(1990,1991,1992),
+         country %in% c("Sweden","Norway","Japan","France")) |> 
+  print(n=12)
+
+```
+
+You see that the individual observations for each country and year (country-years) are "stacked" on top of each other, and that we have variables telling us which year and which country a given row corresponds to. These are *important*: You absolutely need to keep these variables in your dataset, otherwise you no longer know what each row in your dataset corresponds to.
+
+The table also shows countries in two different formats: The plain English name, and the three-digit *ISO* country code. Many datasets use either of them (or different country codes), which can sometimes be a hassle to work with. Luckily, there is the `countrycode` package, which allows you to convert different country codes and names to other formats with a few lines of code.
+
+Sometimes, and this can happen often when you download data from international organizations, the data you get look different (e.g., each row corresponds to a country and the columns refer to variables *and* years):
+
+::: {.callout-important}
+This is how your dataset **should __not__** look like!
+:::
+
+```{r, echo=F, warning=F, message=F}
+cpds |> 
+  select(year,country,realgdpgr) |> 
+  filter(year %in% c(1990,1991,1992),
+         country %in% c("Sweden","Norway","Japan","France")) |> 
+  pivot_wider(id_cols = country,
+              names_from = year,
+              names_prefix = "realgdpgr_",
+              values_from = realgdpgr)
+```
+
+
+If you do have a dataset that looks like this, you need to learn how to *pivot* or *reshape* your dataset. Here, the `pivot_longer()` and `pivot_wider()` functions from the `tidyr` package (included in the `tidyverse`) are your best friends [see also @Urdinez2020, Chapter 2.5.1].
+
+## Importing the *CPDS* dataset
+
+OK, enough theory --- time to work with some data. If you want to follow along, you need to download the latest version of the *CPDS* dataset (<https://cpds-data.org/data/>). Ideally, download the `Stata` version, unzip the file, and store it in your `RStudio` project folder (or the folder that is your current *Working Directory*, which you can find out with the `getwd()` function). Once you have that, all you need to do is to use the `haven` package to import the dataset:
+
+```{r, eval=FALSE, echo=T}
+cpds <- haven::read_dta("CPDS_1960_2022_Update_2024.dta")
+```
+
+The `cpds` object should now pop up in your *Environment* tab in *RStudio*. If you like, you can take a brief look at the data with `glimpse`. *You should also download the official [codebook](https://cpds-data.org/wp-content/uploads/2024/11/codebook_cpds.pdf){target="_blank"} and get familiar with the variables that are included in the dataset!*
+
+Another way to get a sense of what is contained is to look at the unique countries and years that are covered:
+```{r}
+unique(cpds$year)
+unique(cpds$country)
+```
+You see that we have, in principle, data for almost all of Europe and the other advanced democracies around the globe from the 1960s onwards. What this does not show, however, is that we only have data for the Central and Eastern European countries (Poland, Bulgaria, etc.) from 1990 on, after the collapse of the Soviet Union and the Warsaw Pact:
+
+```{r}
+cpds |> 
+  filter(country == "Poland") |> 
+  select(year,country)
+```
+
+Because such a large batch of countries was added at this one time point, it makes sense to limit the data to the post-1990 period --- otherwise, comparisons over time might not make sense.
+
+```{r}
+cpds |> 
+  filter(year>=1990) -> cpds
+```
+
+(An alternative, if the interest is in long trends since World War II, is to leave out the post-communist countries. Here, the `poco` --- "post-communist" --- variable in the *CPDS* dataset is useful within `filter()`.)
+
+## Descriptive analyses with macro-level data
+
+There are four basic ways to look descriptively at macro-level data: 
+
+1) You can look at general trends across countries over time
+2) You can compare average patterns between countries
+3) You can compare trends within selected countries over time
+4) You can look at average relationships (*correlations*) between countries
+
+Each of them tells you a different part of the entire story that is contained in the data. We will go over each of them and see how to aggregate and visualize the data. In most cases, your two best friends are the `group_by()` and `summarize()` functions from `dplyr`.
+
+### Aggregating by year to show general trends
+
+Sometimes, we want to show to our readers general trends that existed more or less in *all* countries in the dataset over a given period of time. For example, we might want to show general phases of economic boom and crisis that affected *all* the advanced democracies, without looking specifically at individual countries. To do that, we can calculate the average rate of economic growth over all countries per year and visualize the result.
+
+This is easy to do with `group_by()` and `summarize()`:
+```{r}
+cpds |> 
+  group_by(year) |> 
+  summarize(avg_growth = mean(realgdpgr, na.rm = T))
+```
+
+Here, we group the data by `year` and then calculate for each year the average of all GPD growth rates in all of the countries that are covered in the dataset. The result is an *aggregated* version of the dataset with average rates of GPD growth per year since the 1960s as individual observations.^[Obviously, you should always make sure that you do not have large changes in the composition of your dataset --- e.g., where many new countries are added from a given year on --- because that can lead to sudden jumps or dips in the average values.]
+
+We can then visualize the result in a line graph:
+```{r, warning=F, message=F}
+cpds |> 
+  group_by(year) |> 
+  summarize(avg_growth = mean(realgdpgr, na.rm = T)) |> 
+  ggplot(aes(x = year, y = avg_growth)) +
+    geom_line() +
+    geom_point() +
+    geom_hline(yintercept = 0, 
+               linetype = "dashed", color = "grey") +
+    labs(x = "", y = "Average GDP growth rate") +
+    scale_x_continuous(breaks = seq(1960,2020,10))
+```
+
+The graph clearly shows the last two big economic crises, the 2008 Financial Crisis (a.k.a., *Great Recession*) and the COVID-19 pandemic, but also the economic crisis of the early 1990s.
+
+::: {.callout-important}
+You may notice that we **do not save** the resulting aggregated dataset in a separate object --- and we most definitely do not overwrite the original dataset with the aggregated version. We simply aggregate the data "on the fly", visualize the result, and then let the aggregated version disappear into the ether. Sometimes, you might want to save an aggregated dataset so that you can use it in later analyses, but in that case you need to make sure that you give it a different name.
+:::
+
+It is also important to be aware that we can also calculate **other types of summary statistics** like the median, the variance, or the standard deviation within `summarize()`. The latter is very helpful if we want to show not only average trends but also the variation around the trend line. To do that, we simply add the summary statistic we want within `summarize()`:
+```{r}
+cpds |> 
+  group_by(year) |> 
+  summarise(avg_growth = mean(realgdpgr, na.rm = T),
+            sd_growth = sd(realgdpgr, na.rm = T))
+```
+
+Now we get two summary statistics per year: The average growth rates and the standard deviation in growth rates (the average deviation from the average). To visualize this, we can calculate +/- 1 standard deviation ranges around the mean values and use `geom_ribbon()` in `ggplot()` to visualize the result:
+
+```{r}
+cpds |> 
+  group_by(year) |> 
+  summarise(avg_growth = mean(realgdpgr, na.rm = T),
+            sd_growth = sd(realgdpgr, na.rm = T)) |> 
+  mutate(upper = avg_growth + sd_growth,
+         lower = avg_growth - sd_growth) |> 
+  ggplot(aes(x = year, y = avg_growth, ymin = lower, ymax = upper)) +
+    geom_line() +
+    geom_point() +
+    geom_ribbon(alpha = .2) + # alpha makes the area transparent
+    geom_hline(yintercept = 0, 
+               linetype = "dashed", color = "black") +
+    labs(x = "", y = "Average GDP growth rate",
+         caption = "Shaded area indicates +/- 1 SD ranges.") +
+    scale_x_continuous(breaks = seq(1960,2020,10))
+```
+
+One new lesson we learn is that although the average growth rate dipped into the negative in the early 1990s, there was also increased variation in growth rates --- the range got visibly bigger --- which indicates that not all countries were equally strongly affected by the crisis.
+
+### Aggregating by country to show differences
+
+Another thing we might be interested in is which countries had, on average, the highest or lowest growth rates in the period between 1990 and today. To see this, we again use `group_by()` and `summarize()`, but we now group by country instead of year:
+
+```{r}
+cpds |> 
+  group_by(country) |> 
+  summarise(avg_growth = mean(realgdpgr, na.rm = T))
+```
+
+As before, we now get an aggregated version of the dataset --- but now it is aggregated by country, not by year. We see that for example Australia had an average growth rate of arond 3.3% per year, while the rate in the Czech Republic was only around 1.6% per year.
+
+We can again visualize the result, but here a bar graph makes most sense. We can also use `reorder()` to sort the bars according to the average growth rate:
+```{r}
+cpds |> 
+  group_by(country) |> 
+  summarise(avg_growth = mean(realgdpgr, na.rm = T)) |> 
+  ggplot(aes(x = avg_growth, y = reorder(country, avg_growth))) +
+    geom_col() +
+    labs(x = "Average rate of GDP growth (%)", y = "")
+```
+
+You see that Ireland (the *Irish Tiger*) had by far the highest growth rate since the 1990s, followed by Malta and Estonia. Italy, Greece, and Japan had clearly the lowest average rates of growth.
+
+### Comparing selected countries over time
+
+Sometimes, for example when you do a comparative case study of a few selected countries, you want to show relevant developments in those countries, without any aggregation. This is obviously also possible with this type of data, and here the `filter()` function is your best friend.
+
+Let's say we want to compare the development of economic growth rates in the four largest Nordic countries (Denmark, Finland, Norway, Sweden) since the 1990s. In that case, we just need to use `filter()` to subset the data to those countries:
+
+```{r}
+cpds |> 
+  select(country,year,realgdpgr) |> # this is technically not necessary, but 
+  # sometimes useful to avoid losing overview over the data
+  filter(country %in% c("Denmark","Finland","Sweden","Norway"))
+```
+
+This is all there is to it --- we now have limited the dataset to the four Nordic countries. Obviously, the result is not very informative, but we can again visualize the result in a line graph with `ggplot()`:
+
+```{r}
+cpds |> 
+  select(country,year,realgdpgr) |> # this is technically not necessary, but 
+  # sometimes useful to avoid losing overview over the data
+  filter(country %in% c("Denmark","Finland","Sweden","Norway")) |> 
+  ggplot(aes(x = year, y = realgdpgr, group = country, color = country)) +
+    geom_line(linewidth = 1) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
+    scale_color_brewer(palette = "Paired") + # color-blind friendly palette
+    scale_x_continuous(breaks = seq(1990,2020,5)) +
+    labs(y = "GDP growth rate (%)", x = "", color = "") +
+    theme(legend.position = "bottom")
+```
+
+In general, growth rates in the four countries are (unsurprisingly) behaving quite similarly --- when Denmark experiences a crisis, Sweden, Norway, and Finland do as well --- but it does seem that Finland tends a bit more toward the extremes than the other countries. Crises tend to hit hardest in Finland, but the following recoveries are also stronger.
+
+An alternative way to visualize the result is to use `facet_wrap()` to create a separate graph for each country. This helps if, as is the case here, the lines overlap strongly:
+```{r}
+cpds |> 
+  filter(country %in% c("Denmark","Finland","Sweden","Norway")) |> 
+  ggplot(aes(x = year, y = realgdpgr)) +
+    geom_line() +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
+    facet_wrap(~ country) +
+    scale_x_continuous(breaks = seq(1990,2020,5)) +
+    labs(y = "GDP growth rate (%)", x = "", color = "") +
+    theme(legend.position = "bottom")
+```
+
+The more extreme up- and downswings in Finland are still visible.
+
+### Showing bivariate relationships across countries
+
+Although the development of a single variable over time or its variation between countries is often relevant to look at, we are in most cases primarily interested in *relationships* between variables: Does one variable affect the other, or are they at least correlated with each other?
+
+One wat to check for bivariate relationships between two variables is to aggregate both variables by country and then use a scatterplot to visualize the result.
+
+Let's say we wanted to test the hypothesis that a stronger presence of left parties in government is bad for economic growth (as some people claim). The `gov_left1` variable from the *CDPS* dataset gives us the share of cabinet posts that are held by left-of-center parties in a given year and country, and we can simply aggregate this variable along with the one measuring economic growth within `summarize()`:
+
+```{r}
+cpds |> 
+  group_by(country) |> 
+  summarise(avg_growth = mean(realgdpgr, na.rm = T),
+            avg_leftgov = mean(gov_left1, na.rm = T)) 
+```
+
+The numbers give us the average growth rate and the average share of cabinet posts held by left parties in each country in the period since 1990. We can now use `geom_point()` to visualize the result in a scatterplot, and add `geom_smooth()` to get a fitted line that highlights the relationship between the variables:
+
+```{r}
+cpds |> 
+  group_by(country) |> 
+  summarise(avg_growth = mean(realgdpgr, na.rm = T),
+            avg_leftgov = mean(gov_left1, na.rm = T)) |> 
+  ggplot(aes(x = avg_leftgov, y = avg_growth)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = F, color = "grey", 
+                linetype = "dashed") +
+    labs(x = "Avg. share of left parties in government (%)",
+         y = "Average rate of economic growth (%)")
+```
+
+There is indeed a negative --- but quite weak --- relationship between the two variables. However, it important not to forget that the arrow of causality might run the other way: Maybe left parties get elected more often in times of economic crises? (What happens when you look at the relationship between economic growth and the share of right parties in government using `gov_right1`?)
+
+One way to still improve the graph is to add labels for each country instead of anonymous black dots to be able to see where the different countries are located. To do that, we can replace `geom_point()` with `geom_text()`, and we use the `iso` variable (which is equivalent to the `country` variable) to aggregate the data. By using `iso,` we later have handy short labels that we can use in the graph:
+
+```{r}
+cpds |> 
+  group_by(iso) |> 
+  summarise(avg_growth = mean(realgdpgr, na.rm = T),
+            avg_leftgov = mean(gov_left1, na.rm = T)) |> 
+  ggplot(aes(x = avg_leftgov, y = avg_growth)) +
+    geom_text(aes(label = iso)) +
+    geom_smooth(method = "lm", se = F, color = "grey", 
+                linetype = "dashed") +
+    labs(x = "Avg. share of left parties in government (%)",
+         y = "Average rate of economic growth (%)")
+```
+
+This clarifies matters. It almost seems as if the slight negative relationship between left government participation and economic growth is mainly driven by the outlying case of Ireland...
+
+## What next?
+
+This post showed you how you can do descriptive analyses of cross-country macro-level (or *time series cross-sectional*) datasets. This can help you spice up a comparative case study with descriptive statistics of relevant macro-level indicators, and it can be a stepping stone toward learning how to do regression analyses with this type of data.
+
+More concrete steps you can take to advance further are:
+
+1) Get more of an overview over what macro-level datasets there are out there (see also the sources above).
+2) Learn how to combine ("merge") different datasets. This is not as difficult as it might sound. Since all these datasets have the same underlying country-year structure, you just need to figure out how to work with the `left_join()` function to merge datasets, and probably also how to convert different country codes and names between each other with the `countrycode` package [see also @Urdinez2020, Chapter 11].
+2) Explore other types of macro-level datasets. Relevant examples are the *Manifesto Project Database*, which provides quantitative estimates of the ideological positions of political parties in different countries (here, the unit of observation is a party at a given election or "party-election") or different peace & conflict datasets [e.g., @Raleighetal2010;@UCDP2014;@Gibler2023;@Vogtetal2015].
+3) Learn how to do multivariate regression analyses with these datasets. Relevant works to read are Beck and Katz [-@Beck1995; -@Beck1996; -@Beck2011a], @Beck1998a, @Beck2001, @DeBoef2008, @Wilson2007, @Carter2010, @Honaker2010, @Birkel2014, and for more advanced methods see @Blackwell2018. Urdinez and Cruz [-@Urdinez2020, Chapter 7] and @Croissant2008 show how to implement the main techniques in `R`.
+
+
+
+
