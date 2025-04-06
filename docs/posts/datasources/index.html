@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlo Knotz">
+<meta name="dcterms.date" content="2025-04-06">
+
+<title>‘I can’t find any data!’ – Testing big ideas with simple methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Testing big ideas with simple methods</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About this blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">‘I can’t find any data!’</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Data</div>
+                <div class="quarto-category">Political science</div>
+                <div class="quarto-category">Sociology</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Carlo Knotz </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 6, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#forests-and-trees" id="toc-forests-and-trees" class="nav-link active" data-scroll-target="#forests-and-trees">Forests and trees</a></li>
+  <li><a href="#other-better-overviews-over-available-data" id="toc-other-better-overviews-over-available-data" class="nav-link" data-scroll-target="#other-better-overviews-over-available-data">Other (better?) overviews over available data</a></li>
+  <li><a href="#survey-data" id="toc-survey-data" class="nav-link" data-scroll-target="#survey-data">Survey data</a>
+  <ul>
+  <li><a href="#general-social-survey-data" id="toc-general-social-survey-data" class="nav-link" data-scroll-target="#general-social-survey-data">General social survey data</a></li>
+  <li><a href="#electionvoter-survey-data" id="toc-electionvoter-survey-data" class="nav-link" data-scroll-target="#electionvoter-survey-data">Election/voter survey data</a></li>
+  <li><a href="#societal-safety-crisis-preparedness" id="toc-societal-safety-crisis-preparedness" class="nav-link" data-scroll-target="#societal-safety-crisis-preparedness">Societal safety &amp; crisis preparedness</a></li>
+  <li><a href="#other" id="toc-other" class="nav-link" data-scroll-target="#other">Other</a></li>
+  </ul></li>
+  <li><a href="#cross-national-comparative-data" id="toc-cross-national-comparative-data" class="nav-link" data-scroll-target="#cross-national-comparative-data">Cross-national comparative data</a>
+  <ul>
+  <li><a href="#international-organizations" id="toc-international-organizations" class="nav-link" data-scroll-target="#international-organizations">International organizations</a></li>
+  <li><a href="#comparative-politics-governments-parliaments-parties-institutions-elections" id="toc-comparative-politics-governments-parliaments-parties-institutions-elections" class="nav-link" data-scroll-target="#comparative-politics-governments-parliaments-parties-institutions-elections">Comparative politics: Governments, parliaments, parties, institutions, elections</a></li>
+  <li><a href="#welfare-state-social-policies" id="toc-welfare-state-social-policies" class="nav-link" data-scroll-target="#welfare-state-social-policies">Welfare state &amp; social policies</a></li>
+  <li><a href="#immigration-immigrant-integration" id="toc-immigration-immigrant-integration" class="nav-link" data-scroll-target="#immigration-immigrant-integration">Immigration &amp; immigrant integration</a></li>
+  <li><a href="#technology-technological-change" id="toc-technology-technological-change" class="nav-link" data-scroll-target="#technology-technological-change">Technology &amp; technological change</a></li>
+  <li><a href="#social-media" id="toc-social-media" class="nav-link" data-scroll-target="#social-media">Social media</a></li>
+  <li><a href="#trade-unions-industrial-relations" id="toc-trade-unions-industrial-relations" class="nav-link" data-scroll-target="#trade-unions-industrial-relations">Trade unions &amp; industrial relations</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="forests-and-trees" class="level2">
+<h2 class="anchored" data-anchor-id="forests-and-trees">Forests and trees</h2>
+<p>Finding relevant data is one of the major hurdles which many students face during term paper or thesis projects — which is a bit puzzling given that there is a <em>huge</em> and growing amount of data about many political, social, or economic aspects freely available on the open internet.</p>
+<p>This post provides a (definitely not exhaustive) list of datasets and data repositories that can be relevant for research projects in the social and political sciences. It is definitely not the first such list (see below), but it complements other lists with a stronger focus on datasets from and relevant for research on welfare states.</p>
+</section>
+<section id="other-better-overviews-over-available-data" class="level2">
+<h2 class="anchored" data-anchor-id="other-better-overviews-over-available-data">Other (better?) overviews over available data</h2>
+<p>Erik Gahner’s excellent <a href="https://github.com/erikgahner/PolData" target="_blank"><em>Dataset of Political Datasets</em></a> provides a great overview over datasets that are relevant to political science, and there are also a number of data repositories and archives that contain even more (and partly older) data that might be relevant for some project, for example</p>
+<ul>
+<li>The <a href="http://zacat.gesis.org/webview/" target="_blank">GESIS</a> survey data repository for survey data</li>
+<li>The Norwegian <a href="https://www.nsd.no/" target="_blank">Norsk senter for forskningsdata (NSD)</a> or <a href="https://data.norge.no/nb" target="_blank"><em>Datafabrikken</em></a>.</li>
+</ul>
+</section>
+<section id="survey-data" class="level2">
+<h2 class="anchored" data-anchor-id="survey-data">Survey data</h2>
+<section id="general-social-survey-data" class="level3">
+<h3 class="anchored" data-anchor-id="general-social-survey-data">General social survey data</h3>
+<ul>
+<li>European Social Survey (ESS): <a href="https://europeansocialsurvey.org/" class="uri">https://europeansocialsurvey.org/</a></li>
+<li>International Social Survey Program (ISSP): <a href="https://issp.org/" class="uri">https://issp.org/</a></li>
+<li>Eurobarometer: Public attitudes toward large range of topics; see <a href="https://www.gesis.org/en/eurobarometer-data-service/search-data-access/topics" class="uri">https://www.gesis.org/en/eurobarometer-data-service/search-data-access/topics</a></li>
+<li>Arab Barometer: Public opinion data from MENA countries (<a href="https://www.arabbarometer.org/" class="uri">https://www.arabbarometer.org/</a>)</li>
+<li>World Values Survey (WVS)</li>
+<li>US General Social Survey (GSS)</li>
+<li>PEW polling data (partly avaiable for free, after registration): <a href="https://www.pewresearch.org/tools-and-resources/" class="uri">https://www.pewresearch.org/tools-and-resources/</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+</section>
+<section id="electionvoter-survey-data" class="level3">
+<h3 class="anchored" data-anchor-id="electionvoter-survey-data">Election/voter survey data</h3>
+<ul>
+<li>Comparative Study of Electoral Systems (<a href="http://www.cses.org/" class="uri">http://www.cses.org/</a>): Standardized election surveys from several countries and elections</li>
+<li>American National Election Study (<a href="http://www.electionstudies.org/" class="uri">http://www.electionstudies.org/</a>)</li>
+<li>Norwegian National Election Study/Norsk Valgundersøkelser (available via NSD; see above)</li>
+<li>US <a href="https://www.voterstudygroup.org/data">VOTER</a> survey data: Unique longitudinal survey data allowing for deep exploration of public opinion on the issues and values that drive voter behavior.</li>
+</ul>
+</section>
+<section id="societal-safety-crisis-preparedness" class="level3">
+<h3 class="anchored" data-anchor-id="societal-safety-crisis-preparedness">Societal safety &amp; crisis preparedness</h3>
+<ul>
+<li>US Federal Emergency Management Agency (FEMA) <a href="https://www.fema.gov/about/openfema/data-sets/national-household-survey">National Household Survey</a>: Representative survey data on the American public’s preparedness actions, attitudes, and motivations.</li>
+<li>Several Special Eurobarometer surveys from different years look at attitudes toward disaster prevention and civil protection: See <a href="https://europa.eu/eurobarometer/surveys/browse/all" class="uri">https://europa.eu/eurobarometer/surveys/browse/all</a>; search in <em>Keywords</em> for “Civil protection”; access data via GESIS’ ZACAT Data Archive (see above)</li>
+<li>The 2016 round of the International Social Survey Program (<a href="https://www.gesis.org/en/issp/modules/issp-modules-by-topic/role-of-government/2016" class="uri">https://www.gesis.org/en/issp/modules/issp-modules-by-topic/role-of-government/2016</a>) included questions on attitudes toward national security and anti-terror measures such as video surveillance or detention of terrorist suspects.</li>
+</ul>
+</section>
+<section id="other" class="level3">
+<h3 class="anchored" data-anchor-id="other">Other</h3>
+<ul>
+<li>The <a href="http://poq.oxfordjournals.org/">Public Opinion Quarterly</a> provides reviews of recent polling data on specific topics <span class="citation" data-cites="DeBoer1983">(e.g., <a href="#ref-DeBoer1983" role="doc-biblioref">De Boer 1983</a>)</span>; search for “The Polls” or “Poll Reviews”</li>
+<li><a href="http://ec.europa.eu/eurostat/web/microdata/overview">Eurostat Survey Data</a>: Includes e.g.&nbsp;the European Labour Force Survey (ELFS), European Community Household Panel (ECHP), European Union Statistics on Income and Living Conditions (EU-SILC),…}</li>
+<li><a href="http://www.share-project.org/">Survey of Health, Ageing and Retirement in Europe (SHARE)</a></li>
+<li><a href="https://doi.org/10.5255/UKDA-SN-9116-1">Evidence for Equality National Survey (EVENS)</a>: Survey data on the experiences of ethnic minorities in the UK during the COVID-19 pandemic <span class="citation" data-cites="Finneyetal2023">(see also <a href="#ref-Finneyetal2023" role="doc-biblioref">Finney et al. 2023</a>)</span></li>
+<li>Various national &amp; international panel surveys (German SOEP, British BHPS, Swiss SHP, Swedish LNU, U.S. PSID, Japanese JHPS,…)</li>
+</ul>
+</section>
+</section>
+<section id="cross-national-comparative-data" class="level2">
+<h2 class="anchored" data-anchor-id="cross-national-comparative-data">Cross-national comparative data</h2>
+<section id="international-organizations" class="level3">
+<h3 class="anchored" data-anchor-id="international-organizations">International organizations</h3>
+<ul>
+<li>OECD: <a href="https://www.oecd.org/en/data.html" class="uri">https://www.oecd.org/en/data.html</a></li>
+<li>World Bank: <a href="https://data.worldbank.org/" class="uri">https://data.worldbank.org/</a></li>
+<li>IMF: <a href="https://www.imf.org/en/Data" class="uri">https://www.imf.org/en/Data</a></li>
+<li>ILO: <a href="https://ilostat.ilo.org/" class="uri">https://ilostat.ilo.org/</a></li>
+<li>Eurostat: <a href="https://ec.europa.eu/eurostat" class="uri">https://ec.europa.eu/eurostat</a></li>
+<li>UN: <a href="https://data.un.org/" class="uri">https://data.un.org/</a></li>
+<li>UNESCO: <a href="https://databrowser.uis.unesco.org/" class="uri">https://databrowser.uis.unesco.org/</a></li>
+<li>UNHCR: <a href="https://www.unhcr.org/what-we-do/reports-and-publications/unhcr-data" class="uri">https://www.unhcr.org/what-we-do/reports-and-publications/unhcr-data</a></li>
+<li>WHO: <a href="https://data.wto.org/en" class="uri">https://data.wto.org/en</a></li>
+</ul>
+</section>
+<section id="comparative-politics-governments-parliaments-parties-institutions-elections" class="level3">
+<h3 class="anchored" data-anchor-id="comparative-politics-governments-parliaments-parties-institutions-elections">Comparative politics: Governments, parliaments, parties, institutions, elections</h3>
+<ul>
+<li>Manifesto Project Database: Ideological positions of political parties (<a href="https://manifestoproject.wzb.eu/" class="uri">https://manifestoproject.wzb.eu/</a>)</li>
+<li>Integrated Party Organization Dataset (<a href="http://dx.doi.org/10.7910/DVN/PE8TWP" class="uri">http://dx.doi.org/10.7910/DVN/PE8TWP</a>)</li>
+<li>PARTY FACTS: Repository of comparative and historical data on political parties in around 200 countries (<a href="https://partyfacts.herokuapp.com/" class="uri">https://partyfacts.herokuapp.com/</a>)</li>
+<li>Parliament and government composition (PARLGOV; <a href="https://www.parlgov.org/" class="uri">https://www.parlgov.org/</a>) database</li>
+<li>Inter-Parliamentary Union: Qualitative descriptions of parliaments and electoral systems, and key statistics on the composition of parliaments in most countries of the world (<a href="https://www.ipu.org/" class="uri">https://www.ipu.org/</a>)</li>
+<li>POLCON: Index of political constraints (“checks &amp; balances”), information about heads of states, governments, government parties (<a href="https://mgmt.wharton.upenn.edu/faculty/heniszpolcon/polcondataset/" class="uri">https://mgmt.wharton.upenn.edu/faculty/heniszpolcon/polcondataset/</a>)</li>
+<li>Varieties of Democracy (V-DEM): Indicators of democracy, very detailed and for 177 countries between 1900 and today (<a href="https://www.v-dem.net/" class="uri">https://www.v-dem.net/</a>)</li>
+<li>Executive Approval Project: Cross-country comparative data on public support for political executives (<a href="http://www.executiveapproval.org/" class="uri">http://www.executiveapproval.org/</a>)</li>
+<li>Democratic Electoral Systems Around the World, 1946-2011 <span class="citation" data-cites="Golder2005 Bormann2013">(see also <a href="#ref-Golder2005" role="doc-biblioref">Golder 2005</a>; <a href="#ref-Bormann2013" role="doc-biblioref">Bormann and Golder 2013</a>)</span></li>
+<li>European Journal of Political Research <em>Political Data Yearbook</em>: Qualitative info on elections, government composition, important issues in national politics (<a href="http://onlinelibrary.wiley.com/journal/10.1111/%28ISSN%292047-8852" class="uri">http://onlinelibrary.wiley.com/journal/10.1111/%28ISSN%292047-8852</a>)</li>
+<li>International Institute for Democracy and Electoral Assistance (IDEA): Comparative (often qualitative) data on electoral systems, campaign finance rules, direct democracy, gender quotas, voter turnout,… (<a href="https://www.idea.int/" class="uri">https://www.idea.int/</a>)</li>
+<li>Global Leadership Project (GLP): Data on government leaders throughout the world - including legislators, members of the executive branch, members of the judiciary, and other decisionmakers whose power may be formal or informal (<a href="https://globalleadershipproject.net/" class="uri">https://globalleadershipproject.net/</a>)</li>
+<li>Cline Center Historical Phoenix <a href="https://doi.org/10.13012/B2IDB-0647142_V1">Event Data</a>: Machine-generated data on historical events between 1945 and 2015 extracted from 14 million news stories. It documents the agents, locations, and issues at stake in a wide variety of conflict, cooperation and communicative events.</li>
+<li>The Electoral Integrity Project: Data from expert surveys on the integrity of elections in countries around the globe (<a href="https://www.electoralintegrityproject.com/" class="uri">https://www.electoralintegrityproject.com/</a>)</li>
+<li>PPEG Database on political parties, presidents, elections, and governments around the world (<a href="https://ppeg.wzb.eu/" class="uri">https://ppeg.wzb.eu/</a>)</li>
+<li><a href="https://www.congressindata.com/">Congress in Data</a>: Information about the characteristics of US Congress Members, their legislative activities, and their social connections over five US Congress cycles: from the 109th to the 113th (2005-2015)</li>
+<li>Comparative Legislators Database (CLD)}: Rich, diverse and integrated individual-level data on national political representatives. The database contains information for over 67,000 contemporary and historical legislators from 16 countries <span class="citation" data-cites="Gobel2022">(see also <a href="#ref-Gobel2022" role="doc-biblioref">Göbel and Munzert 2022</a>)</span></li>
+<li><a href="https://politicscentre.nuffield.ox.ac.uk/whogov-dataset/">WhoGov</a>: Information (e.g., gender, party affiliation) on cabinet members in July every year in the period 1966-2021 in all countries with a population of more than 400,000 citizens <span class="citation" data-cites="Nyrup2020">(see also <a href="#ref-Nyrup2020" role="doc-biblioref">Nyrup and Bramwell 2020</a>)</span></li>
+<li><a href="https://doi.org/10.7910/DVN/PYGBDO">Parliaments Day-By-Day</a>: Open-source data on MPs’ membership in parties, parliaments, and party groups <span class="citation" data-cites="Turneretal2022">(see also <a href="#ref-Turneretal2022" role="doc-biblioref">Turner-Zwinkels et al. 2022</a>)</span></li>
+</ul>
+</section>
+<section id="welfare-state-social-policies" class="level3">
+<h3 class="anchored" data-anchor-id="welfare-state-social-policies">Welfare state &amp; social policies</h3>
+<ul>
+<li>The Social Policy Indicators (<a href="https://www.su.se/social-policy-indicators-database/">SPIN</a>) database</li>
+<li>Global Welfare State Information System (<a href="https://www.wesis.org/">WeSIS</a>): comprehensive data to describe and explain social policy worldwide</li>
+<li>Comparative Welfare Entitlements Project (<a href="http://cwep.us/">CWEP</a>): Comparative data on pension, unemployment, and sickness insurance generosity</li>
+<li>Moira Nelson’s and my comparative <a href="https://cknotz.github.io/benefitconditionalitydata/">Unemployment Benefit Conditionality Dataset</a>: Comparative data on job-search requirements, the definition of suitable work, and sanctions for unemployment benefit claimants in 21 OECD countries between 1980 and 2012. See also the OECD’s <a href="https://www.oecd.org/social/strictness-benefit-eligibility.htm">dataset on benefit eligibility requirements</a> for more recent data</li>
+<li>John Stephens &amp; Evelyne Huber’s <a href="https://huberandstephens.web.unc.edu/common-works/data/">Comparative Welfare States &amp; Social Policy in Latin America Datasets</a></li>
+<li>MISSOC: Qualitative information on social security and assistance schemes in EU countries (<a href="https://www.missoc.org/" class="uri">https://www.missoc.org/</a>)</li>
+<li><a href="http://www.oecd.org/els/soc/benefitsandwagescountryspecificinformation.htm">OECD Benefits &amp; Wages</a>: Qualitative information on social security and social assistance schemes in OECD countries): Qualitative information on social security and social assistance schemes in OECD countries</li>
+<li>International Network on Leave Policies &amp; Research: Qualitative reports on maternal, paternal, and parental leave schemes (<a href="https://www.leavenetwork.org/annual-review-reports/" class="uri">https://www.leavenetwork.org/annual-review-reports/</a>)</li>
+<li>European Trade Union Institute (ETUI) <a href="https://www.etui.org/outils/keywords/reforms-watch"><em>Reforms Watch</em></a>: Individual EU country dossiers with fact-based information on the state of labour market reforms, the state of pension reforms, developments in legislation on strikes and data on strike activities</li>
+<li>Social Assistance in Developing Countries Database: Summary information on social assistance interventions in developing countries (<a href="https://www.social-protection.org/gimi/gess/ShowRessource.action?ressource.ressourceId=9491" class="uri">https://www.social-protection.org/gimi/gess/ShowRessource.action?ressource.ressourceId=9491</a>)</li>
+<li>Global Welfare (<a href="https://glow.ku.edu.tr/">GLOW</a>): The database includes 381 variables on 61 countries from years between 1989 and 2015. The database has four main categories of data: welfare, development, economy and politics</li>
+<li>Education Policies and Systems across Modern History <a href="https://doi.org/10.7910/DVN/MNM5Q5">EPSM</a> dataset: measures on compulsory education, ideological guidance and content of education, governmental intervention and level of education centralization, and teacher training covering 157 countries with populations exceeding 1 million people from 1789 to the present <span class="citation" data-cites="delRioetal2024">(see also <a href="#ref-delRioetal2024" role="doc-biblioref">Del Rı́o, Knutsen, and Lutscher 2024</a>)</span></li>
+<li>Global Tax Expenditures Database <a href="https://gted.net/">GTED</a>: Information on preferential tax treatments such as exemptions, deductions, credits, deferrals and reduced tax rates that are implemented by governments worldwide to promote different policy goals.</li>
+<li>See also <span class="citation" data-cites="Clasen2007a">Clasen and Siegel (<a href="#ref-Clasen2007a" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="Clasen2016">Clasen, Clegg, and Goerne (<a href="#ref-Clasen2016" role="doc-biblioref">2016</a>)</span>, and a special issue in the <em>Journal of European Public Policy</em> <span class="citation" data-cites="Wenzelburgeretal2013 Danforth2013 Scruggs2013a">(<a href="#ref-Wenzelburgeretal2013" role="doc-biblioref">Wenzelburger, Zohlnhöfer, and Wolf 2013</a>; <a href="#ref-Danforth2013" role="doc-biblioref">Danforth and Stephens 2013</a>; <a href="#ref-Scruggs2013a" role="doc-biblioref">Scruggs 2013</a>)</span> on the “dependent variable problem” in comparative social policy research</li>
+</ul>
+</section>
+<section id="immigration-immigrant-integration" class="level3">
+<h3 class="anchored" data-anchor-id="immigration-immigrant-integration">Immigration &amp; immigrant integration</h3>
+<ul>
+<li>Citizenship rights of immigrants <span class="citation" data-cites="Koopmansetal2012">(see also <a href="#ref-Koopmansetal2012" role="doc-biblioref">Koopmans, Michalowski, and Waibel 2012</a>)</span></li>
+<li>Migrant Integration Policy Index <a href="http://www.mipex.eu">MIPEX</a></li>
+<li><a href="https://migrationdataportal.org/blog/impic-new-and-more-comprehensive-way-measure-immigration-policies">Migration Data Portal</a>: information on the degree of restrictiveness of immigration policies in 33 OECD countries for the period 1980–2010</li>
+<li><a href="http://www.impic-project.eu/">Immigration Policies in Comparison</a>: Quantitative indices to measure immigration policies in all OECD countries and for the time period 1980-2010. See also <span class="citation" data-cites="Helbling2013">Helbling (<a href="#ref-Helbling2013" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="Helbling2017">Helbling and Michalowski (<a href="#ref-Helbling2017" role="doc-biblioref">2017</a>)</span></li>
+<li>Immigration in Party Manifestos Dataset (<a href="https://manifesto-project.wzb.eu/information/documents/pimpo" class="uri">https://manifesto-project.wzb.eu/information/documents/pimpo</a>)</li>
+</ul>
+</section>
+<section id="technology-technological-change" class="level3">
+<h3 class="anchored" data-anchor-id="technology-technological-change">Technology &amp; technological change</h3>
+<ul>
+<li>OECD <a href="https://www.oecd.org/social/risks-that-matter.htm">Risks that Matter</a> surveys: Cross-country comparative survey data, incl.&nbsp;questions on perceived vulnerability to technological change <span class="citation" data-cites="Busemeyeretal2023">(see e.g., <a href="#ref-Busemeyeretal2023" role="doc-biblioref">Busemeyer et al. 2023</a>)</span></li>
+<li><a href="https://euklems.eu/">EU KLEMS</a>: Economic dataset that includes data on ICT investment for many countries and years <span class="citation" data-cites="Gallegoetal2022">(used by e.g., <a href="#ref-Gallegoetal2022" role="doc-biblioref">Gallego, Kurer, and Schöll 2022</a>)</span></li>
+<li><a href="https://github.com/AIOE-Data/AIOE">AI exposure indicators</a>: Indicators measuring exposure to AI at the occupational, industry, and regional (for US) level; see <span class="citation" data-cites="Feltenetal2021">Felten, Raj, and Seamans (<a href="#ref-Feltenetal2021" role="doc-biblioref">2021</a>)</span> for details</li>
+</ul>
+</section>
+<section id="social-media" class="level3">
+<h3 class="anchored" data-anchor-id="social-media">Social media</h3>
+<ul>
+<li><a href="https://data.gesis.org/tweetskb/">TweetsKB</a>: A database of annotated tweets, containing data for nearly 3.0 billion tweets between February 2013 - August 2022. Metadata information about the tweets as well as extracted entities, sentiments, hashtags and user mentions are exposed in RDF using established RDF/S vocabularies <span class="citation" data-cites="Fafaliosetal2018">(see also <a href="#ref-Fafaliosetal2018" role="doc-biblioref">Fafalios et al. 2018</a>)</span></li>
+<li><a href="http://twitterpoliticians.org/">The Twitter Parliamentarian Database</a>: a database consisting of parliamentarian names, parties and twitter ids from the following countries: Austria, Belgium, France, Denmark, Spain, Finland, Germany, Greece, Italy, Malta, Poland, Netherlands, United Kingdom, Ireland, Sweden, New Zealand, Turkey, United States, Canada, Australia, Iceland, Norway, Switzerland, Luxembourg, Latvia and Slovenia. In addition, the database includes the European Parliament</li>
+</ul>
+</section>
+<section id="trade-unions-industrial-relations" class="level3">
+<h3 class="anchored" data-anchor-id="trade-unions-industrial-relations">Trade unions &amp; industrial relations</h3>
+<ul>
+<li>Database on Institutional Characteristics of Trade Unions, Wage Setting, State Intervention and Social Pacts <a href="https://www.oecd.org/en/data/datasets/oecdaias-ictwss-database.html">ICTWSS</a></li>
+<li><a href="http://www.ewcdb.eu/">European Works Councils Database</a>: Information on works councils in European and multinational companies, on EU and national-level works council legislation, and on relevant court cases (EU and national level)</li>
+<li><a href="https://doi.org/10.5255/UKDA-Series-200012">European Company Survey</a>: Comparative survey on businesses in Europe <span class="citation" data-cites="Lehretal2023">(see also <a href="#ref-Lehretal2023" role="doc-biblioref">Lehr, Jansen, and Brandl 2023</a>)</span></li>
+<li>European Observatory of Working Life (<a href="http://www.eurofound.europa.eu/observatories/eurwork">EurWORK</a>)</li>
+</ul>
+
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Bormann2013" class="csl-entry" role="listitem">
+Bormann, Nils-Christian, and Matt Golder. 2013. <span>“Democratic Electoral Systems Around the World, 1946-2011.”</span> <em>Electoral Studies</em> 32 (2): 360–69.
+</div>
+<div id="ref-Busemeyeretal2023" class="csl-entry" role="listitem">
+Busemeyer, Marius R., Mia Gandenberger, Carlo Knotz, and Tobias Tober. 2023. <span>“Preferred Policy Responses to Technological Change: <span>Survey</span> Evidence from <span>OECD</span> Countries.”</span> <em>Socio-Economic Review</em> 21 (1): 593–615.
+</div>
+<div id="ref-Clasen2016" class="csl-entry" role="listitem">
+Clasen, Jochen, Daniel Clegg, and Alexander Goerne. 2016. <span>“Comparative Social Policy Analysis and Active Labour Market Policy: Putting Quality Before Quantity.”</span> <em>Journal of Social Policy</em> 45 (1): 21–38.
+</div>
+<div id="ref-Clasen2007a" class="csl-entry" role="listitem">
+Clasen, Jochen, and Nico A. Siegel, eds. 2007. <em>Investigating Welfare State Change: The <span>“Dependent Variable Problem”</span> in Comparative Analysis</em>. Cheltenham: Edward Elgar.
+</div>
+<div id="ref-Danforth2013" class="csl-entry" role="listitem">
+Danforth, Benjamin, and John D. Stephens. 2013. <span>“Measuring Social Citizenship: Achievements and Future Challenges.”</span> <em>Journal of European Public Policy</em> 20 (9): 1285–98.
+</div>
+<div id="ref-DeBoer1983" class="csl-entry" role="listitem">
+De Boer, Connie. 1983. <span>“The Polls: Attitudes Toward Unemployment.”</span> <em>The Public Opinion Quarterly</em> 47 (3): 432–41.
+</div>
+<div id="ref-delRioetal2024" class="csl-entry" role="listitem">
+Del Rı́o, Adrián, Carl Henrik Knutsen, and Philipp M Lutscher. 2024. <span>“<span class="nocase">Education Policies and Systems across Modern History: A Global Dataset</span>.”</span> <em>Comparative Political Studies</em> forthc.
+</div>
+<div id="ref-Fafaliosetal2018" class="csl-entry" role="listitem">
+Fafalios, Pavlos, Vasileios Iosifidis, Eirini Ntoutsi, and Stefan Dietze. 2018. <span>“Tweets<span>KB</span>: <span>A</span> Public and Large-Scale <span>RDF</span> Corpus of Annotated Tweets.”</span> <em>arXiv Preprint</em> 1810.10308.
+</div>
+<div id="ref-Feltenetal2021" class="csl-entry" role="listitem">
+Felten, Edward, Manav Raj, and Robert Seamans. 2021. <span>“Occupational, Industry, and Geographic Exposure to Artificial Intelligence: A Novel Dataset and Its Potential Uses.”</span> <em>Strategic Management Journal</em> 42 (12): 2195–2217.
+</div>
+<div id="ref-Finneyetal2023" class="csl-entry" role="listitem">
+Finney, Nissa, James Nazroo, Laia Bécares, Dharmi Kapadia, and Natalie Shlomo, eds. 2023. <em>Racism and Ethnic Inequality in a Time of Crisis</em>. Bristol: Policy Press.
+</div>
+<div id="ref-Gallegoetal2022" class="csl-entry" role="listitem">
+Gallego, Aina, Thomas Kurer, and Nikolas Schöll. 2022. <span>“Neither Left Behind nor Superstar: Ordinary Winners of Digitalization at the Ballot Box.”</span> <em>The Journal of Politics</em> 84 (1): 418–36.
+</div>
+<div id="ref-Gobel2022" class="csl-entry" role="listitem">
+Göbel, Sascha, and Simon Munzert. 2022. <span>“The Comparative Legislators Database.”</span> <em>British Journal of Political Science</em> 52 (3): 1398–408.
+</div>
+<div id="ref-Golder2005" class="csl-entry" role="listitem">
+Golder, Matt. 2005. <span>“Democratic Electoral Systems Around the World, 1946-2000.”</span> <em>Electoral Studies</em> 24 (1): 103–21.
+</div>
+<div id="ref-Helbling2013" class="csl-entry" role="listitem">
+Helbling, Marc. 2013. <span>“Validating Integration and Citizenship Policy Indices.”</span> <em>Comparative European Politics</em> 11 (5): 555–76.
+</div>
+<div id="ref-Helbling2017" class="csl-entry" role="listitem">
+Helbling, Marc, and Ines Michalowski. 2017. <span>“A New Agenda for Immigration and Citizenship Policy Research.”</span> <em>Comparative Political Studies</em> 50 (1): 3–13.
+</div>
+<div id="ref-Koopmansetal2012" class="csl-entry" role="listitem">
+Koopmans, Ruud, Ines Michalowski, and Stine Waibel. 2012. <span>“Citizenship Rights for Immigrants: National Political Processes and Cross-National Convergence in Western Europe, 1980-2008.”</span> <em>American Journal of Sociology</em> 117 (4): 1202–45.
+</div>
+<div id="ref-Lehretal2023" class="csl-entry" role="listitem">
+Lehr, Alex, Giedo Jansen, and Bernd Brandl. 2023. <span>“All about Power After All? A Multi-Level Analysis of Employers’ Organization Membership in <span>Europe</span>.”</span> <em>British Journal of Industrial Relations</em> forthc.
+</div>
+<div id="ref-Nyrup2020" class="csl-entry" role="listitem">
+Nyrup, Jacob, and Stuart Bramwell. 2020. <span>“Who Governs? A New Global Dataset on Members of Cabinets.”</span> <em>American Political Science Review</em> 114 (4): 1366–74.
+</div>
+<div id="ref-Scruggs2013a" class="csl-entry" role="listitem">
+Scruggs, Lyle. 2013. <span>“Measuring and Validating Social Program Replacement Rates.”</span> <em>Journal of European Public Policy</em> 20 (9): 1267–84.
+</div>
+<div id="ref-Turneretal2022" class="csl-entry" role="listitem">
+Turner-Zwinkels, Tomas, Oliver Huwyler, Elena Frech, Philip Manow, Stefanie Bailer, Niels D Goet, and Simon Hug. 2022. <span>“Parliaments Day-by-Day: A New <span>Open Source</span> Database to Answer the Question of Who Was in What Parliament, Party, and Party-Group, and When.”</span> <em>Legislative Studies Quarterly</em> 47 (3): 761–84.
+</div>
+<div id="ref-Wenzelburgeretal2013" class="csl-entry" role="listitem">
+Wenzelburger, Georg, Reimut Zohlnhöfer, and Frieder Wolf. 2013. <span>“Implications of Dataset Choice in Comparative Welfare State Research.”</span> <em>Journal of European Public Policy</em> 20 (9): 1229–50.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>See also <a href="https://www.pewresearch.org/short-reads/2021/10/22/how-to-access-pew-research-center-survey-data/" class="uri">https://www.pewresearch.org/short-reads/2021/10/22/how-to-access-pew-research-center-survey-data/</a> for more details.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
