@@ -25,7 +25,7 @@
     "href": "posts/globalization/index.html#accessing-the-data",
     "title": "How vulnerable are workers to globalization (and what effects does this have)?",
     "section": "Accessing the data",
-    "text": "Accessing the data\nLuckily, the Blinder/Krueger data are publicly available as part of the replication data package of a second (important) research article, which compares the effects of globalization and technological change on workers (Goos, Manning, and Salomons 2014). Goos et al. have archived the research data they use in the ICPSR Data Archive: https://doi.org/10.3886/E112846V1. There, under Data, is the task.dta dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology Thewissen and Rueda (2019). You can download the dataset for free, after a quick login."
+    "text": "Accessing the data\nLuckily, the Blinder/Krueger data are publicly available as part of the replication data package of a second (important) research article, which compares the effects of globalization and technological change on workers (Goos, Manning, and Salomons 2014). Goos et al. have archived the research data they use in the ICPSR Data Archive: https://doi.org/10.3886/E112846V1. There, under Data, is the task.dta dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology (from Autor, Levy, and Murnane 2003; used by e.g., Thewissen and Rueda 2019). You can download the dataset for free, after a quick login."
   },
   {
     "objectID": "posts/globalization/index.html#importing-and-merging-the-data-with-ess-data",

@@ -27,7 +27,7 @@ The rest of this post will show you how you can access the data, import them int
 
 ## Accessing the data
 
-Luckily, the Blinder/Krueger data are publicly available as part of the *replication data package* of a second (important) research article, which compares the effects of globalization and technological change on workers [@Goosetal2014]. Goos et al. have archived the research data they use in the *ICPSR* Data Archive: [https://doi.org/10.3886/E112846V1](https://doi.org/10.3886/E112846V1){target="_blank"}. There, under *Data*, is the `task.dta` dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology [from @Autoretal2003, and used by e.g., @Thewissen2019]. You can download the dataset for free, after a quick login.
+Luckily, the Blinder/Krueger data are publicly available as part of the *replication data package* of a second (important) research article, which compares the effects of globalization and technological change on workers [@Goosetal2014]. Goos et al. have archived the research data they use in the *ICPSR* Data Archive: [https://doi.org/10.3886/E112846V1](https://doi.org/10.3886/E112846V1){target="_blank"}. There, under *Data*, is the `task.dta` dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology [from @Autoretal2003; used by e.g., @Thewissen2019]. You can download the dataset for free, after a quick login.
 
 ## Importing and merging the data with *ESS* data
 
@@ -45,7 +45,7 @@ theme_set(theme_classic())
 
 Then we first import the *ESS* dataset with `haven`:
 ```{r, eval=T, echo=F}
-ess7 <- haven::read_dta("/Users/carloknotz/Documents/Work/Stavanger/Teaching/Statistics/bst290_tutorials/bst290_tutorials/ess7.dta")
+ess7 <- haven::read_dta("/Users/carloknotz/Documents/Work/Stavanger/Teaching/Statistics/bst290_tutorials_site/ess7.dta")
 ```
 
 ```{r, eval=F, echo=T}
