@@ -9,6 +9,7 @@ format:
 toc-depth: 4
 link-external-newwindow: true
 lightbox: true
+image: "thumbnail.jpg"
 categories:
   - Data
   - Political science
