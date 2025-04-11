@@ -105,7 +105,7 @@ Erik Gahner's excellent [*Dataset of Political Datasets*](https://github.com/eri
 
  - The Social Policy Indicators ([SPIN](https://www.su.se/social-policy-indicators-database/)) database
  - Global Welfare State Information System ([WeSIS](https://www.wesis.org/)): comprehensive data to describe and explain social policy worldwide
- - World Inequality Database ([WID](https://wid.world/): global database on the distribution of wealth and income [see also @Piketty2014])
+ - World Inequality Database ([WID](https://wid.world/)): global database on the distribution of wealth and income [see also @Piketty2014]
  - Comparative Welfare Entitlements Project ([CWEP](http://cwep.us/)): Comparative data on pension, unemployment, and sickness insurance generosity
  - Moira Nelson's and my comparative [Unemployment Benefit Conditionality Dataset](https://cknotz.github.io/benefitconditionalitydata/): Comparative data on job-search requirements, the definition of suitable work, and sanctions for unemployment benefit claimants in 21 OECD countries between 1980 and 2012. See also the OECD's [dataset on benefit eligibility requirements](https://www.oecd.org/social/strictness-benefit-eligibility.htm) for more recent data
  - John Stephens & Evelyne Huber's [Comparative Welfare States & Social Policy in Latin America Datasets](https://huberandstephens.web.unc.edu/common-works/data/)
