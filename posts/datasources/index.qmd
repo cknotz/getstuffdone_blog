@@ -22,6 +22,8 @@ Finding relevant data is one of the major hurdles which many students face durin
 
 This post provides a (definitely not exhaustive) list of datasets and data repositories that can be relevant for research projects in the social and political sciences. It is not the first such list (see below),  but it complements other lists with a stronger focus on datasets from and relevant for research on welfare states.
 
+Links to most data sources are provided, those without links should be easy to find. The list and links are updated every once in a while.
+
 ## Other (better?) overviews over available data
 
 Erik Gahner's excellent [*Dataset of Political Datasets*](https://github.com/erikgahner/PolData){target="_blank"} provides a great overview over datasets that are relevant for political science research, and there are also a number of data repositories and archives that contain even more (and partly older) data that might be relevant for some projects, for example:
@@ -99,10 +101,11 @@ Erik Gahner's excellent [*Dataset of Political Datasets*](https://github.com/eri
  - [WhoGov](https://politicscentre.nuffield.ox.ac.uk/whogov-dataset/): Information (e.g., gender, party affiliation) on cabinet members in July every year in the period 1966-2021 in all countries with a population of more than 400,000 citizens [see also @Nyrup2020]
  - [Parliaments Day-By-Day](https://doi.org/10.7910/DVN/PYGBDO): Open-source data on MPs' membership in parties, parliaments, and party groups [see also @Turneretal2022]
  
-### Welfare state & social policies
+### Welfare state, social inequality, & social policies
 
  - The Social Policy Indicators ([SPIN](https://www.su.se/social-policy-indicators-database/)) database
  - Global Welfare State Information System ([WeSIS](https://www.wesis.org/)): comprehensive data to describe and explain social policy worldwide
+ - World Inequality Database ([WID](https://wid.world/): global database on the distribution of wealth and income [see also @Piketty2014])
  - Comparative Welfare Entitlements Project ([CWEP](http://cwep.us/)): Comparative data on pension, unemployment, and sickness insurance generosity
  - Moira Nelson's and my comparative [Unemployment Benefit Conditionality Dataset](https://cknotz.github.io/benefitconditionalitydata/): Comparative data on job-search requirements, the definition of suitable work, and sanctions for unemployment benefit claimants in 21 OECD countries between 1980 and 2012. See also the OECD's [dataset on benefit eligibility requirements](https://www.oecd.org/social/strictness-benefit-eligibility.htm) for more recent data
  - John Stephens & Evelyne Huber's [Comparative Welfare States & Social Policy in Latin America Datasets](https://huberandstephens.web.unc.edu/common-works/data/)
