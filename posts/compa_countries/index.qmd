@@ -185,6 +185,8 @@ cpds |>
 Now we get two summary statistics per year: The average growth rates and the standard deviation in growth rates (the average deviation from the average). To visualize this, we can calculate +/- 1 standard deviation ranges around the mean values and use `geom_ribbon()` in `ggplot()` to visualize the result:
 
 ```{r}
+#| class-output: preview-image
+
 cpds |> 
   group_by(year) |> 
   summarise(avg_growth = mean(realgdpgr, na.rm = T),

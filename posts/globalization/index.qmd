@@ -215,6 +215,8 @@ There is only a tiny difference: Women are very slightly less exposed to globali
 
 Next, we can see if there is a relation to age. To do that, we can calculate the average age in a given occupation and relate that average age to the vulnerability score in a scatterplot:
 ```{r}
+#| class-output: preview-image
+
 ess7 %>% 
   group_by(isco88_2d) %>% 
   summarise(avg_age = mean(agea, na.rm = T),
