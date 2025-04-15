@@ -654,7 +654,7 @@ F-statistic: 19.54 on 4 and 939 DF,  p-value: 1.842e-15</code></pre>
 </div>
 <div style="page-break-after: always;"></div>
 <p>We can get an ever better picture of the results if we just visualize the result:</p>
-<div class="cell">
+<div class="cell preview-image">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>prediction<span class="sc">::</span><span class="fu">prediction_summary</span>(<span class="at">model =</span> mod1,</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">at =</span> <span class="fu">list</span>(<span class="at">oesch_5 =</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(swe_data<span class="sc">$</span>oesch_5)))) <span class="sc">%&gt;%</span> </span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Prediction, </span>

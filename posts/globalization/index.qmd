@@ -213,18 +213,24 @@ ess7 %>%
 
 There is only a tiny difference: Women are very slightly less exposed to globalization than men.
 
-Next, we can see if there is a relation to age. To do that, we can calculate the average age in a given occupation and relate that average age to the vulnerability score in a scatterplot:
+Next, we can see if there is a relation to age. To do that, we can calculate the average age in a given occupation and relate that average age to the vulnerability score in a scatterplot. Note that we use `geom_text()` to add the occupation titles to the graph:
 ```{r}
-#| class-output: preview-image
+#| classes: preview-image
 
 ess7 %>% 
-  group_by(isco88_2d) %>% 
+  group_by(occupation) %>% 
   summarise(avg_age = mean(agea, na.rm = T),
             avg_BK = mean(BK, na.rm = T)) %>% 
   drop_na() %>% 
   ggplot(aes(x = avg_age, y = avg_BK)) +
     geom_point() +
-    geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = F)
+    geom_text(aes(label = occupation), vjust = 1, 
+              color = "grey",
+              size = 3) +
+    geom_smooth(method = "lm", color = "grey", 
+                linetype = "dashed", se = F) +
+    labs(x = "Average age in occupational group",
+         y = "Average offshoreability")
 ```
 
 There does seem to be a positive relationship: Occupations where workers are older are also more exposed to globalization.

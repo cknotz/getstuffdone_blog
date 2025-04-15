@@ -233,7 +233,7 @@ div.csl-indent {
 <p>Luckily, we are now sitting on a mountain of (usually) freely available macro-level data on all kinds of economic, social, political, or environmental aspects for many countries and over long periods of time. To name just a few examples:</p>
 <ul>
 <li>International institutions such as the <a href="https://data.worldbank.org/" target="_blank"><em>World Bank</em></a>, the <a href="https://www.oecd.org/en/data.html" target="_blank"><em>OECD</em></a>, the <a href="https://ec.europa.eu/eurostat/web/main/data/database" target="_blank"><em>European Union</em></a>, or the <a href="https://data.un.org/" target="_blank"><em>UN</em></a> offer free data on a vast number of economic, social, environmental, and political variables for their member countries.</li>
-<li>The <a href="https://www.v-dem.net/" target="_blank"><em>V-DEM</em></a> project provides very detailed data on how democratic countries are for many countries going back to the 18-hundreds.</li>
+<li>The <a href="https://www.v-dem.net/" target="_blank"><em>V-DEM</em></a> project provides very detailed data on how democratic countries are for many countries going back to the 17-hundreds.</li>
 <li>There are also many different datasets that measure countries’ political institutions, constitutional structures, party systems, election outcomes, and the representation of parties in parliaments and governments (see the <a href="https://github.com/erikgahner/PolData" target="_blank"><em>Dataset of Political Datasets</em></a>.)</li>
 <li>Researchers in international relations and peace &amp; conflict studies have created many datasets on countries’ military strengths, alliances, conflicts, wars, terrorist attacks, and many other aspects (see <a href="https://github.com/erikgahner/PolData?tab=readme-ov-file#international-relations" class="uri">https://github.com/erikgahner/PolData?tab=readme-ov-file#international-relations</a>.)</li>
 </ul>
@@ -290,7 +290,7 @@ Important
 12  1992 Sweden  SWE      -1.16 </code></pre>
 </div>
 </div>
-<p>You see that the individual observations for each country and year (country-years) are “stacked” on top of each other, and that we have variables telling us which year and which country a given row corresponds to. These are <em>important</em>: You absolutely need to keep these variables in your dataset, otherwise you no longer know what each row in your dataset corresponds to.</p>
+<p>You see that the individual observations for each country and year (country-years) are “stacked” on top of each other, and that we have two variables, <code>country</code> and <code>year</code> telling us which year and which country a given row corresponds to. These are <em>important</em>: You absolutely need to keep these variables in your dataset, otherwise you no longer know what each row in your dataset corresponds to. In addition, it is important to be aware that <code>country</code> and <code>year</code> <strong>in combination</strong> identify each unique observation: There is one “Norway in 1990”, one “Norway in 1991”, etc. observation, and you need to have both the <code>country</code> <strong>and</strong> the <code>year</code> variable to identify these observations.</p>
 <p>The table also shows countries in two different formats: The plain English name, and the three-digit <em>ISO</em> country code. Many datasets use either of them (or different country codes), which can sometimes be a hassle to work with. Luckily, there is the <code>countrycode</code> package, which allows you to convert different country codes and names to other formats with a few lines of code.</p>
 <p>Sometimes, and this can happen often when you download data from international organizations, the data you get look different (e.g., each row corresponds to a country and the columns refer to variables <em>and</em> years):</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -472,7 +472,7 @@ Important
 </div>
 </div>
 <p>Now we get two summary statistics per year: The average growth rates and the standard deviation in growth rates (the average deviation from the average). To visualize this, we can calculate +/- 1 standard deviation ranges around the mean values and use <code>geom_ribbon()</code> in <code>ggplot()</code> to visualize the result:</p>
-<div class="cell">
+<div class="cell preview-image">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">|&gt;</span> </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_growth =</span> <span class="fu">mean</span>(realgdpgr, <span class="at">na.rm =</span> T),</span>
@@ -1351,7 +1351,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","loop":false,"descPosition":"bottom"});
+<script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

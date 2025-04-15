@@ -278,7 +278,7 @@ prediction::prediction_summary(model = mod1,
 \newpage
 We can get an ever better picture of the results if we just visualize the result:
 ```{r}
-#| class-output: preview-image
+#| classes: preview-image
 
 prediction::prediction_summary(model = mod1,
                                at = list(oesch_5 = unique(na.omit(swe_data$oesch_5)))) %>% 
