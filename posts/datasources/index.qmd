@@ -131,7 +131,7 @@ Erik Gahner's excellent [*Dataset of Political Datasets*](https://github.com/eri
 
 ### Technology & technological change
 
- - OECD [Risks that Matter](https://www.oecd.org/social/risks-that-matter.htm) surveys: Cross-country comparative survey data, incl. questions on perceived vulnerability to technological change [see e.g., @Busemeyeretal2023]
+ - OECD [Risks that Matter](https://www.oecd.org/social/risks-that-matter.htm) surveys: Cross-country comparative survey data, incl. questions on perceived vulnerability to technological change [see e.g., @Busemeyeretal2023; @Knotzetal2024b; @Knotz2025]
  - [EU KLEMS](https://euklems.eu/): Economic dataset that includes data on ICT investment for many countries and years [used by e.g., @Gallegoetal2022]
  - [AI exposure indicators](https://github.com/AIOE-Data/AIOE): Indicators measuring exposure to AI at the occupational, industry, and regional (for US) level; see @Feltenetal2021 for details
  - [Knowledge Economy Index](https://www.knowledge-economy-index.com/): An index that measures the degree to which countries have transitioned toward a knowledge-based economy. The index covers 22 economically advanced countries between 1995 and 2019 [see also @Diessneretal2025].
