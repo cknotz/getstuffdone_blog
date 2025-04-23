@@ -235,18 +235,19 @@ ess7 %>%
 
 There does seem to be a positive relationship: Occupations where workers are older are also more exposed to globalization.
 
-Finally, let's see if exposure to globalization has political effects by testing if there is a relationship to trust in politicians. We do this with a box plot:
+Finally, let's see if exposure to globalization has political effects by testing if there is a relationship to trust in politicians. We can do this in more fancy way with a hexbin plot (and relatively large bin sizes):
 ```{r}
 ess7 %>% 
+  drop_na(trstplt,BK) %>%
   ggplot(aes(x = trstplt, y = BK)) +
-    geom_boxplot()
+    geom_hex(binwidth = c(1,.75))
 ```
 
 At least based on this (admittedly) very quick and superficial look at the data, there does not seem to be a strong relationship.
 
 ## Next steps
 
-Even if there is not link to political trust, maybe you can think of other variables that are measured in the *ESS* that globalization vulnerability could have an effect on? And maybe you can even think of macro-level variables that could make these effects stronger or weaker (and then use [the other post](https://cknotz.github.io/getstuffdone_blog/posts/compa_survey/){target="_blank"} to compare the effects of globalization vulnerability between two or more selected countries)?
+Even if there is not link to political trust, maybe you can think of other variables that are measured in the *ESS* that globalization vulnerability could have an effect on? And maybe you can even think of macro-level variables that could make these effects stronger or weaker (and then use [the other post](https://cknotz.github.io/getstuffdone_blog/posts/compa_survey/){target="_blank"} to compare the effects of globalization vulnerability between two or more selected countries that differ in relevant ways on these variables)?
 
 Finally, you can also merge the vulnerability scores to other survey datasets such as the *ISSP* or the *Eurobarometer* so long as the survey dataset contains ISCO occupation scores.
 
