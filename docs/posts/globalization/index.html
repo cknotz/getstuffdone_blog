@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,12 +91,12 @@ div.csl-indent {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d1b12f2568ecbe55642fee6aa00bd082.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-b2511bcbb01c2159fd96a78deb42ffd9.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -231,13 +231,14 @@ div.csl-indent {
 
 <section id="the-losers-of-globalization-and-trade" class="level2">
 <h2 class="anchored" data-anchor-id="the-losers-of-globalization-and-trade">The losers of globalization and trade</h2>
-<p>‘Globalization destroys jobs’ or similar statements are often made by politicians or business and labor leaders, especially when new trade agreements are in the process of being negotiated. And indeed, even though free trade is generally beneficial to countries’ economies as a whole, there are usually some workers who are negatively affected by increased competition from abroad <span class="citation" data-cites="Autoretal2013 Heckscher1919 Ohlin1933">(<a href="#ref-Autoretal2013" role="doc-biblioref">Autor, Dorn, and Hanson 2013</a>; <a href="#ref-Heckscher1919" role="doc-biblioref">Heckscher 1919</a>; <a href="#ref-Ohlin1933" role="doc-biblioref">Ohlin 1933</a>)</span>. These negative economic effects can then also have further political and social effects, for example in the form of increased demands for social protection <span class="citation" data-cites="Walter2010">(<a href="#ref-Walter2010" role="doc-biblioref">Walter 2010</a>)</span>, increased political polarization and conflict <span class="citation" data-cites="Autoretal2020">(<a href="#ref-Autoretal2020" role="doc-biblioref">Autor et al. 2020</a>)</span>, and rising rates of divorce and out-of-wedlock births <span class="citation" data-cites="Anellietal2024">(<a href="#ref-Anellietal2024" role="doc-biblioref">Anelli, Giuntella, and Stella 2024</a>)</span>.</p>
-<p>To be able to study these (and potentially other) effects, researchers obviously need some of measurement of how exposed and vulnerable workers are to the negative effects of trade and international competition. One way to measure this is with <strong>indicators of ‘offshoreability’</strong> — how easy or difficult is it to move the work done by people in different occupations to other countries? Different such indicators have been developed, but one that is relatively widely used are the indicators of offshoreability by Blinder &amp; Krueger <span class="citation" data-cites="Blinder2013">(<a href="#ref-Blinder2013" role="doc-biblioref">2013</a>)</span>. They use a survey-based approach, where they ask workers about their perceptions of how easy it would be to move their jobs abroad and confirm this with a second survey of experts.</p>
-<p>The rest of this post will show you how you can access the data, import them into <code>R</code>, and merge them with data from round 7 (2014) of the <em>European Social Survey</em> so that you can analyze how vulnerability to globalization affects people’s attitudes and behavior.</p>
+<p>Free trade and globalization are back on the political agenda. Starting with the <em>Brexit</em> campaign in 2015 and the UK’s subsequent actual exit from the European Union and now, in 2025, with Donald Trump taking the US into a trade war with essentially the rest of the world, there is a new discussion about the benefits but also drawbacks of free trade <span class="citation" data-cites="Colantone2018 Colantone2018a Colantone2019 Agnolinetalforth">(see also <a href="#ref-Colantone2018" role="doc-biblioref">Colantone and Stanig 2018b</a>, <a href="#ref-Colantone2018a" role="doc-biblioref">2018a</a>, <a href="#ref-Colantone2019" role="doc-biblioref">2019</a>; <a href="#ref-Agnolinetalforth" role="doc-biblioref">Agnolin, Colantone, and Stanig 2025</a>)</span>.</p>
+<p>And, indeed, even though free trade is generally beneficial for economic growth and development, there are usually some workers who are negatively affected by increased competition from abroad <span class="citation" data-cites="Autoretal2013 Heckscher1919 Ohlin1933">(<a href="#ref-Autoretal2013" role="doc-biblioref">Autor, Dorn, and Hanson 2013</a>; <a href="#ref-Heckscher1919" role="doc-biblioref">Heckscher 1919</a>; <a href="#ref-Ohlin1933" role="doc-biblioref">Ohlin 1933</a>)</span>. These negative economic effects can then also have further political and social effects, for example in the form of increased demands for social protection <span class="citation" data-cites="Walter2010">(<a href="#ref-Walter2010" role="doc-biblioref">Walter 2010</a>)</span>, increased political polarization and conflict <span class="citation" data-cites="Autoretal2020">(<a href="#ref-Autoretal2020" role="doc-biblioref">Autor et al. 2020</a>)</span>, or rising rates of child poverty, out-of-wedlock births, and premature deaths among men <span class="citation" data-cites="Autoretal2019">(<a href="#ref-Autoretal2019" role="doc-biblioref">Autor, Dorn, and Hanson 2019</a>)</span>.</p>
+<p>To be able to study these (and potentially other) effects, researchers use measurements of how exposed and vulnerable workers are to the negative effects of trade and international competition. One way to measure this is with <strong>indicators of ‘offshoreability’</strong> — how easy or difficult is it to move the work done by people in different occupations to other countries? Different such indicators have been developed, but one that is relatively widely used are the indicators of offshoreability by Blinder &amp; Krueger <span class="citation" data-cites="Blinder2013">(<a href="#ref-Blinder2013" role="doc-biblioref">2013</a>)</span>. They use a survey-based approach, where they ask workers about their perceptions of how easy it would be to move their jobs abroad and confirm this with a second survey of experts.</p>
+<p>The rest of this post will show you how you can access measures of worker’s vulnerability to trade and globalization, how you import them into <code>R</code>, and how you merge them with data from round 7 (2014) of the <em>European Social Survey</em> so that you can analyze how vulnerability to globalization affects people’s attitudes and behavior.</p>
 </section>
 <section id="accessing-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="accessing-the-data">Accessing the data</h2>
-<p>Luckily, the Blinder/Krueger data are publicly available as part of the <em>replication data package</em> of a second (important) research article, which compares the effects of globalization and technological change on workers <span class="citation" data-cites="Goosetal2014">(<a href="#ref-Goosetal2014" role="doc-biblioref">Goos, Manning, and Salomons 2014</a>)</span>. Goos et al.&nbsp;have archived the research data they use in the <em>ICPSR</em> Data Archive: <a href="https://doi.org/10.3886/E112846V1" target="_blank">https://doi.org/10.3886/E112846V1</a>. There, under <em>Data</em>, is the <code>task.dta</code> dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology <span class="citation" data-cites="Autoretal2003 Thewissen2019">(from <a href="#ref-Autoretal2003" role="doc-biblioref">Autor, Levy, and Murnane 2003</a>; used by e.g., <a href="#ref-Thewissen2019" role="doc-biblioref">Thewissen and Rueda 2019</a>)</span>. You can download the dataset for free, after a quick login.</p>
+<p>The Blinder/Krueger measurements of vulnerability to trade (i.e., <em>“offshoreability”</em>) are publicly available as part of the <em>replication data package</em> of a second (important) research article, which compares the effects of globalization and technological change on workers <span class="citation" data-cites="Goosetal2014">(<a href="#ref-Goosetal2014" role="doc-biblioref">Goos, Manning, and Salomons 2014</a>)</span>. Goos et al.&nbsp;have archived the research data they use in the <em>ICPSR</em> Data Archive: <a href="https://doi.org/10.3886/E112846V1" target="_blank">https://doi.org/10.3886/E112846V1</a>. There, under <em>Data</em>, is the <code>task.dta</code> dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology <span class="citation" data-cites="Autoretal2003 Thewissen2019">(from <a href="#ref-Autoretal2003" role="doc-biblioref">Autor, Levy, and Murnane 2003</a>; used by e.g., <a href="#ref-Thewissen2019" role="doc-biblioref">Thewissen and Rueda 2019</a>)</span>. You can download the dataset for free, after a quick login.</p>
 </section>
 <section id="importing-and-merging-the-data-with-ess-data" class="level2">
 <h2 class="anchored" data-anchor-id="importing-and-merging-the-data-with-ess-data">Importing and merging the data with <em>ESS</em> data</h2>
@@ -515,15 +516,12 @@ div.csl-indent {
 </div>
 </div>
 <p>There does seem to be a positive relationship: Occupations where workers are older are also more exposed to globalization.</p>
-<p>Finally, let’s see if exposure to globalization has political effects by testing if there is a relationship to trust in politicians. We do this with a box plot:</p>
+<p>Finally, let’s see if exposure to globalization has political effects by testing if there is a relationship to trust in politicians. We can do this in more fancy way with a hexbin plot (and relatively large bin sizes):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ess7 <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trstplt, <span class="at">y =</span> BK)) <span class="sc">+</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 8011 rows containing non-finite outside the scale range
-(`stat_boxplot()`).</code></pre>
-</div>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(trstplt,BK) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> trstplt, <span class="at">y =</span> BK)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>(<span class="at">binwidth =</span> <span class="fu">c</span>(<span class="dv">1</span>,.<span class="dv">75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -536,7 +534,7 @@ div.csl-indent {
 </section>
 <section id="next-steps" class="level2">
 <h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
-<p>Even if there is not link to political trust, maybe you can think of other variables that are measured in the <em>ESS</em> that globalization vulnerability could have an effect on? And maybe you can even think of macro-level variables that could make these effects stronger or weaker (and then use <a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_survey/" target="_blank">the other post</a> to compare the effects of globalization vulnerability between two or more selected countries)?</p>
+<p>Even if there is not link to political trust, maybe you can think of other variables that are measured in the <em>ESS</em> that globalization vulnerability could have an effect on? And maybe you can even think of macro-level variables that could make these effects stronger or weaker (and then use <a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_survey/" target="_blank">the other post</a> to compare the effects of globalization vulnerability between two or more selected countries that differ in relevant ways on these variables)?</p>
 <p>Finally, you can also merge the vulnerability scores to other survey datasets such as the <em>ISSP</em> or the <em>Eurobarometer</em> so long as the survey dataset contains ISCO occupation scores.</p>
 
 
@@ -545,8 +543,11 @@ div.csl-indent {
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Anellietal2024" class="csl-entry" role="listitem">
-Anelli, Massimo, Osea Giuntella, and Luca Stella. 2024. <span>“Robots, Marriageable Men, Family, and Fertility.”</span> <em>Journal of Human Resources</em> 59 (2): 443–69.
+<div id="ref-Agnolinetalforth" class="csl-entry" role="listitem">
+Agnolin, Paolo, Italo Colantone, and Piero Stanig. 2025. <span>“In Search of the Causes of the Globalization Backlash: Methodological Considerations on Post-Treatment Bias.”</span> <em>Comparative Political Studies</em> forth.
+</div>
+<div id="ref-Autoretal2019" class="csl-entry" role="listitem">
+Autor, David H., David Dorn, and Gordon Hanson. 2019. <span>“When Work Disappears: <span>Manufacturing</span> Decline and the Falling Marriage Market Value of Young Men.”</span> <em>American Economic Review</em> 1 (2): 161–78.
 </div>
 <div id="ref-Autoretal2013" class="csl-entry" role="listitem">
 Autor, David H., David Dorn, and Gordon H Hanson. 2013. <span>“<span class="nocase">The China syndrome: Local labor market effects of import competition in the United States</span>.”</span> <em>American Economic Review</em> 103 (6): 2121–68.
@@ -559,6 +560,15 @@ Autor, David H., Frank Levy, and Richard J. Murnane. 2003. <span>“The Skill Co
 </div>
 <div id="ref-Blinder2013" class="csl-entry" role="listitem">
 Blinder, Alan S, and Alan B Krueger. 2013. <span>“Alternative Measures of Offshorability: A Survey Approach.”</span> <em>Journal of Labor Economics</em> 31 (S1): S97–128.
+</div>
+<div id="ref-Colantone2018a" class="csl-entry" role="listitem">
+Colantone, Italo, and Piero Stanig. 2018a. <span>“Global Competition and <span>Brexit</span>.”</span> <em>American Political Science Review</em> 112 (2): 201–18.
+</div>
+<div id="ref-Colantone2018" class="csl-entry" role="listitem">
+———. 2018b. <span>“The Trade Origins of Economic Nationalism: Import Competition and Voting Behavior in <span>Western Europe</span>.”</span> <em>American Journal of Political Science</em> 62 (4): 936–53.
+</div>
+<div id="ref-Colantone2019" class="csl-entry" role="listitem">
+———. 2019. <span>“The Surge of Economic Nationalism in <span>Western Europe</span>.”</span> <em>Journal of Economic Perspectives</em> 33 (4): 128–51.
 </div>
 <div id="ref-Firpoetal2011" class="csl-entry" role="listitem">
 Firpo, Sergio, Nicole M Fortin, and Thomas Lemieux. 2011. <span>“Occupational Tasks and Changes in the Wage Structure.”</span> <em>IZA Discussion Paper</em> 5542.
@@ -811,8 +821,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -923,7 +931,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1150,7 +1157,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","openEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
