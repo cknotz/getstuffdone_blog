@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Carlo Knotz">
+<meta name="dcterms.date" content="2025-05-15">
+<meta name="description" content="How to effectively use ChatGPT as a coding assistant for R">
 
-<title>Testing big ideas with simple methods</title>
+<title>Prompt engineering – Testing big ideas with simple methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +26,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d1b12f2568ecbe55642fee6aa00bd082.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b2511bcbb01c2159fd96a78deb42ffd9.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d1b12f2568ecbe55642fee6aa00bd082.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-b2511bcbb01c2159fd96a78deb42ffd9.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,77 +71,20 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
+<meta name="quarto:status" content="draft">
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Testing big ideas with simple methods</span>
     </a>
   </div>
@@ -151,7 +95,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About this blog</span></a>
   </li>  
 </ul>
@@ -163,260 +107,71 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Prompt engineering</h1>
+                  <div>
+        <div class="description">
+          How to <em>effectively</em> use ChatGPT as a coding assistant for R
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">ChatGPT</div>
+                <div class="quarto-category">Prompt engineering</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Carlo Knotz </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 15, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Q2xhc3M=">Class <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29tcGFyaW5nJTIwY291bnRyaWVz">Comparing countries <span class="quarto-category-count">(2)</span></div><div class="category" data-category="RGF0YQ==">Data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RVNT">ESS <span class="quarto-category-count">(2)</span></div><div class="category" data-category="RWNvbm9taWNz">Economics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R2VuZGVy">Gender <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R2xvYmFsaXphdGlvbg==">Globalization <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SVNTUA==">ISSP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWFjcm8=">Macro <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWVyZ2luZyUyMGRhdGE=">Merging data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UG9saXRpY2FsJTIwc2NpZW5jZQ==">Political science <span class="quarto-category-count">(5)</span></div><div class="category" data-category="U29jaW9sb2d5">Sociology <span class="quarto-category-count">(5)</span></div><div class="category" data-category="U3VydmV5JTIwZGF0YQ==">Survey data <span class="quarto-category-count">(3)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#assistants-bosses" id="toc-assistants-bosses" class="nav-link active" data-scroll-target="#assistants-bosses">Assistants &amp; bosses</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<p>Many students have grand ideas – e.g., about the role of class, social norms, political institutions, or gender in politics, society, or the economy – but they don’t quite know how to actually test these ideas in an empirical analysis. Often, the problem seems to be that they think they need to do something very complicated, similar to what “adult” researchers publish in academic journal articles. But this is wrong: <strong>Many big ideas can be tested with (relatively) simple methods</strong>. This blog shows how this works in practice and with open-source software (<code>R</code>).</p>
-<hr>
-<hr>
+
+<section id="assistants-bosses" class="level2">
+<h2 class="anchored" data-anchor-id="assistants-bosses">Assistants &amp; bosses</h2>
+<p>Lots of students, at least in my impression, seek help from <em>ChatGPT</em> with more or less this attitude: <img src="thumbnail.jpg" class="img-fluid" alt="Everyone’s dream boss"></p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="RGF0YSUyQ1BvbGl0aWNhbCUyMHNjaWVuY2UlMkNTb2Npb2xvZ3k=" data-listing-date-sort="1743890400000" data-listing-file-modified-sort="1745413180956" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1725">
-<div class="thumbnail">
-<p><a href="./posts/datasources/index.html" class="no-external"></a></p><a href="./posts/datasources/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/datasources/thumbnail.jpg" class="thumbnail-image"></p>
-</a><p><a href="./posts/datasources/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/datasources/index.html" class="no-external">‘I can’t find any data!’</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/datasources/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YQ=='); return false;">
-Data
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('UG9saXRpY2FsJTIwc2NpZW5jZQ=='); return false;">
-Political science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('U29jaW9sb2d5'); return false;">
-Sociology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/datasources/index.html" class="no-external">Finding relevant data is one of the major hurdles students face during term paper or thesis projects — which is a bit puzzling given that there is a <em>huge</em> and growing amount…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/datasources/index.html" class="no-external">
-<div class="listing-date">
-Apr 6, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="TWFjcm8lMkNDb21wYXJpbmclMjBjb3VudHJpZXMlMkNFY29ub21pY3MlMkNQb2xpdGljYWwlMjBzY2llbmNlJTJDU29jaW9sb2d5" data-listing-date-sort="1743289200000" data-listing-file-modified-sort="1744726933275" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19" data-listing-word-count-sort="3675">
-<div class="thumbnail">
-<p><a href="./posts/compa_countries/index.html" class="no-external"></a></p><a href="./posts/compa_countries/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/compa_countries/index_files/figure-html/unnamed-chunk-12-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/compa_countries/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/compa_countries/index.html" class="no-external">Comparing countries with macro-level data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/compa_countries/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TWFjcm8='); return false;">
-Macro
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Q29tcGFyaW5nJTIwY291bnRyaWVz'); return false;">
-Comparing countries
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RWNvbm9taWNz'); return false;">
-Economics
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('UG9saXRpY2FsJTIwc2NpZW5jZQ=='); return false;">
-Political science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('U29jaW9sb2d5'); return false;">
-Sociology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/compa_countries/index.html" class="no-external">Many important questions that political scientists, sociologists, or economists are asking are about patterns at the <em>macro</em>- or country-level: Why do some countries have…<span class="citation" data-cites="Esping-Andersen1990 Allan2004 Korpi2003a Iversen2006"></span><span class="citation" data-cites="Roller2005 Acemogluetal2001 Scruggs2003"></span><em></em><em></em><span class="citation" data-cites="Beck2001"></span></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/compa_countries/index.html" class="no-external">
-<div class="listing-date">
-Mar 30, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="U3VydmV5JTIwZGF0YSUyQ0dsb2JhbGl6YXRpb24lMkNNZXJnaW5nJTIwZGF0YSUyQ0VTUyUyQ1BvbGl0aWNhbCUyMHNjaWVuY2UlMkNTb2Npb2xvZ3klMkNFY29ub21pY3M=" data-listing-date-sort="1741561200000" data-listing-file-modified-sort="1747306778766" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2362">
-<div class="thumbnail">
-<p><a href="./posts/globalization/index.html" class="no-external"></a></p><a href="./posts/globalization/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/globalization/index_files/figure-html/unnamed-chunk-23-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/globalization/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/globalization/index.html" class="no-external">How vulnerable are workers to globalization (and what effects does this have)?</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/globalization/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('U3VydmV5JTIwZGF0YQ=='); return false;">
-Survey data
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R2xvYmFsaXphdGlvbg=='); return false;">
-Globalization
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('TWVyZ2luZyUyMGRhdGE='); return false;">
-Merging data
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RVNT'); return false;">
-ESS
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('UG9saXRpY2FsJTIwc2NpZW5jZQ=='); return false;">
-Political science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('U29jaW9sb2d5'); return false;">
-Sociology
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RWNvbm9taWNz'); return false;">
-Economics
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/globalization/index.html" class="no-external">Free trade and globalization are back on the political agenda. Starting with the <em>Brexit</em> campaign in 2015 and the UK’s subsequent actual exit from the European Union and now…<span class="citation" data-cites="Colantone2018 Colantone2018a Colantone2019 Agnolinetalforth"></span></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/globalization/index.html" class="no-external">
-<div class="listing-date">
-Mar 10, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="U3VydmV5JTIwZGF0YSUyQ0NvbXBhcmluZyUyMGNvdW50cmllcyUyQ0dlbmRlciUyQ0VTUyUyQ1BvbGl0aWNhbCUyMHNjaWVuY2UlMkNTb2Npb2xvZ3k=" data-listing-date-sort="1741388400000" data-listing-file-modified-sort="1745835109029" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2297">
-<div class="thumbnail">
-<p><a href="./posts/compa_survey/index.html" class="no-external"></a></p><a href="./posts/compa_survey/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/compa_survey/index_files/figure-html/unnamed-chunk-8-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/compa_survey/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/compa_survey/index.html" class="no-external">Comparing people’s behavior and attitudes across countries</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/compa_survey/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('U3VydmV5JTIwZGF0YQ=='); return false;">
-Survey data
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Q29tcGFyaW5nJTIwY291bnRyaWVz'); return false;">
-Comparing countries
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R2VuZGVy'); return false;">
-Gender
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RVNT'); return false;">
-ESS
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('UG9saXRpY2FsJTIwc2NpZW5jZQ=='); return false;">
-Political science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('U29jaW9sb2d5'); return false;">
-Sociology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/compa_survey/index.html" class="no-external">Are people’s opinions, behaviors, or perceptions affected by the environments (or “macro-level contexts”) they live in? Social and economic scientists often argue that this…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/compa_survey/index.html" class="no-external">
-<div class="listing-date">
-Mar 8, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="U3VydmV5JTIwZGF0YSUyQ0NsYXNzJTJDSVNTUCUyQ1BvbGl0aWNhbCUyMHNjaWVuY2UlMkNTb2Npb2xvZ3k=" data-listing-date-sort="1741388400000" data-listing-file-modified-sort="1744726966324" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3257">
-<div class="thumbnail">
-<p><a href="./posts/measuringclass/index.html" class="no-external"></a></p><a href="./posts/measuringclass/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/measuringclass/index_files/figure-html/unnamed-chunk-27-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/measuringclass/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/measuringclass/index.html" class="no-external">Measuring class with survey data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/measuringclass/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('U3VydmV5JTIwZGF0YQ=='); return false;">
-Survey data
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Q2xhc3M='); return false;">
-Class
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SVNTUA=='); return false;">
-ISSP
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('UG9saXRpY2FsJTIwc2NpZW5jZQ=='); return false;">
-Political science
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('U29jaW9sb2d5'); return false;">
-Sociology
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/measuringclass/index.html" class="no-external">Class is a key concept in the social and political sciences, and it explains many important phenomena, from party preferences and voting over social attitudes to health…<span class="citation" data-cites="Elo2009 Gingrich2017 Schwander2013 Hausermannetal2022 Evans2000"></span></a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/measuringclass/index.html" class="no-external">
-<div class="listing-date">
-Mar 8, 2025
-</div>
-<div class="listing-author">
-Carlo Knotz
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

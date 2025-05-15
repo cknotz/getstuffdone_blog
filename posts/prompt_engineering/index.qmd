@@ -1,0 +1,20 @@
+---
+title: "Prompt engineering"
+description: "How to *effectively* use ChatGPT as a coding assistant for R"
+author: "Carlo Knotz"
+draft: true
+date: "2025-05-15"
+format:
+  html:
+    toc: true
+lightbox: true
+categories:
+  - LLMs
+  - ChatGPT
+  - Prompt engineering
+---
+
+## Assistants & bosses
+
+Lots of students, at least in my impression, seek help from *ChatGPT* with more or less this attitude:
+![Everyone's dream boss](thumbnail.jpg)
