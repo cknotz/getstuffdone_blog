@@ -14,7 +14,40 @@ categories:
   - Prompt engineering
 ---
 
+## `R` & *ChatGPT*
+
+Everyone knows it, people are shouting it from the rooftops: *ChatGPT* and other large language models (LLMs) can code. Languages they can write code in include `HTML`, `CSS`, and `Javascript`, `Python` --- and `R`!
+
+Of course, *ChatGPT* *can* also give you answers that are wrong or simply not useful, including when it comes to coding. Some of this has to do with how LLMs work --- they are basically very complicated statistical models that make educated guesses about sequences of words. Their guesses are highly educated, given that they were trained on a large amount of text, but they are nevertheless guesses, and guesses can be wrong.
+
+But often, the difference between a useful and correct and a useless or wrong answer has to do with **effective prompt engineering**: Giving *ChatGPT* instructions that let it produce the desired result in as few steps as possible.
+
+*OpenAI* have a dedicated, but general, [guide for effective prompting](https://platform.openai.com/docs/guides/text), but it is not always self-evident how these things apply to prompting for a coding language like `R`, especially to someone who might just have started learning `R` or some other coding language. Therefore, this post provides guidance on how to give language models effective prompts for solving `R` coding problems (that may also apply to other coding languages).
+
+
 ## Assistants & bosses
 
-Lots of students, at least in my impression, seek help from *ChatGPT* with more or less this attitude:
+As a general rule, I found that to effectively use *ChatGPT*, you need to see yourself as someone who delegates a task to an assistant: Basically, a boss.
+
+As anyone who has ever had a boss can confirm, delegation works better the more competent, informed, and experienced the boss is --- basically, the boss *could* in principle also do the thing they are asking their assistant to do, but they need to focus on other things and therefore delegate some stuff to the assistant. In that case, the boss:
+
+ a) has a reasonably clear understanding of what the problem is;
+ b) has a reasonably clear idea of how the solution or end result is supposed to look like;
+ c) has a reasonably clear idea of how to get from problem to solution; what is, and what is not, feasible and makes most sense;
+ d) can use this knowledge to give precise, explicit, and detailed instructions to their assistant;
+
+On the other hand, this guy below is unlikely to be more than a source of endless frustration to their assistant and a waste of their company's time:
+
 ![Everyone's dream boss](thumbnail.jpg)
+
+::: {.callout-tip title = "Therefore:"}
+
+**To make effective use of *ChatGPT*, be as different from this guy as humanly possible.**
+
+:::
+
+## Effective prompt engineering and what you need to know to do it
+
+### Roles
+
+
