@@ -29,6 +29,8 @@ Links to most data sources are provided, those without links should be easy to f
 Erik Gahner's excellent [*Dataset of Political Datasets*](https://github.com/erikgahner/PolData){target="_blank"} provides a great overview over datasets that are relevant for political science research, and there are also a number of data repositories and archives that contain even more (and partly older) data that might be relevant for some projects, for example:
 
  - The [GESIS](http://zacat.gesis.org/webview/){target="_blank"} survey data repository for survey data
+ - The [ICPSR](https://www.icpsr.umich.edu/web/pages/ICPSR/index.html) data repository
+ - The [Harvard Dataverse](https://dataverse.harvard.edu/) that contains research and replication data
  - The Norwegian [Norsk senter for forskningsdata (NSD)](https://www.nsd.no/){target="_blank"} or [*Datafabrikken*](https://data.norge.no/nb){target="_blank"}.
     
     

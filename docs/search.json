@@ -116,7 +116,7 @@
     "href": "posts/datasources/index.html#other-better-overviews-over-available-data",
     "title": "‘I can’t find any data!’",
     "section": "Other (better?) overviews over available data",
-    "text": "Other (better?) overviews over available data\nErik Gahner’s excellent Dataset of Political Datasets provides a great overview over datasets that are relevant for political science research, and there are also a number of data repositories and archives that contain even more (and partly older) data that might be relevant for some projects, for example:\n\nThe GESIS survey data repository for survey data\nThe Norwegian Norsk senter for forskningsdata (NSD) or Datafabrikken."
+    "text": "Other (better?) overviews over available data\nErik Gahner’s excellent Dataset of Political Datasets provides a great overview over datasets that are relevant for political science research, and there are also a number of data repositories and archives that contain even more (and partly older) data that might be relevant for some projects, for example:\n\nThe GESIS survey data repository for survey data\nThe ICPSR data repository\nThe Harvard Dataverse that contains research and replication data\nThe Norwegian Norsk senter for forskningsdata (NSD) or Datafabrikken."
   },
   {
     "objectID": "posts/datasources/index.html#survey-data",
