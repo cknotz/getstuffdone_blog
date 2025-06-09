@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/case_selection/index.html",
       "/posts/datasources/index.html",
       "/posts/compa_countries/index.html",
       "/posts/globalization/index.html",
