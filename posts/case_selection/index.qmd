@@ -1,5 +1,5 @@
 ---
-title: "Bullshit, research design, and case selection (1)"
+title: "Bullshit, research design, and case selection"
 description: "Why you should pay attention to your research design and case selection (unless you want to become a bullshit salesperson)"
 author: "Carlo Knotz"
 date: "2025-06-09"
@@ -180,7 +180,7 @@ If you want to learn how you can design your research in a way that it does not 
 
 
 
-### References
+## References
 
 
 

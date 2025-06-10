@@ -11,7 +11,7 @@ format:
   html:
     theme: 
       light: flatly
-      dark: darkly
+      dark: solar
     css: styles.css
 execute:
   freeze: auto

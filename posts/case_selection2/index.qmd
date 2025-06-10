@@ -1,6 +1,6 @@
 ---
-title: "Bullshit, research design, and case selection (2)"
-description: "How to use macro-level data to select countries for a case study"
+title: "Case selection with macro-level data"
+description: "How to use macro-level data to select countries for a comparative case study"
 author: "Carlo Knotz"
 date: "2025-06-010"
 bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
@@ -11,14 +11,64 @@ format:
 lightbox: true
 categories:
   - Case selection
+  - Macro
   - Research design
+  - Comparing countries
 ---
 
-## Bullshit and case selection strategies
+## Comparative case studies and case selection
+
+The comparative case study is one of the workhorse methods in political science, sociology, and partly economics. In a typical comparative case study, we study some phenomenon of interest (war, policy reforms, party strategies, economic development, etc.) in a small number of *cases* to figure out the underlying causes of the phenomenon (why countries go to war, why they introduce or do not introduce reforms, why they experience economic growth or stagnate, etc.). Often, the cases in a case study are countries -- but this is not a requirement [@Gerring2004]. Any relevant unit or action can be a case, be it court rulings [e.g., @Alter1994;@Lindstrom2010], policy reforms [e.g., @Picot2009], or conflicts and wars [e.g.,@Ruane1996] -- even a comparative analysis of survey data from a small number of countries (as shown in [this post](https://cknotz.github.io/getstuffdone_blog/posts/compa_survey/)) can be seen as a comparative case study where the countries are the cases.
+
+## Rules and strategies for case studies
+
+A case study is only as good as the evidence (the newspaper articles, interviews, etc.) *and* the case selection strategy (a.k.a., research design) it builds on. As I explain in this other post on [case selection and bullshit](https://cknotz.github.io/getstuffdone_blog/posts/case_selection/), *the cases you choose affect the answers you get* [@Geddes1990], and if you select your cases in a faulty way, you get faulty, misleading, and ultimately useless answers -- you produce bullshit, whether you want to or not.
+
+Fortunately, there are a number of different rules and strategies that you can use to select your cases in a way that minimizes the risk that your study produces flawed evidence [see e.g., @Seawright2008;@Przeworski1970;@King1994;@Geddes1990;@Ringdal2018]. Two important rules are:
+
+1. Do not select on the dependent variable [@Geddes1990]. If you want find out why countries go to war, you need to compare countries that fight wars and those who do not fight wars -- you need positive *and* negative or high *and* low cases.
+2. Make sure that you have enough cases. As a general rule, you need at least one more case that you have explanatory variables [@King1994]. If you think that violent conflicts are caused by two variables, say economic deprivation and a hilly terrain [@Fearon2003], then you need at least three comparison cases to be able to have a chance to see if this is actually true.
+
+In addition, there are two well-known and widely used case selection strategies that help you eliminate potential *alternative explanations* for your phenomenon of interest (in other words, they help you avoid critical questions from pesky supervisors, examiners, or reviewers). For example, let's say you are interested in the causes of political trust -- why some citizens have high trust in politicians and political institutions and others have low trust -- and you think this could be influenced by countries' electoral systems (whether they have a proportional or majoritarian "first-past-the-post" type system). If you would now compare political trust in Sweden and the United States, you would have two countries that differ in their electoral systems -- but also in many other variables (ethnic and racial diversity, form of government, military spending, etc.), and you cannot rule out that any differences in trust come from these other variables rather than the electoral systems.
+
+As a second example, let's say you believe that people's political trust is mainly influenced by their level of education, where trust increases with education. If you now look at this relationship only in one country (say, Norway), you open yourself up to the criticism that maybe this relationship exists only in this country and only because of Norway's unique economic and political circumstances, but the finding would not apply to other countries.
+
+::: {#tbl-panel layout-ncol=2}
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+| A    | B    | C    |
+| E    | F    | G    |
+| A    | G    | G    |
+
+: Most-Similar-Systems-Design {#tbl-mssd}
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+| A    | B    | C    |
+| E    | F    | G    |
+| A    | G    | G    |
+
+: Most-Different-Systems-Design {#tbl-mdsd}
+
+
+:::
 
 
 
-### References
+
+
+
+
+
+
+
+
+
+
+
+
+## References
 
 
 
