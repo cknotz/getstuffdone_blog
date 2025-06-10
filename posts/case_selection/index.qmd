@@ -4,7 +4,7 @@ description: "Why you should pay attention to your research design and case sele
 author: "Carlo Knotz"
 date: "2025-06-09"
 bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
-image: thumbnail.jpg
+image: thumbnail.png
 image-alt: "Photo by Jon Tyson on Unsplash"
 format:
   html:
