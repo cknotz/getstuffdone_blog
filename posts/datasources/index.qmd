@@ -72,7 +72,7 @@ Erik Gahner's excellent [*Dataset of Political Datasets*](https://github.com/eri
 ### International organizations
 
  - OECD: <https://www.oecd.org/en/data.html>
- - World Bank: <https://data.worldbank.org/>
+ - World Bank: <https://data.worldbank.org/> (see also the `WDI` package for `R` at <https://github.com/vincentarelbundock/WDI>)
  - IMF: <https://www.imf.org/en/Data>
  - ILO: <https://ilostat.ilo.org/>
  - Eurostat: <https://ec.europa.eu/eurostat>

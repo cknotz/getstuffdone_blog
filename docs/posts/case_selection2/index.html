@@ -1,2 +1,1314 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"></html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlo Knotz">
+<meta name="dcterms.date" content="2025-06-10">
+<meta name="description" content="How to use macro-level data to select countries for a comparative case study">
+
+<title>Case selection with macro-level data – Testing big ideas with simple methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d1b12f2568ecbe55642fee6aa00bd082.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-fc69c27516b785ffb5db61c6a6e66aa6.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Testing big ideas with simple methods</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About this blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Case selection with macro-level data</h1>
+                  <div>
+        <div class="description">
+          How to use macro-level data to select countries for a comparative case study
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Case selection</div>
+                <div class="quarto-category">Macro</div>
+                <div class="quarto-category">Research design</div>
+                <div class="quarto-category">Comparing countries</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Carlo Knotz </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 10, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#comparative-case-studies-and-case-selection" id="toc-comparative-case-studies-and-case-selection" class="nav-link active" data-scroll-target="#comparative-case-studies-and-case-selection">Comparative case studies and case selection</a></li>
+  <li><a href="#rules-and-strategies-for-case-studies" id="toc-rules-and-strategies-for-case-studies" class="nav-link" data-scroll-target="#rules-and-strategies-for-case-studies">Rules and strategies for case studies</a>
+  <ul class="collapse">
+  <li><a href="#what-not-to-do" id="toc-what-not-to-do" class="nav-link" data-scroll-target="#what-not-to-do">What <em>not</em> to do</a></li>
+  <li><a href="#what-do-to" id="toc-what-do-to" class="nav-link" data-scroll-target="#what-do-to">What do to</a></li>
+  <li><a href="#when-to-use-which-strategy" id="toc-when-to-use-which-strategy" class="nav-link" data-scroll-target="#when-to-use-which-strategy">When to use which strategy</a></li>
+  </ul></li>
+  <li><a href="#using-r-to-select-cases" id="toc-using-r-to-select-cases" class="nav-link" data-scroll-target="#using-r-to-select-cases">Using <code>R</code> to select cases</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#selecting-cases-for-an-mssd-strategy" id="toc-selecting-cases-for-an-mssd-strategy" class="nav-link" data-scroll-target="#selecting-cases-for-an-mssd-strategy">Selecting cases for an MSSD strategy</a></li>
+  <li><a href="#selecting-cases-for-an-mdsd-strategy" id="toc-selecting-cases-for-an-mdsd-strategy" class="nav-link" data-scroll-target="#selecting-cases-for-an-mdsd-strategy">Selecting cases for an MDSD strategy</a></li>
+  </ul></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="comparative-case-studies-and-case-selection" class="level2">
+<h2 class="anchored" data-anchor-id="comparative-case-studies-and-case-selection">Comparative case studies and case selection</h2>
+<p>The comparative case study is one of the workhorse methods in political science, sociology, and partly economics. In a typical comparative case study, we study some phenomenon of interest (war, policy reforms, party strategies, economic development, etc.) in a small number of <em>cases</em> to figure out the underlying causes of the phenomenon (why countries go to war, why they introduce or do not introduce reforms, why they experience economic growth or stagnate, etc.). Often, the cases in a case study are countries – but this is not a requirement <span class="citation" data-cites="Gerring2004">(<a href="#ref-Gerring2004" role="doc-biblioref">Gerring 2004</a>)</span>. Any relevant unit or action can be a case, be it court rulings <span class="citation" data-cites="Alter1994 Lindstrom2010">(e.g., <a href="#ref-Alter1994" role="doc-biblioref">Alter and Meunier-Aitsahalia 1994</a>; <a href="#ref-Lindstrom2010" role="doc-biblioref">Lindstrom 2010</a>)</span>, policy reforms <span class="citation" data-cites="Picot2009">(e.g., <a href="#ref-Picot2009" role="doc-biblioref">Picot 2009</a>)</span>, or conflicts and wars <span class="citation" data-cites="Ruane1996">(e.g., <a href="#ref-Ruane1996" role="doc-biblioref">Ruane and Todd 1996</a>)</span> – even a comparative analysis of survey data from a small number of countries (as shown in <a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_survey/">this post</a>) can be seen as a comparative case study where the countries are the cases.</p>
+</section>
+<section id="rules-and-strategies-for-case-studies" class="level2">
+<h2 class="anchored" data-anchor-id="rules-and-strategies-for-case-studies">Rules and strategies for case studies</h2>
+<p>A case study is only as good as the evidence (the newspaper articles, interviews, etc.) <em>and</em> the case selection strategy (a.k.a., research design) it builds on. As I explain in this other post on <a href="https://cknotz.github.io/getstuffdone_blog/posts/case_selection/">case selection and bullshit</a>, <em>the cases you choose affect the answers you get</em> <span class="citation" data-cites="Geddes1990">(<a href="#ref-Geddes1990" role="doc-biblioref">Geddes 1990</a>)</span>, and if you select your cases in a faulty way, you get faulty, misleading, and ultimately useless answers – you produce bullshit, whether you want to or not.</p>
+<p>Fortunately, there are a number of different rules and strategies that you can use to select your cases in a way that minimizes the risk that your study produces flawed evidence <span class="citation" data-cites="Seawright2008 Przeworski1970 King1994 Geddes1990 Ringdal2018">(see e.g., <a href="#ref-Seawright2008" role="doc-biblioref">Seawright and Gerring 2008</a>; <a href="#ref-Przeworski1970" role="doc-biblioref">Przeworski and Teune 1970</a>; <a href="#ref-King1994" role="doc-biblioref">King, Keohane, and Verba 1994</a>; <a href="#ref-Geddes1990" role="doc-biblioref">Geddes 1990</a>; <a href="#ref-Ringdal2018" role="doc-biblioref">Ringdal 2018</a>)</span>.</p>
+<section id="what-not-to-do" class="level3">
+<h3 class="anchored" data-anchor-id="what-not-to-do">What <em>not</em> to do</h3>
+<p>Two important rules are:</p>
+<ol type="1">
+<li>Do not select on the dependent variable <span class="citation" data-cites="Geddes1990">(<a href="#ref-Geddes1990" role="doc-biblioref">Geddes 1990</a>)</span>. If you want find out why countries go to war, you need to compare countries that fight wars and those who do not fight wars – you need positive <em>and</em> negative or high <em>and</em> low cases.</li>
+<li>Make sure that you have enough cases. As a general rule, you need at least one more case that you have explanatory variables <span class="citation" data-cites="King1994">(<a href="#ref-King1994" role="doc-biblioref">King, Keohane, and Verba 1994</a>)</span>. If you think that violent conflicts are caused by two variables, say economic deprivation and a hilly terrain <span class="citation" data-cites="Fearon2003">(<a href="#ref-Fearon2003" role="doc-biblioref">Fearon and Laitin 2003</a>)</span>, then you need at least three comparison cases to be able to have a chance to see if this is actually true.</li>
+</ol>
+</section>
+<section id="what-do-to" class="level3">
+<h3 class="anchored" data-anchor-id="what-do-to">What do to</h3>
+<p>There are two well-known and widely used case selection strategies that help you eliminate potential <em>alternative explanations</em> for your phenomenon of interest (in other words, they help you avoid critical questions from pesky supervisors, examiners, or reviewers). For example, let’s say you are interested in the causes of political trust – why some citizens have high trust in politicians and political institutions and others have low trust – and you think this could be influenced by countries’ electoral systems (whether they have a proportional or majoritarian “first-past-the-post” type system). If you would now compare political trust in Sweden and the United States, you would have two countries that differ in their electoral systems – but also in many other variables (regulation of the economy, form of government, welfare state spending, etc.), and you cannot rule out that any differences in trust come from these other variables rather than the electoral systems.</p>
+<p>A better approach would be to select two countries that are as similar as possible in all relevant aspects – <em>except</em> for their electoral systems. This type of case selection strategy is also called a <em>Most-Similar-Systems-Design</em>, or MSSD for short <span class="citation" data-cites="Ringdal2018">(<a href="#ref-Ringdal2018" role="doc-biblioref">Ringdal 2018, 183</a>)</span>. <a href="#tbl-mssd" class="quarto-xref">Table&nbsp;1 (a)</a> below shows how this can look like: We have two cases (countries) that have different types of electoral systems but are otherwise identical in three other variables that could be relevant for political trust as well.</p>
+<p>As a second example, let’s say you believe that people’s political trust is mainly influenced by their level of education, where trust increases with education. If you now look at this relationship only in one country (say, Norway), you open yourself up to the criticism that maybe this relationship exists only in this country and only because of Norway’s unique social and political circumstances, but the finding would not apply to other countries.</p>
+<p>One way to address critiques like this head-on is to select cases that are as different from each other as possible. If you can show that a relationship is present in two or more cases that are very different from each other, it is likely (but not guaruanteed) that this also applies to many other cases. This case selection strategy is called a <em>Most-Different-Systems-Design</em> or MSDS <span class="citation" data-cites="Ringdal2018">(<a href="#ref-Ringdal2018" role="doc-biblioref">Ringdal 2018, 183</a>)</span>. <a href="#tbl-mdsd" class="quarto-xref">Table&nbsp;1 (b)</a> illustrates how such a design could look like: You pick two cases that differ in three variables that we believe are relevant, and you then ideally show that the effect of education on trust is the same in both cases. Here, we assume that the degree of female representation in politics, the political system overall, and welfare state spending could be relevant variables. (Whether that makes sense or not is a different discussion.)</p>
+<div id="tbl-panel" class="quarto-layout-panel anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-panel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Two widely used case selection strategies
+</figcaption>
+<div aria-describedby="tbl-panel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="tbl-panel" style="flex-basis: 50.0%;justify-content: center;">
+<div id="tbl-mssd" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-mssd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Most-Similar-Systems-Design
+</figcaption>
+<div aria-describedby="tbl-mssd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Case A</th>
+<th style="text-align: left;">Case B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Electoral system</td>
+<td style="text-align: left;">Majoritarian</td>
+<td style="text-align: left;">Proportional</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Regulation</td>
+<td style="text-align: left;">High</td>
+<td style="text-align: left;">High</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Welfare spending</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Low</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Government</td>
+<td style="text-align: left;">Parliamentary</td>
+<td style="text-align: left;">Parliamentary</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="tbl-panel" style="flex-basis: 50.0%;justify-content: center;">
+<div id="tbl-mdsd" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-mdsd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Most-Different-Systems-Design
+</figcaption>
+<div aria-describedby="tbl-mdsd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Case A</th>
+<th style="text-align: left;">Case B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Female representation</td>
+<td style="text-align: left;">High</td>
+<td style="text-align: left;">Moderate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Political system</td>
+<td style="text-align: left;">Const. parliamentary monarchy</td>
+<td style="text-align: left;">Republican presidential democracy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Welfare spending</td>
+<td style="text-align: left;">High</td>
+<td style="text-align: left;">Low</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</section>
+<section id="when-to-use-which-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-which-strategy">When to use which strategy</h3>
+<p>Generally, the MSDS is best-suited if you want to show that a micro-level pattern (e.g., the effect of an individual’s education on their political trust, or gender differences) holds in very different contexts. In other words, the MSDS is a good choice if you want to control for variables that are contextual or at a higher level of analysis than the main pattern you are interested in.</p>
+<p>The MSSD, on the other hand, is better if you want to control for other variables that are at the same level of analysis. In the example above, the main explanatory variable of interest is the electoral system – a macro-level variable – and we want to control for other macro-level variables. Here, the MSSD can help us do that.</p>
+</section>
+</section>
+<section id="using-r-to-select-cases" class="level2">
+<h2 class="anchored" data-anchor-id="using-r-to-select-cases">Using <code>R</code> to select cases</h2>
+<p>Alright, enough with the dry theory. It is one thing to have an idea of what your case selection should theoretically look like, but you also need to actually find empirical cases and you usually also need to explain and justify your case selection in your course paper, thesis, or presentation.</p>
+<p>This is where <code>R</code> and macro-level datasets like the <em>Comparative Political Data Set</em> <span class="citation" data-cites="CPDS24">(CPDS, <a href="#ref-CPDS24" role="doc-biblioref">Armingeon et al. 2024</a>)</span> come in handy, because you can use them to get an overview over how countries compare on many different variables, to identify countries that are either similar or different on relevant variables, and also to illustrate your selection with graphs and tables (see also this <a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/">other post</a> on how to work with macro-level datasets).</p>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<p>First, we need to load all relevant packages. In this case, we only need to load the <code>tidyverse</code> packages, and we can also already set a default theme for <code>ggplot</code> graphs:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we need to download and import the <em>CPDS</em> dataset. Unfortunately, it is difficult to import the dataset directly into <code>R</code>, so we just download the <code>Stata</code> (<code>.dta</code>) version of the dataset, unpack the ZIP archive, and save the dataset somewhere where we can find it again. Then we import the saved dataset with the <code>haven</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"CPDS_1960_2022_Update_2024.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can then take a quick look at which countries are included:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(cpds<span class="sc">$</span>country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Australia"      "Austria"        "Belgium"        "Bulgaria"      
+ [5] "Canada"         "Croatia"        "Cyprus"         "Czech Republic"
+ [9] "Denmark"        "Estonia"        "Finland"        "France"        
+[13] "Germany"        "Greece"         "Hungary"        "Iceland"       
+[17] "Ireland"        "Italy"          "Japan"          "Latvia"        
+[21] "Lithuania"      "Luxembourg"     "Malta"          "Netherlands"   
+[25] "New Zealand"    "Norway"         "Poland"         "Portugal"      
+[29] "Romania"        "Slovakia"       "Slovenia"       "Spain"         
+[33] "Sweden"         "Switzerland"    "United Kingdom" "USA"           </code></pre>
+</div>
+</div>
+<p>It usually also makes sense to find out for which years we have data for each country (<em>can you make sense of this code by yourself?</em>):<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">start_year =</span> <span class="fu">min</span>(year, <span class="at">na.rm =</span> T),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">end_year =</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_range =</span> end_year <span class="sc">-</span> start_year) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> start_year, <span class="at">xmax =</span> end_year, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="fu">reorder</span>(country, year_range))) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>(<span class="at">linewidth =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1960</span>,<span class="dv">2020</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="selecting-cases-for-an-mssd-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-cases-for-an-mssd-strategy">Selecting cases for an MSSD strategy</h3>
+<p>Let’s say we want to find two cases for the MSSD strategy that was described earlier, where we want <em>different</em> electoral systems but otherwise equality or at least similarity on all other variables.</p>
+<p>A good start is to get an overview over which countries have which type of electoral system. The <em>CPDS</em> contains a variable called <code>prop</code> <span class="citation" data-cites="Huber1993">(see also <a href="#ref-Huber1993" role="doc-biblioref">Huber, Ragin, and Stephens 1993</a>)</span>, which is a categorical variable that measures whether a country has a single-member, plurality (“first-past-the-post”) electoral system (<code>0</code>), a modified proportional or mixed system (<code>1</code>), or a proportional electoral system (<code>2</code>).</p>
+<p>To get this overview, we can calculate the average scores of this variable per country and visualize the result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mprop =</span> <span class="fu">mean</span>(prop, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> mprop, <span class="at">y =</span> <span class="fu">reorder</span>(country, mprop))) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(mprop, <span class="at">digits =</span> <span class="dv">1</span>)), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Proportionality"</span>, <span class="at">y =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A clear majority of countries have proportional systems, a few have mixed systems (Lithuania, Japan, France, and Auustralia), and three countries (the USA, the UK, and Canada) have single-member “first-past-the-post” systems. Note also that a few countries (New Zealand, Italy, and Hungary) have average scores that fall between two whole numbers – which indicates that these countries changed their electoral systems at some point.</p>
+<p>Let’s have a closer look at these countries:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"New Zealand"</span>,<span class="st">"Hungary"</span>,<span class="st">"Italy"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> prop)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"orange"</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>country, <span class="at">nrow =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1960</span>,<span class="dv">2020</span>,<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Proportionality"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You see that Hungary went from a fully to a modified proportional system in the 2010s, Italy did the same in the 1990s but then went back to full proportionality in the 2000s, and New Zealand went from a “first-past-the-post” system to full proportionality in the mid-1990s.</p>
+<p>One thought would be now to use this variation over time in the three countries to see if the changes in electoral rules led to changes in political trust among citizens – as long as we can assume that nothing else changed simultaneously in these countries (no changes in unemployment, economic growth, party politics, etc.), or we can control for it somehow.</p>
+<p>An alternative would be to focus on New Zealand, which is interesting because it is the one typical English-speaking former settler colony that went away from a “first-past-the-post” system and to a proportional system, and which kept that system long enough so that its potential effects on political trust can unfold over time.</p>
+<p>Let’s see how New Zealand compares to countries that we know are culturally and politically very similar: Australia, Canada, the United States, and the United Kingdom. To help with that, we create a variable that identifies those countries in the dataset and which we can use to highlight them in graphs:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nzl_etal =</span> <span class="fu">case_match</span>(country,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"New Zealand"</span> <span class="sc">~</span> <span class="st">"NZL"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">c</span>(<span class="st">"Canada"</span>,<span class="st">"Australia"</span>,<span class="st">"USA"</span>,<span class="st">"United Kingdom"</span>) <span class="sc">~</span> <span class="st">"Similar"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">.default =</span> <span class="st">"Other"</span>)) <span class="ot">-&gt;</span> cpds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To compare them in terms of the aspects listed in <a href="#tbl-mssd" class="quarto-xref">Table&nbsp;1 (a)</a> above, we can use the following variables from the <em>CPDS</em>:</p>
+<ul>
+<li><code>emprot_reg</code> is a measure of the regulation of the labor market <span class="citation" data-cites="Venn2009">(see also <a href="#ref-Venn2009" role="doc-biblioref">Venn 2009</a>)</span></li>
+<li><code>socexp_t_pmp</code> is a measure of welfare state spending in relation to a country’s GDP</li>
+<li><code>pres</code> is measure of the type of government (<code>0</code> = parliamentary; <code>1</code> = semi-presidential, dominant parliament; <code>2</code> = hybrid; <code>3</code> = semi-presidential, dominant president; <code>4</code> = presidential).</li>
+</ul>
+<p>The <code>socexp_t_pmp</code> and <code>emprot_reg</code> variables are generally available until 2018, so we pick that year to compare countries.</p>
+<p>First, we look at the extent of labor market regulation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> emprot_reg, <span class="at">y =</span> <span class="fu">reorder</span>(country, emprot_reg), <span class="at">fill =</span> nzl_etal)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"NZL"</span> <span class="ot">=</span> <span class="st">"cornflowerblue"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Similar"</span> <span class="ot">=</span> <span class="st">"orange"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"grey20"</span>)) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Index of employment protection legislation"</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 5 rows containing missing values or values outside the scale range
+(`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-9-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>New Zealand and Australia stand a bit apart from the other English-speaking countries, but are very similar to each other.</p>
+<p>Next, we look at the type of government:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pres, <span class="at">y =</span> <span class="fu">reorder</span>(country, pres))) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> pres, <span class="at">color =</span> nzl_etal), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"NZL"</span> <span class="ot">=</span> <span class="st">"cornflowerblue"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Similar"</span> <span class="ot">=</span> <span class="st">"orange"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"grey20"</span>)) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Index of presidentialism"</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Both Australia and New Zealand are clearly parliamentary democracies, very unlike the US.</p>
+<p>Finally, let’s have a look at how countries compare in terms of welfare state spending:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> socexp_t_pmp, <span class="at">y =</span> <span class="fu">reorder</span>(country, socexp_t_pmp), <span class="at">fill =</span> nzl_etal)) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(socexp_t_pmp, <span class="at">digits =</span> <span class="dv">1</span>)), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"NZL"</span> <span class="ot">=</span> <span class="st">"cornflowerblue"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Similar"</span> <span class="ot">=</span> <span class="st">"orange"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"grey20"</span>)) <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Spending on social protection (%GDP; public and mandatory private)"</span>) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here, New Zealand is more similar to the United Kingdom than to Australia, but the two countries are not very far apart. Also, many would say that welfare state spending is <em>“epiphenomenal”</em> <span class="citation" data-cites="Esping-Andersen1990">(<a href="#ref-Esping-Andersen1990" role="doc-biblioref">Esping-Andersen 1990</a>)</span> anyways and that a look at the underlying rules and institutions reveals that Australia and New Zealand both belong to the liberal welfare state regime <span class="citation" data-cites="Castles1993">(see also <a href="#ref-Castles1993" role="doc-biblioref">Castles 1993</a>)</span>.</p>
+<p>So, at least in the late 2010s, Australia and New Zealand are two countries that are historically, politically, and economically very similar – but differ in their electoral systems. This could be a potential MSSD case selection that we can explain and defend with evidence.</p>
+</section>
+<section id="selecting-cases-for-an-mdsd-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-cases-for-an-mdsd-strategy">Selecting cases for an MDSD strategy</h3>
+<p>The workflow to select potential cases for an MDSD strategy is basically the same as that shown above for an MSSD strategy: We sift through and visualize relevant macro-level data to see how potential cases compare. The only difference is that we look for <em>differences</em> rather than similarities in the case of an MDSD.</p>
+<p>As per <a href="#tbl-mdsd" class="quarto-xref">Table&nbsp;1 (b)</a>, we want to find two cases that are as different as possible in terms of their political systems, female representation, and welfare state spending (the variables which we assume to be relevant, for the sake of illustration).</p>
+<p>To identify cases – countries – that differ in terms of their political systems, we can again use data from the <em>CPDS</em>, specifically the variables measuring the structure of political institutions in a given country like the <code>prop</code> and <code>pres</code> variables used above. A third one we could consider is called <code>fed</code> and measures the degree of federalism in a country (<code>0</code> = no; <code>1</code> = weak; <code>2</code> = strong). To keep things simple, we look again at data from 2018, but this is something you can of course adapt in your own analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> prop, <span class="at">y =</span> <span class="fu">reorder</span>(country, prop))) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> prop), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Index of proportionality"</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If we take Norway (the case we started from earlier) as a baseline, then the three countries with “first-past-the-post” electoral systems are very different from it. The US are in addition also the one democracy out of the three with “first-past-the-post” systems that does not have a monarch as its head of state.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pres, <span class="at">y =</span> <span class="fu">reorder</span>(country, pres))) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> pres), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Index of presidentialism"</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When we look at the degree of presidentialism, the US and Norway are clearly worlds apart.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> fed, <span class="at">y =</span> <span class="fu">reorder</span>(country, fed))) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> fed), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Index of federalism"</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is the same when we look at the degree of federalism.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> socexp_t_pmp, <span class="at">y =</span> <span class="fu">reorder</span>(country, socexp_t_pmp))) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(socexp_t_pmp, <span class="at">digits =</span> <span class="dv">1</span>)), <span class="at">hjust =</span> <span class="sc">-</span>.<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Spending on social protection (%GDP; public and mandatory private)"</span>) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The US are roughly in the middle of the pack when it comes to welfare state spending, but score lower than Norway. And, again, a look at Esping-Andersen <span class="citation" data-cites="Esping-Andersen1990">(<a href="#ref-Esping-Andersen1990" role="doc-biblioref">1990</a>)</span> would suggest that the two countries are very different when it comes to the policies and institutions that are underneath the spending figures.</p>
+<p>Now to the final aspect, female representation in politics. Here, we can use the <code>womenpar</code> variable from the <em>CPDS</em>, which measures the percentage of seats in parliament that are held by women (regardless of their partisan affiliation). As before, this variable is available until 2018:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> womenpar, <span class="at">y =</span> <span class="fu">reorder</span>(country, womenpar))) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(womenpar, <span class="at">digits =</span> <span class="dv">1</span>)), <span class="at">hjust =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">""</span>, <span class="at">x =</span> <span class="st">"Female representation in parliament (%)"</span>) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Once again, Norway and the US are quite far apart. Norway, along with Sweden and Finland, is one of the top scorers when it comes to gender equality in politics, while the US are in the bottom half.</p>
+<p>Overall, if you would analyze survey data from Norway and the US (e.g., from the <em>International Social Survey Project</em>) to see if education has an effect on political trust and if you find (roughly) the same effect in both cases, then you have a strong counterargument to potential criticism that your findings might not apply to other contexts. If it works in the US and Norway, two very different countries and societies, then it likely also works in many other contexts.</p>
+</section>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p>This post showed how you can use macro-level data to select cases for a comparative case study, focusing on countries as cases.</p>
+<p>Obviously, and as mentioned above, countries are not the only units that can be potential cases – regions, parties, interest groups, court rulings, or wars and conflicts can also be cases that can be compared. In addition, you would of course think more carefully about the variables you need to look at in a real analysis (theory is your friend here!), and this might mean that you have to look at several different datasets to get a complete picture of how your cases compare on those variables. Still, the fundamental logic – exploring data to identify relevant cases – also applies to those situations, you would only use different datasets (see e.g., <a href="https://cknotz.github.io/getstuffdone_blog/posts/datasources">this post</a> for a list).</p>
+<p>The techniques we used here for also relatively simple and purely descriptive, and there are of course also more advanced methods to select cases based on a quantitative analysis for a more detailed and in-depth qualitative investigation. Seawright &amp; Gerring <span class="citation" data-cites="Seawright2008">(<a href="#ref-Seawright2008" role="doc-biblioref">2008</a>)</span> show how to do that.</p>
+</section>
+<section id="references" class="level2">
+
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Alter1994" class="csl-entry" role="listitem">
+Alter, Karen J, and Sophie Meunier-Aitsahalia. 1994. <span>“Judicial Politics in the <span>European Community</span>: <span>European</span> Integration and the Pathbreaking <span class="nocase">Cassis de Dijon</span> Decision.”</span> <em>Comparative Political Studies</em> 26 (4): 535–61.
+</div>
+<div id="ref-CPDS24" class="csl-entry" role="listitem">
+Armingeon, Klaus, Sarah Engler, Lucas Leemann, and David Weisstanner. 2024. <em>Comparative Political Data Set 1960-2022</em>. Zurich, Lueneburg, &amp; Lucerne: University of Zurich, Leuphana University Lueneburg,; University of Lucerne.
+</div>
+<div id="ref-Castles1993" class="csl-entry" role="listitem">
+Castles, Francis G., ed. 1993. <em>Families of Nations: Patterns of Public Policy in Western Democracies</em>. Aldershot: Dartmouth Publishing Co.
+</div>
+<div id="ref-Esping-Andersen1990" class="csl-entry" role="listitem">
+Esping-Andersen, Gøsta. 1990. <em>The Three Worlds of Welfare Capitalism</em>. Cambridge: Polity Press.
+</div>
+<div id="ref-Fearon2003" class="csl-entry" role="listitem">
+Fearon, James D., and David D. Laitin. 2003. <span>“Ethnicity, Insurgency, and Civil War.”</span> <em>American Political Science Review</em> 97 (1): 75–90.
+</div>
+<div id="ref-Geddes1990" class="csl-entry" role="listitem">
+Geddes, Barbara. 1990. <span>“How the Cases You Choose Affect the Answers You Get: Selection Bias in Comparative Politics.”</span> <em>Political Analysis</em> 2 (1): 131–50.
+</div>
+<div id="ref-Gerring2004" class="csl-entry" role="listitem">
+Gerring, John. 2004. <span>“What Is a Case Study and What Is It Good For?”</span> <em>American Political Science Review</em> 98 (2): 341–54.
+</div>
+<div id="ref-Huber1993" class="csl-entry" role="listitem">
+Huber, Evelyne, Charles Ragin, and John D. Stephens. 1993. <span>“Social Democracy, <span>Christian</span> Democracy, Constitutional Structure, and the Welfare State.”</span> <em>American Journal of Sociology</em> 99 (3): 711–49.
+</div>
+<div id="ref-King1994" class="csl-entry" role="listitem">
+King, Gary, Robert O. Keohane, and Sidney Verba. 1994. <em>Designing Social Inquiry. Scientific Inference in Qualitative Research</em>. Princeton: Princeton University Press.
+</div>
+<div id="ref-Lindstrom2010" class="csl-entry" role="listitem">
+Lindstrom, Nicole. 2010. <span>“Service Liberalization in the Enlarged <span>EU</span>: A Race to the Bottom or the Emergence of Transnational Political Conflict?”</span> <em>Journal of Common Market Studies</em> 48 (5): 1307–27.
+</div>
+<div id="ref-Picot2009" class="csl-entry" role="listitem">
+Picot, Georg. 2009. <span>“Party Competition and Reforms of Unemployment Benefits in Germany: How a Small Change in Electoral Demand Can Make a Big Difference.”</span> <em>German Politics</em> 18 (2): 155–79.
+</div>
+<div id="ref-Przeworski1970" class="csl-entry" role="listitem">
+Przeworski, Adam, and Henry Teune. 1970. <em>The Logic of Comparative Social Inquiry</em>. New York: Wiley.
+</div>
+<div id="ref-Ringdal2018" class="csl-entry" role="listitem">
+Ringdal, Kristen. 2018. <em>Enhet Og Mangfold: Samfunnsvitenskapelig Forskning Og Kvantitativ Metode</em>. 4. ed. Bergen: Fagbokforlaget.
+</div>
+<div id="ref-Ruane1996" class="csl-entry" role="listitem">
+Ruane, Joseph, and Jennifer Todd. 1996. <em>The Dynamics of Conflict in Northern Ireland: Power, Conflict and Emancipation</em>. Cambridge: Cambridge University Press.
+</div>
+<div id="ref-Seawright2008" class="csl-entry" role="listitem">
+Seawright, Jason, and John Gerring. 2008. <span>“Case Selection Techniques in Case Study Research.”</span> <em>Political Research Quarterly</em> 61 (2): 294–308.
+</div>
+<div id="ref-Venn2009" class="csl-entry" role="listitem">
+Venn, Danielle. 2009. <span>“Legislation, Collective Bargaining and Enforcement: Updating the OECD Employment Protection Indicators.”</span> <em>OECD Social, Employment and Migration Working Papers</em> 89.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>To explain: We group the data by country and then let <code>R</code> figure out the start (<code>min</code>) and end (<code>max</code>) year per country within <code>summarize()</code>. Based on that result, we calculate the difference between start and end as <code>year_range</code>. Next, we visualize the result with <code>ggplot</code>, where we order the countries on the x-axis according to how many years we have data for and use <code>geom_linerange()</code> to indicate the time period for which a given country is covered in the dataset.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
