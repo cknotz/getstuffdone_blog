@@ -12,6 +12,7 @@ tbl-cap-location: top
 categories:
   - Case selection
   - Macro
+  - CPDS
   - Research design
   - Comparing countries
 editor_options: 

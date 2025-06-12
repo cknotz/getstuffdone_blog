@@ -18,7 +18,7 @@ categories:
 
 ## Forests and trees
 
-Finding relevant data is one of the major hurdles students face during term paper or thesis projects --- which is a bit puzzling given that there is a *huge* and growing amount of data about many political, social, or economic aspects freely available on the open internet. 
+Finding relevant data is often one of the major hurdles students face during term paper or thesis projects --- which is a bit puzzling given that there is a *huge* and growing amount of data about many political, social, or economic aspects freely available on the open internet. 
 
 This post provides a (definitely not exhaustive) list of datasets and data repositories that can be relevant for research projects in the social and political sciences. It is not the first such list (see below),  but it complements other lists with a stronger focus on datasets from and relevant for research on welfare states.
 

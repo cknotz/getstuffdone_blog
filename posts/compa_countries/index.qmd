@@ -10,6 +10,7 @@ lightbox: true
 lang: en
 categories:
   - Macro
+  - CPDS
   - Comparing countries
   - Economics
   - Political science
