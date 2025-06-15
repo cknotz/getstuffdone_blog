@@ -1,0 +1,103 @@
+---
+title: "Merging macro-level data"
+author: "Carlo Knotz"
+bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
+draft: true
+format:
+  html:
+    toc: true
+    toc-depth: 4
+date: "2025-06-15"
+lightbox: true
+lang: en
+categories:
+  - Macro
+  - UCDP
+  - Quality of Government
+  - Comparing countries
+  - Peace & conflict
+  - Merging data
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, echo=F, warning=F, message=F}
+library(tidyverse)
+theme_set(theme_classic())
+ged <- readRDS("/Users/carloknotz/Documents/Data/UCDP_GED/organizedviolencecy_v25_1.rds")
+qog <- haven::read_dta("https://www.qogdata.pol.gu.se/data/qog_bas_ts_jan25.dta")
+
+ged %>% 
+  filter(!(country_cy %in% c("German Democratic Republic","Yemen (South Yemen)","Czechoslovakia"))) -> ged
+
+qog %>% 
+  filter(year>=1989) -> qog
+```
+
+## 1 + 1 = more
+
+Being able to combine or merge different datasets is a critical skill for any (social, political, or economic) data analyst because, more often than not, the variables you need for your analysis are spread over different datasets. For example, many available datasets from peace & conflict research on fatalities related to wars and other types of conflict (as looked at in [this post](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) contain just that -- information about conflicts and their intensity. What they do not contain is variables that could potentially *explain* the incidence and intensity of conflicts, for example how democratic countries are [@Maoz1993;@Oneal1997], which is available in other types of datasets [e.g., @Lindbergetal2014;@Boixetal2013]. Only if you are able to merge these different datasets into one are you able to do any kind of analysis to see if your variables of interest are related with each other.
+
+Fortunately, merging datasets is not as difficult as it perhaps seems -- functions like `merge()` from `base R` or `left_join()` and the other joining functions from `dplyr()` take care of most of the work [see also @Urdinez2020, chapter 11.2]. You as the data analyst in charge really only need to take care of two things:
+
+1. You need to understand the structure of your datasets and how each observation is identifed with one or more variables.
+2. You need to make sure that these identifying variables are identical in each of the datasets you want to merge.
+
+Let's make this more concrete by looking at a type of dataset that has a relatively intuitive structure: macro-level or *time series cross-sectional* (TSCS) datasets (as introduced [here](https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/)). These datasets typically look more or less like this:
+```{r, echo=F, eval=T}
+qog %>% 
+  filter(cname %in% c("Norway","Sweden") & year %in% c(1994,1995,1996)) %>% 
+  select(cname,ccodealp,year)
+```
+
+Each observation is a country-year (e.g., Norway in 1994, Norway in 1995, etc.) and we have those for multiple countries and multiple years. 
+
+Importantly, this means that each observation in such a dataset is uniquely identified by a *combination* of country *and* year. There are several observations from Norway and several from 1994, so neither the `cname` variable nor the `year` variable above uniquely identify each observation by itself -- we always need both of them together to be able to tell what a given observation corresponds to. This also means that we can only directly merge datasets that both have this type of structure, and we usually need to tell `R` explicitly that this is how the datasets are structured and that the country and year variables are the ones that connect each observation in each dataset.
+
+Another complication that often occurs is that countries are named differently. For example the United States are *"United States"* in one dataset but *"United States of America"* in another and *"USA"* in a third dataset. The same often applies to the United Kingdom, or South Korea. To solve this problem, people have developed standardized country codes or abbreviations like the ISO two- or three-letter country abbreviations (`NOR` or `NO`) that are identical in how they are spelled across languages, etc. The `ccodealp` variable, for example, shows three-letter ISO abbreviations. 
+
+However, another problem is that datasets often contain different types of country name abbreviations or codes. One dataset might contain two-digit ISO codes and the other contains their three-digit equivalents. The `countrycode` package [@countrycode] was developed to solve this third problem. It automatically converts different types of country codes or names back and forth and is basically unvoidable when one works with different macro-level datasets.
+
+The remainder of this post will show you how you can combine two macro-level datasets, the dataset on conflict-related fatalities since 1989 from the *Uppsala Conflict Data Program* (as used [here](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) and the *Quality of Government* Basic Dataset [@QOGB2025], an extremely useful macro-level dataset that contains a large number of variables on a wide range of aspects for many different countries since the end of World War II.^[Its larger sibling, the *QoG* Standard Dataset [@QOG2025], includes even more variables.]
+
+
+```{r}
+
+ged$ccodecow <- countrycode::countrycode(ged$country_cy,
+                         origin = "country.name.en",
+                         destination = "cown")
+
+```
+
+```{r}
+
+ged %>% 
+  left_join(qog, by = c("ccodecow" = "ccodecow",
+                        "year_cy" = "year")) -> ged
+
+```
+
+```{r}
+ged %>% 
+  group_by(bmr_dem) %>% 
+  summarise(sumdeaths = sum(cumulative_total_deaths_parties_in_orgvio_cy, na.rm = T)) %>% 
+  drop_na(bmr_dem) %>% 
+  ggplot(aes(x = factor(bmr_dem), y = sumdeaths)) +
+    geom_col()
+
+
+```
+
+```{r}
+ged %>% 
+  group_by(ccodealp) %>% 
+  summarise(sumdeaths = sum(sb_total_deaths_best_cy, na.rm = T),
+            avg_demo = mean(vdem_libdem, na.rm = T)) %>% 
+  filter(sumdeaths>1000) %>% 
+  ggplot(aes(x = avg_demo, y = sumdeaths)) +
+    geom_text(aes(label = ccodealp)) +
+    geom_smooth(method = "lm", se = F)
+
+```
+
+## References
