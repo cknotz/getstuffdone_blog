@@ -457,7 +457,7 @@ div.csl-indent {
 </div>
 <p>Notice that we adapt the y-scale with <code>scale_y_continuous()</code> to range from 0 to 500’000 and we add a single quotation mark to indicate thousands in the labels.</p>
 <p>Overall, global state-based fatalities declined intitially from the 1990s to the 2000s (despite the onset of the Global War on Terror after 2001), and then increased noticeably again in the 2010s and especially in 2021 and 2022.</p>
-<p>To get a better sense of what is behind this variation, we can calculate fatality numbers by both year and world region (<code>region_cy</code>) and then visualize the result in the form of a stacked bar plot (notice the <code>position = "stack")</code> option within <code>geom_bar()</code> and the <code>scale_fill_viridis_d()</code> setting to use the colorblind-friendly viridis color scale for discrete variables.</p>
+<p>To get a better sense of what is behind this variation, we can calculate fatality numbers by both year and world region (<code>region_cy</code>) and then visualize the result in the form of a stacked bar plot (notice the <code>position = "stack"</code> option within <code>geom_bar()</code>) and the <code>scale_fill_viridis_d()</code> setting to use the colorblind-friendly viridis color scale for discrete variables.</p>
 <div class="cell preview-image">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ged <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year_cy,region_cy) <span class="sc">%&gt;%</span> </span>
