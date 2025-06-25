@@ -44,7 +44,7 @@ A better approach would be to select two countries that are as similar as possib
 
 As a second example, let's say you believe that people's political trust is mainly influenced by their level of education, where trust increases with education. If you now look at this relationship only in one country (say, Norway), you open yourself up to the criticism that maybe this relationship exists only in this country and only because of Norway's unique social and political circumstances, but the finding would not apply to other countries.
 
-One way to address critiques like this head-on is to select cases that are as different from each other as possible. If you can show that a relationship is present in two or more cases that are very different from each other, it is likely (but not guaruanteed) that this also applies to many other cases. This case selection strategy is called a *Most-Different-Systems-Design* or MSDS [@Ringdal2018, 183]. @tbl-mdsd illustrates how such a design could look like: You pick two cases that differ in three variables that we believe are relevant, and you then ideally show that the effect of education on trust is the same in both cases. Here, we assume that the degree of female representation in politics, the political system overall, and welfare state spending could be relevant variables. (Whether that makes sense or not is a different discussion.)
+One way to address critiques like this head-on is to select cases that are as different from each other as possible. If you can show that a relationship is present in two or more cases that are very different from each other, it is likely (but not guaruanteed) that this also applies to many other cases. This case selection strategy is called a *Most-Different-Systems-Design* or MDSD [@Ringdal2018, 183]. @tbl-mdsd illustrates how such a design could look like: You pick two cases that differ in three variables that we believe are relevant, and you then ideally show that the effect of education on trust is the same in both cases. Here, we assume that the degree of female representation in politics, the political system overall, and welfare state spending could be relevant variables. (Whether that makes sense or not is a different discussion.)
 
 ::: {#tbl-panel layout-ncol="2"}
 | Variable          | Case A        | Case B        |
@@ -64,12 +64,12 @@ One way to address critiques like this head-on is to select cases that are as di
 
 : Most-Different-Systems-Design {#tbl-mdsd}
 
-Two widely used case selection strategies
+Example case selection strategies
 :::
 
 ### When to use which strategy
 
-Generally, the MSDS is best-suited if you want to show that a micro-level pattern (e.g., the effect of an individual's education on their political trust, or gender differences) holds in very different contexts. In other words, the MSDS is a good choice if you want to control for variables that are contextual or at a higher level of analysis than the main pattern you are interested in.
+Generally, the MDSD is best-suited if you want to show that a micro-level pattern (e.g., the effect of an individual's education on their political trust, or gender differences) holds in very different contexts. In other words, the MDSD is a good choice if you want to control for variables that are contextual or at a higher level of analysis than the main pattern you are interested in.
 
 The MSSD, on the other hand, is better if you want to control for other variables that are at the same level of analysis. In the example above, the main explanatory variable of interest is the electoral system -- a macro-level variable -- and we want to control for other macro-level variables. Here, the MSSD can help us do that.
 
@@ -298,8 +298,8 @@ Overall, if you would analyze survey data from Norway and the US (e.g., from the
 
 This post showed how you can use macro-level data to select cases for a comparative case study, focusing on countries as cases.
 
-Obviously, and as mentioned above, countries are not the only units that can be potential cases -- regions, parties, interest groups, court rulings, or wars and conflicts can also be cases that can be compared. In addition, you would of course think more carefully about the variables you need to look at in a real analysis (theory is your friend here!), and this might mean that you have to look at several different datasets to get a complete picture of how your cases compare on those variables. Still, the fundamental logic -- exploring data to identify relevant cases -- also applies to those situations, you would only use different datasets (see e.g., [this post](https://cknotz.github.io/getstuffdone_blog/posts/datasources) for a list).
+Obviously, and as mentioned above, countries are not the only units that can be potential cases -- regions, parties, interest groups, court rulings, or wars and conflicts can also be cases that can be compared [see also @Gerring2004]. In addition, you would of course think more carefully about the variables you need to look at in a real analysis (theory is your friend here!), and this might mean that you have to look at several different datasets to get a complete picture of how your cases compare on those variables. Still, the fundamental logic -- exploring data to identify relevant cases -- also applies to those situations, you would only use different datasets (see e.g., [this post](https://cknotz.github.io/getstuffdone_blog/posts/datasources) for a list).
 
-The techniques we used here for also relatively simple and purely descriptive, and there are of course also more advanced methods to select cases based on a quantitative analysis for a more detailed and in-depth qualitative investigation. Seawright & Gerring [-@Seawright2008] show how to do that.
+The techniques we used here were also relatively simple and purely descriptive, and there are of course more advanced methods to select cases based on a quantitative analysis for a more detailed and in-depth qualitative investigation [see @Seawright2008].
 
 ## References
