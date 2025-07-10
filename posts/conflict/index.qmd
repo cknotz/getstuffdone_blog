@@ -78,7 +78,7 @@ ged %>%
     labs(y = "")
 ```
 
-This graph is a bit messy and difficult to read, but is clear that most countries are covered for the entire period. Let's have a closer look at those that have less than full coverage:
+This graph is a bit messy and difficult to read, but it makes clear that most countries are covered for the entire period. Let's have a closer look at those that have less than full coverage:
 ```{r}
 ged %>% 
   group_by(country_cy) %>% 
