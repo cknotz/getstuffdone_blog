@@ -25,42 +25,261 @@ editor_options:
 library(tidyverse)
 theme_set(theme_classic())
 ged <- readRDS("/Users/carloknotz/Documents/Data/UCDP_GED/organizedviolencecy_v25_1.rds")
-qog <- haven::read_dta("https://www.qogdata.pol.gu.se/data/qog_bas_ts_jan25.dta")
+qog <- haven::read_dta("/Users/carloknotz/Documents/Data/QoG/qog_bas_ts_jan25.dta")
 
-ged %>% 
-  filter(!(country_cy %in% c("German Democratic Republic","Yemen (South Yemen)","Czechoslovakia"))) -> ged
-
-qog %>% 
-  filter(year>=1989) -> qog
+# ged %>% 
+#   filter(!(country_cy %in% c("German Democratic Republic","Yemen (South Yemen)","Czechoslovakia"))) -> ged
+# 
+# qog %>%
+#   filter(year>=1989) -> qog
 ```
 
 ## 1 + 1 = more
 
-Being able to combine or merge different datasets is a critical skill for any (social, political, or economic) data analyst because, more often than not, the variables you need for your analysis are spread over different datasets. For example, many available datasets from peace & conflict research on fatalities related to wars and other types of conflict (as looked at in [this post](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) contain just that -- information about conflicts and their intensity. What they do not contain is variables that could potentially *explain* the incidence and intensity of conflicts, for example how democratic countries are [@Maoz1993;@Oneal1997], which is available in other types of datasets [e.g., @Lindbergetal2014;@Boix2013]. Only if you are able to merge these different datasets into one are you able to do any kind of analysis to see if your variables of interest are related with each other.
+Being able to combine or merge different datasets is a critical skill for any (social, political, or economic) data analyst because, more often than not, the variables you need for your analysis are spread over different datasets. For example, many available datasets from peace & conflict research on fatalities related to wars and other types of conflict (as looked at in [this post](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) contain just that -- information about conflicts and their intensity. What they do not contain is variables that could potentially *explain* the incidence and intensity of conflicts, for example how democratic countries are [@Maoz1993;@Oneal1997] --- which are available in other datasets [e.g., @Lindbergetal2014;@Boix2013]. To be able to analyze these two variables, conflicts and democracy in this case, and their relationships, you need to be able to merge the different datasets into one.
 
-Fortunately, merging datasets is not as difficult as it perhaps seems -- functions like `merge()` from `base R` or `left_join()` and the other joining functions from `dplyr()` take care of most of the work [see also @Urdinez2020, chapter 11.2]. You as the data analyst in charge really only need to take care of two things:
+Fortunately, *merging datasets is not as difficult as it might seem at first sight* -- functions like `merge()` from `base R` or `left_join()` and the other joining functions from `dplyr()` take care of most of the work [see also @Urdinez2020, chapter 11.2]. You as the data analyst in charge really only need to take care of two things:
 
-1. You need to understand the structure of your datasets and how each observation is identifed with one or more variables.
-2. You need to make sure that these identifying variables are identical in each of the datasets you want to merge.
+1. You need to understand the structure of your datasets and which variable (or variable**s**) uniquely identity each observation.
+2. You need to make sure that these identifying variables are exactly identical in each of the datasets you want to merge.
 
-Let's make this more concrete by looking at a type of dataset that has a relatively intuitive structure: macro-level or *time series cross-sectional* (TSCS) datasets (as introduced [here](https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/)). These datasets typically look more or less like this:
+This may sound a bit cryptic to the uninitiated, but we will go through this step by step in the remainder of this post. More specifically, we will first go over some basics (dataset structures) and a common "snag" one encounters when working with macro- or country-level data. The remainder of this post will then show you how you can combine two macro-level datasets, the dataset on conflict-related fatalities since 1989 from the *Uppsala Conflict Data Program* (as used [here](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) and the *Quality of Government* Basic Dataset [@QOGB2025].
+
+## Dataset structures and identifying variables
+
+### Cross-sectional data
+
+As you probably remember from your introductory data analysis or statistics course, datasets have different structures. Some are *cross-sectional* and contain data about a set of observations at one point in time. For example, data from the *European Social Survey* (ESS) contain information about a large number of survey respondents (observations) at a certain point in time -- these data are cross-sectional survey data. This type of dataset will look more or less like this:
+
+```{r, echo=F, eval=T}
+head(bst290::ess[,1:5])
+```
+
+There are different respondents, and each of them is *uniquely identified* by their ID number (`idno` in this case). We also know that they come from Norway, were interviewed in round 7, and have different genders and ages.
+
+### Time series data
+
+There are also datasets that follow a single observation over time -- we call these *time series* data. An example is the `airquality` dataset that is one of the "built-in" datasets that come with `R`:
+
+```{r}
+data(airquality)
+head(airquality)
+```
+
+If you look for the help file for this dataset with `?airquality`, you will learn that it contains daily air quality measurements from New York between May and September 1973.
+
+Note that the dataset contains two variables that relate to time: `Month` and `Day`. Obviously, each of these two variables by itself is useless. For example, just knowing that a measurement refers to day `2` is not helpful since the dataset covers four different months, each of which has a day `2`. Therefore, to *uniquely identify* a given measurement or observation, we need *both* variables, `Day` and `Month`.
+
+### Time series cross-sectional data
+
+There is also a third type of dataset that, simply put, follows a group of *units* over some period of *time* (as introduced [here](https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/)). This means this type of dataset combines time series and cross-sectional features, which is why we call this type of dataset a time series cross-sectional dataset (TSCS). Another commonly used term for this is *panel data*.^[While many use both terms interchangeably, it is more common to use the term *panel* when the dataset contains many observations but relatively few time points. The German *Socio-Economic Panel* (SOEP), for example, contains data for a large respondent sample (ca. 30.000 respondents per year) for up to 40 years. Here, the cross-sectional dimension is clearly dominant in terms of numbers. The term *time series cross-sectional* data is more often used for datasets that contain relatively few cross-sectional units -- for example 20 to 50 countries -- but over long periods of time. The *V-Dem* dataset [@Lindbergetal2014] would be an example here. See also Beck [-@Beck2001] for a more in-depth explanation.]
+
+Very commonly, TSCS data contain measurements of a set of *countries* over a number of *years* and will look more or less likely this:
 ```{r, echo=F, eval=T}
 qog %>% 
   filter(cname %in% c("Norway","Sweden") & year %in% c(1994,1995,1996)) %>% 
   select(cname,ccodealp,year)
+
+qog %>% 
+  filter(cname %in% c("Norway","Sweden") & year %in% c(1994,1995,1996)) %>% 
+  select(cname,ccodealp,year) -> tscs
+
 ```
 
 Each observation is a country-year (e.g., Norway in 1994, Norway in 1995, etc.) and we have those for multiple countries and multiple years. 
 
-Importantly, this means that each observation in such a dataset is uniquely identified by a *combination* of country *and* year. There are several observations from Norway and several from 1994, so neither the `cname` variable nor the `year` variable above uniquely identify each observation by itself -- we always need both of them together to be able to tell what a given observation corresponds to. This also means that we can only directly merge datasets that both have this type of structure, and we usually need to tell `R` explicitly that this is how the datasets are structured and that the country and year variables are the ones that connect each observation in each dataset.
+Importantly, this means that each observation in such a dataset is **uniquely identified by a *combination* of country *and* year**. There are several observations from Norway and several from 1994, so neither the `cname` variable nor the `year` variable above uniquely identify each observation by itself -- we always need both of them together to be able to tell what a given observation corresponds to. 
 
-Another complication that often occurs is that countries are named differently. For example the United States are *"United States"* in one dataset but *"United States of America"* in another and *"USA"* in a third dataset. The same often applies to the United Kingdom, or South Korea. To solve this problem, people have developed standardized country codes or abbreviations like the ISO two- or three-letter country abbreviations (`NOR` or `NO`) that are identical in how they are spelled across languages, etc. The `ccodealp` variable, for example, shows three-letter ISO abbreviations. 
+We can always check if a variable or combination of variables uniquely identifies each observation in a dataset using the `anyDuplicated()` function from base `R`.^[See e.g., <https://stackoverflow.com/a/65603253>.] If variables uniquely identify observations, there should be no duplicates -- the function should return a `0`. 
 
-However, another problem is that datasets often contain different types of country name abbreviations or codes. One dataset might contain two-digit ISO codes and the other contains their three-digit equivalents. The `countrycode` package [@countrycode] was developed to solve this third problem. It automatically converts different types of country codes or names back and forth and is basically unvoidable when one works with different macro-level datasets.
+For example, to check if the observations in the small dataset above (let's assume it is called `tscs`) are uniquely identified by the `cname` variable, we run:
+```{r}
+library(tidyverse)
+tscs %>% 
+  {anyDuplicated(select(., cname)) == 0}
 
-The remainder of this post will show you how you can combine two macro-level datasets, the dataset on conflict-related fatalities since 1989 from the *Uppsala Conflict Data Program* (as used [here](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) and the *Quality of Government* Basic Dataset [@QOGB2025], an extremely useful macro-level dataset that contains a large number of variables on a wide range of aspects for many different countries since the end of World War II.^[Its larger sibling, the *QoG* Standard Dataset [@QOG2025], includes even more variables.]
+```
+
+The result is obviously that `cname` does not uniquely identify each observation since each country is observed over different years. This means we also need the `year` variable to identify each observation:
+
+```{r}
+tscs %>% 
+  {anyDuplicated(select(., cname,year)) == 0}
+
+```
+
+### On country names and codes
+
+The United Kingdom is officially also referred to as the "United Kingdom of Great Britain and Northern Ireland", but sometimes simply as "Great Britain". Similar, the United States are also called "USA" or "United States of America", and the sample applies to a number of different countries (e.g., South Korea or the Netherlands). There are standardized codes that are supposed to fix this, one example being the ISO two- or three-digit country codes (where Norway would be `NO` or `NOR`) --- but there are many different country coding conventions, and they can differ in some cases as well (the United States might be called `US` in one and `USA` in another).
+
+This can be -- and often is -- a problem when we want to merge two TSCS datasets where countries are the *units of observation*. A common case is that one dataset contains two-digit ISO codes and the other contains their three-digit equivalents. In that case, Norway would be called `NO` in dataset 1 and `NOR` in dataset 2, and `R` will think these are two different units and will not be able to merge the observations.
+
+Since this is such a common problem, Arel-Bundock, Enevoldsen, and Yetman [-@countrycode] put together the `countrycode` package that can convert different country names and codes back and forth, and which we can use to harmonize country variables across datasets. This is a very common operation we need to perform when merging two datasets.
+
+The main function in `countrycode` is the `countrycode()` function, which has three main "arguments": 
+
+```{r, eval=F, echo=T}
+countrycode::countrycode(sourcevar, origin, destination)
+```
+
+It works, simply put, by taking a variable that identifies countries in a given dataset (`sourcevar`) and transforming it from its current encoding (`origin`) to a different one (`destination`).
+
+For example, let's say we want to convert the `ccodealp` variable in our little `tscs` practice dataset. As you can see below, the variable currently contains three-digit country codes for Norway and Sweden:
+
+```{r}
+tscs
+```
+
+Let's say we need to convert this to its two-digit equivalent. To do this with `countrycode`, we need to specify `ccodealp` as the source variable, `iso3c` ("ISO three-character") as the origin encoding, and `iso2c` as the destination encoding. We can use `countrycode` directly within `mutate()`:
+
+```{r}
+tscs %>%
+  mutate(ccode_2d = countrycode::countrycode(sourcevar = ccodealp,
+                                             origin = "iso3c",
+                                             destination = "iso2c"))
+```
+
+In a real-world case, you first need to be sure what exactly the encoding of your country variable is --- this information should be provided in the codebook for the dataset you are working with. You can then refer to the documentation for the `countrycode` package to see how you convert your existing variable into a the format you need.^[`countrycode` also contains a `data.frame` called `codelist_panel` with country and year information that takes into account that country names change over time (e.g., Germany was divided into East and West Germany before it reunified). Ideally, you use this dataset as a "link" when merging datasets that go far back in history (see also `?countrycode::countrycode()`).]
+
+```{r, eval=T, echo=F}
+rm(tscs,airquality)
+```
+
+## Example: Merging the *Quality of Government* and *UCDP* conflict fatality datasets
+
+Let's put all of this into action and merge two real-life research datasets, the *Quality of Government* (QoG) Standard Dataset [@QOG2025] and the *Country-Year Dataset on Organized Violence within Country Borders* from the *Uppsala Conflict Data Program* (UCDP) [@Daviesetal2025;@Sundberg2013].
+
+### Import
+
+If you want to follow along, you can download them directly from <https://www.gu.se/en/quality-government/qog-data/data-downloads/basic-dataset> (important: we use the *time series* version of the QoG dataset, not the cross-sectional one, and we download it in `Stata` `.dta` format!) and <https://ucdp.uu.se/downloads/index.html#orgviocy> (here, we download it directly in the `.RDS` format that is native to `R`).
+
+To import the datasets, we use `read_dta()` from `haven` and `readRDS()`, respectively:
+```{r, echo=T, eval=F}
+ged <- readRDS("organizedviolencecy_v25_1.rds")
+qog <- haven::read_dta("qog_bas_ts_jan25.dta")
 
 
+```
+
+### Inspecting the data
+
+As you can see from either the codebooks or the *Environment* tab, both datasets contain a number of different variables that measure countries and years. To keep things simple, we focus on the `country_cy` and `year_cy` variables in the UCDP dataset and the `year` and `cname` variables in the QoG dataset (wondering how to figure this out? This is why datasets have codebooks!).
+
+#### Are observations uniquely identified?
+
+Let's first check that these variables really uniquely identify each observation:
+
+```{r}
+qog %>% 
+  {anyDuplicated(select(., cname,year)) == 0}
+
+ged %>% 
+  {anyDuplicated(select(., country_cy,year_cy)) == 0}
+```
+
+The UCDP dataset looks "clean", but the QoG dataset has some repeated country-year pairs. This is how we can identify these "offending" countries:
+```{r}
+qog %>% 
+  filter(duplicated(.[,c("cname","year")])) -> duplicates
+  
+unique(duplicates$cname)
+rm(duplicates)
+```
+
+A closer inspection (the codebook is unfortunately quiet about this) that this is because one variable, `ccodecow` (more on that one comes below), is missing for half of these observations:
+```{r}
+qog %>% 
+  filter(cname=="Chile") %>% 
+  head()
+
+qog %>% 
+  filter(cname=="Syrian Arab Republic (the)") %>% 
+  head()
+
+qog %>% 
+  filter(cname=="Indonesia") %>% 
+  head()
+
+```
+
+To keep things simple, we drop those countries:
+```{r}
+qog %>% 
+  filter(!(cname %in% c("Chile","Indonesia",
+                                        "Syrian Arab Republic (the)",
+                                        "Congo (the Democratic Republic of the)"))) -> qog
+```
+
+Now the `cname` and `year` variables should uniquely identify each observation:
+```{r}
+qog %>% 
+  {anyDuplicated(select(., cname,year)) == 0}
+```
+
+#### Which countries and years are covered?
+Let's now check which time periods the two datasets cover. Starting with the conflict dataset, we get:
+```{r}
+min(ged$year_cy)
+max(ged$year_cy)
+
+```
+
+In the case of the QoG data, we get:
+```{r}
+min(qog$year)
+max(qog$year)
+
+```
+
+Both datasets end in 2024, but the UCPD conflict dataset covers only the period after the fall of the Berlin Wall while the QoG dataset goes back to the year after World War II. 
+
+To make the datasets more compatible, we can now drop the years prior to 1989 from the QoG dataset:
+```{r}
+qog %>%
+  filter(year>=1989) -> qog
+```
+
+We can now, theoretically, check which countries are covered by each dataset with `unique()`, but this results in long lists of countries. To make this easier, we can start by looking at the number of countries in each dataset:
+```{r}
+length(unique(ged$country_cy))
+length(unique(qog$cname))
+
+```
+
+The UCPD dataset covers two more countries than the QoG dataset.
+
+We can also see more in detail which countries (or, perhaps, country *names*) are included only in one but not in both datasets. To do that, we can use the `setdiff()` function from base `R`, which shows for any two vectors the items that are contained in one but not the other. 
+
+Important: We need to use this twice so we see which countries are covered in the UCDP dataset but not the QoG data, and vice versa. We start with the countries in the UCDP data that are not also in the QoG dataset:
+```{r}
+setdiff(ged$country_cy,qog$cname)
+```
+
+This includes, as could be expected, some of the "usual suspects": The UK, the US, the Netherlands, or the Koreas, which often have different names in different datasets.
+
+Next, we check which countries are covered in the QoG but not the UCDP data:
+```{r}
+setdiff(qog$cname,ged$country_cy)
+```
+
+This is about the same number, and again the "usual suspects". Notice, for example, that Vietnam is spelled "Viet Nam" in the UCPD dataset. 
+
+As shown in the [earlier post](https://cknotz.github.io/getstuffdone_blog/posts/conflict/#exploring-the-ucpd-conflict-dataset), there are three countries that are covered for only very brief periods in the UCDP dataset: The German Democratic Republic ("East Germany"), South Yemen, and Czechoslovakia. An easy solution is -- again -- to simply drop these countries:
+```{r}
+ged %>% 
+  filter(!(country_cy %in% c("German Democratic Republic","Yemen (South Yemen)","Czechoslovakia"))) -> ged
+
+```
+
+#### Harmonizing the country variables
+
+So far, we already had weed out some duplicate observations and found that, unsurprisingly, the country names differ between the two datasets. As explained earlier, we need to harmonize the country variables for the merge to work. 
+
+There are now different ways to handle this. We could either try to convert the country names in the `cname` variable in the QoG dataset to the format used in the `country_cy` variable in the UCDP dataset or vice versa. We could also try to convert both to ISO country codes and use these to merge the datasets.
+
+A third option is to use the `ccodecow` variable that is contained in the QoG dataset (the one that caused problems earlier). This variable contains standardized country codes (in the form of numbers) from the *Correlates of War* project (COW; see <https://correlatesofwar.org/>). The advantage with using this variable is that it is already contained in one of the datasets, the QoG data. More importantly, the `countrycode` package "speaks" COW codes, so we can use the `countrycode()` function to convert the country names in the UCDP dataset to COW codes -- and then we have everything we need in place!
+
+To create COW country codes in the UCDP dataset, we specify that we want `countrycode()` to create a new variable called `ccodcow` in the UCDP dataset, and to do this by transforming the English country names contained in the `country_cy` variable into COW numerical codes (`cown`):
 ```{r}
 
 ged$ccodecow <- countrycode::countrycode(ged$country_cy,
@@ -69,35 +288,84 @@ ged$ccodecow <- countrycode::countrycode(ged$country_cy,
 
 ```
 
+We can take a quick look at the UCDP dataset to see how the new variable looks like:^[You may notice that the COW country codes overlap with the `country_id_cy` variable -- but they are not exactly identical [see also the UCDP codebook and @Gleditsch1999].]
+```{r}
+ged %>% 
+  relocate(country_cy,year_cy,ccodecow)
+```
+
+
+### Merging the datasets
+
+Now, after a long litany of inspection, cleaning, and harmonization, we can finally merge the datasets -- which is, as promised, a fairly quick and simple operation: We use the `left_join()` function from the `dplyr` package, which takes one dataset and then merges it with all observations from another dataset that are contained in the first one based on the variables that uniquely identify the observations in each dataset.^[There are also other types of "mutating joins" in `dplyr`; see <https:dplyr.tidyverse.org/reference/mutate-joins.html> for details.]
+
+The code to do this looks as follows: We take the UCDP dataset and `left_join()` it with the QoG dataset along the `ccodecow` and `year`/`year_cy` variables and save the combined dataset as `merged`:
 ```{r}
 
 ged %>% 
   left_join(qog, by = c("ccodecow" = "ccodecow",
-                        "year_cy" = "year")) -> ged
+                        "year_cy" = "year")) -> merged
 
 ```
 
+The new `merged` dataset contains all variables that are contained in both datasets for all observations that in the UCDP dataset that are also present in the QoG dataset. We can see this more directly by looking at the number of variables ("columns") per dataset:
 ```{r}
-ged %>% 
+ncol(ged)
+ncol(qog)
+ncol(merged)
+```
+
+The number of variables in `merged` is the number of variables in `ged` plus those in `qog` minus the two variables that were used to merge the dataset (`ccodecow` and `year`/`year_cy`).
+
+## Data exploration
+
+Now that we have merged the datasets, we can do a bit of (quick and rough) data exploration to see if there is a relationship between how democratic a country is and how much conflict and violence happens in that country -- we now have information on both aspects in one common dataset, so we can see if they are related!
+
+To measure the incidence of conflict, we use the `sb_total_deaths_best_cy` variable from the UCDP dataset, which gives the best estimate of the number of fatalities due to state-based violence within the borders of a given country and in a given year (please see the codebook for details).
+
+To measure democratic-ness, we use to different variables from the QoG dataset:
+
+ - `bmr_dem`: A binary measure of democray (democratic in a given year, yes or no) from Boix, Miller, and Rosato [-@Boix2013]
+ - `vdem_libdem`: A continuous measure of liberal democracy (to what *degree* is a country a liberal democracy in a given year?) that comes originally from the *V-DEM* dataset [@Lindbergetal2014].
+ 
+First, we see if there is a difference in the average number of conflict fatalities per year in democracies and non-democracies based on the binary measure of democracy (`bmr_dem`) and visualize the result in a bar graph: 
+```{r}
+merged %>% 
   group_by(bmr_dem) %>% 
-  summarise(sumdeaths = sum(cumulative_total_deaths_parties_in_orgvio_cy, na.rm = T)) %>% 
+  summarise(sumdeaths = sum(sb_total_deaths_best_cy, na.rm = T)) %>% 
   drop_na(bmr_dem) %>% 
   ggplot(aes(x = factor(bmr_dem), y = sumdeaths)) +
-    geom_col()
+    geom_col() +
+    scale_y_continuous(labels = scales::label_number())
 
 
 ```
 
+There clearly is a difference: Non-democracies (`bmr_dem = 0`) had on average around 800'000 fatalities per year, while the figure for democracies is slightly less than half of this. Obviously, one should not forget that conflict is overall relatively rare (see also <https://cknotz.github.io/getstuffdone_blog/posts/conflict/#conflict-fatalities-across-countries>), so these high averages are strongly driven by a few extreme cases with many fatalities. In other words, no, we obviously do not believe that Norway or Sweden had about 200'000 conflict deaths per year since 1989.
+
+We might get a clearer picture by using the continuous measure of how liberal democratic a country is. Here, we group the data by country (using the `ccodealp` variable), calculate the average level of democratic-ness and the average number of conflict fatalities per country over the entire period of observation, and visualize the result in a scatter plot:
 ```{r}
-ged %>% 
+merged %>% 
   group_by(ccodealp) %>% 
   summarise(sumdeaths = sum(sb_total_deaths_best_cy, na.rm = T),
             avg_demo = mean(vdem_libdem, na.rm = T)) %>% 
   filter(sumdeaths>1000) %>% 
   ggplot(aes(x = avg_demo, y = sumdeaths)) +
     geom_text(aes(label = ccodealp)) +
-    geom_smooth(method = "lm", se = F)
+    geom_smooth(method = "lm", se = F) +
+    scale_y_continuous(labels = scales::label_number())
 
 ```
+
+We find again a negative relationship -- being more democratic is associated with fewer conflict fatalities -- but this is to a large extent driven by a few countries with very violent state-based conflicts: Ethiopia, Afghanistan, Ukraine, and (although to a lesser extent) Iraq.
+
+## Conclusion
+
+Being able to merge two (or more) datasets is a powerful skill because it allows you to analyze relationships between variables that are contained in two separate datasets.
+
+After having gone through this post, you should see that the actual merging -- using `left_join()` -- is quite straightforward. You just need two datasets with overlapping observations and merge them along the variable (or variables) that uniquely identify each observation in each dataset.
+
+The trickier thing is making sure that the datasets really are in a shape that they can be merged -- that there are overlapping variables, which do identify each observation. There is no one standard solution here since each dataset is different. Solving this requires you to have a quite intimate knowledge of each of the datasets and to be able to convert variables, where necessary. For the former, being able to do data exploration in `R` is essential, as is reading (and understanding) the datasets' codebooks. For the latter, `countrycode` is very helpful.
+
 
 ## References
