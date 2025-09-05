@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlo Knotz">
+<meta name="dcterms.date" content="2025-09-05">
+
+<title>Using LLMs to classify Twitter data – Testing big ideas with simple methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d1b12f2568ecbe55642fee6aa00bd082.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-fc69c27516b785ffb5db61c6a6e66aa6.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<meta name="quarto:status" content="draft">
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Testing big ideas with simple methods</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About this blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Using LLMs to classify Twitter data</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">Ollama</div>
+                <div class="quarto-category">Social media data</div>
+                <div class="quarto-category">Text</div>
+                <div class="quarto-category">Immigration</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Carlo Knotz </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 5, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#text-media-and-large-language-models" id="toc-text-media-and-large-language-models" class="nav-link active" data-scroll-target="#text-media-and-large-language-models">Text, media, and large language models</a></li>
+  <li><a href="#llms-and-ollama" id="toc-llms-and-ollama" class="nav-link" data-scroll-target="#llms-and-ollama">LLMs and <code>ollama</code></a>
+  <ul class="collapse">
+  <li><a href="#the-llm-zoo" id="toc-the-llm-zoo" class="nav-link" data-scroll-target="#the-llm-zoo">The LLM zoo</a></li>
+  <li><a href="#installing-ollama" id="toc-installing-ollama" class="nav-link" data-scroll-target="#installing-ollama">Installing <code>ollama</code></a></li>
+  <li><a href="#using-ollama" id="toc-using-ollama" class="nav-link" data-scroll-target="#using-ollama">Using <code>ollama</code></a></li>
+  </ul></li>
+  <li><a href="#running-ollama-from-within-r-with-mall" id="toc-running-ollama-from-within-r-with-mall" class="nav-link" data-scroll-target="#running-ollama-from-within-r-with-mall">Running <code>ollama</code> from within <code>R</code> with <code>mall</code></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="text-media-and-large-language-models" class="level2">
+<h2 class="anchored" data-anchor-id="text-media-and-large-language-models">Text, media, and large language models</h2>
+<p>When people interact and communicate with each other in the political, social, or economic spheres, they often use written text. Politicians and political parties, for example, use election manifestos and campaign flyers to communicate with potential voters, and these have long been used to measure their ideological positions <span class="citation" data-cites="Volkensetal2014 Laveretal2003 Slapin2008">(<a href="#ref-Volkensetal2014" role="doc-biblioref">Volkens et al. 2014</a>; <a href="#ref-Laveretal2003" role="doc-biblioref">Laver, Benoit, and Garry 2003</a>; <a href="#ref-Slapin2008" role="doc-biblioref">Slapin and Proksch 2008</a>)</span>. Newspapers, secondly, routinely report on economic developments, and the underlying sentiment or “tone” of these reportings can be used to get a sense of how the economy overall is developing <span class="citation" data-cites="Ozgun2021">(<a href="#ref-Ozgun2021" role="doc-biblioref">Ozgun and Broekel 2021</a>)</span>. And, finally, a lot of social interaction now happens online on social media sites, where users post and engage with others’ posts. All of this taken together provides a vast amount of data <span class="citation" data-cites="Hilbert2011">(e.g., <a href="#ref-Hilbert2011" role="doc-biblioref">Hilbert and López 2011</a>)</span> that can be used to study and explain political, social, and economic behavior.</p>
+<p>The catch, however, is that someone needs to analyze all this data. According to one estimate, <em>Twitter</em> (now <em>X</em>) alone produces somehwere between 500’000 and almost 5’000’000 tweets on a single day <span class="citation" data-cites="Ulizkoetal2021">(<a href="#ref-Ulizkoetal2021" role="doc-biblioref">Ulizko et al. 2021</a>)</span>, and even a fraction of this is much more information than any individual human can process in a reasonable amount of time. Plus, the sheer amount of text data that is now available is only one of the problems one runs into. Another one is that people obviously communicate in many different languages – English, French, Chinese, German, Spanish, Russian, and so on – and most individuals are only capable of reading and analyzing a small number of languages.</p>
+<p>Qualitative methods for analyzing text definitely run into limits here, and so do older quantitative methods like classifiers, topic models, or ideological scaling because they also require either a set of human-classified texts as training data or produce results that are not always straightforward to interpret <span class="citation" data-cites="Grimmer2013 Gentzkowetal2019 Molina2019">(<a href="#ref-Grimmer2013" role="doc-biblioref">Grimmer and Stewart 2013</a>; <a href="#ref-Gentzkowetal2019" role="doc-biblioref">Gentzkow, Kelly, and Taddy 2019</a>; see also <a href="#ref-Molina2019" role="doc-biblioref">Molina and Garip 2019</a>)</span>.</p>
+<p>This is where <em>large language models</em> (LLMs) make a big difference. As anyone who has ever tried out tools like <em>ChatGPT</em> or <em>Copilot</em> (so, everyone?) knows, LLMs are “smart” enough to process – meaning classify, translate, summarize, or check – even longer text passages according to specific criteria or demands and produce results in a format that human users can explicitly specify. Their big disadvantage is that they, as the name indicates, are <em>large</em> and require serious amounts of computational firepower to perform complex operations on large amounts of text.</p>
+<p>However, if one works with reasonably small amounts of short segments of text such as <em>tweets</em> and wants to get only relatively simple operations done – such as identifying the main topic – it is possible to use LLMs for text analysis with a simple laptop, no need for massive GPU-powered server farms. First, <code>ollama</code>, an open-source framework for LLMs (see <a href="https://github.com/ollama/ollama" class="uri">https://github.com/ollama/ollama</a>) makes it possible to run smaller LLMs one’s own laptop, for free. In addition, the <code>mall</code> package for <code>R</code> (<a href="https://mlverse.github.io/mall/" class="uri">https://mlverse.github.io/mall/</a>) makes it possible to use <code>ollama</code> LLMs directly within <code>R</code> on a given dataset, for example to translate, classify, or otherwise “evaluate” a sequence of texts that is stored in a variable (“vector”).</p>
+<p>The rest of this post shows how you can put this into action with an example analysis of <em>tweets</em> on immigration by French radical right politicians <span class="citation" data-cites="Pietrandrea2022">(<a href="#ref-Pietrandrea2022" role="doc-biblioref">Pietrandrea and Battaglia 2022</a>)</span>.</p>
+</section>
+<section id="llms-and-ollama" class="level2">
+<h2 class="anchored" data-anchor-id="llms-and-ollama">LLMs and <code>ollama</code></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="thumbnail.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="A llama"><img src="thumbnail.jpg" class="img-fluid figure-img" alt="A photograph of a llama looking directly at the camera in front of lake and a background of mountains. Photo by Paul Lequa on Unsplash."></a></p>
+<figcaption>A llama</figcaption>
+</figure>
+</div>
+<section id="the-llm-zoo" class="level3">
+<h3 class="anchored" data-anchor-id="the-llm-zoo">The LLM zoo</h3>
+<p>The probably most widely-known family of LLMs is the <em>GPT</em> series developed by <em>OpenAI</em>, which are what is running under <em>ChatGPT</em>s “hood” – but they are by far not the only ones. Nowadays, there is a proper zoo of LLMs. Some of these models are proprietary – meaning you have to pay to be able to use them – but there are also many others which are open-source and free to use for anyone. The <em>Llama</em> (or <em>LLaMa</em>) family of LLMs that was developed by <em>Meta</em> (the company that owns <em>Facebook</em> and <em>Instagram</em>) is one example <span class="citation" data-cites="Touvronetal2023">(<a href="#ref-Touvronetal2023" role="doc-biblioref">Touvron et al. 2023</a>)</span>.</p>
+<p>LLMs also differ in size and there are generally always larger and smaller versions of a given LLM. The <em>llama3.2</em> model, for example, is available in 1B and 3B versions, meaning one contains 1 billion parameters and the other 3 billion. Both versions of <em>llama3.2</em>, in turn, are significantly smaller than the <em>llama3.1</em> models, which contain 8B, 70B, or 405B parameters. Smaller models are generally not as smart as larger models, but they also require less computing power. Therefore, if you can do a certain task with a smaller model without sacrificing (too much) quality, then that is usually worth doing. (Remember the stuff on “parsimony” from your methods course? This is what that was about.)</p>
+</section>
+<section id="installing-ollama" class="level3">
+<h3 class="anchored" data-anchor-id="installing-ollama">Installing <code>ollama</code></h3>
+<p><code>ollama</code> was created to make it easier to access all the various LLMs from their different providers. Simply put, it is a little program that allows you to download and run any of the long list of open-source models they have available (see <a href="https://ollama.com/search" class="uri">https://ollama.com/search</a>) with a few lines of code. Using it is indeed not really difficult.</p>
+<p>You can download and install <code>ollama</code> directly from their website: <a href="https://ollama.com/download" class="uri">https://ollama.com/download</a>.</p>
+<p><code>ollama</code> comes now with a <em>ChatGPT</em>-like chat-window, where you can use any of the available models just like you would use <em>ChatGPT</em> or <em>Copilot</em> – be aware, though, that things can take <strong>much</strong> longer when you run an LLM on your laptop compared to when you use <em>OpenAI</em>’s servers!</p>
+</section>
+<section id="using-ollama" class="level3">
+<h3 class="anchored" data-anchor-id="using-ollama">Using <code>ollama</code></h3>
+<p>The “native” way of accessing <code>ollama</code> is via the <em>Terminal</em> (on Mac) or the <em>Command-Line Interface</em> (CLI, on Windows). You can access them from within <code>RStudio</code> if you open the <em>Terminal</em> tab on the bottom (next to the <em>Console</em> tab). When you do that, you should see another blinking cursor waiting for commands to execute, just like with <code>R</code>.</p>
+<p>From here, you can start working with <code>ollama</code>. For example, to see which models you have currently installed on your computer, you would run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ollama list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Most likely, you will see no models listed since you haven’t installed any models yet.</p>
+<p>To install a model, you use <code>ollama pull &lt;model&gt;</code>. For example, to install the <em>llama3.1</em> model, you would run:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ollama pull llama3.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>ollama</em> will then go and download the requested model – which will usually take a bit of time. Again, we are using <em>large</em> models here!</p>
+<p>Once that is done, you can start chatting with your new toy. To run a model, you use <code>ollama run &lt;model&gt;</code> – so in our case:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ollama run llama3.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>After a few moments, the command line will change and you will see:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;&gt; Send a message (/? for help)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now all you have to do is send a little message, just like with <em>ChatGPT</em>. See what happens when you ask the model to “Write something funny.”:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;&gt; Write something funny.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you want to stop the model, you can do so with <code>/bye</code>. You will then get back to the standard command line interface, where you can theoretically install and run other LLMs.</p>
+</section>
+</section>
+<section id="running-ollama-from-within-r-with-mall" class="level2">
+<h2 class="anchored" data-anchor-id="running-ollama-from-within-r-with-mall">Running <code>ollama</code> from within <code>R</code> with <code>mall</code></h2>
+<p>With a simple chat interface – a window like with <em>ChatGPT</em> or the <code>ollama</code> interface in the command line, we <em>can</em> give our LLM some task to do. We could for example feed it a single tweet and then ask it to classify or translate it for us – but that is tedious.</p>
+<p>A much more convenient way to use an <code>ollama</code> LLM is to store all the different texts we want to analyze in a dataset, import that dataset into <code>R</code>, and then call the LLM from witin <code>R</code> to let it go through then entire dataset, work with all of the texts, one after the other, and then store the result – e.g., a translation or classification – as a new variable in the dataset. The <code>mall</code> package for <code>R</code> makes that possible and quite easy to do.</p>
+</section>
+<section id="references" class="level2">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Gentzkowetal2019" class="csl-entry" role="listitem">
+Gentzkow, Matthew, Bryan Kelly, and Matt Taddy. 2019. <span>“Text as Data.”</span> <em>Journal of Economic Literature</em> 57 (3): 535–74.
+</div>
+<div id="ref-Grimmer2013" class="csl-entry" role="listitem">
+Grimmer, Justin, and Brandon M Stewart. 2013. <span>“Text as Data: The Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts.”</span> <em>Political Analysis</em> 21 (3): 267–97.
+</div>
+<div id="ref-Hilbert2011" class="csl-entry" role="listitem">
+Hilbert, Martin, and Priscila López. 2011. <span>“The World’s Technological Capacity to Store, Communicate, and Compute Information.”</span> <em>Science</em> 332 (6025): 60–65.
+</div>
+<div id="ref-Laveretal2003" class="csl-entry" role="listitem">
+Laver, Michael, Kenneth Benoit, and John Garry. 2003. <span>“Extracting Policy Positions from Political Texts Using Words as Data.”</span> <em>American Political Science Review</em> 97 (2): 311–31.
+</div>
+<div id="ref-Molina2019" class="csl-entry" role="listitem">
+Molina, Mario, and Filiz Garip. 2019. <span>“Machine Learning for Sociology.”</span> <em>Annual Review of Sociology</em> 45: 27–45.
+</div>
+<div id="ref-Ozgun2021" class="csl-entry" role="listitem">
+Ozgun, Burcu, and Tom Broekel. 2021. <span>“The Geography of Innovation and Technology News – <span>An</span> Empirical Study of the <span>German</span> News Media.”</span> <em>Technological Forecasting and Social Change</em> 167: 120692.
+</div>
+<div id="ref-Pietrandrea2022" class="csl-entry" role="listitem">
+Pietrandrea, Paola, and Elena Battaglia. 2022. <span>“<span>‘<span>M</span>igrants and the <span>EU</span>.’</span> The Diachronic Construction of Ad Hoc Categories in <span>French</span> Far-Right Discourse.”</span> <em>Journal of Pragmatics</em> 192: 139–57.
+</div>
+<div id="ref-Slapin2008" class="csl-entry" role="listitem">
+Slapin, Jonathan B., and Sven-Oliver Proksch. 2008. <span>“A Scaling-Model for Estimating Time-Series Party Positions from Texts.”</span> <em>American Journal of Political Science</em> 52 (3): 705–22.
+</div>
+<div id="ref-Touvronetal2023" class="csl-entry" role="listitem">
+Touvron, Hugo, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timothée Lacroix, Baptiste Rozière, et al. 2023. <span>“Llama: <span>Open</span> and Efficient Foundation Language Models.”</span> <em>arXiv Preprint arXiv:2302.13971</em>.
+</div>
+<div id="ref-Ulizkoetal2021" class="csl-entry" role="listitem">
+Ulizko, MS, EV Antonov, MA Grigorieva, ES Tretyakov, RR Tukumbetova, and AA Artamonov. 2021. <span>“Visual Analytics of <span>Twitter</span> and Social Media Dataflows: A Casestudy of <span>COVID</span>-19 Rumors.”</span> <em>Scientific Visualization</em> 13 (4): 144–63.
+</div>
+<div id="ref-Volkensetal2014" class="csl-entry" role="listitem">
+Volkens, Andrea, Pola Lehmann, Nicolas Merz, Sven Regel, Annika Werner, Onawa Promise Lacewell, and Henrike Schultze. 2014. <em>The Manifesto Data Collection. Manifesto Project (MRG / CMP / MARPOR). Version 2014b.</em> Berlin: Wissenschaftszentrum Berlin für Sozialforschung (WZB).
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

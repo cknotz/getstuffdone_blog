@@ -1,0 +1,105 @@
+---
+title: "Using LLMs to classify Twitter data"
+author: "Carlo Knotz"
+bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
+draft: true
+date: "2025-09-05"
+format:
+  html:
+    toc: true
+lightbox: true
+categories:
+  - LLMs
+  - Ollama
+  - Social media data
+  - Text
+  - Immigration
+---
+
+## Text, media, and large language models
+
+When people interact and communicate with each other in the political, social, or economic spheres, they often use written text. Politicians and political parties, for example, use election manifestos and campaign flyers to communicate with potential voters, and these have long been used to measure their ideological positions [@Volkensetal2014;@Laveretal2003;@Slapin2008]. Newspapers, secondly, routinely report on economic developments, and the underlying sentiment or "tone" of these reportings can be used to get a sense of how the economy overall is developing [@Ozgun2021]. And, finally, a lot of social interaction now happens online on social media sites, where users post and engage with others' posts. All of this taken together provides a vast amount of data [e.g., @Hilbert2011] that can be used to study and explain political, social, and economic behavior.
+
+The catch, however, is that someone needs to analyze all this data. According to one estimate, *Twitter* (now *X*) alone produces somehwere between 500'000 and almost 5'000'000 tweets on a single day [@Ulizkoetal2021], and even a fraction of this is much more information than any individual human can process in a reasonable amount of time. Plus, the sheer amount of text data that is now available is only one of the problems one runs into. Another one is that people obviously communicate in many different languages -- English, French, Chinese, German, Spanish, Russian, and so on -- and most individuals are only capable of reading and analyzing a small number of languages.
+
+Qualitative methods for analyzing text definitely run into limits here, and so do older quantitative methods like classifiers, topic models, or ideological scaling because they also require either a set of human-classified texts as training data or produce results that are not always straightforward to interpret [@Grimmer2013;@Gentzkowetal2019; see also @Molina2019]. 
+
+This is where *large language models* (LLMs) make a big difference. As anyone who has ever tried out tools like *ChatGPT* or *Copilot* (so, everyone?) knows, LLMs are "smart" enough to process -- meaning classify, translate, summarize, or check -- even longer text passages according to specific criteria or demands and produce results in a format that human users can explicitly specify. Their big disadvantage is that they, as the name indicates, are *large* and require serious amounts of computational firepower to perform complex operations on large amounts of text. 
+
+However, if one works with reasonably small amounts of short segments of text such as *tweets* and wants to get only relatively simple operations done -- such as identifying the main topic -- it is possible to use LLMs for text analysis with a simple laptop, no need for massive GPU-powered server farms. First, `ollama`, an open-source framework for LLMs (see <https://github.com/ollama/ollama>) makes it possible to run smaller LLMs one's own laptop, for free. In addition, the `mall` package for `R` (<https://mlverse.github.io/mall/>) makes it possible to use `ollama` LLMs directly within `R` on a given dataset, for example to translate, classify, or otherwise "evaluate" a sequence of texts that is stored in a variable ("vector").
+
+The rest of this post shows how you can put this into action with an example analysis of *tweets* on immigration by French radical right politicians [@Pietrandrea2022].
+
+## LLMs and `ollama`
+
+![A llama](thumbnail.jpg){fig-alt="A photograph of a llama looking directly at the camera in front of lake and a background of mountains. Photo by Paul Lequa on Unsplash."}
+
+### The LLM zoo
+
+The probably most widely-known family of LLMs is the *GPT* series developed by *OpenAI*, which are what is running under *ChatGPT*s "hood" -- but they are by far not the only ones. Nowadays, there is a proper zoo of LLMs. Some of these models are proprietary -- meaning you have to pay to be able to use them -- but there are also many others which are open-source and free to use for anyone. The *Llama* (or *LLaMa*) family of LLMs that was developed by *Meta* (the company that owns *Facebook* and *Instagram*) is one example [@Touvronetal2023].
+
+LLMs also differ in size and there are generally always larger and smaller versions of a given LLM. The *llama3.2* model, for example, is available in 1B and 3B versions, meaning one contains 1 billion parameters and the other 3 billion. Both versions of *llama3.2*, in turn, are significantly smaller than the *llama3.1* models, which contain 8B, 70B, or 405B parameters. Smaller models are generally not as smart as larger models, but they also require less computing power. Therefore, if you can do a certain task with a smaller model without sacrificing (too much) quality, then that is usually worth doing. (Remember the stuff on "parsimony" from your methods course? This is what that was about.)
+
+### Installing `ollama`
+
+`ollama` was created to make it easier to access all the various LLMs from their different providers. Simply put, it is a little program that allows you to download and run any of the long list of open-source models they have available (see <https://ollama.com/search>) with a few lines of code. Using it is indeed not really difficult.
+
+You can download and install `ollama` directly from their website: <https://ollama.com/download>.
+
+### Using `ollama`
+
+`ollama` comes with a *ChatGPT*-like chat-window, where you can use any of the available models just like you would use *ChatGPT* or *Copilot* -- be aware, though, that things can take **much** longer when you run an LLM on your laptop compared to when you use *OpenAI*'s servers!
+
+The "native" way of accessing `ollama` is via the *Terminal* (on Mac) or the *Command-Line Interface* (CLI, on Windows). You can access them from within `RStudio` if you open the *Terminal* tab on the bottom (next to the *Console* tab). When you do that, you should see another blinking cursor waiting for commands to execute, just like with `R`.
+
+From here, you can start working with `ollama`. For example, to see which models you have currently installed on your computer, you would run in your *Terminal* or *CLI* (not in `R`):
+```default
+ollama list
+```
+
+Most likely, you will see no models listed since you haven't installed any models yet.
+
+To install a model, you use `ollama pull <model>`. For example, to install the *llama3.1* model, you would run:
+
+```default
+ollama pull llama3.1
+```
+
+*ollama* will then go and download the requested model -- which will usually take a bit of time. Again, we are using *large* models here!
+
+Once that is done, you can start chatting with your new toy. To run a model, you use `ollama run <model>` -- so in our case:
+
+```default
+ollama run llama3.1
+```
+
+After a few moments, the command line will change and you will see:
+
+```default
+>>>> Send a message (/? for help)
+```
+
+Now all you have to do is send a little message, just like with *ChatGPT*. See what happens when you ask the model to "Write something funny.":
+
+```default
+>>>> Write something funny.
+```
+
+If you want to stop the model, you can do so with `/bye`. You will then get back to the standard command line interface, where you can theoretically install and run other LLMs.
+
+
+## Running `ollama` from within `R` with `mall`
+
+With a simple chat interface -- a window like with *ChatGPT* or the `ollama` interface in the command line, we *can* give our LLM some task to do. We could for example feed it a single tweet and then ask it to classify or translate it for us -- but that is tedious. 
+
+A much more convenient way to use an `ollama` LLM is to store all the different texts we want to analyze in a dataset, import that dataset into `R`, and then call the LLM from witin `R` to let it go through then entire dataset, work with all of the texts, one after the other, and then store the result -- e.g., a translation or classification -- as a new variable in the dataset. The `mall` package for `R` makes that possible and quite easy to do.
+
+
+
+## References
+
+
+
+
+
+
