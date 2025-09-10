@@ -9,7 +9,7 @@
 <meta name="author" content="Carlo Knotz">
 <meta name="dcterms.date" content="2025-09-05">
 
-<title>Using LLMs to classify Twitter data – Testing big ideas with simple methods</title>
+<title>Using LLMs to work with Twitter data – Testing big ideas with simple methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,7 +127,6 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -136,7 +135,7 @@ div.csl-indent {
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -166,7 +165,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Using LLMs to classify Twitter data</h1>
+      <h1 class="title">Using LLMs to work with Twitter data</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">LLMs</div>
                 <div class="quarto-category">Ollama</div>
@@ -214,6 +213,15 @@ div.csl-indent {
   <li><a href="#using-ollama" id="toc-using-ollama" class="nav-link" data-scroll-target="#using-ollama">Using <code>ollama</code></a></li>
   </ul></li>
   <li><a href="#running-ollama-from-within-r-with-mall" id="toc-running-ollama-from-within-r-with-mall" class="nav-link" data-scroll-target="#running-ollama-from-within-r-with-mall">Running <code>ollama</code> from within <code>R</code> with <code>mall</code></a></li>
+  <li><a href="#example-analysis-french-politicians-tweets-about-migration" id="toc-example-analysis-french-politicians-tweets-about-migration" class="nav-link" data-scroll-target="#example-analysis-french-politicians-tweets-about-migration">Example analysis: French politicians’ <em>tweets</em> about migration</a>
+  <ul class="collapse">
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">Data import</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data cleaning</a></li>
+  <li><a href="#translating-tweets-to-english" id="toc-translating-tweets-to-english" class="nav-link" data-scroll-target="#translating-tweets-to-english">Translating <em>tweets</em> to English</a></li>
+  <li><a href="#identifying-tweets-with-a-specific-content" id="toc-identifying-tweets-with-a-specific-content" class="nav-link" data-scroll-target="#identifying-tweets-with-a-specific-content">Identifying <em>tweets</em> with a specific content</a></li>
+  <li><a href="#extracting-information" id="toc-extracting-information" class="nav-link" data-scroll-target="#extracting-information">Extracting information</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -228,11 +236,11 @@ div.csl-indent {
 <section id="text-media-and-large-language-models" class="level2">
 <h2 class="anchored" data-anchor-id="text-media-and-large-language-models">Text, media, and large language models</h2>
 <p>When people interact and communicate with each other in the political, social, or economic spheres, they often use written text. Politicians and political parties, for example, use election manifestos and campaign flyers to communicate with potential voters, and these have long been used to measure their ideological positions <span class="citation" data-cites="Volkensetal2014 Laveretal2003 Slapin2008">(<a href="#ref-Volkensetal2014" role="doc-biblioref">Volkens et al. 2014</a>; <a href="#ref-Laveretal2003" role="doc-biblioref">Laver, Benoit, and Garry 2003</a>; <a href="#ref-Slapin2008" role="doc-biblioref">Slapin and Proksch 2008</a>)</span>. Newspapers, secondly, routinely report on economic developments, and the underlying sentiment or “tone” of these reportings can be used to get a sense of how the economy overall is developing <span class="citation" data-cites="Ozgun2021">(<a href="#ref-Ozgun2021" role="doc-biblioref">Ozgun and Broekel 2021</a>)</span>. And, finally, a lot of social interaction now happens online on social media sites, where users post and engage with others’ posts. All of this taken together provides a vast amount of data <span class="citation" data-cites="Hilbert2011">(e.g., <a href="#ref-Hilbert2011" role="doc-biblioref">Hilbert and López 2011</a>)</span> that can be used to study and explain political, social, and economic behavior.</p>
-<p>The catch, however, is that someone needs to analyze all this data. According to one estimate, <em>Twitter</em> (now <em>X</em>) alone produces somehwere between 500’000 and almost 5’000’000 tweets on a single day <span class="citation" data-cites="Ulizkoetal2021">(<a href="#ref-Ulizkoetal2021" role="doc-biblioref">Ulizko et al. 2021</a>)</span>, and even a fraction of this is much more information than any individual human can process in a reasonable amount of time. Plus, the sheer amount of text data that is now available is only one of the problems one runs into. Another one is that people obviously communicate in many different languages – English, French, Chinese, German, Spanish, Russian, and so on – and most individuals are only capable of reading and analyzing a small number of languages.</p>
+<p>The catch, however, is that someone needs to analyze all this data. According to one estimate, <em>Twitter</em> (now <em>X</em>) alone produces somehwere between 500’000 and almost 5’000’000 <em>tweets</em> on a single day <span class="citation" data-cites="Ulizkoetal2021">(<a href="#ref-Ulizkoetal2021" role="doc-biblioref">Ulizko et al. 2021</a>)</span>, and even a fraction of this is much more information than any individual human can process in a reasonable amount of time. Plus, the sheer amount of text data that is now available is only one of the problems one runs into. Another one is that people obviously communicate in many different languages – English, French, Chinese, German, Spanish, Russian, and so on – and most individuals are only capable of reading and analyzing a small number of languages.</p>
 <p>Qualitative methods for analyzing text definitely run into limits here, and so do older quantitative methods like classifiers, topic models, or ideological scaling because they also require either a set of human-classified texts as training data or produce results that are not always straightforward to interpret <span class="citation" data-cites="Grimmer2013 Gentzkowetal2019 Molina2019">(<a href="#ref-Grimmer2013" role="doc-biblioref">Grimmer and Stewart 2013</a>; <a href="#ref-Gentzkowetal2019" role="doc-biblioref">Gentzkow, Kelly, and Taddy 2019</a>; see also <a href="#ref-Molina2019" role="doc-biblioref">Molina and Garip 2019</a>)</span>.</p>
 <p>This is where <em>large language models</em> (LLMs) make a big difference. As anyone who has ever tried out tools like <em>ChatGPT</em> or <em>Copilot</em> (so, everyone?) knows, LLMs are “smart” enough to process – meaning classify, translate, summarize, or check – even longer text passages according to specific criteria or demands and produce results in a format that human users can explicitly specify. Their big disadvantage is that they, as the name indicates, are <em>large</em> and require serious amounts of computational firepower to perform complex operations on large amounts of text.</p>
-<p>However, if one works with reasonably small amounts of short segments of text such as <em>tweets</em> and wants to get only relatively simple operations done – such as identifying the main topic – it is possible to use LLMs for text analysis with a simple laptop, no need for massive GPU-powered server farms. First, <code>ollama</code>, an open-source framework for LLMs (see <a href="https://github.com/ollama/ollama" class="uri">https://github.com/ollama/ollama</a>) makes it possible to run smaller LLMs one’s own laptop, for free. In addition, the <code>mall</code> package for <code>R</code> (<a href="https://mlverse.github.io/mall/" class="uri">https://mlverse.github.io/mall/</a>) makes it possible to use <code>ollama</code> LLMs directly within <code>R</code> on a given dataset, for example to translate, classify, or otherwise “evaluate” a sequence of texts that is stored in a variable (“vector”).</p>
-<p>The rest of this post shows how you can put this into action with an example analysis of <em>tweets</em> on immigration by French radical right politicians <span class="citation" data-cites="Pietrandrea2022">(<a href="#ref-Pietrandrea2022" role="doc-biblioref">Pietrandrea and Battaglia 2022</a>)</span>.</p>
+<p>However, if one works with reasonably small amounts of short segments of text such as <em>tweets</em> and wants to get only relatively simple operations done – such as identifying the main topic – it is possible to use LLMs for text analysis on a regular laptop, no need for massive GPU-powered server farms. First, <code>ollama</code>, an open-source framework for LLMs (see <a href="https://github.com/ollama/ollama" class="uri">https://github.com/ollama/ollama</a>) makes it possible to run smaller LLMs one’s own laptop, for free. In addition, the <code>mall</code> package for <code>R</code> (<a href="https://mlverse.github.io/mall/" class="uri">https://mlverse.github.io/mall/</a>) makes it possible to use <code>ollama</code> LLMs directly within <code>R</code> on a given dataset, for example to translate, classify, or otherwise “evaluate” a sequence of texts that is stored in a variable (“vector”).</p>
+<p>The rest of this post shows how you can put this into action with an example analysis of <em>tweets</em> on immigration by French right and radical right politicians <span class="citation" data-cites="Pietrandrea2022">(<a href="#ref-Pietrandrea2022" role="doc-biblioref">Pietrandrea and Battaglia 2022</a>)</span>.</p>
 </section>
 <section id="llms-and-ollama" class="level2">
 <h2 class="anchored" data-anchor-id="llms-and-ollama">LLMs and <code>ollama</code></h2>
@@ -249,32 +257,462 @@ div.csl-indent {
 </section>
 <section id="installing-ollama" class="level3">
 <h3 class="anchored" data-anchor-id="installing-ollama">Installing <code>ollama</code></h3>
-<p><code>ollama</code> was created to make it easier to access all the various LLMs from their different providers. Simply put, it is a little program that allows you to download and run any of the long list of open-source models they have available (see <a href="https://ollama.com/search" class="uri">https://ollama.com/search</a>) with a few lines of code. Using it is indeed not really difficult.</p>
+<p><code>ollama</code> was created to make it easier to access all the various LLMs from their different providers. Simply put, <code>ollama</code> is a little program that allows you to download and run any of the long list of open-source models they have available (see <a href="https://ollama.com/search" class="uri">https://ollama.com/search</a>) with a few lines of code.</p>
 <p>You can download and install <code>ollama</code> directly from their website: <a href="https://ollama.com/download" class="uri">https://ollama.com/download</a>.</p>
-<p><code>ollama</code> comes now with a <em>ChatGPT</em>-like chat-window, where you can use any of the available models just like you would use <em>ChatGPT</em> or <em>Copilot</em> – be aware, though, that things can take <strong>much</strong> longer when you run an LLM on your laptop compared to when you use <em>OpenAI</em>’s servers!</p>
 </section>
 <section id="using-ollama" class="level3">
 <h3 class="anchored" data-anchor-id="using-ollama">Using <code>ollama</code></h3>
-<p>The “native” way of accessing <code>ollama</code> is via the <em>Terminal</em> (on Mac) or the <em>Command-Line Interface</em> (CLI, on Windows). You can access them from within <code>RStudio</code> if you open the <em>Terminal</em> tab on the bottom (next to the <em>Console</em> tab). When you do that, you should see another blinking cursor waiting for commands to execute, just like with <code>R</code>.</p>
-<p>From here, you can start working with <code>ollama</code>. For example, to see which models you have currently installed on your computer, you would run:</p>
+<p>There are two ways in which you can use <code>ollama</code>.</p>
+<p>The first one is to use the <em>ChatGPT</em>-like chat-window that <code>ollama</code> comes with. Here, you choose one of the available models and then interact with it just like you would with <em>ChatGPT</em> or <em>Copilot</em>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The second and “native” way of accessing <code>ollama</code> is via the <em>Terminal</em> on Mac or the <em>Command-Line Interface</em> (CLI) on Windows. You can access them directly from within <code>RStudio</code> if you open the <em>Terminal</em> tab on the bottom (next to the <em>Console</em> tab; see <a href="#fig-pointer" class="quarto-xref">Figure&nbsp;1</a> below). When you do that, you should see another blinking cursor waiting for commands to execute. This works just like <code>R</code> – you type in a command, hit enter, and the computer does what you asked (or returns an error message) – only that you work with different programs and thus different languages.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div id="fig-pointer" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pointer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="pointer.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;1: Finding the Terminal in RStudio"><img src="pointer.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pointer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Finding the Terminal in RStudio
+</figcaption>
+</figure>
+</div>
+<p>When you have navigated to the <em>Terminal</em>/<em>CLI</em>, you can start working with <code>ollama</code>. For example, to see which models you have currently installed on your computer, you would run in your <em>Terminal</em> or <em>CLI</em> (not in <code>R</code>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ollama list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Most likely, you will see no models listed since you haven’t installed any models yet.</p>
 <p>To install a model, you use <code>ollama pull &lt;model&gt;</code>. For example, to install the <em>llama3.1</em> model, you would run:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ollama pull llama3.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><em>ollama</em> will then go and download the requested model – which will usually take a bit of time. Again, we are using <em>large</em> models here!</p>
-<p>Once that is done, you can start chatting with your new toy. To run a model, you use <code>ollama run &lt;model&gt;</code> – so in our case:</p>
+<p><code>ollama</code> will then go and download the requested model – which will usually take a bit of time. Again, we are talking about <em>large</em> models here!</p>
+<p>Once that is done, you can start chatting with your new model! To run a model, you use <code>ollama run &lt;model&gt;</code> – so in our case:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ollama run llama3.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>After a few moments, the command line will change and you will see:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;&gt; Send a message (/? for help)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now all you have to do is send a little message, just like with <em>ChatGPT</em>. See what happens when you ask the model to “Write something funny.”:</p>
+<p>This is now basically a stripped-down version of <em>ChatGPT</em>, and it works the same way. You type in a message or request, hit enter, and the model gives you answer to the best of its ability.</p>
+<p>For example, see what happens when you ask the model to “Write something funny.”:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;&gt; Write something funny.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you want to stop the model, you can do so with <code>/bye</code>. You will then get back to the standard command line interface, where you can theoretically install and run other LLMs.</p>
+<p>If you want to stop the model, you can do so with <code>/bye</code> and then enter:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>&gt;&gt;&gt;&gt; /bye</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You will then get back to the standard command line interface, where you can install and run other LLMs.</p>
 </section>
 </section>
 <section id="running-ollama-from-within-r-with-mall" class="level2">
 <h2 class="anchored" data-anchor-id="running-ollama-from-within-r-with-mall">Running <code>ollama</code> from within <code>R</code> with <code>mall</code></h2>
-<p>With a simple chat interface – a window like with <em>ChatGPT</em> or the <code>ollama</code> interface in the command line, we <em>can</em> give our LLM some task to do. We could for example feed it a single tweet and then ask it to classify or translate it for us – but that is tedious.</p>
-<p>A much more convenient way to use an <code>ollama</code> LLM is to store all the different texts we want to analyze in a dataset, import that dataset into <code>R</code>, and then call the LLM from witin <code>R</code> to let it go through then entire dataset, work with all of the texts, one after the other, and then store the result – e.g., a translation or classification – as a new variable in the dataset. The <code>mall</code> package for <code>R</code> makes that possible and quite easy to do.</p>
+<p>With a simple chat interface – a window like with <em>ChatGPT</em> or the <code>ollama</code> interface in the command line, we <em>can</em> already give our LLM some task to do. We could for example feed it a single <em>tweet</em> and then ask it to classify or translate it for us. But this only works when we work with a handful of <em>tweets</em> or other small pieces of text. If we are working with a large dataset of <em>tweets</em> or similar text, this approach is usually not feasible!</p>
+<p>A much more convenient way to use an <code>ollama</code> LLM is to use it <em>programmatically</em>: to store all the different texts we want to analyze in a dataset, import that dataset into <code>R</code>, and then call the LLM from witin <code>R</code> to let it automatically go through then entire dataset, work with all of the texts, one after the other, and then store the result – e.g., a translation or classification – as a new variable in the dataset. This is, in essence, what the <code>mall</code> package for <code>R</code> does.</p>
+<p>You can install <code>mall</code> directly from <em>CRAN</em> with <code>install.packages()</code> – in <code>R</code>! Once you have done that, you load it with <code>library()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mall)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>mall</code> can use both local LLMs that are installed on your computer via <code>ollama</code> and remote LLMs like <em>ChatGPT</em>, but in the latter case only if you have access to their API (which is generally a service you need to pay for).</p>
+<p>For this analysis, we use local LLMs via <code>ollama</code>.</p>
+<p>To be able to use <code>ollama</code> from within <code>R</code>, <code>ollama</code> needs to be running in the background. To set this, you just need to go back to the <em>Terminal</em> or <em>CLI</em> and run <code>ollama serve</code>. You will then get a bit of computer gibberish and the <em>Terminal</em> will be busy – basically, <code>ollama</code> is up and running and ready to serve you a model of your choice. You can then move back to <code>R</code>.</p>
+<p>Next, we specify which LLM we want to run with the <code>llm_use()</code> function from <code>mall</code>. In our case, we only have the <em>llama3.1</em> model installed, so we run that one:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">llm_use</span>(<span class="st">"ollama"</span>,<span class="st">"llama3.1"</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">seed =</span> <span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── mall session object </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Backend: ollama
+LLM session:
+  model:llama3.1
+
+  seed:42
+
+R session:
+cache_folder:/var/folders/9x/9t19vvdn5pv84n6k_9lwqqm40000gn/T//RtmpXjkX1a/_mall_cache651363608aac</code></pre>
+</div>
+</div>
+<p>Once this is taken care of, we are all set and can do our analysis.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</section>
+<section id="example-analysis-french-politicians-tweets-about-migration" class="level2">
+<h2 class="anchored" data-anchor-id="example-analysis-french-politicians-tweets-about-migration">Example analysis: French politicians’ <em>tweets</em> about migration</h2>
+<p>To illustrate how one can analyze text data with <code>mall</code> and <code>ollama</code>, we will work with a dataset of <em>tweets</em> on migration from various French right and radical right politicans between 2011 and 2022 that were collected for the <em>MIGR-TWIT</em> project (see <a href="https://doi.org/10.5281/zenodo.7257708" class="uri">https://doi.org/10.5281/zenodo.7257708</a>). <em>Tweets</em> are a good place to start when it comes to text analysis and LLMs because they are short, so computing power and processing time are less of an issue.</p>
+<p>Before we import the dataset, we quickly load the <code>tidyverse</code> to be able to use it for data management:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<section id="data-import" class="level3">
+<h3 class="anchored" data-anchor-id="data-import">Data import</h3>
+<p>You can import the dataset directly from the <em>Zenodo</em> data archive:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://zenodo.org/records/7347479/files/FR-R-MIGR-TWIT-2011-2022_meta.csv?download=1"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You see directly in the <em>Environment</em> that the dataset contains around 40’000 <em>tweets</em>. We can also do a quick inspection with <code>glimpse()</code> to get a sense of what the variables look like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(tweets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 40,112
+Columns: 44
+$ data__id                                  &lt;chr&gt; "82713564338597888", "433669…
+$ data__text                                &lt;chr&gt; "Dans cette vidéo, je dénonç…
+$ data__lang                                &lt;chr&gt; "fr", "fr", "data__lang", "f…
+$ data__created_at                          &lt;chr&gt; "2011-06-20T07:37:05.000Z", …
+$ author__username                          &lt;chr&gt; "@dupontaignan", "@dupontaig…
+$ data__author_id                           &lt;chr&gt; "38170599", "38170599", "dat…
+$ data__conversation_id                     &lt;chr&gt; "82713564338597888", "433669…
+$ data__public_metrics__retweet_count       &lt;chr&gt; "2", "1", "data__public_metr…
+$ data__public_metrics__reply_count         &lt;chr&gt; "1", "0", "data__public_metr…
+$ data__public_metrics__like_count          &lt;chr&gt; "2", "0", "data__public_metr…
+$ data__public_metrics__quote_count         &lt;chr&gt; "0", "0", "data__public_metr…
+$ data__reply_settings                      &lt;chr&gt; "everyone", "everyone", "dat…
+$ data__possibly_sensitive                  &lt;chr&gt; "False", "False", "data__pos…
+$ data__source                              &lt;chr&gt; "Twitter Web Client", "Twitt…
+$ data__geo__place_id                       &lt;chr&gt; "", "", "data__geo__place_id…
+$ data__referenced_tweets__type             &lt;chr&gt; "", "", "data__referenced_tw…
+$ data__referenced_tweets__id               &lt;chr&gt; "", "", "data__referenced_tw…
+$ data__in_reply_to_user_id                 &lt;chr&gt; "", "", "data__in_reply_to_u…
+$ data__entities__hashtags__start           &lt;chr&gt; "", "", "data__entities__has…
+$ data__entities__hashtags__end             &lt;chr&gt; "", "", "data__entities__has…
+$ data__entities__hashtags__tag             &lt;chr&gt; "", "", "data__entities__has…
+$ data__entities__mentions__start           &lt;chr&gt; "", "", "data__entities__men…
+$ data__entities__mentions__end             &lt;chr&gt; "", "", "data__entities__men…
+$ data__entities__mentions__username        &lt;chr&gt; "", "", "data__entities__men…
+$ data__entities__mentions__username.1      &lt;chr&gt; "", "", "data__entities__men…
+$ data__entities__mentions__id              &lt;chr&gt; "", "", "data__entities__men…
+$ data__entities__urls__start               &lt;chr&gt; "86", "", "data__entities__u…
+$ data__entities__urls__end                 &lt;chr&gt; "105", "", "data__entities__…
+$ data__entities__urls__url                 &lt;chr&gt; "http://t.co/J8ipeOY", "", "…
+$ data__entities__urls__expanded_url        &lt;chr&gt; "http://dai.ly/geL6Zm", "", …
+$ data__entities__urls__display_url         &lt;chr&gt; "dai.ly/geL6Zm", "", "data__…
+$ data__entities__urls__status              &lt;chr&gt; "200", "", "data__entities__…
+$ data__entities__urls__unwound_url         &lt;chr&gt; "https://www.dailymotion.com…
+$ data__context_annotations__.              &lt;chr&gt; "", "", "data__context_annot…
+$ data__context_annotations__.__id          &lt;chr&gt; "", "", "data__context_annot…
+$ data__context_annotations__.__name        &lt;chr&gt; "", "", "data__context_annot…
+$ data__context_annotations__.__description &lt;chr&gt; "", "", "data__context_annot…
+$ data__attachments__media_keys__001        &lt;chr&gt; "", "", "data__attachments__…
+$ data__attachments__media_keys__002        &lt;chr&gt; "", "", "data__attachments__…
+$ data__attachments__media_keys__003        &lt;chr&gt; "", "", "data__attachments__…
+$ data__attachments__media_keys__004        &lt;chr&gt; "", "", "data__attachments__…
+$ meta__newest_id                           &lt;chr&gt; "82713564338597888", "", "me…
+$ meta__oldest_id                           &lt;chr&gt; "43366943381651456", "", "me…
+$ meta__result_count                        &lt;chr&gt; "2", "", "meta__result_count…</code></pre>
+</div>
+</div>
+<p>Note that the actual <em>tweets</em> – the “meat part” of the dataset – are stored in the <code>data__text</code> variable, and that each <em>tweet</em> has a unique <code>data__id</code>. We also have information about which politician sent out the <em>tweet</em> and the exact time they did so, in addition to a range of other contextual variables.</p>
+</section>
+<section id="data-cleaning" class="level3">
+<h3 class="anchored" data-anchor-id="data-cleaning">Data cleaning</h3>
+<p>Let’s have a look at the first ten <em>tweets</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(data__text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                     data__text
+1                                     Dans cette vidéo, je dénonçais l'arnaque des bons sentiments en matière d'immigration http://t.co/J8ipeOY
+2                                                                            Je démonte les idées reçues sur l'immigration http://dai.ly/geL6Zm
+3                                                                                                                                    data__text
+4      A 15H aux questions d'actualités, j'interogerai M. Guéant sur les faits de délinquance liés à l'immigration clandestine venue de Tunisie
+5                                                                                                                                    data__text
+6                                   Nicolas Bay invité de « Objectif Elysée » en débat sur l’immigration | Front National: http://t.co/Pd7dHD3a
+7                         Guéant reconnaît le bilan dramatique de la politique d’immigration de #Sarkozy | Front National: http://t.co/uvLXTLre
+8  Mandat de Nicolas #Sarkozy : une explosion de la fraude sociale liée à une explosion de l’immigration | Front National: http://t.co/ycJInrbH
+9   Départ de Maxime Tandonnet : Nicolas #Sarkozy se révèle en écartant de l Elysée son seul conseiller anti-immigration !: http://t.co/uGt5Dmk
+10   Marine Le Pen s'adresse aux policiers, gendarmes et douaniers de France,sur la lutte contre l'immigration clandestine: http://t.co/OoUxIjs</code></pre>
+</div>
+</div>
+<p>It turns out that there are some irrelevant rows containing only the variable name (<code>data__text</code>).</p>
+<p>These rows need to be filtered out, and (just to make sure) we also filter out any observation where the <code>data__id</code> variable is empty:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(data__id <span class="sc">!=</span> <span class="st">"data__id"</span> <span class="sc">&amp;</span> data__id<span class="sc">!=</span><span class="st">""</span>) <span class="ot">-&gt;</span> tweets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In addition, you might have noticed that the most of the <em>tweets</em> contain links and hashtags, and one also includes an @-symbol. The links themselves are not really relevant now, so it might be best to remove them, and we can do the same with the @ and # symbols.</p>
+<p>To do that across all the <em>tweets</em> in one go, we use something called a <em>regular expression</em> (or “regex”). Simply put, a regular expression is a way to tell <code>R</code> (or other programming languages) to look for <em>patterns</em> in a given text and then do something with those pieces of text that correspond to a given pattern (e.g., delete or change).</p>
+<p>Writing good regular expressions is a science in and of itself <span class="citation" data-cites="Wickham2016">(see <a href="#ref-Wickham2016" role="doc-biblioref">Wickham and Grolemund 2016, chap. 14.3</a>)</span> and too complicated to go into detail here. Fortunately, AI chatbots like <em>ChatGPT</em> can help with writing them, and there is a website (<a href="https://regex101.com/" class="uri">https://regex101.com/</a>) that you can use to check that the expression you got from them actually does what it is supposed to do.</p>
+<p><em>Copilot</em> suggested the following regular expression to filter out all @ and # symbols and links starting with “http”: <code>@|#|http?://\\S+</code>. This expression (very simply put) tells <code>R</code> to look for the @-symbol or (<code>|</code>) the #-symbol or (<code>|</code>) a piece of text starting with “http” or “https” and followed first by “://” and then any sequence of characters that are not white space (<code>\S+</code>).</p>
+<p>We use this expression in the <code>str_remove_all()</code> function to remove these parts of each <em>tweet</em> and store the cleaned <em>tweets</em> as a new variable (<code>clean_text</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">clean_text =</span> <span class="fu">str_remove_all</span>(data__text, <span class="st">"@|#|http?://</span><span class="sc">\\</span><span class="st">S+"</span>)) <span class="ot">-&gt;</span> tweets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we then try again, we get the first ten <em>tweets</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                 clean_text
+1                                                    Dans cette vidéo, je dénonçais l'arnaque des bons sentiments en matière d'immigration 
+2                                                                                            Je démonte les idées reçues sur l'immigration 
+3  A 15H aux questions d'actualités, j'interogerai M. Guéant sur les faits de délinquance liés à l'immigration clandestine venue de Tunisie
+4                                                   Nicolas Bay invité de « Objectif Elysée » en débat sur l’immigration | Front National: 
+5                                          Guéant reconnaît le bilan dramatique de la politique d’immigration de Sarkozy | Front National: 
+6                   Mandat de Nicolas Sarkozy : une explosion de la fraude sociale liée à une explosion de l’immigration | Front National: 
+7                   Départ de Maxime Tandonnet : Nicolas Sarkozy se révèle en écartant de l Elysée son seul conseiller anti-immigration !: 
+8                   Marine Le Pen s'adresse aux policiers, gendarmes et douaniers de France,sur la lutte contre l'immigration clandestine: 
+9      RT laprovence: Un élu quitte ses fonctions à l'UMP pour protester contre la "frilosité" de son parti.  UMP rebélion immigration Luca
+10                                Guéant : des mots contre l’immigration de travail mais des actes pour la favoriser comme jamais !  fn2012</code></pre>
+</div>
+</div>
+<p>Looks like everything worked.</p>
+</section>
+<section id="translating-tweets-to-english" class="level3">
+<h3 class="anchored" data-anchor-id="translating-tweets-to-english">Translating <em>tweets</em> to English</h3>
+<p>The <em>tweets</em> may now be “clean” but they are still in French, which is not a language everyone is familiar with.</p>
+<p>To get a better sense of what the <em>tweets</em> are about, we can use the <code>llm_translate()</code> function from the <code>mall</code> package to translate them into English. To use this function, we specify which variable we want translated and the language we want it translated into, and the function will then let the LLM we loaded earlier (<em>llama3.1</em>) go through the dataset and translate the individual entries.</p>
+<p>Let’s try it out by translating the first ten <em>tweets</em> into English (translating all of them would take way too much time). To limit the operation to only the first ten, we use the <code>slice_head()</code> function. We also record the start and finish time so that we can see how long the process takes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">|&gt;</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text) <span class="sc">|&gt;</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">llm_translate</span>(clean_text,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">language =</span> <span class="st">"english"</span>) <span class="ot">-&gt;</span> translated</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> end<span class="sc">-</span>start</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will then take a few moments! In my case, it takes exactly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time difference of 1.134099 mins</code></pre>
+</div>
+</div>
+<p>This is actually not too bad – a human translator would most likely have needed a bit more time to do this job.</p>
+<p>Let’s look at the translations, which are automatically stored in a new variable called <code>.translation</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>translated <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.translation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                                .translation
+1                                                                                     I'm exposing the scam of good intentions when it comes to immigration.
+2                                                                                                       Challenging common misconceptions about immigration.
+3  I will ask Mr. Guéant about the facts related to delinquency linked to clandestine immigration from Tunisia at 15H as part of current events questioning.
+4                 In this show on immigration, Nicolas Bay from the Front National Party discusses French integration policies and their effects on society.
+5                                                                        Claudie Haigneré and Jean-Pierre Chevènement were already warning about it in 2007.
+6                                                            Nicolas Sarkozy's mandate has seen a social fraud explosion linked to an immigration explosion.
+7                                      Depart of Maxime Tandonnet: Nicolas Sarkozy reveals himself by ejecting from the Elysee his sole immigration advisor.
+8        French National Front leader Marine Le Pen addresses police officers, gendarmes and customs officials on the fight against clandestine immigration.
+9                                                       A UMP elected official has resigned to protest his party's lack of engagement on immigration issues.
+10                                                                  "Guéant speaks against immigration for work, but his actions promote it more than ever."</code></pre>
+</div>
+</div>
+<p>The fact that the <em>tweets</em> were originally written in French still shows, but the translation worked overall quite well – and non-francophones can now make sense of the tweets. We can see that one <em>tweet</em> is about police officers, another is about “social fraud”, and quite a few of them are about Nicolas Sarkozy, the former French President.</p>
+</section>
+<section id="identifying-tweets-with-a-specific-content" class="level3">
+<h3 class="anchored" data-anchor-id="identifying-tweets-with-a-specific-content">Identifying <em>tweets</em> with a specific content</h3>
+<p>In a real-life analysis, we may be interested in finding out how often politicians (or others) talk or <em>tweet</em> about a certain topic. To answer this question, we can go through our database of <em>tweets</em> and identify all <em>tweets</em> that refer to some keyword or topic of interest.</p>
+<p>To do that, we can use the <code>llm_verify()</code> function from <code>mall</code>. This function works very similarly to <code>llm_translate()</code>: we need to specify which variable we want to be checked by the LLM and some criterion that we want to be used.</p>
+<p>For example, let’s ask the LLM to identify all <em>tweets</em> that are related to social fraud. To do that, we simply write out the request and we also specify which name the new variable should have (<code>pred_name = "socialfraud"</code>). We save the result in a new data.frame called <code>checked</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">llm_verify</span>(clean_text, <span class="st">"does this tweet mention social fraud?"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">pred_name =</span> <span class="st">"socialfraud"</span>) <span class="ot">-&gt;</span> checked</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> end<span class="sc">-</span>start</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time difference of 33.21647 secs</code></pre>
+</div>
+</div>
+<p>This took less than a minute.</p>
+<p>Let’s see what the results look like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>checked <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text,socialfraud)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                 clean_text
+1                                                    Dans cette vidéo, je dénonçais l'arnaque des bons sentiments en matière d'immigration 
+2                                                                                            Je démonte les idées reçues sur l'immigration 
+3  A 15H aux questions d'actualités, j'interogerai M. Guéant sur les faits de délinquance liés à l'immigration clandestine venue de Tunisie
+4                                                   Nicolas Bay invité de « Objectif Elysée » en débat sur l’immigration | Front National: 
+5                                          Guéant reconnaît le bilan dramatique de la politique d’immigration de Sarkozy | Front National: 
+6                   Mandat de Nicolas Sarkozy : une explosion de la fraude sociale liée à une explosion de l’immigration | Front National: 
+7                   Départ de Maxime Tandonnet : Nicolas Sarkozy se révèle en écartant de l Elysée son seul conseiller anti-immigration !: 
+8                   Marine Le Pen s'adresse aux policiers, gendarmes et douaniers de France,sur la lutte contre l'immigration clandestine: 
+9      RT laprovence: Un élu quitte ses fonctions à l'UMP pour protester contre la "frilosité" de son parti.  UMP rebélion immigration Luca
+10                                Guéant : des mots contre l’immigration de travail mais des actes pour la favoriser comme jamais !  fn2012
+   socialfraud
+1            0
+2            0
+3            0
+4            0
+5            0
+6            1
+7            0
+8            0
+9            0
+10           0</code></pre>
+</div>
+</div>
+<p>We know already that only <em>tweet</em> number 6 was about social fraud and that is also what the model found. This is good because this gives us confidence that when we scale the operation up – let it run on the entire dataset – we should get correct results.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>We can also see if the LLM can identify if <em>tweets</em> are about specific politicians. Let’s for example try to identify <em>tweets</em> that are in some way about Marine Le Pen, the leader of the <em>Rasssemblement National</em> (RN), France’s main radical right-party:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">llm_verify</span>(clean_text, <span class="st">"does this tweet mention Marine Le Pen?"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">pred_name =</span> <span class="st">"lepen"</span>) <span class="ot">-&gt;</span> checked</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> end<span class="sc">-</span>start</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time difference of 31.03894 secs</code></pre>
+</div>
+</div>
+<p>If we check the new result, we can see that the model did correctly identify the one <em>tweet</em> that was about Marine Le Pen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>checked <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text,lepen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                 clean_text
+1                                                    Dans cette vidéo, je dénonçais l'arnaque des bons sentiments en matière d'immigration 
+2                                                                                            Je démonte les idées reçues sur l'immigration 
+3  A 15H aux questions d'actualités, j'interogerai M. Guéant sur les faits de délinquance liés à l'immigration clandestine venue de Tunisie
+4                                                   Nicolas Bay invité de « Objectif Elysée » en débat sur l’immigration | Front National: 
+5                                          Guéant reconnaît le bilan dramatique de la politique d’immigration de Sarkozy | Front National: 
+6                   Mandat de Nicolas Sarkozy : une explosion de la fraude sociale liée à une explosion de l’immigration | Front National: 
+7                   Départ de Maxime Tandonnet : Nicolas Sarkozy se révèle en écartant de l Elysée son seul conseiller anti-immigration !: 
+8                   Marine Le Pen s'adresse aux policiers, gendarmes et douaniers de France,sur la lutte contre l'immigration clandestine: 
+9      RT laprovence: Un élu quitte ses fonctions à l'UMP pour protester contre la "frilosité" de son parti.  UMP rebélion immigration Luca
+10                                Guéant : des mots contre l’immigration de travail mais des actes pour la favoriser comme jamais !  fn2012
+   lepen
+1      0
+2      0
+3      0
+4      0
+5      0
+6      0
+7      0
+8      1
+9      0
+10     0</code></pre>
+</div>
+</div>
+<p>Again, the model seems to perform well enough that we could let it run on the entire dataset and still be reasonably confident that we get useable results.</p>
+</section>
+<section id="extracting-information" class="level3">
+<h3 class="anchored" data-anchor-id="extracting-information">Extracting information</h3>
+<p>Sometimes we want to not only know <em>if</em> a given piece of text contains something we are interested. Instead, we want to <em>extract</em> that particular text element and use it for a further analysis (e.g., a word cloud). To do that, we can use the <code>llm_extract()</code> function. Here, we again name the variable that we want examined and the piece of information that the model is supposed to look for and extract, and we can also specify a name for the new variable that will contain the extracted text elements.</p>
+<p>For example, let’s try to extract the French politicians that are named in the first ten <em>tweets</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">llm_extract</span>(clean_text, <span class="st">"French politician"</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">pred_name =</span> <span class="st">"politician"</span>) <span class="ot">-&gt;</span> extracted</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> end<span class="sc">-</span>start</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time difference of 35.08848 secs</code></pre>
+</div>
+</div>
+<p>This did not take very long, and a human coder would probably need longer just to be able to write down the names of the politicians.</p>
+<p>However, the results are not fully convincing: it seems the model hallucinated and stated a name even when the <em>tweet</em> did not contain actual names:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>extracted <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text, politician)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                 clean_text
+1                                                    Dans cette vidéo, je dénonçais l'arnaque des bons sentiments en matière d'immigration 
+2                                                                                            Je démonte les idées reçues sur l'immigration 
+3  A 15H aux questions d'actualités, j'interogerai M. Guéant sur les faits de délinquance liés à l'immigration clandestine venue de Tunisie
+4                                                   Nicolas Bay invité de « Objectif Elysée » en débat sur l’immigration | Front National: 
+5                                          Guéant reconnaît le bilan dramatique de la politique d’immigration de Sarkozy | Front National: 
+6                   Mandat de Nicolas Sarkozy : une explosion de la fraude sociale liée à une explosion de l’immigration | Front National: 
+7                   Départ de Maxime Tandonnet : Nicolas Sarkozy se révèle en écartant de l Elysée son seul conseiller anti-immigration !: 
+8                   Marine Le Pen s'adresse aux policiers, gendarmes et douaniers de France,sur la lutte contre l'immigration clandestine: 
+9      RT laprovence: Un élu quitte ses fonctions à l'UMP pour protester contre la "frilosité" de son parti.  UMP rebélion immigration Luca
+10                                Guéant : des mots contre l’immigration de travail mais des actes pour la favoriser comme jamais !  fn2012
+          politician
+1  jean marie le pen
+2      marine le pen
+3             guéant
+4        nicolas bay
+5            sarkozy
+6    nicolas sarkozy
+7    nicolas sarkozy
+8      marine le pen
+9               luca
+10             clerk</code></pre>
+</div>
+</div>
+<p>One thing we can try to keep the model from hallucinating is to add an additional prompt to instruct it to assign an <code>NA</code> whenever no politican is explicitly mentioned. We can do that with the <code>additional_prompt()</code> option (<em>“argument”</em>) within <code>llm_extract()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">llm_extract</span>(clean_text, <span class="st">"French politician"</span>,</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">additional_prompt =</span> <span class="st">"return NA if the tweet does not explicitly mention a widely known French politician"</span>,</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">pred_name =</span> <span class="st">"politician"</span>) <span class="ot">-&gt;</span> extracted</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> end<span class="sc">-</span>start</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time difference of 33.62775 secs</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>extracted <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(clean_text, politician)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                 clean_text
+1                                                    Dans cette vidéo, je dénonçais l'arnaque des bons sentiments en matière d'immigration 
+2                                                                                            Je démonte les idées reçues sur l'immigration 
+3  A 15H aux questions d'actualités, j'interogerai M. Guéant sur les faits de délinquance liés à l'immigration clandestine venue de Tunisie
+4                                                   Nicolas Bay invité de « Objectif Elysée » en débat sur l’immigration | Front National: 
+5                                          Guéant reconnaît le bilan dramatique de la politique d’immigration de Sarkozy | Front National: 
+6                   Mandat de Nicolas Sarkozy : une explosion de la fraude sociale liée à une explosion de l’immigration | Front National: 
+7                   Départ de Maxime Tandonnet : Nicolas Sarkozy se révèle en écartant de l Elysée son seul conseiller anti-immigration !: 
+8                   Marine Le Pen s'adresse aux policiers, gendarmes et douaniers de France,sur la lutte contre l'immigration clandestine: 
+9      RT laprovence: Un élu quitte ses fonctions à l'UMP pour protester contre la "frilosité" de son parti.  UMP rebélion immigration Luca
+10                                Guéant : des mots contre l’immigration de travail mais des actes pour la favoriser comme jamais !  fn2012
+        politician
+1               NA
+2               NA
+3     brice guéant
+4      nicolas bay
+5          sarkozy
+6  nicolas sarkozy
+7  nicolas sarkozy
+8    marine le pen
+9     lucas graham
+10          guéant</code></pre>
+</div>
+</div>
+<p>This result is better (the first two <em>tweets</em> are correctly given <code>NA</code>s), but there are still some issues with the information extracted from the latter <em>tweets</em>.</p>
+<p>This goes to show that LLMs, even though they are powerful, are not perfect. So the advice by Grimmer and Steward <span class="citation" data-cites="Grimmer2013">(<a href="#ref-Grimmer2013" role="doc-biblioref">2013, 271</a>)</span> – “validate, validate, validate” – is still relevant.</p>
+<p>One potential way to fix this could be to be even more specific in the additional prompt or to simply try out a different, perhaps more powerful and accurate model.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This post showed you how you can analyze political <em>tweets</em> using open-source large language models in <code>R</code> with the <code>mall</code> package and <code>ollama</code>. While LLMs themselves are of course not even remotely close to being “simple” models, <code>mall</code> and <code>ollama</code> make it quite simple to use them for research projects.</p>
+<p>Overall, the model we used, <em>llama3.1</em>, performed reasonably well when it comes to identifying if <em>tweets</em> are about a specific topic or politician, but struggled with correctly extracting information from the <em>tweets</em>. The second issue is something you can come across, and it can make sense to try out different models to see which one produces the most convincing results. <code>ollama</code> offers you a wide variety of free-to-use models that you can play around with.</p>
+<p>The <code>mall</code> package also provides a few more functions that do other relevant operations such as classifying pieces of text into groups depending on their contents (<code>llm_classify()</code>), extracting the tone or sentiment of a piece of text (<code>llm_sentiment()</code>), or also a custom request with <code>llm_custom()</code>. In my (very limited) experience, some of these functions work better with longer pieces of text such as a speech given by a politican. I found this to be especially the case with <code>llm_classify()</code>.</p>
+<p>Obviously, when you work with longer pieces of text, your analyses with LLMs can take <em>a lot</em> longer than a few simple analyses with short <em>tweets</em> – so plan accordingly, and make sure to always test analyses on subset of your dataset to see if you get sensible results before you run them on the entire dataset (and potentially waste a lot of time).</p>
+<p>If you’re now very motivated to do some analysis of your own but wondering where you could find relevant text data, you are in luck: Erik Gahner’s “Dataset of Political Datasets” includes a list of datasets of political speeches from different countries and international institutions (<a href="https://github.com/erikgahner/PolData?tab=readme-ov-file#political-speeches-and-debates" class="uri">https://github.com/erikgahner/PolData?tab=readme-ov-file#political-speeches-and-debates</a>).</p>
+<p>Before you get started with one of these larger datasets, it can also make sense to learn a bit more about how to handle text data in <code>R</code> so that you are prepared in case you need to do any data cleaning or management. The article by Welbers et al. <span class="citation" data-cites="Welbersetal2017">(<a href="#ref-Welbersetal2017" role="doc-biblioref">2017</a>)</span>, chapter 13 in Urdinez and Cruz <span class="citation" data-cites="Urdinez2020">(<a href="#ref-Urdinez2020" role="doc-biblioref">2020</a>)</span>, or the book on text analysis by Silge and Robinson <span class="citation" data-cites="Silge2017">(<a href="#ref-Silge2017" role="doc-biblioref">2017</a>)</span> are good places to start.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 </section>
 <section id="references" class="level2">
 
@@ -282,6 +720,7 @@ div.csl-indent {
 
 
 </section>
+
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Gentzkowetal2019" class="csl-entry" role="listitem">
@@ -305,6 +744,9 @@ Ozgun, Burcu, and Tom Broekel. 2021. <span>“The Geography of Innovation and Te
 <div id="ref-Pietrandrea2022" class="csl-entry" role="listitem">
 Pietrandrea, Paola, and Elena Battaglia. 2022. <span>“<span>‘<span>M</span>igrants and the <span>EU</span>.’</span> The Diachronic Construction of Ad Hoc Categories in <span>French</span> Far-Right Discourse.”</span> <em>Journal of Pragmatics</em> 192: 139–57.
 </div>
+<div id="ref-Silge2017" class="csl-entry" role="listitem">
+Silge, Julia, and David Robinson. 2017. <em>Text Mining with r: A Tidy Approach</em>. O’Reilly Media, Inc.
+</div>
 <div id="ref-Slapin2008" class="csl-entry" role="listitem">
 Slapin, Jonathan B., and Sven-Oliver Proksch. 2008. <span>“A Scaling-Model for Estimating Time-Series Party Positions from Texts.”</span> <em>American Journal of Political Science</em> 52 (3): 705–22.
 </div>
@@ -314,10 +756,28 @@ Touvron, Hugo, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lach
 <div id="ref-Ulizkoetal2021" class="csl-entry" role="listitem">
 Ulizko, MS, EV Antonov, MA Grigorieva, ES Tretyakov, RR Tukumbetova, and AA Artamonov. 2021. <span>“Visual Analytics of <span>Twitter</span> and Social Media Dataflows: A Casestudy of <span>COVID</span>-19 Rumors.”</span> <em>Scientific Visualization</em> 13 (4): 144–63.
 </div>
+<div id="ref-Urdinez2020" class="csl-entry" role="listitem">
+Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. Boca Raton; others: CRC Press.
+</div>
 <div id="ref-Volkensetal2014" class="csl-entry" role="listitem">
 Volkens, Andrea, Pola Lehmann, Nicolas Merz, Sven Regel, Annika Werner, Onawa Promise Lacewell, and Henrike Schultze. 2014. <em>The Manifesto Data Collection. Manifesto Project (MRG / CMP / MARPOR). Version 2014b.</em> Berlin: Wissenschaftszentrum Berlin für Sozialforschung (WZB).
 </div>
-</div></section></div></main> <!-- /main -->
+<div id="ref-Welbersetal2017" class="csl-entry" role="listitem">
+Welbers, Kasper, Wouter Van Atteveldt, and Kenneth Benoit. 2017. <span>“Text Analysis in r.”</span> <em>Communication Methods and Measures</em> 11 (4): 245–65.
+</div>
+<div id="ref-Wickham2016" class="csl-entry" role="listitem">
+Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. Sebastopol: O’Reilly Media.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>You might notice that things can take a lot longer when you run an LLM on your laptop compared to when you use <em>OpenAI</em>’s servers, and that the results are not always as good as the ones you get from <em>ChatGPT</em>. This goes to show just how much there is happening behind the curtains when you use <em>ChatGPT</em> or <em>Copilot</em>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See <a href="https://github.com/ollama/ollama" class="uri">https://github.com/ollama/ollama</a> for an overview over the basic commands for <code>ollama</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I also specify a “seed” number to make my analysis reproducible on my end. This is not strictly necessary (see here for an explanation: <a href="https://mlverse.github.io/mall/articles/caching.html" class="uri">https://mlverse.github.io/mall/articles/caching.html</a>).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The model sometimes returns “invalid output” that is stored as a missing value (<code>NA</code>). If this is a persistent and significant problem in your own analysis, you might have to check the quality of your text data and consider modifying your prompt (see also further below).<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>See also <a href="https://www.tidytextmining.com/" class="uri">https://www.tidytextmining.com/</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
