@@ -241,11 +241,12 @@ Finally, let's see if exposure to globalization has political effects by testing
 ```{r}
 ess7 %>% 
   drop_na(trstplt,BK) %>%
-  ggplot(aes(x = trstplt, y = BK)) +
-    geom_hex(binwidth = c(1,.75))
+  mutate(trstplt_num = as.numeric(trstplt)-1) %>%
+  ggplot(aes(y = trstplt_num, x = BK)) +
+    geom_hex(binwidth = c(.75,1))
 ```
 
-At least based on this (admittedly) very quick and superficial look at the data, there does not seem to be a strong relationship.
+At least based on this (admittedly) very quick and superficial look at the data, there does not seem to be a clear relationship.
 
 ## Next steps
 
