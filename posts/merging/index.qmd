@@ -6,7 +6,7 @@ format:
   html:
     toc: true
     toc-depth: 4
-date: "2025-06-15"
+date: "2025-10-10"
 lightbox: true
 lang: en
 categories:
