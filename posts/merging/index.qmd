@@ -343,8 +343,10 @@ merged %>%
   drop_na(bmr_dem) %>% 
   ggplot(aes(x = factor(bmr_dem), y = sumdeaths)) +
     geom_col() +
-    scale_y_continuous(labels = scales::label_number())
-
+    scale_y_continuous(labels = scales::label_number()) +
+    scale_x_discrete(labels = c("0" = "No", "1" = "Yes")) +
+    labs( x = "Democracy (Boix/Miller/Rosato)",
+          y = "Avg. conflict fatalities/year")
 
 ```
 
