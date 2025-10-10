@@ -1,2 +1,1444 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"></html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlo Knotz">
+<meta name="dcterms.date" content="2025-06-15">
+
+<title>Merging macro-level data – Testing big ideas with simple methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-508422c006262752e20ae841d8f41dd3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-6bdd2aebeb936dcddaa5f935a5de481c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Testing big ideas with simple methods</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About this blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Merging macro-level data</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Macro</div>
+                <div class="quarto-category">UCDP</div>
+                <div class="quarto-category">Quality of Government</div>
+                <div class="quarto-category">Comparing countries</div>
+                <div class="quarto-category">Peace &amp; conflict</div>
+                <div class="quarto-category">Merging data</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Carlo Knotz </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 15, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#more" id="toc-more" class="nav-link active" data-scroll-target="#more">1 + 1 = more</a></li>
+  <li><a href="#dataset-structures-and-identifying-variables" id="toc-dataset-structures-and-identifying-variables" class="nav-link" data-scroll-target="#dataset-structures-and-identifying-variables">Dataset structures and identifying variables</a>
+  <ul>
+  <li><a href="#cross-sectional-data" id="toc-cross-sectional-data" class="nav-link" data-scroll-target="#cross-sectional-data">Cross-sectional data</a></li>
+  <li><a href="#time-series-data" id="toc-time-series-data" class="nav-link" data-scroll-target="#time-series-data">Time series data</a></li>
+  <li><a href="#time-series-cross-sectional-data" id="toc-time-series-cross-sectional-data" class="nav-link" data-scroll-target="#time-series-cross-sectional-data">Time series cross-sectional data</a></li>
+  <li><a href="#on-country-names-and-codes" id="toc-on-country-names-and-codes" class="nav-link" data-scroll-target="#on-country-names-and-codes">On country names and codes</a></li>
+  </ul></li>
+  <li><a href="#example-merging-the-quality-of-government-and-ucdp-conflict-fatality-datasets" id="toc-example-merging-the-quality-of-government-and-ucdp-conflict-fatality-datasets" class="nav-link" data-scroll-target="#example-merging-the-quality-of-government-and-ucdp-conflict-fatality-datasets">Example: Merging the <em>Quality of Government</em> and <em>UCDP</em> conflict fatality datasets</a>
+  <ul>
+  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import">Import</a></li>
+  <li><a href="#inspecting-the-data" id="toc-inspecting-the-data" class="nav-link" data-scroll-target="#inspecting-the-data">Inspecting the data</a>
+  <ul class="collapse">
+  <li><a href="#are-observations-uniquely-identified" id="toc-are-observations-uniquely-identified" class="nav-link" data-scroll-target="#are-observations-uniquely-identified">Are observations uniquely identified?</a></li>
+  <li><a href="#which-countries-and-years-are-covered" id="toc-which-countries-and-years-are-covered" class="nav-link" data-scroll-target="#which-countries-and-years-are-covered">Which countries and years are covered?</a></li>
+  <li><a href="#harmonizing-the-country-variables" id="toc-harmonizing-the-country-variables" class="nav-link" data-scroll-target="#harmonizing-the-country-variables">Harmonizing the country variables</a></li>
+  </ul></li>
+  <li><a href="#merging-the-datasets" id="toc-merging-the-datasets" class="nav-link" data-scroll-target="#merging-the-datasets">Merging the datasets</a></li>
+  </ul></li>
+  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration">Data exploration</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<section id="more" class="level2">
+<h2 class="anchored" data-anchor-id="more">1 + 1 = more</h2>
+<p>Being able to combine or merge different datasets is a critical skill for any (social, political, or economic) data analyst because, more often than not, the variables you need for your analysis are spread over different datasets. For example, many available datasets from peace &amp; conflict research on fatalities related to wars and other types of conflict (as looked at in <a href="https://cknotz.github.io/getstuffdone_blog/posts/conflict/">this post</a>) contain just that – information about conflicts and their intensity. What they do not contain is variables that could potentially <em>explain</em> the incidence and intensity of conflicts, for example how democratic countries are <span class="citation" data-cites="Maoz1993 Oneal1997">(<a href="#ref-Maoz1993" role="doc-biblioref">Maoz and Russett 1993</a>; <a href="#ref-Oneal1997" role="doc-biblioref">Oneal and Russett 1997</a>)</span> — which are available in other datasets <span class="citation" data-cites="Lindbergetal2014 Boix2013">(e.g., <a href="#ref-Lindbergetal2014" role="doc-biblioref">Lindberg et al. 2014</a>; <a href="#ref-Boix2013" role="doc-biblioref">Boix, Miller, and Rosato 2013</a>)</span>. To be able to analyze these two variables, conflicts and democracy, and their relationships, you need to be able to merge the two datasets into one.</p>
+<p>Fortunately, <em>merging datasets is not as difficult as it might seem at first sight</em> – functions like <code>merge()</code> from <code>base R</code> or <code>left_join()</code> and the other joining functions from <code>dplyr()</code> take care of most of the work <span class="citation" data-cites="Urdinez2020">(see also <a href="#ref-Urdinez2020" role="doc-biblioref">Urdinez and Cruz 2020, chap. 11.2</a>)</span>. You as the data analyst in charge really only need to take care of two things:</p>
+<ol type="1">
+<li>You need to understand the structure of your datasets and which variable (or variable<strong>s</strong>) uniquely identity each observation.</li>
+<li>You need to make sure that these identifying variables are exactly identical in each of the datasets you want to merge.</li>
+</ol>
+<p>This may sound a bit cryptic to the uninitiated, but we will go through this step by step in the remainder of this post. More specifically, we will first go over some basics (dataset structures) and a common “snag” one encounters when working with macro- or country-level data: different country names and country codes. After that, we will do an example merging operation with two macro-level datasets, the dataset on conflict-related fatalities since 1989 from the <em>Uppsala Conflict Data Program</em> (as used <a href="https://cknotz.github.io/getstuffdone_blog/posts/conflict/">here</a>) and the <em>Quality of Government</em> Basic Dataset <span class="citation" data-cites="QOGB2025">(<a href="#ref-QOGB2025" role="doc-biblioref">Dahlberg et al. 2025</a>)</span>.</p>
+<p>I should also add that <a href="https://svmiller.com/">Steven V. Miller</a> explains these things in two of his blog posts in probably a bit more detail:</p>
+<ul>
+<li><a href="https://svmiller.com/blog/2021/01/a-tutorial-on-state-classification-systems/">“A Quick Tutorial on Various State (Country) Classification Systems”</a></li>
+<li><a href="https://svmiller.com/blog/2021/01/a-tutorial-on-the-join-family-in-r/">“A Quick Tutorial on Merging Data with the *_join() Family of Functions in {dplyr}”</a></li>
+</ul>
+<p>Do check them out! (I saw them too late, otherwise I wouldn’t have bothered writing my own, and clearly redundant, blog post…)</p>
+</section>
+<section id="dataset-structures-and-identifying-variables" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-structures-and-identifying-variables">Dataset structures and identifying variables</h2>
+<section id="cross-sectional-data" class="level3">
+<h3 class="anchored" data-anchor-id="cross-sectional-data">Cross-sectional data</h3>
+<p>As you probably remember from your introductory data analysis or statistics course, datasets have different structures. Some are <em>cross-sectional</em> and contain data about a set of observations at one point in time. For example, data from the <em>European Social Survey</em> (ESS) contain information about a large number of survey respondents (observations) at a certain point in time – these data are cross-sectional survey data. This type of dataset will look more or less like this:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  essround  idno cntry   gndr agea
+1        7 12414    NO   Male   22
+2        7  9438    NO Female   43
+3        7 19782    NO Female   58
+4        7 18876    NO Female   22
+5        7 20508    NO   Male   84
+6        7 19716    NO   Male   62</code></pre>
+</div>
+</div>
+<p>There are different respondents, and each of them is <em>uniquely identified</em> by their ID number (<code>idno</code> in this case). We also know that they come from Norway, were interviewed in round 7, and have different genders and ages.</p>
+</section>
+<section id="time-series-data" class="level3">
+<h3 class="anchored" data-anchor-id="time-series-data">Time series data</h3>
+<p>There are also datasets that follow a single observation over time – we call these <em>time series</em> data. An example is the <code>airquality</code> dataset that is one of the “built-in” datasets that come with <code>R</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(airquality)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6</code></pre>
+</div>
+</div>
+<p>If you look for the help file for this dataset with <code>?airquality</code>, you will learn that it contains daily air quality measurements from New York between May and September 1973.</p>
+<p>Note that the dataset contains two variables that relate to time: <code>Month</code> and <code>Day</code>. Obviously, each of these two variables by itself is useless. For example, just knowing that a measurement refers to day <code>2</code> is not helpful since the dataset covers four different months, each of which has a day <code>2</code>. Therefore, to <em>uniquely identify</em> a given measurement or observation, we need <em>both</em> variables, <code>Day</code> and <code>Month</code>.</p>
+</section>
+<section id="time-series-cross-sectional-data" class="level3">
+<h3 class="anchored" data-anchor-id="time-series-cross-sectional-data">Time series cross-sectional data</h3>
+<p>There is also a third type of dataset that, simply put, follows a group of <em>units</em> over some period of <em>time</em> (as introduced <a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/">here</a>). This means this type of dataset combines time series and cross-sectional features, which is why we call this type of dataset a time series cross-sectional dataset (TSCS). Another commonly used term for this is <em>panel data</em>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Very commonly, TSCS data contain measurements of a set of <em>countries</em> over a number of <em>years</em> and will look more or less likely this:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  cname  ccodealp  year
+  &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;
+1 Norway NOR       1994
+2 Norway NOR       1995
+3 Norway NOR       1996
+4 Sweden SWE       1994
+5 Sweden SWE       1995
+6 Sweden SWE       1996</code></pre>
+</div>
+</div>
+<p>Each observation is a country-year (e.g., Norway in 1994, Norway in 1995, etc.) and we have those for multiple countries and multiple years.</p>
+<p>Importantly, this means that each observation in such a dataset is <strong>uniquely identified by a <em>combination</em> of country <em>and</em> year</strong>. There are several observations from Norway and several from 1994, so neither the <code>cname</code> variable nor the <code>year</code> variable above uniquely identify each observation by itself – we always need both of them together to be able to tell what a given observation corresponds to.</p>
+<p>We can always check if a variable or combination of variables uniquely identifies each observation in a dataset using the <code>anyDuplicated()</code> function from base <code>R</code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> If variables uniquely identify observations, there should be no duplicates – the function should return a <code>0</code>.</p>
+<p>For example, to check if the observations in the small dataset above (let’s assume it is called <code>tscs</code>) are uniquely identified by the <code>cname</code> variable, we run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tscs <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">anyDuplicated</span>(<span class="fu">select</span>(., cname)) <span class="sc">==</span> <span class="dv">0</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>The result is obviously that <code>cname</code> does not uniquely identify each observation since each country is observed over different years. This means we also need the <code>year</code> variable to identify each observation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tscs <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">anyDuplicated</span>(<span class="fu">select</span>(., cname,year)) <span class="sc">==</span> <span class="dv">0</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="on-country-names-and-codes" class="level3">
+<h3 class="anchored" data-anchor-id="on-country-names-and-codes">On country names and codes</h3>
+<p>The United Kingdom is officially also referred to as the “United Kingdom of Great Britain and Northern Ireland”, but sometimes simply as “Great Britain”. Similar, the United States are also called “USA” or “United States of America”, and the sample applies to a number of different countries (e.g., South Korea or the Netherlands). There are standardized codes that are supposed to fix this, one example being the ISO two- or three-digit country codes (where Norway would be <code>NO</code> or <code>NOR</code>) — but there are many different country coding conventions, and they can differ in some cases as well (the United States might be called <code>US</code> in one and <code>USA</code> in another).</p>
+<p>This can be – and often is – a problem when we want to merge two TSCS datasets where countries are the <em>units of observation</em>. A common case is that one dataset contains two-digit ISO codes and the other contains their three-digit equivalents. In that case, Norway would be called <code>NO</code> in dataset 1 and <code>NOR</code> in dataset 2, and <code>R</code> will think these are two different units and will not be able to merge the observations.</p>
+<p>Since this is such a common problem, Arel-Bundock, Enevoldsen, and Yetman <span class="citation" data-cites="countrycode">(<a href="#ref-countrycode" role="doc-biblioref">2018</a>)</span> put together the <code>countrycode</code> package that can convert different country names and codes back and forth, and which we can use to harmonize country variables across datasets. This is a very common operation we need to perform when merging two datasets.</p>
+<p>The main function in <code>countrycode</code> is the <code>countrycode()</code> function, which has three main “arguments”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>countrycode<span class="sc">::</span><span class="fu">countrycode</span>(sourcevar, origin, destination)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It works, simply put, by taking a variable that identifies countries in a given dataset (<code>sourcevar</code>) and transforming it from its current encoding (<code>origin</code>) to a different one (<code>destination</code>).</p>
+<p>For example, let’s say we want to convert the <code>ccodealp</code> variable in our little <code>tscs</code> practice dataset. As you can see below, the variable currently contains three-digit country codes for Norway and Sweden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tscs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  cname  ccodealp  year
+  &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;
+1 Norway NOR       1994
+2 Norway NOR       1995
+3 Norway NOR       1996
+4 Sweden SWE       1994
+5 Sweden SWE       1995
+6 Sweden SWE       1996</code></pre>
+</div>
+</div>
+<p>Let’s say we need to convert this to its two-digit equivalent. To do this with <code>countrycode</code>, we need to specify <code>ccodealp</code> as the source variable, <code>iso3c</code> (“ISO three-character”) as the origin encoding, and <code>iso2c</code> as the destination encoding. We can use <code>countrycode</code> directly within <code>mutate()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tscs <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ccode_2d =</span> countrycode<span class="sc">::</span><span class="fu">countrycode</span>(<span class="at">sourcevar =</span> ccodealp,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">origin =</span> <span class="st">"iso3c"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">destination =</span> <span class="st">"iso2c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  cname  ccodealp  year ccode_2d
+  &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;   
+1 Norway NOR       1994 NO      
+2 Norway NOR       1995 NO      
+3 Norway NOR       1996 NO      
+4 Sweden SWE       1994 SE      
+5 Sweden SWE       1995 SE      
+6 Sweden SWE       1996 SE      </code></pre>
+</div>
+</div>
+<p>In a real-world case, you first need to be sure what exactly the encoding of your country variable is — this information should be provided in the codebook for the dataset you are working with. You can then refer to the documentation for the <code>countrycode</code> package to see how you convert your existing variable into a the format you need.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</section>
+</section>
+<section id="example-merging-the-quality-of-government-and-ucdp-conflict-fatality-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="example-merging-the-quality-of-government-and-ucdp-conflict-fatality-datasets">Example: Merging the <em>Quality of Government</em> and <em>UCDP</em> conflict fatality datasets</h2>
+<p>Let’s put all of this into action and merge two real-life research datasets, the <em>Quality of Government</em> (QoG) Standard Dataset <span class="citation" data-cites="QOG2025">(<a href="#ref-QOG2025" role="doc-biblioref">Teorell et al. 2025</a>)</span> and the <em>Country-Year Dataset on Organized Violence within Country Borders</em> from the <em>Uppsala Conflict Data Program</em> (UCDP) <span class="citation" data-cites="Daviesetal2025 Sundberg2013">(<a href="#ref-Daviesetal2025" role="doc-biblioref">Davies et al. 2025</a>; <a href="#ref-Sundberg2013" role="doc-biblioref">Sundberg and Melander 2013</a>)</span>.</p>
+<section id="import" class="level3">
+<h3 class="anchored" data-anchor-id="import">Import</h3>
+<p>If you want to follow along, you can download them directly from <a href="https://www.gu.se/en/quality-government/qog-data/data-downloads/basic-dataset" class="uri">https://www.gu.se/en/quality-government/qog-data/data-downloads/basic-dataset</a> (important: we use the <em>time series</em> version of the QoG dataset, not the cross-sectional one, and we download it in <code>Stata</code> <code>.dta</code> format!) and <a href="https://ucdp.uu.se/downloads/index.html#orgviocy" class="uri">https://ucdp.uu.se/downloads/index.html#orgviocy</a> (here, we download it directly in the <code>.RDS</code> format that is native to <code>R</code>).</p>
+<p>To import the datasets, we use <code>read_dta()</code> from <code>haven</code> and <code>readRDS()</code>, respectively:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ged <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"organizedviolencecy_v25_1.rds"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>qog <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"qog_bas_ts_jan25.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="inspecting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="inspecting-the-data">Inspecting the data</h3>
+<p>As you can see from either the codebooks or the <em>Environment</em> tab, both datasets contain a number of different variables that measure countries and years. To keep things simple, we focus on the <code>country_cy</code> and <code>year_cy</code> variables in the UCDP dataset and the <code>year</code> and <code>cname</code> variables in the QoG dataset (wondering how to figure this out? This is why datasets have codebooks!).</p>
+<section id="are-observations-uniquely-identified" class="level4">
+<h4 class="anchored" data-anchor-id="are-observations-uniquely-identified">Are observations uniquely identified?</h4>
+<p>Let’s first check that these variables really uniquely identify each observation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>qog <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">anyDuplicated</span>(<span class="fu">select</span>(., cname,year)) <span class="sc">==</span> <span class="dv">0</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ged <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">anyDuplicated</span>(<span class="fu">select</span>(., country_cy,year_cy)) <span class="sc">==</span> <span class="dv">0</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>The UCDP dataset looks “clean”, but the QoG dataset has some repeated country-year pairs. This is how we can identify these “offending” countries:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>qog <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(.[,<span class="fu">c</span>(<span class="st">"cname"</span>,<span class="st">"year"</span>)])) <span class="ot">-&gt;</span> duplicates</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(duplicates<span class="sc">$</span>cname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Chile"                                 
+[2] "Congo (the Democratic Republic of the)"
+[3] "Indonesia"                             
+[4] "Syrian Arab Republic (the)"            </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(duplicates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A closer inspection (the codebook is unfortunately quiet about this) that this is because one variable, <code>ccodecow</code> (more on that one comes below), is missing for half of these observations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>qog <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cname<span class="sc">==</span><span class="st">"Chile"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 279
+  cname_qog cname  year ccodecow ccodealp ccodealp_year ccode_qog cname_year
+  &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     
+1 Chile     Chile  1946      155 CHL      CHL46               152 Chile 1946
+2 Chile     Chile  1946       NA CHL      CHL46               152 Chile 1946
+3 Chile     Chile  1947      155 CHL      CHL47               152 Chile 1947
+4 Chile     Chile  1947       NA CHL      CHL47               152 Chile 1947
+5 Chile     Chile  1948      155 CHL      CHL48               152 Chile 1948
+6 Chile     Chile  1948       NA CHL      CHL48               152 Chile 1948
+# ℹ 271 more variables: ccode &lt;dbl&gt;, ajr_settmort &lt;dbl&gt;, atop_ally &lt;dbl&gt;,
+#   atop_number &lt;dbl&gt;, bci_bci &lt;dbl&gt;, bicc_gmi &lt;dbl&gt;, biu_offrel &lt;dbl+lbl&gt;,
+#   bl_asyf &lt;dbl&gt;, bl_asym &lt;dbl&gt;, bl_asymf &lt;dbl&gt;, bmr_dem &lt;dbl&gt;,
+#   bmr_demdur &lt;dbl&gt;, bti_aar &lt;dbl&gt;, bti_acp &lt;dbl&gt;, bti_cdi &lt;dbl&gt;,
+#   bti_ci &lt;dbl&gt;, bti_cps &lt;dbl&gt;, bti_cr &lt;dbl&gt;, bti_ds &lt;dbl&gt;, bti_eo &lt;dbl&gt;,
+#   bti_eos &lt;dbl&gt;, bti_ep &lt;dbl&gt;, bti_ffe &lt;dbl&gt;, bti_foe &lt;dbl&gt;, bti_ij &lt;dbl&gt;,
+#   bti_mes &lt;dbl&gt;, bti_muf &lt;dbl&gt;, bti_pdi &lt;dbl&gt;, bti_pp &lt;dbl&gt;, bti_prp &lt;dbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>qog <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cname<span class="sc">==</span><span class="st">"Syrian Arab Republic (the)"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 279
+  cname_qog cname      year ccodecow ccodealp ccodealp_year ccode_qog cname_year
+  &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     
+1 Syria     Syrian A…  1946      652 SYR      SYR46               760 Syria 1946
+2 Syria     Syrian A…  1946      652 SYR      SYR46               760 Syria 1946
+3 Syria     Syrian A…  1946       NA SYR      SYR46               760 Syria 1946
+4 Syria     Syrian A…  1946       NA SYR      SYR46               760 Syria 1946
+5 Syria     Syrian A…  1947      652 SYR      SYR47               760 Syria 1947
+6 Syria     Syrian A…  1947      652 SYR      SYR47               760 Syria 1947
+# ℹ 271 more variables: ccode &lt;dbl&gt;, ajr_settmort &lt;dbl&gt;, atop_ally &lt;dbl&gt;,
+#   atop_number &lt;dbl&gt;, bci_bci &lt;dbl&gt;, bicc_gmi &lt;dbl&gt;, biu_offrel &lt;dbl+lbl&gt;,
+#   bl_asyf &lt;dbl&gt;, bl_asym &lt;dbl&gt;, bl_asymf &lt;dbl&gt;, bmr_dem &lt;dbl&gt;,
+#   bmr_demdur &lt;dbl&gt;, bti_aar &lt;dbl&gt;, bti_acp &lt;dbl&gt;, bti_cdi &lt;dbl&gt;,
+#   bti_ci &lt;dbl&gt;, bti_cps &lt;dbl&gt;, bti_cr &lt;dbl&gt;, bti_ds &lt;dbl&gt;, bti_eo &lt;dbl&gt;,
+#   bti_eos &lt;dbl&gt;, bti_ep &lt;dbl&gt;, bti_ffe &lt;dbl&gt;, bti_foe &lt;dbl&gt;, bti_ij &lt;dbl&gt;,
+#   bti_mes &lt;dbl&gt;, bti_muf &lt;dbl&gt;, bti_pdi &lt;dbl&gt;, bti_pp &lt;dbl&gt;, bti_prp &lt;dbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>qog <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cname<span class="sc">==</span><span class="st">"Indonesia"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 279
+  cname_qog cname      year ccodecow ccodealp ccodealp_year ccode_qog cname_year
+  &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;     
+1 Indonesia Indonesia  1950      850 IDN      IDN50               360 Indonesia…
+2 Indonesia Indonesia  1950       NA IDN      IDN50               360 Indonesia…
+3 Indonesia Indonesia  1951      850 IDN      IDN51               360 Indonesia…
+4 Indonesia Indonesia  1951       NA IDN      IDN51               360 Indonesia…
+5 Indonesia Indonesia  1952      850 IDN      IDN52               360 Indonesia…
+6 Indonesia Indonesia  1952       NA IDN      IDN52               360 Indonesia…
+# ℹ 271 more variables: ccode &lt;dbl&gt;, ajr_settmort &lt;dbl&gt;, atop_ally &lt;dbl&gt;,
+#   atop_number &lt;dbl&gt;, bci_bci &lt;dbl&gt;, bicc_gmi &lt;dbl&gt;, biu_offrel &lt;dbl+lbl&gt;,
+#   bl_asyf &lt;dbl&gt;, bl_asym &lt;dbl&gt;, bl_asymf &lt;dbl&gt;, bmr_dem &lt;dbl&gt;,
+#   bmr_demdur &lt;dbl&gt;, bti_aar &lt;dbl&gt;, bti_acp &lt;dbl&gt;, bti_cdi &lt;dbl&gt;,
+#   bti_ci &lt;dbl&gt;, bti_cps &lt;dbl&gt;, bti_cr &lt;dbl&gt;, bti_ds &lt;dbl&gt;, bti_eo &lt;dbl&gt;,
+#   bti_eos &lt;dbl&gt;, bti_ep &lt;dbl&gt;, bti_ffe &lt;dbl&gt;, bti_foe &lt;dbl&gt;, bti_ij &lt;dbl&gt;,
+#   bti_mes &lt;dbl&gt;, bti_muf &lt;dbl&gt;, bti_pdi &lt;dbl&gt;, bti_pp &lt;dbl&gt;, bti_prp &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>To keep things simple, we drop those countries:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>qog <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(cname <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chile"</span>,<span class="st">"Indonesia"</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Syrian Arab Republic (the)"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Congo (the Democratic Republic of the)"</span>))) <span class="ot">-&gt;</span> qog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now the <code>cname</code> and <code>year</code> variables should uniquely identify each observation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>qog <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  {<span class="fu">anyDuplicated</span>(<span class="fu">select</span>(., cname,year)) <span class="sc">==</span> <span class="dv">0</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="which-countries-and-years-are-covered" class="level4">
+<h4 class="anchored" data-anchor-id="which-countries-and-years-are-covered">Which countries and years are covered?</h4>
+<p>Let’s now check which time periods the two datasets cover. Starting with the conflict dataset, we get:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(ged<span class="sc">$</span>year_cy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1989</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(ged<span class="sc">$</span>year_cy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2024</code></pre>
+</div>
+</div>
+<p>In the case of the QoG data, we get:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(qog<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1946</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(qog<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2024</code></pre>
+</div>
+</div>
+<p>Both datasets end in 2024, but the UCPD conflict dataset covers only the period after the fall of the Berlin Wall while the QoG dataset goes back to the year after World War II.</p>
+<p>To make the datasets more compatible, we can now drop the years prior to 1989 from the QoG dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>qog <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">&gt;=</span><span class="dv">1989</span>) <span class="ot">-&gt;</span> qog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now, theoretically, check which countries are covered by each dataset with <code>unique()</code>, but this results in long lists of countries. To make this easier, we can start by looking at the number of countries in each dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(ged<span class="sc">$</span>country_cy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 199</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(qog<span class="sc">$</span>cname))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 197</code></pre>
+</div>
+</div>
+<p>The UCPD dataset covers two more countries than the QoG dataset.</p>
+<p>We can also see more in detail which countries (or, perhaps, country <em>names</em>) are included only in one but not in both datasets. To do that, we can use the <code>setdiff()</code> function from base <code>R</code>, which shows for any two vectors the items that are contained in one but not the other.</p>
+<p>Important: We need to use this twice so we see which countries are covered in the UCDP dataset but not the QoG data, and vice versa. We start with the countries in the UCDP data that are not also in the QoG dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setdiff</span>(ged<span class="sc">$</span>country_cy,qog<span class="sc">$</span>cname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Antigua &amp; Barbuda"               "Bahamas"                        
+ [3] "Bolivia"                         "Bosnia-Herzegovina"             
+ [5] "Brunei"                          "Cambodia (Kampuchea)"           
+ [7] "Cape Verde"                      "Central African Republic"       
+ [9] "Chile"                           "Comoros"                        
+[11] "Congo"                           "Czech Republic"                 
+[13] "DR Congo (Zaire)"                "Dominican Republic"             
+[15] "East Timor"                      "Federated States of Micronesia" 
+[17] "Gambia"                          "Indonesia"                      
+[19] "Iran"                            "Ivory Coast"                    
+[21] "Kingdom of eSwatini (Swaziland)" "Kosovo"                         
+[23] "Laos"                            "Madagascar (Malagasy)"          
+[25] "Moldova"                         "Myanmar (Burma)"                
+[27] "Netherlands"                     "Niger"                          
+[29] "North Korea"                     "Philippines"                    
+[31] "Russia (Soviet Union)"           "Samoa (Western Samoa)"          
+[33] "Serbia (Yugoslavia)"             "South Korea"                    
+[35] "Syria"                           "Taiwan"                         
+[37] "Tanzania"                        "United Arab Emirates"           
+[39] "United Kingdom"                  "United States of America"       
+[41] "Vatican City State"              "Venezuela"                      
+[43] "Vietnam (North Vietnam)"         "Yemen (North Yemen)"            
+[45] "Yemen (South Yemen)"             "Zimbabwe (Rhodesia)"            </code></pre>
+</div>
+</div>
+<p>This includes, as could be expected, some of the “usual suspects”: The UK, the US, the Netherlands, or the Koreas, which often have different names in different datasets.</p>
+<p>Next, we check which countries are covered in the QoG but not the UCDP data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setdiff</span>(qog<span class="sc">$</span>cname,ged<span class="sc">$</span>country_cy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Antigua and Barbuda"                                       
+ [2] "Bahamas (the)"                                             
+ [3] "Bolivia (Plurinational State of)"                          
+ [4] "Bosnia and Herzegovina"                                    
+ [5] "Brunei Darussalam"                                         
+ [6] "Myanmar"                                                   
+ [7] "Cambodia"                                                  
+ [8] "Cabo Verde"                                                
+ [9] "Central African Republic (the)"                            
+[10] "Taiwan (Province of China)"                                
+[11] "Comoros (the)"                                             
+[12] "Congo (the)"                                               
+[13] "Czechia"                                                   
+[14] "Dominican Republic (the)"                                  
+[15] "Gambia (the)"                                              
+[16] "Iran (Islamic Republic of)"                                
+[17] "Côte d'Ivoire"                                             
+[18] "Korea (the Democratic People's Republic of)"               
+[19] "Korea (the Republic of)"                                   
+[20] "Lao People's Democratic Republic (the)"                    
+[21] "Madagascar"                                                
+[22] "Moldova (the Republic of)"                                 
+[23] "Netherlands (the)"                                         
+[24] "Niger (the)"                                               
+[25] "Micronesia (Federated States of)"                          
+[26] "Philippines (the)"                                         
+[27] "Timor-Leste"                                               
+[28] "Russian Federation (the)"                                  
+[29] "Serbia"                                                    
+[30] "Viet Nam"                                                  
+[31] "Zimbabwe"                                                  
+[32] "Yemen Democratic"                                          
+[33] "Sudan (the)"                                               
+[34] "Eswatini"                                                  
+[35] "United Arab Emirates (the)"                                
+[36] "USSR"                                                      
+[37] "United Kingdom of Great Britain and Northern Ireland (the)"
+[38] "Tanzania, the United Republic of"                          
+[39] "United States of America (the)"                            
+[40] "Venezuela (Bolivarian Republic of)"                        
+[41] "Samoa"                                                     
+[42] "Yemen"                                                     
+[43] "Yugoslavia"                                                
+[44] "Serbia and Montenegro"                                     </code></pre>
+</div>
+</div>
+<p>This is about the same number, and again the “usual suspects”. Notice, for example, that Vietnam is spelled “Viet Nam” in the UCPD dataset.</p>
+<p>As shown in the <a href="https://cknotz.github.io/getstuffdone_blog/posts/conflict/#exploring-the-ucpd-conflict-dataset">earlier post</a>, there are three countries that are covered for only very brief periods in the UCDP dataset: The German Democratic Republic (“East Germany”), South Yemen, and Czechoslovakia. An easy solution is – again – to simply drop these countries:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>ged <span class="sc">%&gt;%</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(country_cy <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"German Democratic Republic"</span>,<span class="st">"Yemen (South Yemen)"</span>,<span class="st">"Czechoslovakia"</span>))) <span class="ot">-&gt;</span> ged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="harmonizing-the-country-variables" class="level4">
+<h4 class="anchored" data-anchor-id="harmonizing-the-country-variables">Harmonizing the country variables</h4>
+<p>So far, we already had weed out some duplicate observations and found that, unsurprisingly, the country names differ between the two datasets. As explained earlier, we need to harmonize the country variables for the merge to work.</p>
+<p>There are now different ways to handle this. We could either try to convert the country names in the <code>cname</code> variable in the QoG dataset to the format used in the <code>country_cy</code> variable in the UCDP dataset or vice versa. We could also try to convert both to ISO country codes and use these to merge the datasets.</p>
+<p>A third option is to use the <code>ccodecow</code> variable that is contained in the QoG dataset (the one that caused problems earlier). This variable contains standardized country codes (in the form of numbers) from the <em>Correlates of War</em> project (COW; see <a href="https://correlatesofwar.org/" class="uri">https://correlatesofwar.org/</a>). The advantage with using this variable is that it is already contained in one of the datasets, the QoG data. More importantly, the <code>countrycode</code> package “speaks” COW codes, so we can use the <code>countrycode()</code> function to convert the country names in the UCDP dataset to COW codes – and then we have everything we need in place!</p>
+<p>To create COW country codes in the UCDP dataset, we specify that we want <code>countrycode()</code> to create a new variable called <code>ccodcow</code> in the UCDP dataset, and to do this by transforming the English country names contained in the <code>country_cy</code> variable into COW numerical codes (<code>cown</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>ged<span class="sc">$</span>ccodecow <span class="ot">&lt;-</span> countrycode<span class="sc">::</span><span class="fu">countrycode</span>(ged<span class="sc">$</span>country_cy,</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">origin =</span> <span class="st">"country.name.en"</span>,</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">destination =</span> <span class="st">"cown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can take a quick look at the UCDP dataset to see how the new variable looks like:<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>ged <span class="sc">%&gt;%</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(country_cy,year_cy,ccodecow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,928 × 75
+   country_cy  year_cy ccodecow country_id_cy region_cy main_govt_name_cy       
+   &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                   
+ 1 Afghanistan    1989      700           700 Asia      Government of Afghanist…
+ 2 Afghanistan    1990      700           700 Asia      Government of Afghanist…
+ 3 Afghanistan    1991      700           700 Asia      Government of Afghanist…
+ 4 Afghanistan    1992      700           700 Asia      Government of Afghanist…
+ 5 Afghanistan    1993      700           700 Asia      Government of Afghanist…
+ 6 Afghanistan    1994      700           700 Asia      Government of Afghanist…
+ 7 Afghanistan    1995      700           700 Asia      Government of Afghanist…
+ 8 Afghanistan    1996      700           700 Asia      Government of Afghanist…
+ 9 Afghanistan    1997      700           700 Asia      Government of Afghanist…
+10 Afghanistan    1998      700           700 Asia      Government of Afghanist…
+# ℹ 6,918 more rows
+# ℹ 69 more variables: sb_exist_cy &lt;dbl&gt;, sb_dyad_count_cy &lt;dbl&gt;,
+#   sb_dyad_ids_cy &lt;chr&gt;, sb_dyad_names_cy &lt;chr&gt;, sb_deaths_parties_cy &lt;dbl&gt;,
+#   sb_deaths_civilians_cy &lt;dbl&gt;, sb_deaths_unknown_cy &lt;dbl&gt;,
+#   sb_total_deaths_best_cy &lt;dbl&gt;, sb_total_deaths_high_cy &lt;dbl&gt;,
+#   sb_total_deaths_low_cy &lt;dbl&gt;, sb_intrastate_exist_cy &lt;dbl&gt;,
+#   sb_intrastate_dyad_count_cy &lt;dbl&gt;, sb_intrastate_dyad_ids_cy &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="merging-the-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="merging-the-datasets">Merging the datasets</h3>
+<p>Now, after a long litany of inspection, cleaning, and harmonization, we can finally merge the datasets – which is, as promised, a fairly quick and simple operation: We use the <code>left_join()</code> function from the <code>dplyr</code> package, which takes one dataset and then merges it with all observations from another dataset that are contained in the first one based on the variables that uniquely identify the observations in each dataset.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>The code to do this looks as follows: We take the UCDP dataset and <code>left_join()</code> it with the QoG dataset along the <code>ccodecow</code> and <code>year</code>/<code>year_cy</code> variables and save the combined dataset as <code>merged</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>ged <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(qog, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"ccodecow"</span> <span class="ot">=</span> <span class="st">"ccodecow"</span>,</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"year_cy"</span> <span class="ot">=</span> <span class="st">"year"</span>)) <span class="ot">-&gt;</span> merged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The new <code>merged</code> dataset contains all variables that are contained in both datasets for all observations that in the UCDP dataset that are also present in the QoG dataset. We can see this more directly by looking at the number of variables (“columns”) per dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(ged)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 75</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(qog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 279</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(merged)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 352</code></pre>
+</div>
+</div>
+<p>The number of variables in <code>merged</code> is the number of variables in <code>ged</code> plus those in <code>qog</code> minus the two variables that were used to merge the dataset (<code>ccodecow</code> and <code>year</code>/<code>year_cy</code>).</p>
+</section>
+</section>
+<section id="data-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="data-exploration">Data exploration</h2>
+<p>Now that we have merged the datasets, we can do a bit of (quick and rough) data exploration to see if there is a relationship between how democratic a country is and how much conflict and violence happens in that country – we now have information on both aspects in one common dataset, so we can see if they are related!</p>
+<p>To measure the incidence of conflict, we use the <code>sb_total_deaths_best_cy</code> variable from the UCDP dataset, which gives the best estimate of the number of fatalities due to state-based violence within the borders of a given country and in a given year (please see the codebook for details).</p>
+<p>To measure democratic-ness, we use to different variables from the QoG dataset:</p>
+<ul>
+<li><code>bmr_dem</code>: A binary measure of democray (democratic in a given year, yes or no) from Boix, Miller, and Rosato <span class="citation" data-cites="Boix2013">(<a href="#ref-Boix2013" role="doc-biblioref">2013</a>)</span></li>
+<li><code>vdem_libdem</code>: A continuous measure of liberal democracy (to what <em>degree</em> is a country a liberal democracy in a given year?) that comes originally from the <em>V-DEM</em> dataset <span class="citation" data-cites="Lindbergetal2014">(<a href="#ref-Lindbergetal2014" role="doc-biblioref">Lindberg et al. 2014</a>)</span>.</li>
+</ul>
+<p>First, we see if there is a difference in the average number of conflict fatalities per year in democracies and non-democracies based on the binary measure of democracy (<code>bmr_dem</code>) and visualize the result in a bar graph:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>merged <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(bmr_dem) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sumdeaths =</span> <span class="fu">sum</span>(sb_total_deaths_best_cy, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(bmr_dem) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(bmr_dem), <span class="at">y =</span> sumdeaths)) <span class="sc">+</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-28-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There clearly is a difference: Non-democracies (<code>bmr_dem = 0</code>) had on average around 800’000 fatalities per year, while the figure for democracies is slightly less than half of this. Obviously, one should not forget that conflict is overall relatively rare (see also <a href="https://cknotz.github.io/getstuffdone_blog/posts/conflict/#conflict-fatalities-across-countries" class="uri">https://cknotz.github.io/getstuffdone_blog/posts/conflict/#conflict-fatalities-across-countries</a>), so these high averages are strongly driven by a few extreme cases with many fatalities. In other words, no, we obviously do not believe that Norway or Sweden had about 200’000 conflict deaths per year since 1989.</p>
+<p>We might get a clearer picture by using the continuous measure of how liberal democratic a country is. Here, we group the data by country (using the <code>ccodealp</code> variable), calculate the average level of democratic-ness and the average number of conflict fatalities per country over the entire period of observation, and visualize the result in a scatter plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>merged <span class="sc">%&gt;%</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ccodealp) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sumdeaths =</span> <span class="fu">sum</span>(sb_total_deaths_best_cy, <span class="at">na.rm =</span> T),</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_demo =</span> <span class="fu">mean</span>(vdem_libdem, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sumdeaths<span class="sc">&gt;</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_demo, <span class="at">y =</span> sumdeaths)) <span class="sc">+</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> ccodealp)) <span class="sc">+</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F) <span class="sc">+</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_number</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 3 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 3 rows containing missing values or values outside the scale range
+(`geom_text()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-29-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We find again a negative relationship – being more democratic is associated with fewer conflict fatalities – but this is to a large extent driven by a few countries with very violent state-based conflicts: Ethiopia, Afghanistan, Ukraine, and (although to a lesser extent) Iraq.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Being able to merge two (or more) datasets is a powerful skill because it allows you to analyze relationships between variables that are contained in two separate datasets.</p>
+<p>After having gone through this post, you should see that the actual merging – using <code>left_join()</code> – is quite straightforward. You just need two datasets with overlapping observations and merge them along the variable (or variables) that uniquely identify each observation in each dataset.</p>
+<p>The trickier thing is making sure that the datasets really are in a shape that they can be merged – that there are overlapping variables, which do identify each observation. There is no one standard solution here since each dataset is different. Solving this requires you to have a quite intimate knowledge of each of the datasets and to be able to convert variables, where necessary. For the former, being able to do data exploration in <code>R</code> is essential, as is reading (and understanding) the datasets’ codebooks. For the latter, <code>countrycode</code> is very helpful.</p>
+</section>
+<section id="references" class="level2">
+
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-countrycode" class="csl-entry" role="listitem">
+Arel-Bundock, Vincent, Nils Enevoldsen, and CJ Yetman. 2018. <span>“<span class="nocase">countrycode: An R package to convert country names and country codes</span>.”</span> <em>Journal of Open Source Software</em> 3 (28): 848.
+</div>
+<div id="ref-Beck2001" class="csl-entry" role="listitem">
+Beck, Nathaniel. 2001. <span>“Time-Series-Cross-Section Data: What Have We Learned in the Past Few Years?”</span> <em>Annual Review of Political Science</em> 4: 271–93.
+</div>
+<div id="ref-Boix2013" class="csl-entry" role="listitem">
+Boix, Carles, Michael Miller, and Sebastian Rosato. 2013. <span>“A Complete Data Set of Political Regimes, 1800–2007.”</span> <em>Comparative Political Studies</em> 46 (12): 1523–54.
+</div>
+<div id="ref-QOGB2025" class="csl-entry" role="listitem">
+Dahlberg, Stefan, Aksel Sundström, Sören Holmberg, Bo Rothstein, Natalia Alvarado Pachon, Cem Mert Dalli, Rafael Lopez Valverde, Victor Saidi Phiri, and Lauren Gerber. 2025. <em>The Quality of Government Basic Dataset, Version Jan25</em>. Gothenburg: The Quality of Government Institute, University of Gothenburg.
+</div>
+<div id="ref-Daviesetal2025" class="csl-entry" role="listitem">
+Davies, Shawn, Therése Pettersson, Margareta Sollenberg, and Magnus Öberg. 2025. <span>“Organized Violence 1989–2024, and the Challenges of Identifying Civilian Victims.”</span> <em>Journal of Peace Research</em> 62 (4).
+</div>
+<div id="ref-Gleditsch1999" class="csl-entry" role="listitem">
+Gleditsch, Kristian S, and Michael D Ward. 1999. <span>“Interstate System Membership: <span>A</span> Revised List of the Independent States Since 1816.”</span> <em>International Interactions</em> 25 (4): 393–413.
+</div>
+<div id="ref-Lindbergetal2014" class="csl-entry" role="listitem">
+Lindberg, Staffan I, Michael Coppedge, John Gerring, and Jan Teorell. 2014. <span>“<span>V-Dem</span>: A New Way to Measure Democracy.”</span> <em>Journal of Democracy</em> 25 (3): 159–69.
+</div>
+<div id="ref-Maoz1993" class="csl-entry" role="listitem">
+Maoz, Zeev, and Bruce Russett. 1993. <span>“Normative and Structural Causes of Democratic Peace, 1946–1986.”</span> <em>American Political Science Review</em> 87 (3): 624–38.
+</div>
+<div id="ref-Oneal1997" class="csl-entry" role="listitem">
+Oneal, John R., and Bruce M. Russett. 1997. <span>“The Classical Liberals Were Right: Democracy, Interdependence, and Conflict, 1950-1985.”</span> <em>International Studies Quarterly</em> 41 (2): 267–94.
+</div>
+<div id="ref-Sundberg2013" class="csl-entry" role="listitem">
+Sundberg, Ralph, and Erik Melander. 2013. <span>“Introducing the <span>UCDP</span> Georeferenced Event Dataset.”</span> <em>Journal of Peace Research</em> 50 (4): 523–32.
+</div>
+<div id="ref-QOG2025" class="csl-entry" role="listitem">
+Teorell, Jan, Aksel Sundström, Sören Holmberg, Bo Rothstein, Natalia Alvarado Pachon, Cem Mert Dalli, Rafael Lopez Valverde, Victor Saidi Phiri, and Lauren Gerber. 2025. <em>The Quality of Government Standard Dataset, v. Jan25</em>. Gothenburg: The Quality of Government Institute, University of Gothenburg.
+</div>
+<div id="ref-Urdinez2020" class="csl-entry" role="listitem">
+Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. Boca Raton; others: CRC Press.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>While many use both terms interchangeably, it is more common to use the term <em>panel</em> when the dataset contains many observations but relatively few time points. The German <em>Socio-Economic Panel</em> (SOEP), for example, contains data for a large respondent sample (ca. 30.000 respondents per year) for up to 40 years. Here, the cross-sectional dimension is clearly dominant in terms of numbers. The term <em>time series cross-sectional</em> data is more often used for datasets that contain relatively few cross-sectional units – for example 20 to 50 countries – but over long periods of time. The <em>V-Dem</em> dataset <span class="citation" data-cites="Lindbergetal2014">(<a href="#ref-Lindbergetal2014" role="doc-biblioref">Lindberg et al. 2014</a>)</span> would be an example here. See also Beck <span class="citation" data-cites="Beck2001">(<a href="#ref-Beck2001" role="doc-biblioref">2001</a>)</span> for a more in-depth explanation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See e.g., <a href="https://stackoverflow.com/a/65603253" class="uri">https://stackoverflow.com/a/65603253</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><code>countrycode</code> also contains a <code>data.frame</code> called <code>codelist_panel</code> with country and year information that takes into account that country names change over time (e.g., Germany was divided into East and West Germany before it reunified). Ideally, you use this dataset as a “link” when merging datasets that go far back in history (see also <code>?countrycode::countrycode()</code>).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>You may notice that the COW country codes overlap with the <code>country_id_cy</code> variable – but they are not exactly identical <span class="citation" data-cites="Gleditsch1999">(see also the UCDP codebook and <a href="#ref-Gleditsch1999" role="doc-biblioref">Gleditsch and Ward 1999</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>There are also other types of “mutating joins” in <code>dplyr</code>; see <a href="https:dplyr.tidyverse.org/reference/mutate-joins.html" class="uri">https:dplyr.tidyverse.org/reference/mutate-joins.html</a> for details.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

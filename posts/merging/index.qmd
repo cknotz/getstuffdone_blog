@@ -2,7 +2,6 @@
 title: "Merging macro-level data"
 author: "Carlo Knotz"
 bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
-draft: true
 format:
   html:
     toc: true
@@ -36,14 +35,22 @@ qog <- haven::read_dta("/Users/carloknotz/Documents/Data/QoG/qog_bas_ts_jan25.dt
 
 ## 1 + 1 = more
 
-Being able to combine or merge different datasets is a critical skill for any (social, political, or economic) data analyst because, more often than not, the variables you need for your analysis are spread over different datasets. For example, many available datasets from peace & conflict research on fatalities related to wars and other types of conflict (as looked at in [this post](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) contain just that -- information about conflicts and their intensity. What they do not contain is variables that could potentially *explain* the incidence and intensity of conflicts, for example how democratic countries are [@Maoz1993;@Oneal1997] --- which are available in other datasets [e.g., @Lindbergetal2014;@Boix2013]. To be able to analyze these two variables, conflicts and democracy in this case, and their relationships, you need to be able to merge the different datasets into one.
+Being able to combine or merge different datasets is a critical skill for any (social, political, or economic) data analyst because, more often than not, the variables you need for your analysis are spread over different datasets. For example, many available datasets from peace & conflict research on fatalities related to wars and other types of conflict (as looked at in [this post](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) contain just that -- information about conflicts and their intensity. What they do not contain is variables that could potentially *explain* the incidence and intensity of conflicts, for example how democratic countries are [@Maoz1993;@Oneal1997] --- which are available in other datasets [e.g., @Lindbergetal2014;@Boix2013]. To be able to analyze these two variables, conflicts and democracy, and their relationships, you need to be able to merge the two datasets into one.
 
 Fortunately, *merging datasets is not as difficult as it might seem at first sight* -- functions like `merge()` from `base R` or `left_join()` and the other joining functions from `dplyr()` take care of most of the work [see also @Urdinez2020, chapter 11.2]. You as the data analyst in charge really only need to take care of two things:
 
 1. You need to understand the structure of your datasets and which variable (or variable**s**) uniquely identity each observation.
 2. You need to make sure that these identifying variables are exactly identical in each of the datasets you want to merge.
 
-This may sound a bit cryptic to the uninitiated, but we will go through this step by step in the remainder of this post. More specifically, we will first go over some basics (dataset structures) and a common "snag" one encounters when working with macro- or country-level data. The remainder of this post will then show you how you can combine two macro-level datasets, the dataset on conflict-related fatalities since 1989 from the *Uppsala Conflict Data Program* (as used [here](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) and the *Quality of Government* Basic Dataset [@QOGB2025].
+This may sound a bit cryptic to the uninitiated, but we will go through this step by step in the remainder of this post. More specifically, we will first go over some basics (dataset structures) and a common "snag" one encounters when working with macro- or country-level data: different country names and country codes. After that, we will do an example merging operation with two macro-level datasets, the dataset on conflict-related fatalities since 1989 from the *Uppsala Conflict Data Program* (as used [here](https://cknotz.github.io/getstuffdone_blog/posts/conflict/)) and the *Quality of Government* Basic Dataset [@QOGB2025].
+
+I should also add that [Steven V. Miller](https://svmiller.com/) explains these things in two of his blog posts in probably a bit more detail:
+
+ - ["A Quick Tutorial on Various State (Country) Classification Systems"](https://svmiller.com/blog/2021/01/a-tutorial-on-state-classification-systems/)
+ - ["A Quick Tutorial on Merging Data with the *_join() Family of Functions in {dplyr}"](https://svmiller.com/blog/2021/01/a-tutorial-on-the-join-family-in-r/)
+ 
+Do check them out! (I saw them too late, otherwise I wouldn't have bothered writing my own, and clearly redundant, blog post...)
+
 
 ## Dataset structures and identifying variables
 
