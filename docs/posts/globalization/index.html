@@ -604,7 +604,7 @@ div.csl-indent {
 </section>
 <section id="merging-the-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="merging-the-datasets">Merging the datasets</h3>
-<p>Merging two datasets can seem a bit daunting to beginners, but it is actually quite easy. The <code>dplyr</code> package has functions for so-called “mutating joins” (see <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" target="_blank">https://dplyr.tidyverse.org/reference/mutate-joins.html</a>), which in essence simply merge two datasets along one (or potentially more) “identifier” variable. As long as one has one (or more) variables that can directly match observations between datasets – which in our case is the two-number ISCO-88 score – one can use these functions to merge two datasets.</p>
+<p>Merging two datasets can seem a bit daunting to beginners, but it is actually not that difficult. The <code>dplyr</code> package has functions for so-called “mutating joins” (see <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" target="_blank">https://dplyr.tidyverse.org/reference/mutate-joins.html</a>), which in essence simply merge two datasets along one (or potentially more) “identifier” variable.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Identifier variables are variables that uniquely identify a given observation in both datasets so that <code>R</code> knows exactly which row in dataset 1 corresponds to which row in dataset 2. As long as one has one (or more) variables that can directly match observations between datasets – which in our case is the two-number ISCO-88 score – one can use these functions to merge two datasets.</p>
 <p>Usually, the correct function to use to merge datasets is <code>left_join()</code>. In our case, we want to join the <em>ESS</em> dataset with the vulnerability scores dataset along the two-digit ISCO-88 scores, so we specify this in our code:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ess7 <span class="sc">%&gt;%</span> </span>
@@ -753,6 +753,9 @@ Ohlin, Bertil. 1933. <em>Interregional and International Trade</em>. Cambridge, 
 <div id="ref-Thewissen2019" class="csl-entry" role="listitem">
 Thewissen, Stefan, and David Rueda. 2019. <span>“Automation and the Welfare State: Technological Change as a Determinant of Redistribution Preferences.”</span> <em>Comparative Political Studies</em> 52 (2): 171–208.
 </div>
+<div id="ref-Urdinez2020" class="csl-entry" role="listitem">
+Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. Boca Raton; others: CRC Press.
+</div>
 <div id="ref-Walter2010" class="csl-entry" role="listitem">
 Walter, Stefanie. 2010. <span>“Globalization and the Welfare State: Testing the Microfoundations of the Compensation Hypothesis.”</span> <em>International Studies Quarterly</em> 54 (2): 403–26.
 </div>
@@ -761,6 +764,7 @@ Walter, Stefanie. 2010. <span>“Globalization and the Welfare State: Testing th
 <ol>
 <li id="fn1"><p>See <a href="https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/" target="_blank">https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/</a> for details on the ISCO classification.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>This works because the numbers reflect the hierarchical structure of the ISCO classification. If we cut off the last two numbers, we get to a higher level of aggregation. See <a href="https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2" target="_blank">https://ilostat.ilo.org/methods/concepts-and-definitions/classification-occupation/#elementor-toc__heading-anchor-2</a> for details.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>If you want a more detailed explanation of how to merge two datasets, you can read <a href="https://cknotz.github.io/getstuffdone_blog/posts/merging/">this post</a>, which also contains links to other online resources, or Chapter 11.2 in Urdinez &amp; Cruz <span class="citation" data-cites="Urdinez2020">(<a href="#ref-Urdinez2020" role="doc-biblioref">2020</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
