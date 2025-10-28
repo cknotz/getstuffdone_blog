@@ -134,6 +134,7 @@ Finally, there are also a number of data repositories and archives that contain 
  - [Migration Data Portal](https://migrationdataportal.org/blog/impic-new-and-more-comprehensive-way-measure-immigration-policies): information on the degree of restrictiveness of immigration policies in 33 OECD countries for the period 1980--2010
  - [Immigration Policies in Comparison](http://www.impic-project.eu/): Quantitative indices to measure immigration policies in all OECD countries and for the time period 1980-2010. See also @Helbling2013 and @Helbling2017
  - Immigration in Party Manifestos Dataset (<https://manifesto-project.wzb.eu/information/documents/pimpo>)
+ - See also Solano & Huddleston [-@Solano2022a] for an overview over different migration policy indices.^[Available for download from <https://doi.org/10.1007/978-3-030-92377-8>.]
 
 ### Technology & technological change
 
