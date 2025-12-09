@@ -1,0 +1,15 @@
+{
+  "hash": "78162ee6a59046683c193696c86d5311",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Regression analyses with macro-level data\"\nauthor: \"Carlo Knotz\"\nbibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib\nformat:\n  html:\n    toc: true\n    toc-depth: 4\ndraft: true\ndate: \"2025-10-10\"\nlightbox: true\nlang: en\ncategories:\n  - Macro\n  - CPDS\n  - Comparing countries\neditor_options: \n  chunk_output_type: console\n---\n\n\n::: {.cell}\n\n:::\n\n\n## Macro-level questions and analyses (again)\n\nThis is another post on how to analyze country-level data, adding to the earlier post on how to do descriptive analyses ([this one](https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/)) and to the one on merging macro-level data ([this one](https://cknotz.github.io/getstuffdone_blog/posts/merging/)). What the earlier posts did not go into is how to do regression analyses with cross-country data, and this is what we are going to look into here.\n\nRegression analyses with cross-country data work in principle like regression analyses with other types of data -- you specify a model that relates your dependent variable to one or more predictors and control variables, estimate the correct regression model, and interpret the effects.\n\nWhat makes macro-level analyses more complicated, however, is that macro-level data usually have a **time dimension**: They cover different countries *over some period of time*. This can range from a few decades like in the case of the *Comparative Political Data Set* [@CPDS24] to multiple centuries like in the case of the *V-Dem* dataset [@Lindbergetal2014]. This is also why we call these types of datasets *time series cross-sectional* (TSCS) data: We have a cross-section of countries that are observed at multiple points in time [see also @Beck2001].\n\nThis additional time dimension brings benefits (we can study changes over time and we simply have more observations to work with), but it also makes the dataset and therefore the analysis more complex. In political science, there was quite a discussion among methdologists about how to correctly analyze TSCS data [see @Beck2001;@Beck1995;@Beck1996;@Beck2011;@Beck1998a;@Becketal2006;@Beck2008;@Beck2011;@Stimson1985;@Plumperetal2005;@Plumpertroeger2007;@DeBoef2008;@Wilson2007].\n\n\n## References\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
