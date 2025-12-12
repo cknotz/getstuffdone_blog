@@ -21,6 +21,7 @@ editor_options:
 ```{r, echo=F, warning=F, message=F}
 library(tidyverse)
 theme_set(theme_classic())
+library(grid)   # for unit() in arrows
 library(plm)
 library(texreg)
 
@@ -38,7 +39,478 @@ What makes macro-level analyses more complicated, however, is that macro-level d
 
 This additional time dimension brings benefits (we can study changes over time and we simply have more observations to work with), but it also makes the dataset and therefore the analysis more complex. In political science, there was quite a discussion among methdologists about how to correctly analyze TSCS data [see @Beck2001;@Beck1995;@Beck1996;@Beck2011;@Beck1998a;@Becketal2006;@Beck2008;@Beck2011;@Stimson1985;@Plumperetal2005;@Plumpertroeger2007;@DeBoef2008;@Wilson2007], and many pointed out that results of regression analyses with TSCS data often change drastically after seemingly minor changes in model specifications [@Wilson2007]. 
 
-TSCS results do become easier (and more predictable and stable) if one understands a few relatively simple concepts
+TSCS regression analyses do become easier (and more predictable and stable) if one understands a few core concepts:
+
+ - Cross-sectional and longitudinal variation
+ - [Simpson's Paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
+ - Fixed- vs. random- vs. between-effects regression models
+ - Integration & cointegration (or, relatedly, unit roots and stationarity/non-stationarity)
+ 
+The last ones, integration and co-integration, are concepts from time series analysis methods [see e.g., @Box-Steffensmeieretal2014] and they refer, simply put, to how variables change over time: Some variables change smoothly over time and tend to return to a given stable equilibrium value, while others behave erratically and change in sudden (seemingly random) "fits and starts". The former are considered "stationary", the latter are considered to have "unit roots". There is an older (and very short) article that illustrates the concept of unit roots, integration, and co-integration brilliantly with an analogy of a drunk and her dog [@Murray1994], and I would refer you to that one for further reading. De Doef & Keele [-@DeBoef2008] and Beck & Katz [-@Beck2011] show how you can deal with non-stationary variables in a regression analysis [see also @Box-Steffensmeier2016;@Ennsetal2016;@Grant2016;@Lebo2017].
+ 
+The rest of this post will focus on the first three concepts and techniques, starting with the different types of variation and how they can generate misleading results if they are not modelled correctly. Finally, we will go over three different regression models that capture different forms of variation in TSCS data and when to use them. We will the *Comparative Political Data Set* [@CPDS24] to illustrate the main points with real-life data.
+
+## Variation in TSCS data
+
+Time series cross-sectional data contain observations of multiple *units* (usually countries) over some period of *time* (usually years). This means that this type of data can capture two basic forms of variation [see also @Kellstedt2018, Chapter 2.3]:
+
+ - Differences between *units*: Cross-sectional variation
+ - Changes over *time*: Longitudinal variation
+
+To make this more concrete, we can look at some real-life examples from the *Comparative Political Data Set* [CPDS; @CPDS24] and use the simple data visualizations techniques that were covered in the [earlier blog post](https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/).^[I saved the dataset as `cpds_2024.dta`. You might have saved it under a different name, in which case you obviously need to adjust that in your code.]
+
+```{r, echo=T, eval=F}
+library(tidyverse)
+theme_set(theme_classic())
+
+cpds <- haven::read_dta("cpds_2024.dta")
+
+```
+
+We will focus on two variables from the dataset:
+
+ - `structur`, which measures the "rigidity" of countries' political instititions, a.k.a., the number of "checks and balances" that make introducing reforms easier or more difficult [see also @Huber1993;@Immergut1992a;@Immergut1990;@Tsebelis2002]
+ - `oldage_pmp`, which measures the amount of government spending on old-age pensions in percent of countries' gross domestic product [see also @Adema2009;@Castles2007]
+
+### Cross-sectional variation
+
+One way to look at cross-sectional variation is to look at countries' average values on the two variables over the entire period of time for which we have observations.
+
+```{r}
+#| layout-ncol: 2
+#| label: fig-csvar
+#| fig-cap: "Cross-sectional variation"
+#| fig-subcap: 
+#|   - "Constitutional structure"
+#|   - "Public spending on pensions"
+
+
+cpds |> 
+  group_by(iso) |> 
+  summarise(avg_cons = mean(structur, na.rm = T)) |> 
+  ggplot(aes(x = avg_cons, y = reorder(iso, avg_cons))) +
+    geom_linerange(aes(xmin = 0, xmax = avg_cons),
+                 color = "grey") +
+    geom_point() +
+    labs(x = "Constitutional structure (avg.)",
+         y = "")
+
+cpds |> 
+  filter(year>=1980) |> 
+  group_by(iso) |> 
+  summarise(avg_pen = mean(oldage_pmp, na.rm = T)) |> 
+  ggplot(aes(x = avg_pen, y = reorder(iso, avg_pen))) +
+    geom_linerange(aes(xmin = 0, xmax = avg_pen),
+                   color = "grey") +
+    geom_point() +
+    labs(x = "Public pension spending (% GDP, avg.)",
+         y = "")
+
+```
+
+@fig-csvar shows the results. On the left side, you see that countries differ in the "rigidity" of their political institutions. The United States and Switzerland stand out as countries with very rigid constitutions, where introducing reforms is very difficult, and this corresponds to what we know from more qualitative observations [@Obinger2002;@Obama2016]. On the other end are a number of countries in different parts of Europe but also Israel, where there are few constraints. This does not mean that these are dictatorships, however, it just means that there are few formal constraints on what a governing majority in parliament can do in day-to-day policymaking.
+
+The other graph on the right shows that countries also differ quite a bit in how much they spend, on average, on old-age pensions. Conservative and southern European countries top the list, while more market-liberal countries like the United States, Canada, or Ireland are at the bottom.
+
+### Longitudinal variation
+
+Obviously, by averaging the data by country, we brush away all the finer longitudinal changes over time within the different countries. To visualize this, we can use line graphs that are separated by country, as shown in @fig-tsvar.
+
+```{r}
+#| layout-ncol: 1
+#| label: fig-tsvar
+#| fig-cap: "Longitudinal variation"
+#| fig-subcap: 
+#|   - "Constitutional structure"
+#|   - "Public spending on pensions"
+
+cpds |> 
+  drop_na(structur) |> 
+  ggplot(aes(x = year, y = structur)) +
+    geom_line() +
+    facet_wrap(~iso) +
+    labs(x = "", y = "Constitutional structure")
+
+cpds |> 
+  filter(year>=1980) |> 
+  ggplot(aes(x = year, y = oldage_pmp)) +
+    geom_line() +
+    facet_wrap(~iso) +
+    labs(x = "", y = "Pension spending (%GDP)") +
+    scale_x_continuous(breaks = seq(1980,2020,20))
+
+
+```
+
+When you now look at the graph showing countries' constitiutional rgidity, you see that there are barely any changes over time. France is the big exception here since it introduced several constitutional changes over a decade or so, and there have also been changes in Belgium, Croatia, Hungary, Italy, New Zealand, and Sweden -- but, overall, there is mainly stability.
+
+This contrasts with the pattern in the other graph that shows the develpment of public pension spending in each country. Many countries experienced significant increases over time (e.g., Greence, Portugal, Italy, Japan, Finland, France, or Switzerland), while spending stayed more constant in other countries (e.g., Poland, Germany, or the Netherlands). In all cases, however, there are small year-to-year changes, which is a clear difference to the completely flat lines in the graph above.
+
+
+## Simpson's Paradox
+
+The fact that TSCS data contain both cross-sectional and longitudinal variation makes regression analyses more challenging than when one uses a "simple" cross-sectional dataset like survey data from the *European Social Survey*.
+
+```{r}
+#| fig-cap: "OLS regression & Simpson's Paradox"
+#| fig-subcap: 
+#|  - "OLS regression with cross-sectional data"
+#|  - "Simpson's Paradox"
+#| label: fig-simp
+#| eval: true
+#| echo: false
+#| layout-ncol: 2
+#| warning: false
+
+mtcars |> 
+  ggplot(aes(x = hp, y = mpg)) +
+    geom_point(size = 2, alpha = .5) +
+    geom_smooth(method = "lm", se = F, color = "black", linetype = "dashed") +
+    labs(x = "Horsepower", y = "Miles-per-gallon",
+         caption = "Data: mtcars")
+
+set.seed(42)
+
+# ---- Simulate data ----
+# Within each group: y increases with x (positive slope).
+# Groups differ in their x-range and intercepts (confounder).
+n <- 250
+df <- bind_rows(
+  tibble(group = "Group A",
+         x = runif(n, 0, 5),
+         y = 0.6 * x + 12 + rnorm(n, sd = 0.6)),
+  tibble(group = "Group B",
+         x = runif(n, 5, 10),
+         y = 0.6 * x - 2 + rnorm(n, sd = 0.6))
+)
+
+# ---- Fit simple linear models ----
+overall_lm <- lm(y ~ x, data = df)
+overall_slope <- unname(coef(overall_lm)[2])
+
+group_lm <- df %>%
+  group_by(group) %>%
+  summarise(
+    slope = unname(coef(lm(y ~ x))[2]),
+    intercept = unname(coef(lm(y ~ x))[1]),
+    .groups = "drop"
+  )
+
+# ---- Colors (Okabe–Ito, colorblind-friendly) ----
+pal <- c("Group A" = "#0072B2",  # blue
+         "Group B" = "#D55E00")  # vermillion
+
+# ---- Build plot ----
+p <- ggplot(df, aes(x = x, y = y, color = group)) +
+  # Light background shading to reveal different x-ranges (confounder)
+  annotate("rect", xmin = 0, xmax = 5, ymin = -Inf, ymax = Inf,
+           fill = "grey90", alpha = 0.25) +
+  annotate("rect", xmin = 5, xmax = 10, ymin = -Inf, ymax = Inf,
+           fill = "grey95", alpha = 0.25) +
+  
+  # Points and within-group regressions
+  geom_point(alpha = 0.55, size = 2) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.2) +
+  
+  # Aggregated regression (dashed black): shows reversal
+  geom_smooth(aes(group = 1), method = "lm", se = FALSE,
+              color = "black", linetype = "longdash", linewidth = 1.3) +
+  
+  # ---- Annotations highlighting the paradox ----
+# Label the confounder: different x-distributions by group
+  annotate("segment", x = 5, xend = 5,
+           y = min(df$y) - 0.5, yend = max(df$y) + 0.5,
+           linetype = "dotted", color = "grey40") +
+  
+  # Within-group positive relationship annotation (two arrows)
+  annotate("label", x = 2.2, y = 14.8,
+           label = "Within each group:\npositive relationship",
+           size = 4.2, fill = "#F8F8F8", color = "grey20", label.size = 0.2) +
+  annotate("curve", x = 2.2, y = 14.3, xend = 3.6, yend = 13.5,
+           curvature = 0.25, color = pal["Group A"],
+           arrow = arrow(length = unit(0.25, "cm"))) +
+  annotate("curve", x = 2.2, y = 15.2, xend = 8.3, yend = 4.0,
+           curvature = -0.2, color = pal["Group B"],
+           arrow = arrow(length = unit(0.25, "cm"))) +
+  
+  # Aggregated negative relationship annotation
+  annotate("label", x = 7.8, y = 9.8,
+           label = "Aggregated (dashed) trend:\nnegative ⇒ Simpson's paradox",
+           size = 4.2, fill = "#FFF3F0", color = "grey20", label.size = 0.2) +
+  annotate("curve", x = 7.6, y = 9.4, xend = 6.6, yend = 7.2,
+           curvature = 0.3, color = "black",
+           arrow = arrow(length = unit(0.25, "cm"))) +
+  
+  # ---- Scales, labels, theme ----
+scale_color_manual(values = pal) +
+  labs(
+    x = "x",
+    y = "y",
+    color = "Group"
+  ) +
+  theme_classic(base_size = 13) +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(.8,.9),
+    legend.title = element_blank(),
+    axis.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(size = 12, color = "grey30"),
+    plot.caption = element_text(color = "grey40")
+  )
+
+p
+
+```
+
+A normal regression model basically just draws a line through the data. The graph on the left in @fig-simp illustrates this with data from the `mtcars` dataset, where each observation is a car and cars differ in the strength of their engines (measured in horsepower) and in their fuel efficiency (measured in miles-per-gallon). Unsurprisingly, a more powerful engine with more horsepower means less fuel efficiency. In this case, the simple regression model works because the data are purely cross-sectional -- there is no time-dimension or other complication.
+
+Now consider what can happen when we deal with a more complex dataset with two dimensions, which is shown in the graph on the right.^[I used *ChatGPT* to generate this graph.] A "naive" OLS regression (indicated with the thick black line) would find that there is a negative relationship between the two variables , `x` and `y`. However, *within* the two groups, the relationship is positive. This positive relationship is only correctly captured by a model that focuses exclusively on the variation within each group and ignores the differences between them (indicated by the two colored lines).
+
+In principle, the "naive" OLS model is not really wrong -- there *is* a negative relationship in the data as a whole. But the "naive" model is misleading, because it does not tell us the whole story. To get to that complete story, we need models that separate the between-group variation (the overall difference between groups A and B) from the within-group variation.
+
+The following section introduces regression models that can achieve this.
+
+## Fixed-, random-, and between-effects models
+
+Statisticians have developed three basic regression model specifications for data that contain repeated observations of some group of units over time. Originally, they were developed for *panel survey* data, where researchers follow a larger (and often representative) sample of people over some period of time (often only a few weeks, months, or years) -- i.e., data where we have many units but few time points. The models can in principle also be applied to TSCS data, where we usually have observations for many years but only a few countries -- i.e., few units, but many time points [see also @Beck2001, 273].^[The main complicating factor is that TSCS data also have many of the characteristics of longer time series, meaning trends and the above-mentioned degrees of stationarity or integration. This means that analysts also have to think about how to model these features of the data [@DeBoef2008,@Beck2011]. This is less of a problem when working with "shorter" panel data.]
+
+These models are available in `R` via the `plm` package [@Croissant2008], which you can install from *CRAN* with `install.packages()` and load with `library()`. In addition, we also use `texreg` [@Leifeld2013] to tabulate the results of the regression models:
+
+```{r, echo=T, eval=F}
+# install.packages("plm")
+library(plm)
+library(texreg)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+
+pandat <- tribble(
+  ~u, ~t,~x,~gap,~c,
+  "A", 1, 1.4,0,2,
+  "A", 2, 1.7,0,2,
+  "A", 3, 2.1,0,2,
+  "B", 1, 2.1,5.24,1.5,
+  "B", 2, 2.5,5.24,1.5,
+  "B", 3, 2.7,5.24,1.5,
+  "C", 1, 1.9,2.4,3.5,
+  "C", 2, 2.0,2.4,3.5,
+  "C", 3, 2.3,2.4,3.5,
+)
+
+set.seed(13)
+
+pandat |> 
+  mutate(y = 2.7 - 1.59*x + gap + rnorm(9, mean = 0, sd = .25)) |> 
+  mutate(across(c(x,y),
+                ~ round(.x, digits = 1))) |> 
+  select(-gap) -> pandat
+
+```
+
+To illustrate how these models work, we will work with a tiny and artificial example dataset (`pandat`). This dataset contains only nine observations of three variables (`x`, `y`, `c`) for three groups (A, B, and C, measured with the `u` variable) at three points in time (1,2,3, measured with the `t` variable):
+```{r}
+pandat
+```
+
+When we visualize the patterns in the data (see @fig-pandat), we see that this is a textbook case of Simpson's Paradox: Within each group, there is a negative relationship between x and y over time (time points are indicated as numbers). A naive OLS model, however, would find a positive relationship.
+
+```{r}
+#| label: fig-pandat
+#| fig-cap: "Relationship between x and y in simulated data"
+#| echo: false
+#| eval: true
+#| warning: false
+
+pandat |> 
+  ggplot(aes(x = x, y = y)) +
+    geom_point(aes(color = u)) +
+    geom_smooth(aes(group = u, color = u), method = "lm", se = F) +
+    geom_text(aes(label = t, group = u, color = u), vjust = 1.5) +
+    geom_smooth(method = "lm", se = F, color = "black", linetype = "dashed") +
+    scale_color_manual(values = c("#7fc97f","#beaed4","#fdc086")) +
+    labs(color = "Group (u)") +
+    theme(legend.position = "bottom")
+
+```
+
+### Naive or "pooled" regression
+
+The first model specification is the "pooled" model. This model does what we did above: It pools all the different observations together and fits a line to the data. In other words, this model ignores the grouped structure of the data.
+
+We can estimate this model with the `plm()` function from the `plm` package. This function works essentially like `lm()` or `glm()` with the exception that we also need to specify the structure of the data with the `index` argument (`u` designates the groups, `t` the time points) regardless of whether the model picks it up or not). We also need to specify the type of model we want to estimate (with the `model` argument):
+```{r}
+pooled_plm <- plm::plm(y ~ x,
+                index = c("u","t"),
+                model = "pooling",
+                data = pandat)
+summary(pooled_plm)
+
+```
+
+As expected, the model naively pools the data and captures the positive overall relationship between x and y with a postive (and borderline significant) coefficient. It completely ignores the negative relationship between the groups.
+
+For comparison, we can also estimate a standard OLS model with `lm()`:
+```{r}
+pooled_lm <- lm(y ~ x,
+          data = pandat)
+summary(pooled_lm)
+```
+
+The results are exactly identical. This is easier to see when we put the results side-by-side in a single table:
+```{r}
+screenreg(list(pooled_plm,pooled_lm),
+          stars = 0.05,
+          custom.model.names = c("Pooling (plm)",
+                                 "Regular OLS"))
+
+```
+
+### The between-effects model
+
+As explained above, the problem with the pooled model is that naively throws together the cross-sectional and longitudinal variation in the data. We can get better answers by separating the two types of variation, and the first type of model that does this is the between-effects model. As the name suggests, the between-effects model focuses completely on the differences *between* the units and ignores all longitudinal variation over time.
+
+The between-effects model is also almost embarrasingly simple: All we do is what we did in @fig-csvar above: We calculate average values per unit, which means that we eliminate the time-dimension from the data. Then we use the resulting aggregated data in a regular OLS regression. 
+
+To show how this works, we do this first by hand and create an aggregated version of the `pandat` dataset:
+```{r}
+pandat |> 
+  group_by(u) |> 
+  summarise(avg_y = mean(y),
+            avg_x = mean(x)) -> pan_ag
+```
+
+This dataset contains only the positive cross-sectional or between-unit relationship in the data:
+```{r}
+pan_ag |> 
+  ggplot(aes(x = avg_x, y = avg_y)) +
+    geom_text(aes(label = u)) +
+    geom_smooth(method = "lm", se = F)
+```
+
+If we use this aggregated dataset in a conventional OLS regression, we find the expected positive (and now significant) relationship:
+```{r}
+be_ols <- lm(avg_y ~ avg_x,
+         data = pan_ag)
+summary(be_ols)
+```
+
+Now compare this to the `between` model specification in `plm()`:
+```{r}
+be_plm <- plm::plm(y ~ x,
+                index = c("u","t"),
+                model = "between",
+                data = pandat)
+summary(be_plm)
+```
+
+The results are again exactly identical:
+```{r}
+screenreg(list(be_ols,be_plm),
+          stars = 0.05,
+          custom.model.names = c("OLS with aggregated data",
+                                 "Between-effects model (plm)"))
+```
+
+### The within- or fixed-effects model
+
+As above, aggregating the data is inefficient because we lose all the longitudinal variation. Also, depending on the theory or hypothesis we want to test, we may need to focus on the within-group variation in our analysis. In those cases, the between-effects model (or the pooled model) will not get us very far.
+
+If we want to focus on the within- or longitudinal variation, we can use the third alternative, which is the within-model. It is also known as the fixed-effects (FE) model. This model is, in principle, also very simple. One way to estimate this model is to simply add dummy variables for the different group units to the model (leaving one group out as the baseline). However, this adds extra variables to the model and therefore eats up statistical power that we often want to focus instead on the main effect of interest, here the relationship between `x` and `y`. 
+
+There is therefore another way to estimate this model, which is to de-mean the data and then estimate a linear regression on the resulting dataset. This means that we calculate average values for each of the variables in the model and then subtract the average from each observation. In a way, de-meaning the data is the opposite to calculating the group averages in the between-effects model.
+
+This de-meaning of the data is a simple operation that we can again do by hand:
+```{r}
+pandat |> 
+  group_by(u) |> 
+  mutate(avg_x = mean(x),
+         avg_y = mean(y)) |> 
+  ungroup() |> 
+  mutate(diff_x = x - avg_x,
+         diff_y = y - avg_y) -> pandat
+```
+
+Then we use the de-meaned data in a conventional OLS regression:
+```{r}
+fe_ols <- lm(diff_y ~ diff_x,
+          data = pandat)
+summary(fe_ols)
+```
+
+Notice that the coefficient on `x` now switches its sign: It is now *negative* -- which means that the model now captures the negative relationship between `x` and `y` *within* each group.
+
+When using the `plm()` function, we simply specify `within` as the model -- but we use the original data. `plm()` takes care of the de-meaning for us:
+```{r}
+fe_plm <- plm::plm(y ~ x,
+                index = c("u","t"),
+                model = "within",
+                data = pandat)
+summary(fe_plm)
+```
+
+If you take a very careful look at the results, you see that the coefficient estimate ($\beta$) is exactly identical to the one we got in the OLS model on the de-meaned data. However, the standard error and `t`- and `p`-values are different! 
+
+The reason for this is that we use up some of the information in the data (i.e., *degrees of freedom*) when we calculate the group-averages in the first step. This information is then technically not available when we we calculate standard errors and `p`-values.^[You might remember that we make a similar adjustment when we calculate the standard deviation of a variable, where we also "use up" information in the first step by calculating the variable's mean [@Kellstedt2018, 137].] The `plm()` function automatically makes this *degree-of-freedom* adjustment, but not the naive `lm()` function, hence the different results.
+
+Now compare this to the "dummy" specification:
+```{r}
+fe_dum <- lm(y ~ x + u,
+          data = pandat)
+summary(fe_dum)
+```
+
+Now we have two additional variables in the model, the dummies for groups B and C (group A is omitted and measured with the intercept). If you take a careful look, you will notice that the estimate for the coefficient on `x` is now exactly identical to the estimate we got from th `plm()` function. This is because the dummy-specification explicitly adjusts for the degrees of freedom by adding additional coefficients to the model (which use up information in the estimation).
+
+We can again put the results side-by-side to see more clearly where they differ:
+```{r}
+screenreg(list(fe_ols,fe_plm,fe_dum),
+          stars = 0.05,
+          custom.model.names = c("Regular OLS (dem. data)",
+                                 "Fixed-effects (plm)",
+                                 "Fixed-effects (dummies)"))
+```
+
+Again, the estimates of the coefficient on `x` are exactly identical across the three models, but the standard error is a bit lower in the first model than in the other two (which are exactly identical). You probably also notice that the within- or fixed-effects model estimated with `plm()` does not contain an intercept.
+
+In any case, the fixed-effects or within-specification correctly captures the within-variation in the data, meaning the negative relationship between `x` and `y` within each group.
+
+
+### Fixed-effects with constant variables
+
+You might now ask why we don't just always use the fixed-effects (FE) model for anything? One of the problems with the FE model is that it cannot capture the effects of variables that are either constant over time or change only very rarely and slowly -- the constitutional constraints variable is one of the textbook examples.
+
+To see why, we can estimate a FE model with the one variable in our practice dataset that does not change over time (`c`, for "constant"):
+```{r}
+pandat
+```
+
+Notice what happens when we do the de-meaning operation with this variable:
+```{r}
+pandat |> 
+  group_by(u) |> 
+  mutate(avg_c = mean(c)) |> 
+  ungroup() |> 
+  mutate(diff_c = c - avg_c) -> pandat
+
+pandat |> 
+  select(u,t,c,avg_c,diff_c)
+```
+
+The resulting variable, `diff_c` (which measures the deviations of each variable from the group-specific means) contains only zeros! This is only logical: The variable does not change over time, so each individual observation is exactly identical to the group-specific mean. When we then subtract the two, we get only zeros.
+
+`plm()` will now simply refuse to estimate the model:
+```{r}
+#| error: true
+
+fe_plm_c <- plm(y ~ c,
+                index = c("u","t"),
+                model = "within",
+                data = pandat)
+summary(fe_plm_c)
+```
+
+### Which model should I now choose?
 
 
 
