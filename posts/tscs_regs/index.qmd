@@ -47,8 +47,10 @@ TSCS regression analyses do become easier (and more predictable and stable) if o
  - Integration & cointegration (or, relatedly, unit roots and stationarity/non-stationarity)
  
 The last ones, integration and co-integration, are concepts from time series analysis methods [see e.g., @Box-Steffensmeieretal2014] and they refer, simply put, to how variables change over time: Some variables change smoothly over time and tend to return to a given stable equilibrium value, while others behave erratically and change in sudden (seemingly random) "fits and starts". The former are considered "stationary", the latter are considered to have "unit roots". There is an older (and very short) article that illustrates the concept of unit roots, integration, and co-integration brilliantly with an analogy of a drunk and her dog [@Murray1994], and I would refer you to that one for further reading. De Doef & Keele [-@DeBoef2008] and Beck & Katz [-@Beck2011] show how you can deal with non-stationary variables in a regression analysis [see also @Box-Steffensmeier2016;@Ennsetal2016;@Grant2016;@Lebo2017].
+
+There are already other (excellent) introductory explanations of how to work with TSCS data in `R` by Urdinez & Cruz [-@Urdinez2020, chapter 7] and Heiss [-@Heiss2020, chapters 13 & 14], but they lack (in my opinion) a user-friendly conceptual introduction to the ideas behind main regression models for TSCS data. Working with these models and TSCS data becomes a lot easier once one understands these ideas (and the relatively simple math) behind these regression models.
  
-The rest of this post will focus on the first three concepts and techniques, starting with the different types of variation and how they can generate misleading results if they are not modelled correctly. Finally, we will go over three different regression models that capture different forms of variation in TSCS data and when to use them. We will the *Comparative Political Data Set* [@CPDS24] to illustrate the main points with real-life data.
+The rest of this post will focus on the main regression techniques for TSCS data and especially the main ideas behind them. You'll also learn about *panel-corrected standard errors* (PCSEs), a key element in (political science) analyses of TSCS data [@Beck1995,@Beck1996]. First, however, we will go over the structure of TSCS data and the types of variation they contain. We will then use the *Comparative Political Data Set* [@CPDS24] to illustrate the main points with real-life data.
 
 ## Variation in TSCS data
 
@@ -511,6 +513,11 @@ summary(fe_plm_c)
 ```
 
 ### Which model should I now choose?
+
+
+### Estimation issues & *panel-corrected standard errors*
+
+Cite: @Beck1995, @Beck1996, @Millo2017
 
 
 
