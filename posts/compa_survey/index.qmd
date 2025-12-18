@@ -20,52 +20,63 @@ categories:
 
 Are people's opinions, behaviors, or perceptions affected by the environments (or "macro-level contexts") they live in? Social and economic scientists often argue that this is indeed the case. For example, many sociologists argue that societal norms shape people's behavior (e.g., that men do more of the housework in societies with egalitarian gender norms), and political scientists similarly suggest that political institutions influence political attitudes and behavior (e.g., that people participate more in elections in proportional or majoritarian electoral systems).
 
-Obviously, these theories are only as good as the evidence in support of them. To test these types of theories, one needs to compare people's opinions or behavior across contexts with different social norms, political institutions, or other macro-level factors that might have an influence on people. This is usually done with **comparative survey data** such as data from the *European Social Survey*, the *International Social Survey Program*, the *Eurobarometer*, the *OECD Risks that Matter* survey, or the *World Values Study*.^[See <https://github.com/erikgahner/PolData?tab=readme-ov-file#cross-sectional> for a list of comparative survey data projects.] The big advantage that comparative survey data offer is that they are *standardized*: The same survey with the exact same questions is conducted in multiple countries at the same time, so that people's responses to the questions -- i.e., their attitudes or behavior -- can be directly compared.^[Obviously, questionnaires are translated where languages differ, and there are sometimes cases where some questions are only asked in a subset of all countries that are included in a given survey.] This means that one can use these survey data to find out for macro-level environmental factors influence (or at least are correlated with) people's individual behaviors and attitudes. 
+Obviously, these theories are only as good as the evidence in support of them. To test these types of theories, one needs to compare people's opinions or behavior across contexts with different social norms, political institutions, or other macro-level factors that might have an influence on people. This is usually done with **comparative survey data** such as data from the *European Social Survey*, the *International Social Survey Program*, the *Eurobarometer*, the *OECD Risks that Matter* survey, or the *World Values Study*.[^1] The big advantage that comparative survey data offer is that they are *standardized*: The same survey with the exact same questions is conducted in multiple countries at the same time, so that people's responses to the questions -- i.e., their attitudes or behavior -- can be directly compared.[^2] This means that one can use these survey data to find out how macro-level environmental factors influence patterns at the micro-level.
 
-This type of cross-country comparative analysis can seem daunting to students who have only learned about relatively simple methods (linear regression, graphical analyses). However, as always in life, there are easier and more complicated ways of doing this. **This post shows you how to do it in the easiest way possible**, using `R` and techniques that undergraduate students usually learn in their introductory statistics courses: Descriptive statistics and linear regression models [taking inspiration from @Blekesaune2021]. 
+<!-- ![Macro-level factors influence relationships at micro-level](conditional.jpg){#fig-conditional} -->
 
-::: {.callout-tip title="TL;DR"}
+<!-- For example, many theories predict that the macro-level environment might "condition" (strengthen or weaken) relationships between variables at the micro-level (see also @fig-conditional). One case of such a conditional effect would be "rally-around-the-flag" scenario [@Oneal1995] when political divisions among voters disappear during national crises. Normally, voters are divided in their support of governments: Richer, middle-class voters will usually be more supportive of a conservative government than poorer, working-class voters (income affects government support). During a national security emergency, however, voters "rally around the flag" and support the government no matter their socio-economic background or class (the effect of income on government support becomes weaker, or the national security environment conditions the effect of income on government support). -->
 
-1. You pick a cross-country survey dataset (e.g., from the *European Social Survey*, the *World Values Survey*, the *International Social Survey Program*, or the *Euro-*, *Afro-*, or *Arabbarometer*) that contains relevant variables/questions for multiple countries that *could* be relevant to compare.
-2. You select a small number (at least two and up to four or five) countries that differ in relevant ways in relevant macro-level aspects (e.g., one has overall traditional gender norms, the other is very progressive) but are otherwise as similar as possible so that you can rule out as many alternative explanations as possible.^[See also @Ringdal2018, Chapter 9, @King1994, or @Landman2003, Chapters 2-3 for an explanation of relevant case selection strategies]
-3. You analyze the data from each of the countries separately using standard techniques (e.g., graphs, statistical tests, linear regression), but...
-4. You present the results from each country together so that you can see similarities and differences in relevant patterns (e.g., gender differences in household work or political attitudes).
+[^1]: See <https://github.com/erikgahner/PolData?tab=readme-ov-file#cross-sectional> for a list of comparative survey data projects.
 
+[^2]: Obviously, questionnaires are translated where languages differ, and there are sometimes cases where some questions are only asked in a subset of all countries that are included in a given survey.
+
+Working with cross-country comparative survey data can seem daunting to students who have only learned about relatively simple methods (linear regression, graphical analyses), and it really is objectively a relatively complicated type of methods with lots of snags and pitfalls [see e.g., @Stegmueller2013; @Bryan2016; @Elffetal2021; @Fairbrother2014; @Schmidt2019; @Steenbergen2002]. However, as always in life, there are easier and more complicated ways of doing this. 
+
+**This post shows you how to do this type of analysis in the easiest way possible**, using `R`, data from the *European Social Survey*, and techniques that undergraduate students usually learn in their introductory statistics courses: Descriptive statistics and linear regression models [following @Blekesaune2021]. 
+
+::: {.callout-tip title="The method in a nutshell (TL;DR)"}
+1.  You pick a cross-country survey dataset (e.g., from the *European Social Survey*, the *World Values Survey*, the *International Social Survey Program*, or the *Euro-*, *Afro-*, or *Arabbarometer*) that contains relevant variables/questions for multiple countries that *could* be relevant to compare.
+2.  Out of the countries that are covered in your survey dataset, you select a small number (at least two and up to four or five) countries that differ in relevant ways in relevant macro-level aspects (e.g., one has overall traditional gender norms, the other is very progressive) but are otherwise as similar as possible so that you can rule out as many alternative explanations as possible.[^3]
+3.  You analyze the data from each of the countries separately using standard techniques (e.g., graphs, statistical tests, linear regression), but...
+4.  You present the results from each country together so that you can see similarities and differences in relevant patterns (e.g., gender differences in household work or political attitudes).
 :::
 
-This post shows you how to do this with data from the *European Social Survey*. Thematically, we stick to the general topic of gender and gender differences, and we look at the **political gender gap**: How men and women differ in their political opinions [@Inglehart2000;@Iversen2010;@Iversen2006a], and how this may be affected by macro-level variables. In other words, we do a simple re-test of the "household bargaining theory" of political gender differences by Iversen & Rosenbluth [-@Iversen2006a;-@Iversen2010].
+Thematically, we look at the effect of gender (a micro-level variable) on political opinions (another micro-level attitude) and how that effect is influenced by countries' economic structures (a macro-level variable). Simply put, we ask: *are men and women more or less politically divided in their political opinions depending on the economic environment they live in* [@Inglehart2000; @Iversen2010; @Iversen2006a]? In yet other words, we do a simple re-test of the "household bargaining theory" of political gender differences by Iversen & Rosenbluth [-@Iversen2006a; -@Iversen2010].
+
+[^3]: See also @Ringdal2018, Chapter 9, @King1994, or @Landman2003, Chapters 2-3 for an explanation of relevant case selection strategies
 
 ## The Iversen/Rosenbluth hypothesis in the smallest of nutshells
 
-Very (*very*) simply put, Iversen & Rosenbluth [-@Iversen2006a;@Iversen2010] argue that women are politically to the left of men, other things equal, but also that the *size* of this gap -- how far apart women and men are -- depends on macro-level factors such as how countries' economies are structured. In countries that have economies that rely strongly on *specific* skills (think: highly trained craftsmen and -women that are really good at a few specific tasks), this gap should be particularly large. In contrast, in countries that rely more on *general* skills (think: flexible professionals that can quickly switch between jobs), women and men should be more equal in their political opinions.
+Very (*very*) simply put, Iversen & Rosenbluth [-@Iversen2006a; @Iversen2010] argue that women are politically to the left of men, other things equal, but also that the *size* of this gap -- how far apart women and men are -- depends on macro-level factors such as how countries' economies are structured. In countries that have economies that rely strongly on *specific* skills (think: highly trained craftsmen and -women that are really good at a few specific tasks), this gap should be particularly large. In contrast, in countries that rely more on *general* skills (think: flexible professionals that can quickly switch between jobs), women and men should be more equal in their political opinions.
 
 ## Re-analysis using *ESS* data
 
 We do a new test of this hypothesis using data from the tenth (2018) round of the *European Social Survey (ESS)*.
 
-Out of all the countries covered by this round of the *ESS*, we select the following two countries based on *qualitative* information we have from Iversen & Rosenbluth [-@Iversen2006a], but also other studies [@Hall2001;@Iversen2001a]:
+Out of all the countries covered by this round of the *ESS*, we select the following two countries based on *qualitative* information we have from Iversen & Rosenbluth [-@Iversen2006a], but also other studies [@Hall2001; @Iversen2001a]:
 
- - Ireland, which is known to rely strongly on *general* skills. Here, we expect a small gender gap.
- - Norway, which relies on *specific* skills. Here, we expect a large gender gap.
+-   Ireland, which is known to rely strongly on *general* skills. Here, we expect a small gender gap.
+-   Norway, which relies on *specific* skills. Here, we expect a large gender gap.
 
 Ideally, one would pick countries that are as similar as possible *except* for the structure of their economy so that we can really *isolate* the effect of that one factor (see also above), but we keep things simple and convenient for now and stick with Norway and Ireland.
 
 We use the following micro-level variables from the *ESS*:
 
- - Left-right ideology (`lrscale`). This is measures people's general political orientation and is the dependent variable.
- - Gender (`gndr`; male/female). This is the central independent variable here.
- - Household income (`hinctnta`): This is a relevant control variable.
- - Age (`agea`; years): Also a control variable.
- - Education (`eduyrs`): A final variable we want to control for.
- 
+-   Left-right ideology (`lrscale`). This is measures people's general political orientation and is the dependent variable.
+-   Gender (`gndr`; male/female). This is the central independent variable here.
+-   Household income (`hinctnta`): This is a relevant control variable.
+-   Age (`agea`; years): Also a control variable.
+-   Education (`eduyrs`): A final variable we want to control for.
+
 ### Packages
- 
+
 We use the `tidyverse` for data management & visualization and `texreg` to present regression results:
+
 ```{r, message=F}
 library(tidyverse)
 library(texreg)
 ```
- 
+
 ### Set theme for graphs
 
 The classic theme just looks better...
@@ -73,7 +84,7 @@ The classic theme just looks better...
 ```{r}
 theme_set(theme_classic())
 ```
- 
+
 ### Data import
 
 You can download the data for free (after a registration) from <https://www.europeansocialsurvey.org/>. I use the `.dta` (Stata) version and saved the dataset as `ESS10.dta` on my computer. I use the `haven` package to import the dataset, and then immediately convert the dataset to the traditional `R` format with `labelled::unlabelled` (to be able to do this, you need to have both of these packages installed. Loading them with `library()` is not necessary).
@@ -81,11 +92,11 @@ You can download the data for free (after a registration) from <https://www.euro
 ```{r, eval=T, echo=F}
 ess <- labelled::unlabelled(haven::read_dta("/Users/carloknotz/Documents/Work/Stavanger/Teaching/Welfare state course/UiS_WelfareState_graphs-tables/ESS10.dta"))
 ```
- 
+
 ```{r, eval=F, echo=T}
 ess <- labelled::unlabelled(haven::read_dta("ESS10.dta"))
 ```
- 
+
 ### Trimming
 
 The entire ESS is massive. To make things easier to handle, we select only the relevant variables (plus some useful "administrative" ones such as `idno`, `essround`, and `cntry`):
@@ -115,7 +126,6 @@ ess %>%
 
 ```
 
- 
 ### Country selection
 
 The final "trimming" operation we need to do is to select only the two countries we want to compare. This is easy to do with `filter()`, and we create separate datasets for each of the two countries:
@@ -131,7 +141,6 @@ ess %>%
 
 
 ```
- 
 
 ### Descriptive analysis of political gender gaps by country
 
@@ -165,9 +174,9 @@ norway %>%
 
 
 ```
- 
+
 It looks like the data support the hypothesis. We expected a small ideological gap between men and women in Ireland, and that is what we find: Men and women hardly differ on average in their left-right orientation (5.3 - 5.2 = 0.1). In contrast, this difference is four times as large (5.2 - 4.8 = 0.4), which is what we would have expected.
- 
+
 ### Regression analysis
 
 While the visual analysis is useful, we also need to do a more thorough test where we control for other variables. To do that, we do a simple linear (OLS) regression analysis separately for each country:
@@ -191,7 +200,7 @@ ie_mod2 <- lm(lrscale ~ gndr + agea + eduyrs + hhinc,
 
 ```
 
-We use `screenreg()` from the `texreg` package to show the results directly next to each other so that we can spot differences between the two countries more easily: 
+We use `screenreg()` from the `texreg` package to show the results directly next to each other so that we can spot differences between the two countries more easily:
 
 ```{r}
 screenreg(list(no_mod1,no_mod2,ie_mod1,ie_mod2),
@@ -215,11 +224,10 @@ Overall, this relatively simple re-test supports the Iversen/Rosenbluth theory o
 
 You have now seen how you can do a simple cross-country comparative analysis of survey data with `R`. Obviously, you can adapt this type of analysis to many different questions so long as you have relevant data. For example, if you have macro-level indicators of how countries' electoral systems look like (which you do: <https://cpds-data.org/>) and comparative survey data on people's electoral behavior (which you can get via the *ESS*), you can test if rates of participation in election differ between types of electoral systems. The same applies to any combination of macro-level factor and micro-level behavior you can think of and have data for.
 
-Importantly, you may also have noticed that we did not use any form of quantitative data to measure macro-level factors or to pick countries -- we simply relied on findings from other studies to select relevant countries. 
+Importantly, you may also have noticed that we did not use any form of quantitative data to measure macro-level factors or to pick countries -- we simply relied on findings from other studies to select relevant countries.
 
-Finally, there are obviously ways to make this type of analysis more sophisticated. One additional step one can take is to test statistically if the coefficients from regression models are *statistically significantly* different from each other. Paternoster et al. [-@Paternosteretal1998] have developed a simple formula for this that works basically like a standard two-sample *t*-test. 
+Finally, there are obviously ways to make this type of analysis more sophisticated. One additional step one can take is to test statistically if the coefficients from regression models are *statistically significantly* different from each other. Paternoster et al. [-@Paternosteretal1998] have developed a simple formula for this that works basically like a standard two-sample *t*-test.
 
-The most advanced way to compare survey data from different countries is obviously with a *multi-level* or *hierarchical* regression analysis. This is what academic researchers usally use because it multi-level regression models make it possible to use *all* available data from a comparative survey dataset instead of picking only a small number of countries. This makes it possible to estimate more complicated models and to get more accurate and reliable results. If you want to learn more about this, there is a series of articles that explains these models in a very intuitive and easy fashion [@Merloetal2005;@Merloetal2005a;@Merloetal2005b;@Merloetal2006; see also @Steenbergen2002], and the book by Finch et al. [-@Finchetal2014] explains how you implement these models in `R`.
+The most advanced way to compare survey data from different countries is obviously with a *multi-level* or *hierarchical* regression analysis. This is what academic researchers usally use because it multi-level regression models make it possible to use *all* available data from a comparative survey dataset instead of picking only a small number of countries. This makes it possible to estimate more complicated models and to get more accurate and reliable results. If you want to learn more about this, there is a series of articles that explains these models in a very intuitive and easy fashion [@Merloetal2005; @Merloetal2005a; @Merloetal2005b; @Merloetal2006; see also @Steenbergen2002], and the book by Finch et al. [-@Finchetal2014] explains how you implement these models in `R`.
 
-## References 
- 
+## References
