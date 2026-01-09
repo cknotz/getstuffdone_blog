@@ -531,10 +531,101 @@ Third, there are some who still prefer the "pooling" model [e.g., @Huber1993;@Hu
 
 ## Estimation issues & *panel-corrected standard errors*
 
+### OLS assumptions and why they will usually not old in the case of TSCS data
+
+You might remember that a standard linear regression (OLS) model is based on a few critical assumptions about the underlying data [see e.g., @Kellstedt2018, chapter 9.5]. One of these assumptions is *no autocorrelation*: Two different observations in your dataset cannot be related to each other. In a survey dataset, where all observations are individual and randomly sampled people from different parts of a given country, this assumption is plausible: Respondent #1 is not directly connected to respondent #2, so the data from respondent #1 are not correlated with those from respondent number #2. 
+
+A second assumption is that of *homoscedasticity*, meaning that there cannot any form of pattern in the residuals (usually called $\epsilon_i$) from the regression model, i.e., the unexplained variation that the model does not pick up. No regression model will fit a given dataset perfectly, and there are always some observations that are well-explained by the model and that lie on or close to the regression line, and other observations that are "weird" and lie far away from the regression line. This is not a problem as long as there is no systematic pattern to these deviations from the regression line. The graph on the left in @fig-homo visualizes this ideal case. 
 
 
+```{r}
+#| layout-ncol: 2
+#| label: fig-homo
+#| fig-cap: "Homo- and heteroscedastic error structures"
+#| fig-subcap: 
+#| - "Homoscedastic errors"
+#| - "Heteroscedastic errors"
+#| echo: false
+#| warning: false
 
-Cite: @Beck1995, @Beck1996, @Millo2017
+# Set a seed for reproducibility
+set.seed(42)
+
+# Define the number of observations
+n_obs <- 100
+
+# Generate the homoscedastic data
+homo_data <- tibble(
+  # 1. Generate an independent variable (e.g., 'x')
+  x = runif(n_obs, min = 1, max = 10),
+  
+  # 2. Define the true linear relationship (e.g., y = 5 + 2*x)
+  true_y = 5 + 2 * x,
+  
+  # 3. Generate heteroscedastic error term:
+  #    The standard deviation of the error increases with 'x'.
+  #    Here, sd is set as 0.5 * x.
+  error = rnorm(n_obs, mean = 0, sd = 1),
+  
+  # 4. Calculate the final dependent variable (y)
+  y = true_y + error
+)
+
+ggplot(homo_data, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = T) +
+  labs(x = "Independent Variable (x)",
+    y = "Dependent Variable (y)"
+  ) +
+  theme_classic()
+
+# Generate the heteroscedastic data
+hetero_data <- tibble(
+  # 1. Generate an independent variable (e.g., 'x')
+  x = runif(n_obs, min = 1, max = 10),
+  
+  # 2. Define the true linear relationship (e.g., y = 5 + 2*x)
+  true_y = 5 + 2 * x,
+  
+  # 3. Generate heteroscedastic error term:
+  #    The standard deviation of the error increases with 'x'.
+  #    Here, sd is set as 0.5 * x.
+  error = rnorm(n_obs, mean = 0, sd = 2 * x),
+  
+  # 4. Calculate the final dependent variable (y)
+  y = true_y + error
+)
+
+# Plot the data using ggplot2 to visualize the heteroscedasticity
+ggplot(hetero_data, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = T) +
+  labs(x = "Independent Variable (x)",
+    y = "Dependent Variable (y)"
+  ) +
+  theme_classic()
+
+
+```
+
+This assumption is violated if some observations are *systematically* less well explained by the model than others. The graph on the right in @fig-homo depicts this scenario: Here, observations that have higher values on the $X$ variable are systematically farther away from the regression line than those with low $X$-values. This is a case of *heteroscedasticity*, and a simple regression model will not be appropriate. The problem, simply put, is that a single regression line with a single estimate of the uncertainty around it (here visualized with the gray confidence interval boundaries) is kind of misleading: The confidence interval suggests that there is the same level of uncertainty around the fitted line at low values of $X$ as at high values of $X$ - but the underlying data show that this is clearly not the case. Again, when working with a typical survey dataset, heteroscedasticity should not be a problem as long as the model is correctly specified: Sure, some respondents will "fit" the model better and others will be "weirdos", but there should not be a systematic pattern where some groups of respondents are "weirder" than others.
+
+All this is very different in the case of TSCS data. When working with TSCS data, we can expect three main ways in which the conventional OLS assumptions are violated [see @Beck2001, 274-275]:
+
+1. Observations are correlated across space (*contemporaneous correlation*): For example, the economies of Belgium, Luxemburg, and the Netherlands are traditionally closely linked and they trade a lot with each other. This means that if Belgium experiences an economic crisis, then it is very likely that Luxemburg and the Netherlands also experience one at the same time. The same is usually true when it comes to the Nordic countries, to the USA and Canada, or to Germany, Austria, and Switzerland. In practice, this means that the individual data points in a TSCS dataset that covers these countries depend on (i.e., are correlated with) each other.
+2. Observations are correlated over time (*serial correlation*): The value of many variables at any given point in time depends strongly on their value in previous years. For example, the unemployment rate in Germany in 1994 is not a random number but depends on the unemployment rate in 1993 and, but less so, that in 1992.
+3. A given regression model (and the underlying theory) will fit some countries better than others. For example, the US are often somewhat of an outlier when it comes to firearms and gun control because of its very powerful pro-firearm lobby. Therefore, while an increase in gun violence would trigger a restriction of gun laws in most countries, it might have less of an effect in the US. Therefore, if we regress a measure of gun control rules on a measure of gun violence in different countries, then the model will fit the US less well. This, in turn, means that the error terms (or *residuals*) in that regression models are systematically larger for the US than for other countries. This is called *panel heteroscedasticity*.
+
+### Panel-corrected standard errors
+
+Beck and Katz [-@Beck1995;-@Beck1996] have developed a method to deal with the first and third issues, serial correlation and panel heteroscedasticity: *panel-corrected standard errors* (PCSEs). Very simply put, this is a specific way to calculate the standard errors (SEs) and, by implication, any confidence intervals or *p*-values based on those SEs. This method has quickly become standard practice in the field, and it is now the default way to work with TSCS data.
+
+This method has been implemented in two `R` packages, one of which is called `pcse` [@Bailey2011] and the other being the `plm` package that we already worked with above [@Millo2017]. We will go over an example of how this looks like in practice below.
+
+### Lagged dependent variables
+
+
+Cite: @Beck1996, Beck2011; Nickell
 
 
 
