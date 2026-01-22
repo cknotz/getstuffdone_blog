@@ -531,7 +531,7 @@ Third, there are some who still prefer the "pooling" model [e.g., @Huber1993;@Hu
 
 ## Estimation issues & *panel-corrected standard errors*
 
-### OLS assumptions and why they will usually not old in the case of TSCS data
+### OLS assumptions and why they will usually not hold in the case of TSCS data
 
 You might remember that a standard linear regression (OLS) model is based on a few critical assumptions about the underlying data [see e.g., @Kellstedt2018, chapter 9.5]. One of these assumptions is *no autocorrelation*: Two different observations in your dataset cannot be related to each other. In a survey dataset, where all observations are individual and randomly sampled people from different parts of a given country, this assumption is plausible: Respondent #1 is not directly connected to respondent #2, so the data from respondent #1 are not correlated with those from respondent number #2. 
 
@@ -616,16 +616,40 @@ All this is very different in the case of TSCS data. When working with TSCS data
 2. Observations are correlated over time (*serial correlation*): The value of many variables at any given point in time depends strongly on their value in previous years. For example, the unemployment rate in Germany in 1994 is not a random number but depends on the unemployment rate in 1993 and, but less so, that in 1992.
 3. A given regression model (and the underlying theory) will fit some countries better than others. For example, the US are often somewhat of an outlier when it comes to firearms and gun control because of its very powerful pro-firearm lobby. Therefore, while an increase in gun violence would trigger a restriction of gun laws in most countries, it might have less of an effect in the US. Therefore, if we regress a measure of gun control rules on a measure of gun violence in different countries, then the model will fit the US less well. This, in turn, means that the error terms (or *residuals*) in that regression models are systematically larger for the US than for other countries. This is called *panel heteroscedasticity*.
 
-### Panel-corrected standard errors
+### Solution, part 1: Panel-corrected standard errors
 
-Beck and Katz [-@Beck1995;-@Beck1996] have developed a method to deal with the first and third issues, serial correlation and panel heteroscedasticity: *panel-corrected standard errors* (PCSEs). Very simply put, this is a specific way to calculate the standard errors (SEs) and, by implication, any confidence intervals or *p*-values based on those SEs. This method has quickly become standard practice in the field, and it is now the default way to work with TSCS data.
+Beck and Katz [-@Beck1995;-@Beck1996] have developed a method to deal with the first and third issue, contemporaneous correlation and panel heteroscedasticity: *panel-corrected standard errors* (PCSEs). Very simply put, this is a specific way to calculate the standard errors (SEs) for regression coefficients and, by implication, any confidence intervals or *p*-values based on those SEs. This method has quickly become standard practice in the field, and it is now the default way to work with TSCS data.
 
-This method has been implemented in two `R` packages, one of which is called `pcse` [@Bailey2011] and the other being the `plm` package that we already worked with above [@Millo2017]. We will go over an example of how this looks like in practice below.
+Obviously, you do not have to calculate PCSEs by yourself. PCSEs have been implemented in two `R` packages, one of which is called `pcse` [@Bailey2011] and the other being the `plm` package that we already worked with above [@Millo2017]. We will go over an example of how this looks like in practice below.
 
-### Lagged dependent variables
+### Solution, part 2: Lagged dependent variables
+
+To deal with the second issue, *serial correlation*, researchers nowadays use lagged dependent variables (LDVs) in their models. This is less complicated than it may sound: You take your dependent variable and create a "lagged" version of it. This lagged version simply reflects the value of the dependent variable in the previous year. 
+
+For example, let's say that your dependent variable is the unemployment rate and you have data for different countries from 1960 onward. The regular unemployment rate variable will reflect the level of unemployment in any given year and its lag will always show the unemployment rate in the *previous* year. 
+
+The table below illustrates this for the country of Norway: Here, the unemployment rate was 1.2% in 1960, 0.9% in 1961, and 1% in 1962.^[The data are from [@CPDS24].] The lagged unemployment rate was 1.2% in 1961 and 0.9% in 1962, reflecting the values from the two respective previous years. The value for 1960 is missing, because the data begin in 1960 and we therefore do not know what the level of unemployment was in 1959. We will go over how to construct this variable with functions from the `tidyverse` further below.
+
+```{r, echo=F, eval=T}
+
+cpds |> 
+  arrange(country,year) |> 
+  group_by(country) |> 
+  mutate(lag_unem = dplyr::lag(unemp)) |> 
+  select(country,year,unemp, lag_unem) |> 
+  ungroup() |> 
+  filter(country=="Norway") |> 
+  slice_head(n = 10)
+
+```
+
+Using a LDV in a fixed-effects model is a bit controversial. There is an older study that showed that doing so skews the results, and that this skew paradoxically becomes more severe the more cross-sectional units (e.g., countries) one has [@Nickell1981]. Economists have since developed very sophisticated techniques to solve this problem, but these have their own weaknesses [@ArellanoBond;@Arellano1995;@Blundell1998]. 
+
+Beck & Katz [-@Beck1996;-@Beck2011] have long argued in favor of using an LDV to correct for serial correlation in the data, and they have shown that the problem is much less serious than often believed, especially if one works with data that go over many time periods. Specifically, they have shown that you can combine an LDV and a fixed-effects model as long as your dataset covers more than 20 time periods (e.g., years) per country [@Beck2011, 342].
 
 
-Cite: @Beck1996, Beck2011; Nickell
+## Putting it all together: An applied example
+
 
 
 
