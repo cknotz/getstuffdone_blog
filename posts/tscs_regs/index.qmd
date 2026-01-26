@@ -6,8 +6,7 @@ format:
   html:
     toc: true
     toc-depth: 4
-draft: true
-date: "2025-10-10"
+date: "2026-01-26"
 lightbox: true
 lang: en
 categories:
@@ -33,11 +32,11 @@ cpds <- haven::read_dta("/Users/carloknotz/Documents/Data/cpds_2024.dta")
 
 This is another post on how to analyze country-level data, adding to the earlier post on how to do descriptive analyses ([this one](https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/)) and to the one on merging macro-level data ([this one](https://cknotz.github.io/getstuffdone_blog/posts/merging/)). What the earlier posts did not go into is how to do regression analyses with cross-country data, and this is what we are going to look into here.
 
-Regression analyses with cross-country data work in principle like regression analyses with other types of data -- you specify a model that relates your dependent variable to one or more predictors and control variables, estimate the correct regression model, and interpret the effects.
+Regression analyses with cross-country data work in principle the same way as regression analyses with other types of data -- you specify a model that relates your dependent variable to one or more predictors and control variables, estimate the correct regression model, and interpret the effects.
 
 What makes macro-level analyses more complicated, however, is that macro-level data usually have a **time dimension**: They cover different countries *over some period of time*. This can range from a few decades like in the case of the *Comparative Political Data Set* [@CPDS24] to multiple centuries like in the case of the *V-Dem* dataset [@Lindbergetal2014]. This is also why we call these types of datasets *time series cross-sectional* (TSCS) data: We have a cross-section of countries that are observed at multiple points in time. Because TSCS data include observations of the same units (countries) over multiple points in time, they are sometimes also called "panel data". However, this is a bit misleading, because panel data traditionally refer to panel *survey* data, which cover *many* respondents (typically 1000 or more) over a few time points (often 3-4). TSCS data, in contrast, usually cover only a moderate number of countries (20-35) over longer periods of time [see also @Beck2001].^[The discussion among political science methodologists on how to correctly analyze TSCS data was strongly based on techniques for panel data analysis [see @Beck2001;@Beck1995;@Beck1996;@Beck2011;@Beck1998a;@Becketal2006;@Beck2008;@Beck2011;@Stimson1985;@Plumperetal2005;@Plumpertroeger2007;@DeBoef2008;@Wilson2007,Kittel1999,Kittel2005].] 
 
-This being said, TSCS and panel data share the fact that they include a time dimension. This brings benefits (we can study changes over time and we simply have more observations to work with), but it also makes the dataset and therefore the analysis more complex. This complexity manifests itself in the fact that the results of analyses with TSCS data often change drastically after seemingly minor changes in model specifications [@Wilson2007] -- and this is what can make these analyses so daunting to students.
+That being said, TSCS and panel data share the fact that they include a time dimension. This brings benefits (we can study changes over time and we simply have more observations to work with), but it also makes the dataset and therefore the analysis more complex. This complexity manifests itself in the fact that the results of analyses with TSCS data often change drastically after seemingly minor changes in model specifications [@Wilson2007] -- and this is what can make these analyses so daunting to students.
 
 However, TSCS (and panel) regression analyses do become easier and more predictable and stable if one understands a few core concepts:
 
@@ -69,7 +68,7 @@ cpds <- haven::read_dta("cpds_2024.dta")
 
 ```
 
-We will focus on two variables from the dataset:
+We will focus on two variables from the dataset for now:
 
  - `structur`, which measures the "rigidity" of countries' political instititions, a.k.a., the number of "checks and balances" that make introducing reforms easier or more difficult [see also @Huber1993;@Immergut1992a;@Immergut1990;@Tsebelis2002]
  - `oldage_pmp`, which measures the amount of government spending on old-age pensions in percent of countries' gross domestic product [see also @Adema2009;@Castles2007]
@@ -110,7 +109,7 @@ cpds |>
 
 ```
 
-@fig-csvar shows the results. On the left side, you see that countries differ in the "rigidity" of their political institutions. The United States and Switzerland stand out as countries with very rigid constitutions, where introducing reforms is very difficult, and this corresponds to what we know from more qualitative observations [@Obinger2002;@Obama2016]. On the other end are a number of countries in different parts of Europe but also Israel, where there are few constraints. This does not mean that these are dictatorships, however, it just means that there are few formal constraints on what a governing majority in parliament can do in day-to-day policymaking.
+@fig-csvar shows the results. On the left side, you see that countries differ in the "rigidity" of their political institutions. The United States and Switzerland stand out as countries with very rigid constitutions, where introducing reforms is very difficult, and this corresponds to what we know from more qualitative observations [@Obinger2002;@Obama2016]. On the other end are a number of countries in different parts of Europe but also Israel, where there are few constraints. This does obviously not mean that these countries are dictatorships. It just means that there are few formal constraints on what a governing majority in parliament can do in day-to-day policymaking.
 
 The other graph on the right shows that countries also differ quite a bit in how much they spend, on average, on old-age pensions. Conservative and southern European countries top the list, while more market-liberal countries like the United States, Canada, or Ireland are at the bottom.
 
@@ -144,9 +143,9 @@ cpds |>
 
 ```
 
-When you now look at the graph showing countries' constitiutional rgidity, you see that there are barely any changes over time. France is the big exception here since it introduced several constitutional changes over a decade or so, and there have also been changes in Belgium, Croatia, Hungary, Italy, New Zealand, and Sweden -- but, overall, there is mainly stability.
+When you now look at the graph showing countries' constitutional rigidity, you see that there are barely any changes over time. France is the big exception here since it introduced several constitutional changes over a decade or so, and there have also been changes in Belgium, Croatia, Hungary, Italy, New Zealand, and Sweden -- but, overall, there is mainly stability.
 
-This contrasts with the pattern in the other graph that shows the develpment of public pension spending in each country. Many countries experienced significant increases over time (e.g., Greence, Portugal, Italy, Japan, Finland, France, or Switzerland), while spending stayed more constant in other countries (e.g., Poland, Germany, or the Netherlands). In all cases, however, there are small year-to-year changes, which is a clear difference to the completely flat lines in the graph above.
+This contrasts with the pattern in the other graph that shows the development of public pension spending in each country. Many countries experienced significant increases over time (e.g., Greece, Portugal, Italy, Japan, Finland, France, or Switzerland), while spending stayed more constant in other countries (e.g., Poland, Germany, or the Netherlands). In all cases, however, there are small year-to-year changes, which is a clear difference to the completely flat lines in the graph above.
 
 
 ## Simpson's Paradox
@@ -350,7 +349,7 @@ summary(pooled_plm)
 
 ```
 
-As expected, the model naively pools the data and captures the positive overall relationship between x and y with a postive (and borderline significant) coefficient. It completely ignores the negative relationship between the groups.
+As expected, the model naively pools the data and captures the positive overall relationship between x and y with a positive (and borderline significant) coefficient. It completely ignores the negative relationship between the groups.
 
 For comparison, we can also estimate a standard OLS model with `lm()`:
 ```{r}
@@ -372,7 +371,7 @@ screenreg(list(pooled_plm,pooled_lm),
 
 As explained above, the problem with the pooled model is that naively throws together the cross-sectional and longitudinal variation in the data. We can get better answers by separating the two types of variation, and the first type of model that does this is the between-effects model. As the name suggests, the between-effects model focuses completely on the differences *between* the units and ignores all longitudinal variation over time.
 
-The between-effects model is also almost embarrasingly simple: All we do is what we did in @fig-csvar above: We calculate average values per unit, which means that we eliminate the time-dimension from the data. Then we use the resulting aggregated data in a regular OLS regression. 
+The between-effects model is also almost embarrassingly simple: All we do is what we did in @fig-csvar above: We calculate average values per unit, which means that we eliminate the time-dimension from the data. Then we use the resulting aggregated data in a regular OLS regression. 
 
 To show how this works, we do this first by hand and create an aggregated version of the `pandat` dataset:
 ```{r}
@@ -453,7 +452,7 @@ summary(fe_plm)
 
 If you take a very careful look at the results, you see that the coefficient estimate ($\beta$) is exactly identical to the one we got in the OLS model on the de-meaned data. However, the standard error and `t`- and `p`-values are different! 
 
-The reason for this is that we use up some of the information in the data (i.e., *degrees of freedom*) when we calculate the group-averages in the first step. This information is then technically not available when we we calculate standard errors and `p`-values.^[You might remember that we make a similar adjustment when we calculate the standard deviation of a variable, where we also "use up" information in the first step by calculating the variable's mean [@Kellstedt2018, 137].] The `plm()` function automatically makes this *degree-of-freedom* adjustment, but not the naive `lm()` function, hence the different results.
+The reason for this is that we use up some of the information in the data (i.e., *degrees of freedom*) when we calculate the group-averages in the first step. This information is then technically not available when when we calculate standard errors and `p`-values.^[You might remember that we make a similar adjustment when we calculate the standard deviation of a variable, where we also "use up" information in the first step by calculating the variable's mean [@Kellstedt2018, 137].] The `plm()` function automatically makes this *degree-of-freedom* adjustment, but not the naive `lm()` function, hence the different results.
 
 Now compare this to the "dummy" specification:
 ```{r}
@@ -462,7 +461,7 @@ fe_dum <- lm(y ~ x + u,
 summary(fe_dum)
 ```
 
-Now we have two additional variables in the model, the dummies for groups B and C (group A is omitted and measured with the intercept). If you take a careful look, you will notice that the estimate for the coefficient on `x` is now exactly identical to the estimate we got from th `plm()` function. This is because the dummy-specification explicitly adjusts for the degrees of freedom by adding additional coefficients to the model (which use up information in the estimation).
+Now we have two additional variables in the model, the dummies for groups B and C (group A is omitted and measured with the intercept). If you take a careful look, you will notice that the estimate for the coefficient on `x` is now exactly identical to the estimate we got from the `plm()` function. This is because the dummy-specification explicitly adjusts for the degrees of freedom by adding additional coefficients to the model (which use up information in the estimation).
 
 We can again put the results side-by-side to see more clearly where they differ:
 ```{r}
@@ -522,11 +521,11 @@ The main difference between the three regression models we went over is *which t
 
 Because these models focus on different types of variation, you use them for different types of analyses. As always, **which model you use depends on the theory or hypothesis you want to test**.
 
-First, you might be interested in stable differences between countries or in the effects of variables that rarely or never change over time. Political institutions are the textbook example for the latter (as shown above). They basically never change, which means they are a stable *cross-sectional* feature of different countries.^[As Wilson and Butler [-@Wilson2007, 108] point out, the between-effects is in these cases an "honest" model because it does not artificially inflate the number of observations in your dataset.] In such cases **when you are interested in stable cross-sectional variation, you should use the between-effects model**. For example, Iversen and Soskice [-@Iversen2006] used the between-effects regression model in their study of the effects of electoral systems on government redistribution.
+First, you might be interested in stable differences between countries or in the effects of variables that rarely or never change over time. Political institutions are the textbook example for the latter (as shown above). They basically never change, which means they are a stable *cross-sectional* feature of different countries.^[As Wilson and Butler [-@Wilson2007, 108] point out, the between-effects is in these cases an "honest" model because it does not artificially inflate the number of observations in your dataset.] In such cases, **when you are interested in stable cross-sectional variation, you should use the between-effects model**. For example, Iversen and Soskice [-@Iversen2006] used the between-effects regression model in their study of the effects of electoral systems on government redistribution.
 
-A second scenario is that you are interested in **longitudinal/over-time changes**. For example, an older literature in political science and sociology was interested in how economic globalization (increases in international trade and financial transactions across countries) affects the welfare state [@Cerny1997;@Sassen1996;@Iversen2000;@Burgoon2001;@Garrett2001;@Brady2005a]. In that case, **the fixed-effects model would the natural choice** because it focuses the analysis on over-time changes (how increased globalization leads to changes in welfare state institutions or outcomes) and removes the effects of stable country differences. You can estimate the fixed-effects model either by including dummy-variables for your countries (or other cross-sectional units) or with the "official" *within* estimator built into the `plm` package (as shown above.)
+A second scenario is that you are interested in **longitudinal/over-time changes**. For example, an older literature in political science and sociology was interested in how economic globalization (increases in international trade and financial transactions across countries) affects the welfare state [@Cerny1997;@Sassen1996;@Iversen2000;@Burgoon2001;@Garrett2001;@Brady2005a]. In that case, **the fixed-effects model would be a natural choice** because it focuses the analysis on over-time changes (how increased globalization leads to changes in welfare state institutions or outcomes) and removes the effects of stable country differences. You can estimate the fixed-effects model either by including dummy-variables for your countries (or other cross-sectional units) or with the "official" *within* estimator built into the `plm` package (as shown above.)
 
-Third, there are some who still prefer the "pooling" model [e.g., @Huber1993;@Huber2000;@Huber2001], and it can indeed be an appropriate model for some types of analyses. One case would be when you are doing analyses that look at between-country and longitudinal variation *simultaneously* (e.g., when you are interested in how patterns of change differ between countries). For example, you might be interested in how the effect of globlization on welfare states (longitudinal variation) *depends on* political institutions (cross-sectional variation).^[See e.g., @Bonoli2001 or @Swank2001.] Still, you need to be cautious when you use the "pooling" model [see also @Wilson2007, 104-5].
+Third, there are some who still prefer the "pooling" model [e.g., @Huber1993;@Huber2000;@Huber2001], and it can indeed be an appropriate model for some types of analyses. One case would be when you are doing analyses that look at between-country and longitudinal variation *simultaneously* (e.g., when you are interested in how patterns of change differ between countries). For example, you might be interested in how the effect of globalization on welfare states (longitudinal variation) *depends on* political institutions (cross-sectional variation).^[See e.g., @Bonoli2001 or @Swank2001.] Still, you need to be cautious when you use the "pooling" model [see also @Wilson2007, 104-5].
 
 
 ## Estimation issues & *panel-corrected standard errors*
@@ -620,7 +619,7 @@ All this is very different in the case of TSCS data. When working with TSCS data
 
 Beck and Katz [-@Beck1995;-@Beck1996] have developed a method to deal with the first and third issue, contemporaneous correlation and panel heteroscedasticity: *panel-corrected standard errors* (PCSEs). Very simply put, this is a specific way to calculate the standard errors (SEs) for regression coefficients and, by implication, any confidence intervals or *p*-values based on those SEs. This method has quickly become standard practice in the field, and it is now the default way to work with TSCS data.
 
-Obviously, you do not have to calculate PCSEs by yourself. PCSEs have been implemented in two `R` packages, one of which is called `pcse` [@Bailey2011] and the other being the `plm` package that we already worked with above [@Millo2017]. We will go over an example of how this looks like in practice below.
+Obviously, you do not have to calculate PCSEs by yourself. PCSEs have been implemented in two `R` packages, one of which is called `pcse` [@Bailey2011] and the other being the `lmtest` package, that works together with the `plm` package from earlier. We will go over an example of how this looks like in practice below.
 
 ### Solution, part 2: Lagged dependent variables
 
@@ -650,7 +649,150 @@ Beck & Katz [-@Beck1996;-@Beck2011] have long argued in favor of using an LDV to
 
 ## Putting it all together: An applied example
 
+We have now gone over all the issues and complications connected to a regression analysis with TSCS data:
 
+ - The fact that we are working with two types of variation, cross-sectional and longitudinal, at the same time
+ - The fact that this can lead to misleading conclusions about relationships within the data (Simpson's Paradox)
+ - Different types of models that focus on different types of variation in the data
+ - Additional estimation problems (serial correlation, panel-heteroscedasticity) and how to solve them
+ 
+In the final part, we will do an analysis with a real research dataset, the *Comparative Political Data Set* [@CPDS24], to see how all of these different things come together in an actual research project.
+
+The dependent variable will be the amount of social security transfers (e.g., sickness or unemployment benefits, family allowances), which can be seen as a measure of the size of the welfare state [e.g., @Castles2007].^[Although not necessarily its degree of "decommodification" [@Esping-Andersen1990].] We measure this with the `sstran` variable from the CPSD. This variable has the advantage that it is available from 1960 onwards for many countries, in contrast to other spending variables (like the one on pensions we used above), which are only available from 1980 onward.
+
+Our independent variables are based on a few leading explanations for welfare state development:
+ 
+ - `ud`: The strength of trade unions, measured as the share of union members in the working population, reflecting Power Resources Theory [@Korpi1989]
+ - `realgdpgr`: The economic growth rate (real GDP growth, in %), which reflects the more "functionalist" perspective that welfare state spending goes up when there is an economic downturn and more people need support from the government [e.g., @Wilensky1958]
+ - `elderly`: The share of persons that are older than 65 in the population, which also reflects the functionalist perspective
+ - `openc`: The openness of the economy, measured as the amount of trade (the sum of exports and imports) as a share of GDP. Including this allows us to test the theory that economic globalization has either a positive [@Cameron1978;@Walter2010] or a negative [@Cerny1997;@Genschel2002] effect on the welfare state
+ - `womenpar`: The share of female members of parliament. This reflects the theory that a better representation of women in politics could have effects on the welfare state [e.g., @Iversen2010;@Morgan2013].
+ - `prop`: The type of electoral system (single-member district vs. proportional representation), reflecting the theory that political institutions affect welfare state development [@Iversen2006]
+ 
+The CPDS dataset covers both the "traditional" Western democracies of Europe, North America, and Australasia, but also the formerly communist countries of Central and Eastern Europe. Unfortunately, since the latter were not real democracies before 1990, the CPDS covers them only after 1990 or in some cases 1995. This means that our "panel" of countries is "unbalanced": We have more observations for some countries than for others. This is not a massive problem, but it is generally preferrable to have "balanced" panel data [see @Bailey2011, section 3.2]. To keep things simple, we focus the analysis on the "traditional" Western countries.
+
+ 
+### Model selection
+
+Most of the independent variables vary over time, but we know that the `prop` variable does not (or only in a few instances). This should inform our modelling strategy. Specifically, to model the effect of a stable political institution like the electoral system, we should use a between-effects model. Since this model basically eliminates the time-dimension in the data and corresponds to a regular OLS estimation, we do not need to worry about lagged dependent variables or different types of standard errors.
+
+When it comes to the other variables, we need to make sure that we are not running into Simpson's Paradox and confuse stable differences between countries with over-time changes within countries. The fixed-effects or "within" model is a reasonable choice here. In this case, we actively use the time-dimension in the dataset, which means we need to deal with the problem of serial correlation in the data. We do this by including a lagged dependent variable as a predictor into the model [@Beck1996]. In addition, we follow standard practice and convert the standard errors to PCSEs [@Beck1995].
+
+### Data management
+
+#### Creating a lagged dependent variable
+
+The first thing we want to do is to create a lagged dependent variable. We can do this with the `lag()` function from `dplyr` within `mutate()`. In this case, it makes sense to be explicit in our code that we want to use the `lag()` function from `dplyr` because there are other packages that also have functions called `lag()` and which sometimes work a bit differently. We want to be sure we use the correct function. The CPDS dataset should normally be sorted by country and year, but manually sorting it again is easy (and getting this wrong is costly), so we do that before creating the lag. We also need to make sure to group the data by country. Otherwise, the last observation from one country would become the lag for the following country, which is obviously not what we want.
+
+The code below does all this in one swoop: It sorts and groups the data, creates the lag, and ungroups the data again:
+```{r}
+
+cpds |> 
+  arrange(country,year) |> 
+  group_by(country) |> 
+  mutate(lag_sstran = dplyr::lag(sstran)) |> 
+  ungroup() -> cpds
+
+```
+
+#### Dummy-coding the electoral system variable
+
+Next, we change the `prop` variable a bit. It is saved as a numeric variable in the dataset, but since the type of electoral system is fundamentally a categorical variable, it should also be stored in `R` as one (i.e., as a factor). Also, the original `prop` variable has three categories (0 for "single member district", 1 for "modified proportional", 2 for "proportional") and it makes sense to group the first two categories together to be more in line with the analysis by Iversen & Soskice [-@Iversen2006].
+
+Here, we use `if_else()` to create a dummy variable called `elsys` that distinguishes proportional ("PR") versus majoritarian ("SMD") electoral systems
+```{r}
+cpds |> 
+  mutate(elsys = if_else(prop==2,"PR","SMD")) -> cpds 
+
+```
+
+#### Selecting relevant countries
+
+Finally, we limit the analysis to the "traditional" Western democracies. To do so, we use a variable called `cpds1`, which indicates the countries that were covered in the original version of the CPDS dataset -- which were only the countries we are interested in here:
+```{r}
+cpds |> 
+  filter(cpds1 == 1) -> cpds
+```
+
+### Between-effects analysis
+
+We start the regression analysis with the simplest part, the between-effects model to test the effect of the electoral system on social security transfers. As shown earlier, we use the `plm()` function with the `model` set to "between":
+
+```{r}
+
+be <- plm(sstran ~ elsys,
+          data = cpds,
+          index = c("country","year"),
+          model = "between")
+summary(be)
+
+```
+
+We find that countries with majoritarian electoral systems spend on average around 3% less of their GDP on social security transfers than countries with proportional representation systems. This is in line with the findings by Iversen & Soskice [-@Iversen2006]. Notice also the information about the data that went into the model. In principle, the dataset includes 1363 (valid) observations, but the model aggregates them to 23 country-by-country average values that are actually used in the estimation.
+
+### Fixed-effects analysis
+
+Next, we move to the more complex part of the analysis where we use the fixed effects model. Just to show again that there are different ways of getting to the correct results, we specify this model in three ways: as a regular OLS model (with `lm()`) including country dummies, as a "pooling" model with `plm()` also including country dummies, and as a "within" model with `plm()` that does not include country dummies. All models include the lagged dependent variable that we created earlier
+
+```{r}
+
+ols <- lm(sstran ~ lag_sstran + realgdpgr + ud + openc + elderly + womenpar + factor(country),
+           data = cpds)
+
+pool <- plm(sstran ~ lag_sstran + realgdpgr + ud + openc + elderly + womenpar + factor(country),
+           data = cpds,
+           index = c("country","year"),
+           model = "pooling")
+
+fe <- plm(sstran ~ lag_sstran + realgdpgr + ud + openc + elderly + womenpar,
+           data = cpds,
+           index = c("country","year"),
+           model = "within")
+
+screenreg(list(ols,pool,fe),
+          custom.model.names = c("OLS w. country dummies","Pooling w. country dummies","Within model"))
+
+```
+
+The table at the end shows that we get the exact same results regardless of which specification we use. The only difference is that the first two models include an intercept and, obviously, coefficients for the country dummy variables.
+
+Before we interpret the results, we first have to correct the standard errors. The results above use the regular OLS standard errors, which can be misleading. To fix this issue, we calculate PCSEs using the Beck & Katz [-@Beck1995] procedure as described above.
+
+This procedure is implemented in the `lmtest` package, which is directly compatible with the `plm` package [@Millo2017]. The package can be installed via *CRAN* with `install.packages()` and then loaded with `library()`:
+```{r}
+# install.packages("lmtest")
+library(lmtest)
+```
+
+We use the `coeftest()` function from the package to convert the standard errors from the "within" model (`fe`). We specify that we want the Beck/Katz correction with `vcovBK`, that the data should be clustered by time (this makes sure that we really correct for panel-heteroscedasticity and not for serial correlation). The rest follows the example of Urdinez & Cruz [-@Urdinez2020, 171]. We save the corrected results as `pcse` and can then use `screenreg()` to directly compare the original and corrected results (or, later, to present the results in a table):
+
+```{r}
+pcse <- coeftest(fe, vcov = vcovBK, type = "HC1", cluster = "time")
+
+screenreg(list(fe,pcse), digits = 3, stars = 0.05,
+          custom.model.names = c("Within model","Within model (PCSE)"))
+```
+
+If you take a careful look at the standard errors under the coefficients, you notice that the PCSEs are generally a bit larger than the original ones. For example, the SE for the coefficient of the lagged dependent variable goes up from 0.009 to 0.013, and the SE for the coefficient on real GDP growth increases from 0.009 to 0.011.
+
+Now we can interpret the results: The lagged dependent variable indicates the extent of serial correlation in the dependent variable, which is clearly high (0.9) and statistically significant. GDP growth has a significant and negative effect, which means that every additional percent GDP growth lowers spending on social security transfers by 0.18 percentage points. This makes sense: More economic growth means fewer people who are unemployed or otherwise financially in trouble, which lowers spending on the welfare state.
+
+The strength of trade unions (`ud`) has a small but positive effect, which indicates that every additional percent of trade union members in the economically active population increases social security spending by 0.01 percentage points. We also find a significant negative effect of greater economic openness, but this effect is very, very small. Interestingly, the share of elderly in the population and the share of female members of parliament do not have significant effects.
+
+## Conclusion
+
+This was one of the longer posts in this blog and, to be fair, the issues and methods we covered here are a bit more advanced than a standard linear regression. Still, you should ideally have taken away that seemingly cryptic methods like "within" or "between" estimations are really not that complicated: They are just different ways of "slicing" a panel or TSCS dataset to extract different forms of variation and co-variation in the data. Adjusting regression standard errors is also, strictly speaking, a quite technical affair, but we do have software that does this for us with a few lines of code and thus makes this easy for those of us who are willing to trust the experts.
+
+You now have the basic skills you need to conduct your own TSCS regression analyses, at least as long as your dependent variable is numeric. You might, of course, also run into a situation where you work with TSCS data but your dependent variable is binary (e.g., "peace" vs. "war"). In that case, you can refer to the articles by Beck et al. [-@Beck1998a] and Carter & Signorino [-@Carter2010]. The first shows that you can use logistic regression (`glm()`) to analyze these data as long as you account for the temporal dynamics in the data. The second article shows that you can do that very easily by simply including different polynomials of time into your model. For example, if your time-variable is called `year`, then your model specification will be: 
+
+```{r, echo=T, eval=F}
+mod <- glm(dummy_var ~ indepvars + year + I(year^2) + I(year^3),
+           data = your_dataset,
+           family = binomial(link = "logit"))
+summary(mod)
+```
+
+You may also get to a point where you want to study over-time dynamics in your data more systematically, for example to see if some variables have both short-term and long-term effects and over which time horizon the long-term effects really work. If that is the case, you can read the articles by DeBoef & Keele [-@DeBoef2008] and Beck & Katz [-@Beck2011], who explain how you can model these things with TSCS data. You should now have the necessary background to understand how to implement the models they suggest in practice.
 
 
 ## References

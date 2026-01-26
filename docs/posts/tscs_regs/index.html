@@ -1,2 +1,2108 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"></html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlo Knotz">
+<meta name="dcterms.date" content="2026-01-26">
+
+<title>Regression analyses with macro-level data – Testing big ideas with simple methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-5100b8561cd7f6cd8c35657ed6fe7ee7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Testing big ideas with simple methods</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About this blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Regression analyses with macro-level data</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Macro</div>
+                <div class="quarto-category">CPDS</div>
+                <div class="quarto-category">Comparing countries</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Carlo Knotz </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 26, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#macro-level-questions-and-analyses-again" id="toc-macro-level-questions-and-analyses-again" class="nav-link active" data-scroll-target="#macro-level-questions-and-analyses-again">Macro-level questions and analyses (again)</a></li>
+  <li><a href="#variation-in-tscs-data" id="toc-variation-in-tscs-data" class="nav-link" data-scroll-target="#variation-in-tscs-data">Variation in TSCS data</a>
+  <ul>
+  <li><a href="#cross-sectional-variation" id="toc-cross-sectional-variation" class="nav-link" data-scroll-target="#cross-sectional-variation">Cross-sectional variation</a></li>
+  <li><a href="#longitudinal-variation" id="toc-longitudinal-variation" class="nav-link" data-scroll-target="#longitudinal-variation">Longitudinal variation</a></li>
+  </ul></li>
+  <li><a href="#simpsons-paradox" id="toc-simpsons-paradox" class="nav-link" data-scroll-target="#simpsons-paradox">Simpson’s Paradox</a></li>
+  <li><a href="#fixed--random--and-between-effects-models" id="toc-fixed--random--and-between-effects-models" class="nav-link" data-scroll-target="#fixed--random--and-between-effects-models">Fixed-, random-, and between-effects models</a>
+  <ul>
+  <li><a href="#naive-or-pooled-regression" id="toc-naive-or-pooled-regression" class="nav-link" data-scroll-target="#naive-or-pooled-regression">Naive or “pooled” regression</a></li>
+  <li><a href="#the-between-effects-model" id="toc-the-between-effects-model" class="nav-link" data-scroll-target="#the-between-effects-model">The between-effects model</a></li>
+  <li><a href="#the-within--or-fixed-effects-model" id="toc-the-within--or-fixed-effects-model" class="nav-link" data-scroll-target="#the-within--or-fixed-effects-model">The within- or fixed-effects model</a></li>
+  <li><a href="#fixed-effects-with-constant-variables" id="toc-fixed-effects-with-constant-variables" class="nav-link" data-scroll-target="#fixed-effects-with-constant-variables">Fixed-effects with constant variables</a></li>
+  <li><a href="#which-model-should-i-now-choose" id="toc-which-model-should-i-now-choose" class="nav-link" data-scroll-target="#which-model-should-i-now-choose">Which model should I now choose?</a></li>
+  </ul></li>
+  <li><a href="#estimation-issues-panel-corrected-standard-errors" id="toc-estimation-issues-panel-corrected-standard-errors" class="nav-link" data-scroll-target="#estimation-issues-panel-corrected-standard-errors">Estimation issues &amp; <em>panel-corrected standard errors</em></a>
+  <ul>
+  <li><a href="#ols-assumptions-and-why-they-will-usually-not-hold-in-the-case-of-tscs-data" id="toc-ols-assumptions-and-why-they-will-usually-not-hold-in-the-case-of-tscs-data" class="nav-link" data-scroll-target="#ols-assumptions-and-why-they-will-usually-not-hold-in-the-case-of-tscs-data">OLS assumptions and why they will usually not hold in the case of TSCS data</a></li>
+  <li><a href="#solution-part-1-panel-corrected-standard-errors" id="toc-solution-part-1-panel-corrected-standard-errors" class="nav-link" data-scroll-target="#solution-part-1-panel-corrected-standard-errors">Solution, part 1: Panel-corrected standard errors</a></li>
+  <li><a href="#solution-part-2-lagged-dependent-variables" id="toc-solution-part-2-lagged-dependent-variables" class="nav-link" data-scroll-target="#solution-part-2-lagged-dependent-variables">Solution, part 2: Lagged dependent variables</a></li>
+  </ul></li>
+  <li><a href="#putting-it-all-together-an-applied-example" id="toc-putting-it-all-together-an-applied-example" class="nav-link" data-scroll-target="#putting-it-all-together-an-applied-example">Putting it all together: An applied example</a>
+  <ul>
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model selection</a></li>
+  <li><a href="#data-management" id="toc-data-management" class="nav-link" data-scroll-target="#data-management">Data management</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-lagged-dependent-variable" id="toc-creating-a-lagged-dependent-variable" class="nav-link" data-scroll-target="#creating-a-lagged-dependent-variable">Creating a lagged dependent variable</a></li>
+  <li><a href="#dummy-coding-the-electoral-system-variable" id="toc-dummy-coding-the-electoral-system-variable" class="nav-link" data-scroll-target="#dummy-coding-the-electoral-system-variable">Dummy-coding the electoral system variable</a></li>
+  <li><a href="#selecting-relevant-countries" id="toc-selecting-relevant-countries" class="nav-link" data-scroll-target="#selecting-relevant-countries">Selecting relevant countries</a></li>
+  </ul></li>
+  <li><a href="#between-effects-analysis" id="toc-between-effects-analysis" class="nav-link" data-scroll-target="#between-effects-analysis">Between-effects analysis</a></li>
+  <li><a href="#fixed-effects-analysis" id="toc-fixed-effects-analysis" class="nav-link" data-scroll-target="#fixed-effects-analysis">Fixed-effects analysis</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+
+<section id="macro-level-questions-and-analyses-again" class="level2">
+<h2 class="anchored" data-anchor-id="macro-level-questions-and-analyses-again">Macro-level questions and analyses (again)</h2>
+<p>This is another post on how to analyze country-level data, adding to the earlier post on how to do descriptive analyses (<a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/">this one</a>) and to the one on merging macro-level data (<a href="https://cknotz.github.io/getstuffdone_blog/posts/merging/">this one</a>). What the earlier posts did not go into is how to do regression analyses with cross-country data, and this is what we are going to look into here.</p>
+<p>Regression analyses with cross-country data work in principle the same way as regression analyses with other types of data – you specify a model that relates your dependent variable to one or more predictors and control variables, estimate the correct regression model, and interpret the effects.</p>
+<p>What makes macro-level analyses more complicated, however, is that macro-level data usually have a <strong>time dimension</strong>: They cover different countries <em>over some period of time</em>. This can range from a few decades like in the case of the <em>Comparative Political Data Set</em> <span class="citation" data-cites="CPDS24">(<a href="#ref-CPDS24" role="doc-biblioref">Armingeon et al. 2024</a>)</span> to multiple centuries like in the case of the <em>V-Dem</em> dataset <span class="citation" data-cites="Lindbergetal2014">(<a href="#ref-Lindbergetal2014" role="doc-biblioref">Lindberg et al. 2014</a>)</span>. This is also why we call these types of datasets <em>time series cross-sectional</em> (TSCS) data: We have a cross-section of countries that are observed at multiple points in time. Because TSCS data include observations of the same units (countries) over multiple points in time, they are sometimes also called “panel data”. However, this is a bit misleading, because panel data traditionally refer to panel <em>survey</em> data, which cover <em>many</em> respondents (typically 1000 or more) over a few time points (often 3-4). TSCS data, in contrast, usually cover only a moderate number of countries (20-35) over longer periods of time <span class="citation" data-cites="Beck2001">(see also <a href="#ref-Beck2001" role="doc-biblioref">Beck 2001</a>)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>That being said, TSCS and panel data share the fact that they include a time dimension. This brings benefits (we can study changes over time and we simply have more observations to work with), but it also makes the dataset and therefore the analysis more complex. This complexity manifests itself in the fact that the results of analyses with TSCS data often change drastically after seemingly minor changes in model specifications <span class="citation" data-cites="Wilson2007">(<a href="#ref-Wilson2007" role="doc-biblioref">Wilson and Butler 2007</a>)</span> – and this is what can make these analyses so daunting to students.</p>
+<p>However, TSCS (and panel) regression analyses do become easier and more predictable and stable if one understands a few core concepts:</p>
+<ul>
+<li>Cross-sectional and longitudinal variation</li>
+<li><a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s Paradox</a></li>
+<li>Fixed- vs.&nbsp;random- vs.&nbsp;between-effects regression models</li>
+<li>Integration &amp; cointegration (or, relatedly, unit roots and stationarity/non-stationarity)</li>
+</ul>
+<p>The last ones, integration and co-integration, are concepts from time series analysis methods <span class="citation" data-cites="Box-Steffensmeieretal2014">(see e.g., <a href="#ref-Box-Steffensmeieretal2014" role="doc-biblioref">J. M. Box-Steffensmeier et al. 2014</a>)</span> and they refer, simply put, to how variables change over time: Some variables change smoothly over time and tend to return to a given stable equilibrium value, while others behave erratically and change in sudden (seemingly random) “fits and starts”. The former are considered “stationary”, the latter are considered to have “unit roots”. There is an older (and very short) article that illustrates the concept of unit roots, integration, and co-integration brilliantly with an analogy of a drunk and her dog <span class="citation" data-cites="Murray1994">(<a href="#ref-Murray1994" role="doc-biblioref">Murray 1994</a>)</span>, and I would refer you to that one for further reading.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>The rest of this post will therefore go over the other three aspects with a focus on the main regression models for TSCS and the ideas behind them. You’ll also learn about <em>panel-corrected standard errors</em> (PCSEs), a key element in (political science) analyses of TSCS data <span class="citation" data-cites="Beck1995">Beck and Katz (<a href="#ref-Beck1996" role="doc-biblioref">1996</a>)</span>. First, however, we will go over the structure of TSCS data and the types of variation they contain. We will use both artificial data and the <em>Comparative Political Data Set</em> <span class="citation" data-cites="CPDS24">(<a href="#ref-CPDS24" role="doc-biblioref">Armingeon et al. 2024</a>)</span> to illustrate the main points.</p>
+<p>I should add that there are already other (excellent) introductory explanations of how to work with TSCS data in <code>R</code> by Urdinez &amp; Cruz <span class="citation" data-cites="Urdinez2020">(<a href="#ref-Urdinez2020" role="doc-biblioref">2020, chap. 7</a>)</span> and Heiss <span class="citation" data-cites="Heiss2020">(<a href="#ref-Heiss2020" role="doc-biblioref">2020, chap. 13</a> &amp; 14)</span>, but they lack (in my opinion) a user-friendly and easy conceptual introduction to the ideas behind the main regression models for TSCS and panel data. Working with these models and TSCS data becomes a lot easier once one understands these ideas (and the relatively simple math) behind these regression models.</p>
+</section>
+<section id="variation-in-tscs-data" class="level2">
+<h2 class="anchored" data-anchor-id="variation-in-tscs-data">Variation in TSCS data</h2>
+<p>Time series cross-sectional data contain observations of multiple <em>units</em> (usually countries) over some period of <em>time</em> (usually years). This means that this type of data can capture two basic forms of variation <span class="citation" data-cites="Kellstedt2018">(see also <a href="#ref-Kellstedt2018" role="doc-biblioref">Kellstedt and Whitten 2018, chap. 2.3</a>)</span>:</p>
+<ul>
+<li>Differences between <em>units</em>: Cross-sectional variation</li>
+<li>Changes over <em>time</em>: Longitudinal variation</li>
+</ul>
+<p>To make this more concrete, we can look at some real-life examples from the <em>Comparative Political Data Set</em> [CPDS; <span class="citation" data-cites="CPDS24">Armingeon et al. (<a href="#ref-CPDS24" role="doc-biblioref">2024</a>)</span>] and use the simple data visualizations techniques that were covered in the <a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/">earlier blog post</a>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cpds <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"cpds_2024.dta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We will focus on two variables from the dataset for now:</p>
+<ul>
+<li><code>structur</code>, which measures the “rigidity” of countries’ political instititions, a.k.a., the number of “checks and balances” that make introducing reforms easier or more difficult <span class="citation" data-cites="Huber1993 Immergut1992a Immergut1990 Tsebelis2002">(see also <a href="#ref-Huber1993" role="doc-biblioref">Huber, Ragin, and Stephens 1993</a>; <a href="#ref-Immergut1992a" role="doc-biblioref">Ellen M. Immergut 1992</a>; <a href="#ref-Immergut1990" role="doc-biblioref">Ellen M. Immergut 1990</a>; <a href="#ref-Tsebelis2002" role="doc-biblioref">Tsebelis 2002</a>)</span></li>
+<li><code>oldage_pmp</code>, which measures the amount of government spending on old-age pensions in percent of countries’ gross domestic product <span class="citation" data-cites="Adema2009 Castles2007">(see also <a href="#ref-Adema2009" role="doc-biblioref">Adema and Ladaique 2009</a>; <a href="#ref-Castles2007" role="doc-biblioref">Castles and Obinger 2007</a>)</span></li>
+</ul>
+<section id="cross-sectional-variation" class="level3">
+<h3 class="anchored" data-anchor-id="cross-sectional-variation">Cross-sectional variation</h3>
+<p>One way to look at cross-sectional variation is to look at countries’ average values on the two variables over the entire period of time for which we have observations.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(iso) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_cons =</span> <span class="fu">mean</span>(structur, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_cons, <span class="at">y =</span> <span class="fu">reorder</span>(iso, avg_cons))) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> avg_cons),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Constitutional structure (avg.)"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">""</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">|&gt;</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">&gt;=</span><span class="dv">1980</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(iso) <span class="sc">|&gt;</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_pen =</span> <span class="fu">mean</span>(oldage_pmp, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_pen, <span class="at">y =</span> <span class="fu">reorder</span>(iso, avg_pen))) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> avg_pen),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Public pension spending (% GDP, avg.)"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-csvar" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-csvar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-csvar" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-csvar-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-csvar-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-csvar-1.png" class="lightbox" data-gallery="fig-csvar" title="Figure&nbsp;1&nbsp;(a): Constitutional structure"><img src="index_files/figure-html/fig-csvar-1.png" class="img-fluid figure-img" data-ref-parent="fig-csvar" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-csvar-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Constitutional structure
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-csvar" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-csvar-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-csvar-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-csvar-2.png" class="lightbox" data-gallery="fig-csvar" title="Figure&nbsp;1&nbsp;(b): Public spending on pensions"><img src="index_files/figure-html/fig-csvar-2.png" class="img-fluid figure-img" data-ref-parent="fig-csvar" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-csvar-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Public spending on pensions
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-csvar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Cross-sectional variation
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-csvar" class="quarto-xref">Figure&nbsp;1</a> shows the results. On the left side, you see that countries differ in the “rigidity” of their political institutions. The United States and Switzerland stand out as countries with very rigid constitutions, where introducing reforms is very difficult, and this corresponds to what we know from more qualitative observations <span class="citation" data-cites="Obinger2002 Obama2016">(<a href="#ref-Obinger2002" role="doc-biblioref">Obinger 2002</a>; <a href="#ref-Obama2016" role="doc-biblioref">Obama 2016</a>)</span>. On the other end are a number of countries in different parts of Europe but also Israel, where there are few constraints. This does obviously not mean that these countries are dictatorships. It just means that there are few formal constraints on what a governing majority in parliament can do in day-to-day policymaking.</p>
+<p>The other graph on the right shows that countries also differ quite a bit in how much they spend, on average, on old-age pensions. Conservative and southern European countries top the list, while more market-liberal countries like the United States, Canada, or Ireland are at the bottom.</p>
+</section>
+<section id="longitudinal-variation" class="level3">
+<h3 class="anchored" data-anchor-id="longitudinal-variation">Longitudinal variation</h3>
+<p>Obviously, by averaging the data by country, we brush away all the finer longitudinal changes over time within the different countries. To visualize this, we can use line graphs that are separated by country, as shown in <a href="#fig-tsvar" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(structur) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> structur)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>iso) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Constitutional structure"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">|&gt;</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year<span class="sc">&gt;=</span><span class="dv">1980</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> oldage_pmp)) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>iso) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Pension spending (%GDP)"</span>) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1980</span>,<span class="dv">2020</span>,<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div id="fig-tsvar" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tsvar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-tsvar" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-tsvar-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-tsvar-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-tsvar-1.png" class="lightbox" data-gallery="fig-tsvar" title="Figure&nbsp;2&nbsp;(a): Constitutional structure"><img src="index_files/figure-html/fig-tsvar-1.png" class="img-fluid figure-img" data-ref-parent="fig-tsvar" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tsvar-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Constitutional structure
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-tsvar" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-tsvar-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-tsvar-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-tsvar-2.png" class="lightbox" data-gallery="fig-tsvar" title="Figure&nbsp;2&nbsp;(b): Public spending on pensions"><img src="index_files/figure-html/fig-tsvar-2.png" class="img-fluid figure-img" data-ref-parent="fig-tsvar" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tsvar-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Public spending on pensions
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tsvar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Longitudinal variation
+</figcaption>
+</figure>
+</div>
+<p>When you now look at the graph showing countries’ constitutional rigidity, you see that there are barely any changes over time. France is the big exception here since it introduced several constitutional changes over a decade or so, and there have also been changes in Belgium, Croatia, Hungary, Italy, New Zealand, and Sweden – but, overall, there is mainly stability.</p>
+<p>This contrasts with the pattern in the other graph that shows the development of public pension spending in each country. Many countries experienced significant increases over time (e.g., Greece, Portugal, Italy, Japan, Finland, France, or Switzerland), while spending stayed more constant in other countries (e.g., Poland, Germany, or the Netherlands). In all cases, however, there are small year-to-year changes, which is a clear difference to the completely flat lines in the graph above.</p>
+</section>
+</section>
+<section id="simpsons-paradox" class="level2">
+<h2 class="anchored" data-anchor-id="simpsons-paradox">Simpson’s Paradox</h2>
+<p>The fact that TSCS data contain both cross-sectional and longitudinal variation makes regression analyses more challenging than when one uses a “simple” cross-sectional dataset like survey data from the <em>European Social Survey</em>.</p>
+<div id="fig-simp" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-simp" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-simp-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-simp-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-simp-1.png" class="lightbox" data-gallery="fig-simp" title="Figure&nbsp;3&nbsp;(a): OLS regression with cross-sectional data"><img src="index_files/figure-html/fig-simp-1.png" class="img-fluid figure-img" data-ref-parent="fig-simp" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-simp-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) OLS regression with cross-sectional data
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-simp" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-simp-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-simp-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-simp-2.png" class="lightbox" data-gallery="fig-simp" title="Figure&nbsp;3&nbsp;(b): Simpson’s Paradox"><img src="index_files/figure-html/fig-simp-2.png" class="img-fluid figure-img" data-ref-parent="fig-simp" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-simp-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Simpson’s Paradox
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: OLS regression &amp; Simpson’s Paradox
+</figcaption>
+</figure>
+</div>
+<p>A normal regression model basically just draws a line through the data. The graph on the left in <a href="#fig-simp" class="quarto-xref">Figure&nbsp;3</a> illustrates this with data from the <code>mtcars</code> dataset, where each observation is a car and cars differ in the strength of their engines (measured in horsepower) and in their fuel efficiency (measured in miles-per-gallon). Unsurprisingly, a more powerful engine with more horsepower means less fuel efficiency. In this case, the simple regression model works because the data are purely cross-sectional – there is no time-dimension or other complication.</p>
+<p>Now consider what can happen when we deal with a more complex dataset with two dimensions, which is shown in the graph on the right.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> A “naive” OLS regression (indicated with the thick black line) would find that there is a negative relationship between the two variables , <code>x</code> and <code>y</code>. However, <em>within</em> the two groups, the relationship is positive. This positive relationship is only correctly captured by a model that focuses exclusively on the variation within each group and ignores the differences between them (indicated by the two colored lines).</p>
+<p>In principle, the “naive” OLS model is not really wrong – there <em>is</em> a negative relationship in the data as a whole. But the “naive” model is misleading, because it does not tell us the whole story. To get to that complete story, we need models that separate the between-group variation (the overall difference between groups A and B) from the within-group variation.</p>
+<p>The following section introduces regression models that can achieve this.</p>
+</section>
+<section id="fixed--random--and-between-effects-models" class="level2">
+<h2 class="anchored" data-anchor-id="fixed--random--and-between-effects-models">Fixed-, random-, and between-effects models</h2>
+<p>Statisticians have developed three basic regression model specifications for data that contain repeated observations of some group of units over time. Originally, they were developed for <em>panel survey</em> data, where researchers follow a larger (and often representative) sample of people over some period of time (often only a few weeks, months, or years) – i.e., data where we have many units but few time points. The models can in principle also be applied to TSCS data, where we usually have observations for many years but only a few countries – i.e., few units, but many time points <span class="citation" data-cites="Beck2001">(see also <a href="#ref-Beck2001" role="doc-biblioref">Beck 2001, 273</a>)</span>.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>These models are available in <code>R</code> via the <code>plm</code> package <span class="citation" data-cites="Croissant2008">(<a href="#ref-Croissant2008" role="doc-biblioref">Croissant and Millo 2008</a>)</span>, which you can install from <em>CRAN</em> with <code>install.packages()</code> and load with <code>library()</code>. In addition, we also use <code>texreg</code> <span class="citation" data-cites="Leifeld2013">(<a href="#ref-Leifeld2013" role="doc-biblioref">Leifeld 2013</a>)</span> to tabulate the results of the regression models:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("plm")</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To illustrate how these models work, we will work with a tiny and artificial example dataset (<code>pandat</code>). This dataset contains only nine observations of three variables (<code>x</code>, <code>y</code>, <code>c</code>) for three groups (A, B, and C, measured with the <code>u</code> variable) at three points in time (1,2,3, measured with the <code>t</code> variable):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pandat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 5
+  u         t     x     c     y
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 A         1   1.4   2     0.6
+2 A         2   1.7   2    -0.1
+3 A         3   2.1   2    -0.2
+4 B         1   2.1   1.5   4.6
+5 B         2   2.5   1.5   4.3
+6 B         3   2.7   1.5   3.8
+7 C         1   1.9   3.5   2.4
+8 C         2   2     3.5   2  
+9 C         3   2.3   3.5   1.4</code></pre>
+</div>
+</div>
+<p>When we visualize the patterns in the data (see <a href="#fig-pandat" class="quarto-xref">Figure&nbsp;4</a>), we see that this is a textbook case of Simpson’s Paradox: Within each group, there is a negative relationship between x and y over time (time points are indicated as numbers). A naive OLS model, however, would find a positive relationship.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-pandat" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pandat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-pandat-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;4: Relationship between x and y in simulated data"><img src="index_files/figure-html/fig-pandat-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pandat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Relationship between x and y in simulated data
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="naive-or-pooled-regression" class="level3">
+<h3 class="anchored" data-anchor-id="naive-or-pooled-regression">Naive or “pooled” regression</h3>
+<p>The first model specification is the “pooled” model. This model does what we did above: It pools all the different observations together and fits a line to the data. In other words, this model ignores the grouped structure of the data.</p>
+<p>We can estimate this model with the <code>plm()</code> function from the <code>plm</code> package. This function works essentially like <code>lm()</code> or <code>glm()</code> with the exception that we also need to specify the structure of the data with the <code>index</code> argument (<code>u</code> designates the groups, <code>t</code> the time points) regardless of whether the model picks it up or not). We also need to specify the type of model we want to estimate (with the <code>model</code> argument):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pooled_plm <span class="ot">&lt;-</span> plm<span class="sc">::</span><span class="fu">plm</span>(y <span class="sc">~</span> x,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"u"</span>,<span class="st">"t"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">model =</span> <span class="st">"pooling"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> pandat)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pooled_plm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Pooling Model
+
+Call:
+plm::plm(formula = y ~ x, data = pandat, model = "pooling", index = c("u", 
+    "t"))
+
+Balanced Panel: n = 3, T = 3, N = 9
+
+Residuals:
+    Min.  1st Qu.   Median  3rd Qu.     Max. 
+-2.35327 -1.09434  0.13646  0.82619  2.44673 
+
+Coefficients:
+            Estimate Std. Error t-value Pr(&gt;|t|)  
+(Intercept)  -3.9312     2.8846 -1.3628  0.21515  
+x             2.8973     1.3664  2.1204  0.07167 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    26.949
+Residual Sum of Squares: 16.409
+R-Squared:      0.39111
+Adj. R-Squared: 0.30412
+F-statistic: 4.49627 on 1 and 7 DF, p-value: 0.071675</code></pre>
+</div>
+</div>
+<p>As expected, the model naively pools the data and captures the positive overall relationship between x and y with a positive (and borderline significant) coefficient. It completely ignores the negative relationship between the groups.</p>
+<p>For comparison, we can also estimate a standard OLS model with <code>lm()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pooled_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> pandat)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pooled_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x, data = pandat)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3533 -1.0943  0.1365  0.8262  2.4467 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)   -3.931      2.885  -1.363   0.2152  
+x              2.897      1.366   2.120   0.0717 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.531 on 7 degrees of freedom
+Multiple R-squared:  0.3911,    Adjusted R-squared:  0.3041 
+F-statistic: 4.496 on 1 and 7 DF,  p-value: 0.07167</code></pre>
+</div>
+</div>
+<p>The results are exactly identical. This is easier to see when we put the results side-by-side in a single table:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(pooled_plm,pooled_lm),</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fl">0.05</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"Pooling (plm)"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Regular OLS"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=======================================
+             Pooling (plm)  Regular OLS
+---------------------------------------
+(Intercept)  -3.93          -3.93      
+             (2.88)         (2.88)     
+x             2.90           2.90      
+             (1.37)         (1.37)     
+---------------------------------------
+R^2           0.39           0.39      
+Adj. R^2      0.30           0.30      
+Num. obs.     9              9         
+=======================================
+* p &lt; 0.05</code></pre>
+</div>
+</div>
+</section>
+<section id="the-between-effects-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-between-effects-model">The between-effects model</h3>
+<p>As explained above, the problem with the pooled model is that naively throws together the cross-sectional and longitudinal variation in the data. We can get better answers by separating the two types of variation, and the first type of model that does this is the between-effects model. As the name suggests, the between-effects model focuses completely on the differences <em>between</em> the units and ignores all longitudinal variation over time.</p>
+<p>The between-effects model is also almost embarrassingly simple: All we do is what we did in <a href="#fig-csvar" class="quarto-xref">Figure&nbsp;1</a> above: We calculate average values per unit, which means that we eliminate the time-dimension from the data. Then we use the resulting aggregated data in a regular OLS regression.</p>
+<p>To show how this works, we do this first by hand and create an aggregated version of the <code>pandat</code> dataset:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pandat <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(u) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_y =</span> <span class="fu">mean</span>(y),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_x =</span> <span class="fu">mean</span>(x)) <span class="ot">-&gt;</span> pan_ag</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This dataset contains only the positive cross-sectional or between-unit relationship in the data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pan_ag <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> avg_x, <span class="at">y =</span> avg_y)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> u)) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="index_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If we use this aggregated dataset in a conventional OLS regression, we find the expected positive (and now significant) relationship:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>be_ols <span class="ot">&lt;-</span> <span class="fu">lm</span>(avg_y <span class="sc">~</span> avg_x,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> pan_ag)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(be_ols)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = avg_y ~ avg_x, data = pan_ag)
+
+Residuals:
+       1        2        3 
+ 0.04708  0.04280 -0.08988 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept) -10.1926     0.4664  -21.85   0.0291 *
+avg_x         5.9109     0.2224   26.58   0.0239 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1101 on 1 degrees of freedom
+Multiple R-squared:  0.9986,    Adjusted R-squared:  0.9972 
+F-statistic: 706.4 on 1 and 1 DF,  p-value: 0.02394</code></pre>
+</div>
+</div>
+<p>Now compare this to the <code>between</code> model specification in <code>plm()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>be_plm <span class="ot">&lt;-</span> plm<span class="sc">::</span><span class="fu">plm</span>(y <span class="sc">~</span> x,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"u"</span>,<span class="st">"t"</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">model =</span> <span class="st">"between"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> pandat)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(be_plm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oneway (individual) effect Between Model
+
+Call:
+plm::plm(formula = y ~ x, data = pandat, model = "between", index = c("u", 
+    "t"))
+
+Balanced Panel: n = 3, T = 3, N = 9
+Observations used in estimation: 3
+
+Residuals:
+        A         B         C 
+ 0.047080  0.042800 -0.089879 
+
+Coefficients:
+             Estimate Std. Error t-value Pr(&gt;|t|)  
+(Intercept) -10.19260    0.46644 -21.852  0.02911 *
+x             5.91088    0.22239  26.578  0.02394 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    8.5785
+Residual Sum of Squares: 0.012127
+R-Squared:      0.99859
+Adj. R-Squared: 0.99717
+F-statistic: 706.416 on 1 and 1 DF, p-value: 0.023941</code></pre>
+</div>
+</div>
+<p>The results are again exactly identical:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(be_ols,be_plm),</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fl">0.05</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"OLS with aggregated data"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Between-effects model (plm)"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+==================================================================
+             OLS with aggregated data  Between-effects model (plm)
+------------------------------------------------------------------
+(Intercept)  -10.19 *                  -10.19 *                   
+              (0.47)                    (0.47)                    
+avg_x          5.91 *                                             
+              (0.22)                                              
+x                                        5.91 *                   
+                                        (0.22)                    
+------------------------------------------------------------------
+R^2            1.00                      1.00                     
+Adj. R^2       1.00                      1.00                     
+Num. obs.      3                         3                        
+==================================================================
+* p &lt; 0.05</code></pre>
+</div>
+</div>
+</section>
+<section id="the-within--or-fixed-effects-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-within--or-fixed-effects-model">The within- or fixed-effects model</h3>
+<p>As above, aggregating the data is inefficient because we lose all the longitudinal variation. Also, depending on the theory or hypothesis we want to test, we may need to focus on the within-group variation in our analysis. In those cases, the between-effects model (or the pooled model) will not get us very far.</p>
+<p>If we want to focus on the within- or longitudinal variation, we can use the third alternative, which is the within-model. It is also known as the fixed-effects (FE) model. This model is, in principle, also very simple. One way to estimate this model is to simply add dummy variables for the different group units to the model (leaving one group out as the baseline). However, this adds extra variables to the model and therefore eats up statistical power that we often want to focus instead on the main effect of interest, here the relationship between <code>x</code> and <code>y</code>.</p>
+<p>There is therefore another way to estimate this model, which is to de-mean the data and then estimate a linear regression on the resulting dataset. This means that we calculate average values for each of the variables in the model and then subtract the average from each observation. In a way, de-meaning the data is the opposite to calculating the group averages in the between-effects model.</p>
+<p>This de-meaning of the data is a simple operation that we can again do by hand:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pandat <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(u) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_x =</span> <span class="fu">mean</span>(x),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">avg_y =</span> <span class="fu">mean</span>(y)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff_x =</span> x <span class="sc">-</span> avg_x,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff_y =</span> y <span class="sc">-</span> avg_y) <span class="ot">-&gt;</span> pandat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then we use the de-meaned data in a conventional OLS regression:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fe_ols <span class="ot">&lt;-</span> <span class="fu">lm</span>(diff_y <span class="sc">~</span> diff_x,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> pandat)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_ols)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = diff_y ~ diff_x, data = pandat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.24551 -0.08846 -0.02436  0.15769  0.23910 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept) -1.616e-16  6.222e-02   0.000  1.00000   
+diff_x      -1.365e+00  2.589e-01  -5.275  0.00115 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1867 on 7 degrees of freedom
+Multiple R-squared:  0.799, Adjusted R-squared:  0.7703 
+F-statistic: 27.82 on 1 and 7 DF,  p-value: 0.001155</code></pre>
+</div>
+</div>
+<p>Notice that the coefficient on <code>x</code> now switches its sign: It is now <em>negative</em> – which means that the model now captures the negative relationship between <code>x</code> and <code>y</code> <em>within</em> each group.</p>
+<p>When using the <code>plm()</code> function, we simply specify <code>within</code> as the model – but we use the original data. <code>plm()</code> takes care of the de-meaning for us:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fe_plm <span class="ot">&lt;-</span> plm<span class="sc">::</span><span class="fu">plm</span>(y <span class="sc">~</span> x,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"u"</span>,<span class="st">"t"</span>),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> pandat)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_plm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oneway (individual) effect Within Model
+
+Call:
+plm::plm(formula = y ~ x, data = pandat, model = "within", index = c("u", 
+    "t"))
+
+Balanced Panel: n = 3, T = 3, N = 9
+
+Residuals:
+        1         2         3         4         5         6         7         8 
+ 0.044872 -0.245513  0.200641 -0.088462  0.157692 -0.069231  0.239103 -0.024359 
+        9 
+-0.214744 
+
+Coefficients:
+  Estimate Std. Error t-value Pr(&gt;|t|)   
+x -1.36538    0.30629 -4.4579 0.006654 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    1.2133
+Residual Sum of Squares: 0.24391
+R-Squared:      0.79898
+Adj. R-Squared: 0.67836
+F-statistic: 19.8725 on 1 and 5 DF, p-value: 0.0066536</code></pre>
+</div>
+</div>
+<p>If you take a very careful look at the results, you see that the coefficient estimate (<span class="math inline">\(\beta\)</span>) is exactly identical to the one we got in the OLS model on the de-meaned data. However, the standard error and <code>t</code>- and <code>p</code>-values are different!</p>
+<p>The reason for this is that we use up some of the information in the data (i.e., <em>degrees of freedom</em>) when we calculate the group-averages in the first step. This information is then technically not available when when we calculate standard errors and <code>p</code>-values.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> The <code>plm()</code> function automatically makes this <em>degree-of-freedom</em> adjustment, but not the naive <code>lm()</code> function, hence the different results.</p>
+<p>Now compare this to the “dummy” specification:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fe_dum <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> u,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> pandat)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_dum)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x + u, data = pandat)
+
+Residuals:
+       1        2        3        4        5        6        7        8 
+ 0.04487 -0.24551  0.20064 -0.08846  0.15769 -0.06923  0.23910 -0.02436 
+       9 
+-0.21474 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   2.4667     0.5460   4.518 0.006296 ** 
+x            -1.3654     0.3063  -4.458 0.006654 ** 
+uB            5.0891     0.2802  18.165 9.29e-06 ***
+uC            2.2885     0.2072  11.043 0.000106 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.2209 on 5 degrees of freedom
+Multiple R-squared:  0.9909,    Adjusted R-squared:  0.9855 
+F-statistic: 182.5 on 3 and 5 DF,  p-value: 1.583e-05</code></pre>
+</div>
+</div>
+<p>Now we have two additional variables in the model, the dummies for groups B and C (group A is omitted and measured with the intercept). If you take a careful look, you will notice that the estimate for the coefficient on <code>x</code> is now exactly identical to the estimate we got from the <code>plm()</code> function. This is because the dummy-specification explicitly adjusts for the degrees of freedom by adding additional coefficients to the model (which use up information in the estimation).</p>
+<p>We can again put the results side-by-side to see more clearly where they differ:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(fe_ols,fe_plm,fe_dum),</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">stars =</span> <span class="fl">0.05</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"Regular OLS (dem. data)"</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Fixed-effects (plm)"</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Fixed-effects (dummies)"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+==================================================================================
+             Regular OLS (dem. data)  Fixed-effects (plm)  Fixed-effects (dummies)
+----------------------------------------------------------------------------------
+(Intercept)  -0.00                                          2.47 *                
+             (0.06)                                        (0.55)                 
+diff_x       -1.37 *                                                              
+             (0.26)                                                               
+x                                     -1.37 *              -1.37 *                
+                                      (0.31)               (0.31)                 
+uB                                                          5.09 *                
+                                                           (0.28)                 
+uC                                                          2.29 *                
+                                                           (0.21)                 
+----------------------------------------------------------------------------------
+R^2           0.80                     0.80                 0.99                  
+Adj. R^2      0.77                     0.68                 0.99                  
+Num. obs.     9                        9                    9                     
+==================================================================================
+* p &lt; 0.05</code></pre>
+</div>
+</div>
+<p>Again, the estimates of the coefficient on <code>x</code> are exactly identical across the three models, but the standard error is a bit lower in the first model than in the other two (which are exactly identical). You probably also notice that the within- or fixed-effects model estimated with <code>plm()</code> does not contain an intercept.</p>
+<p>In any case, the fixed-effects or within-specification correctly captures the within-variation in the data, meaning the negative relationship between <code>x</code> and <code>y</code> within each group.</p>
+</section>
+<section id="fixed-effects-with-constant-variables" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-effects-with-constant-variables">Fixed-effects with constant variables</h3>
+<p>You might now ask why we don’t just always use the fixed-effects (FE) model for anything? One of the problems with the FE model is that it cannot capture the effects of variables that are either constant over time or change only very rarely and slowly – the constitutional constraints variable is one of the textbook examples.</p>
+<p>To see why, we can estimate a FE model with the one variable in our practice dataset that does not change over time (<code>c</code>, for “constant”):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pandat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 9
+  u         t     x     c     y avg_x avg_y  diff_x  diff_y
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 A         1   1.4   2     0.6  1.73  0.1  -0.333   0.5   
+2 A         2   1.7   2    -0.1  1.73  0.1  -0.0333 -0.2   
+3 A         3   2.1   2    -0.2  1.73  0.1   0.367  -0.3   
+4 B         1   2.1   1.5   4.6  2.43  4.23 -0.333   0.367 
+5 B         2   2.5   1.5   4.3  2.43  4.23  0.0667  0.0667
+6 B         3   2.7   1.5   3.8  2.43  4.23  0.267  -0.433 
+7 C         1   1.9   3.5   2.4  2.07  1.93 -0.167   0.467 
+8 C         2   2     3.5   2    2.07  1.93 -0.0667  0.0667
+9 C         3   2.3   3.5   1.4  2.07  1.93  0.233  -0.533 </code></pre>
+</div>
+</div>
+<p>Notice what happens when we do the de-meaning operation with this variable:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>pandat <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(u) <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_c =</span> <span class="fu">mean</span>(c)) <span class="sc">|&gt;</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff_c =</span> c <span class="sc">-</span> avg_c) <span class="ot">-&gt;</span> pandat</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>pandat <span class="sc">|&gt;</span> </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(u,t,c,avg_c,diff_c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 5
+  u         t     c avg_c diff_c
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 A         1   2     2        0
+2 A         2   2     2        0
+3 A         3   2     2        0
+4 B         1   1.5   1.5      0
+5 B         2   1.5   1.5      0
+6 B         3   1.5   1.5      0
+7 C         1   3.5   3.5      0
+8 C         2   3.5   3.5      0
+9 C         3   3.5   3.5      0</code></pre>
+</div>
+</div>
+<p>The resulting variable, <code>diff_c</code> (which measures the deviations of each variable from the group-specific means) contains only zeros! This is only logical: The variable does not change over time, so each individual observation is exactly identical to the group-specific mean. When we then subtract the two, we get only zeros.</p>
+<p><code>plm()</code> will now simply refuse to estimate the model:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fe_plm_c <span class="ot">&lt;-</span> <span class="fu">plm</span>(y <span class="sc">~</span> c,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"u"</span>,<span class="st">"t"</span>),</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> pandat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in plm.fit(data, model, effect, random.method, random.models, random.dfcor, : empty model</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe_plm_c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: object 'fe_plm_c' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="which-model-should-i-now-choose" class="level3">
+<h3 class="anchored" data-anchor-id="which-model-should-i-now-choose">Which model should I now choose?</h3>
+<p>The main difference between the three regression models we went over is <em>which type of variation</em> they focus on (i.e., how they “slice” the data):</p>
+<ul>
+<li>The “pooling” model simply pools all the data together and draws a best-fitting line through them. It does not differentiate between between-country and over-time variation and can therefore produce very misleading results (due to Simpson’s Paradox; see above).</li>
+<li>The “between-effects” model is simply a regression model that is fitted on country-by-country averages. This eliminates the time-dimension from the data and focuses the analysis exclusively on between-country differences (cross-sectional variation).</li>
+<li>The “fixed-effects” model focuses on <em>deviations</em> from the country-by-country averages, which means that it eliminates all cross-sectional variation from the data and focuses the analysis on the <em>longitudinal</em> or <em>over-time</em> variation in the data.</li>
+</ul>
+<p>Because these models focus on different types of variation, you use them for different types of analyses. As always, <strong>which model you use depends on the theory or hypothesis you want to test</strong>.</p>
+<p>First, you might be interested in stable differences between countries or in the effects of variables that rarely or never change over time. Political institutions are the textbook example for the latter (as shown above). They basically never change, which means they are a stable <em>cross-sectional</em> feature of different countries.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> In such cases, <strong>when you are interested in stable cross-sectional variation, you should use the between-effects model</strong>. For example, Iversen and Soskice <span class="citation" data-cites="Iversen2006">(<a href="#ref-Iversen2006" role="doc-biblioref">2006</a>)</span> used the between-effects regression model in their study of the effects of electoral systems on government redistribution.</p>
+<p>A second scenario is that you are interested in <strong>longitudinal/over-time changes</strong>. For example, an older literature in political science and sociology was interested in how economic globalization (increases in international trade and financial transactions across countries) affects the welfare state <span class="citation" data-cites="Cerny1997 Sassen1996 Iversen2000 Burgoon2001 Garrett2001 Brady2005a">(<a href="#ref-Cerny1997" role="doc-biblioref">Cerny 1997</a>; <a href="#ref-Sassen1996" role="doc-biblioref">Sassen 1996</a>; <a href="#ref-Iversen2000" role="doc-biblioref">Iversen and Cusack 2000</a>; <a href="#ref-Burgoon2001" role="doc-biblioref">Burgoon 2001</a>; <a href="#ref-Garrett2001" role="doc-biblioref">Garrett and Mitchell 2001</a>; <a href="#ref-Brady2005a" role="doc-biblioref">Brady, Beckfield, and Seeleib-Kaiser 2005</a>)</span>. In that case, <strong>the fixed-effects model would be a natural choice</strong> because it focuses the analysis on over-time changes (how increased globalization leads to changes in welfare state institutions or outcomes) and removes the effects of stable country differences. You can estimate the fixed-effects model either by including dummy-variables for your countries (or other cross-sectional units) or with the “official” <em>within</em> estimator built into the <code>plm</code> package (as shown above.)</p>
+<p>Third, there are some who still prefer the “pooling” model <span class="citation" data-cites="Huber1993 Huber2000 Huber2001">(e.g., <a href="#ref-Huber1993" role="doc-biblioref">Huber, Ragin, and Stephens 1993</a>; <a href="#ref-Huber2000" role="doc-biblioref">Huber and Stephens 2000</a>, <a href="#ref-Huber2001" role="doc-biblioref">2001</a>)</span>, and it can indeed be an appropriate model for some types of analyses. One case would be when you are doing analyses that look at between-country and longitudinal variation <em>simultaneously</em> (e.g., when you are interested in how patterns of change differ between countries). For example, you might be interested in how the effect of globalization on welfare states (longitudinal variation) <em>depends on</em> political institutions (cross-sectional variation).<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> Still, you need to be cautious when you use the “pooling” model <span class="citation" data-cites="Wilson2007">(see also <a href="#ref-Wilson2007" role="doc-biblioref">Wilson and Butler 2007, 104–5</a>)</span>.</p>
+</section>
+</section>
+<section id="estimation-issues-panel-corrected-standard-errors" class="level2">
+<h2 class="anchored" data-anchor-id="estimation-issues-panel-corrected-standard-errors">Estimation issues &amp; <em>panel-corrected standard errors</em></h2>
+<section id="ols-assumptions-and-why-they-will-usually-not-hold-in-the-case-of-tscs-data" class="level3">
+<h3 class="anchored" data-anchor-id="ols-assumptions-and-why-they-will-usually-not-hold-in-the-case-of-tscs-data">OLS assumptions and why they will usually not hold in the case of TSCS data</h3>
+<p>You might remember that a standard linear regression (OLS) model is based on a few critical assumptions about the underlying data <span class="citation" data-cites="Kellstedt2018">(see e.g., <a href="#ref-Kellstedt2018" role="doc-biblioref">Kellstedt and Whitten 2018, chap. 9.5</a>)</span>. One of these assumptions is <em>no autocorrelation</em>: Two different observations in your dataset cannot be related to each other. In a survey dataset, where all observations are individual and randomly sampled people from different parts of a given country, this assumption is plausible: Respondent #1 is not directly connected to respondent #2, so the data from respondent #1 are not correlated with those from respondent number #2.</p>
+<p>A second assumption is that of <em>homoscedasticity</em>, meaning that there cannot any form of pattern in the residuals (usually called <span class="math inline">\(\epsilon_i\)</span>) from the regression model, i.e., the unexplained variation that the model does not pick up. No regression model will fit a given dataset perfectly, and there are always some observations that are well-explained by the model and that lie on or close to the regression line, and other observations that are “weird” and lie far away from the regression line. This is not a problem as long as there is no systematic pattern to these deviations from the regression line. The graph on the left in <a href="#fig-homo" class="quarto-xref">Figure&nbsp;5</a> visualizes this ideal case.</p>
+<div id="fig-homo" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-homo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-homo" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-homo-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-homo-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-homo-1.png" class="lightbox" data-gallery="fig-homo" title="Figure&nbsp;5&nbsp;(a): Homoscedastic errors"><img src="index_files/figure-html/fig-homo-1.png" class="img-fluid figure-img" data-ref-parent="fig-homo" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-homo-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Homoscedastic errors
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-homo" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-homo-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-homo-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="index_files/figure-html/fig-homo-2.png" class="lightbox" data-gallery="fig-homo" title="Figure&nbsp;5&nbsp;(b): Heteroscedastic errors"><img src="index_files/figure-html/fig-homo-2.png" class="img-fluid figure-img" data-ref-parent="fig-homo" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-homo-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Heteroscedastic errors
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-homo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Homo- and heteroscedastic error structures
+</figcaption>
+</figure>
+</div>
+<p>This assumption is violated if some observations are <em>systematically</em> less well explained by the model than others. The graph on the right in <a href="#fig-homo" class="quarto-xref">Figure&nbsp;5</a> depicts this scenario: Here, observations that have higher values on the <span class="math inline">\(X\)</span> variable are systematically farther away from the regression line than those with low <span class="math inline">\(X\)</span>-values. This is a case of <em>heteroscedasticity</em>, and a simple regression model will not be appropriate. The problem, simply put, is that a single regression line with a single estimate of the uncertainty around it (here visualized with the gray confidence interval boundaries) is kind of misleading: The confidence interval suggests that there is the same level of uncertainty around the fitted line at low values of <span class="math inline">\(X\)</span> as at high values of <span class="math inline">\(X\)</span> - but the underlying data show that this is clearly not the case. Again, when working with a typical survey dataset, heteroscedasticity should not be a problem as long as the model is correctly specified: Sure, some respondents will “fit” the model better and others will be “weirdos”, but there should not be a systematic pattern where some groups of respondents are “weirder” than others.</p>
+<p>All this is very different in the case of TSCS data. When working with TSCS data, we can expect three main ways in which the conventional OLS assumptions are violated <span class="citation" data-cites="Beck2001">(see <a href="#ref-Beck2001" role="doc-biblioref">Beck 2001, 274–75</a>)</span>:</p>
+<ol type="1">
+<li>Observations are correlated across space (<em>contemporaneous correlation</em>): For example, the economies of Belgium, Luxemburg, and the Netherlands are traditionally closely linked and they trade a lot with each other. This means that if Belgium experiences an economic crisis, then it is very likely that Luxemburg and the Netherlands also experience one at the same time. The same is usually true when it comes to the Nordic countries, to the USA and Canada, or to Germany, Austria, and Switzerland. In practice, this means that the individual data points in a TSCS dataset that covers these countries depend on (i.e., are correlated with) each other.</li>
+<li>Observations are correlated over time (<em>serial correlation</em>): The value of many variables at any given point in time depends strongly on their value in previous years. For example, the unemployment rate in Germany in 1994 is not a random number but depends on the unemployment rate in 1993 and, but less so, that in 1992.</li>
+<li>A given regression model (and the underlying theory) will fit some countries better than others. For example, the US are often somewhat of an outlier when it comes to firearms and gun control because of its very powerful pro-firearm lobby. Therefore, while an increase in gun violence would trigger a restriction of gun laws in most countries, it might have less of an effect in the US. Therefore, if we regress a measure of gun control rules on a measure of gun violence in different countries, then the model will fit the US less well. This, in turn, means that the error terms (or <em>residuals</em>) in that regression models are systematically larger for the US than for other countries. This is called <em>panel heteroscedasticity</em>.</li>
+</ol>
+</section>
+<section id="solution-part-1-panel-corrected-standard-errors" class="level3">
+<h3 class="anchored" data-anchor-id="solution-part-1-panel-corrected-standard-errors">Solution, part 1: Panel-corrected standard errors</h3>
+<p>Beck and Katz <span class="citation" data-cites="Beck1995 Beck1996">(<a href="#ref-Beck1995" role="doc-biblioref">1995</a>, <a href="#ref-Beck1996" role="doc-biblioref">1996</a>)</span> have developed a method to deal with the first and third issue, contemporaneous correlation and panel heteroscedasticity: <em>panel-corrected standard errors</em> (PCSEs). Very simply put, this is a specific way to calculate the standard errors (SEs) for regression coefficients and, by implication, any confidence intervals or <em>p</em>-values based on those SEs. This method has quickly become standard practice in the field, and it is now the default way to work with TSCS data.</p>
+<p>Obviously, you do not have to calculate PCSEs by yourself. PCSEs have been implemented in two <code>R</code> packages, one of which is called <code>pcse</code> <span class="citation" data-cites="Bailey2011">(<a href="#ref-Bailey2011" role="doc-biblioref">Bailey and Katz 2011</a>)</span> and the other being the <code>lmtest</code> package, that works together with the <code>plm</code> package from earlier. We will go over an example of how this looks like in practice below.</p>
+</section>
+<section id="solution-part-2-lagged-dependent-variables" class="level3">
+<h3 class="anchored" data-anchor-id="solution-part-2-lagged-dependent-variables">Solution, part 2: Lagged dependent variables</h3>
+<p>To deal with the second issue, <em>serial correlation</em>, researchers nowadays use lagged dependent variables (LDVs) in their models. This is less complicated than it may sound: You take your dependent variable and create a “lagged” version of it. This lagged version simply reflects the value of the dependent variable in the previous year.</p>
+<p>For example, let’s say that your dependent variable is the unemployment rate and you have data for different countries from 1960 onward. The regular unemployment rate variable will reflect the level of unemployment in any given year and its lag will always show the unemployment rate in the <em>previous</em> year.</p>
+<p>The table below illustrates this for the country of Norway: Here, the unemployment rate was 1.2% in 1960, 0.9% in 1961, and 1% in 1962.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> The lagged unemployment rate was 1.2% in 1961 and 0.9% in 1962, reflecting the values from the two respective previous years. The value for 1960 is missing, because the data begin in 1960 and we therefore do not know what the level of unemployment was in 1959. We will go over how to construct this variable with functions from the <code>tidyverse</code> further below.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   country  year unemp lag_unem
+   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Norway   1960   1.2     NA  
+ 2 Norway   1961   0.9      1.2
+ 3 Norway   1962   1        0.9
+ 4 Norway   1963   1.3      1  
+ 5 Norway   1964   1.1      1.3
+ 6 Norway   1965   0.9      1.1
+ 7 Norway   1966   0.8      0.9
+ 8 Norway   1967   0.7      0.8
+ 9 Norway   1968   1.1      0.7
+10 Norway   1969   1.1      1.1</code></pre>
+</div>
+</div>
+<p>Using a LDV in a fixed-effects model is a bit controversial. There is an older study that showed that doing so skews the results, and that this skew paradoxically becomes more severe the more cross-sectional units (e.g., countries) one has <span class="citation" data-cites="Nickell1981">(<a href="#ref-Nickell1981" role="doc-biblioref">Nickell 1981</a>)</span>. Economists have since developed very sophisticated techniques to solve this problem, but these have their own weaknesses <span class="citation" data-cites="ArellanoBond Arellano1995 Blundell1998">(<a href="#ref-ArellanoBond" role="doc-biblioref">Arellano and Bond 1991</a>; <a href="#ref-Arellano1995" role="doc-biblioref">Arellano and Bover 1995</a>; <a href="#ref-Blundell1998" role="doc-biblioref">Blundell and Bond 1998</a>)</span>.</p>
+<p>Beck &amp; Katz <span class="citation" data-cites="Beck1996 Beck2011">(<a href="#ref-Beck1996" role="doc-biblioref">1996</a>; <a href="#ref-Beck2011" role="doc-biblioref">2011</a>)</span> have long argued in favor of using an LDV to correct for serial correlation in the data, and they have shown that the problem is much less serious than often believed, especially if one works with data that go over many time periods. Specifically, they have shown that you can combine an LDV and a fixed-effects model as long as your dataset covers more than 20 time periods (e.g., years) per country <span class="citation" data-cites="Beck2011">(<a href="#ref-Beck2011" role="doc-biblioref">Beck 2011, 342</a>)</span>.</p>
+</section>
+</section>
+<section id="putting-it-all-together-an-applied-example" class="level2">
+<h2 class="anchored" data-anchor-id="putting-it-all-together-an-applied-example">Putting it all together: An applied example</h2>
+<p>We have now gone over all the issues and complications connected to a regression analysis with TSCS data:</p>
+<ul>
+<li>The fact that we are working with two types of variation, cross-sectional and longitudinal, at the same time</li>
+<li>The fact that this can lead to misleading conclusions about relationships within the data (Simpson’s Paradox)</li>
+<li>Different types of models that focus on different types of variation in the data</li>
+<li>Additional estimation problems (serial correlation, panel-heteroscedasticity) and how to solve them</li>
+</ul>
+<p>In the final part, we will do an analysis with a real research dataset, the <em>Comparative Political Data Set</em> <span class="citation" data-cites="CPDS24">(<a href="#ref-CPDS24" role="doc-biblioref">Armingeon et al. 2024</a>)</span>, to see how all of these different things come together in an actual research project.</p>
+<p>The dependent variable will be the amount of social security transfers (e.g., sickness or unemployment benefits, family allowances), which can be seen as a measure of the size of the welfare state <span class="citation" data-cites="Castles2007">(e.g., <a href="#ref-Castles2007" role="doc-biblioref">Castles and Obinger 2007</a>)</span>.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> We measure this with the <code>sstran</code> variable from the CPSD. This variable has the advantage that it is available from 1960 onwards for many countries, in contrast to other spending variables (like the one on pensions we used above), which are only available from 1980 onward.</p>
+<p>Our independent variables are based on a few leading explanations for welfare state development:</p>
+<ul>
+<li><code>ud</code>: The strength of trade unions, measured as the share of union members in the working population, reflecting Power Resources Theory <span class="citation" data-cites="Korpi1989">(<a href="#ref-Korpi1989" role="doc-biblioref">Korpi 1989</a>)</span></li>
+<li><code>realgdpgr</code>: The economic growth rate (real GDP growth, in %), which reflects the more “functionalist” perspective that welfare state spending goes up when there is an economic downturn and more people need support from the government <span class="citation" data-cites="Wilensky1958">(e.g., <a href="#ref-Wilensky1958" role="doc-biblioref">Wilensky and Lebeaux 1958</a>)</span></li>
+<li><code>elderly</code>: The share of persons that are older than 65 in the population, which also reflects the functionalist perspective</li>
+<li><code>openc</code>: The openness of the economy, measured as the amount of trade (the sum of exports and imports) as a share of GDP. Including this allows us to test the theory that economic globalization has either a positive <span class="citation" data-cites="Cameron1978 Walter2010">(<a href="#ref-Cameron1978" role="doc-biblioref">Cameron 1978</a>; <a href="#ref-Walter2010" role="doc-biblioref">Walter 2010</a>)</span> or a negative <span class="citation" data-cites="Cerny1997 Genschel2002">(<a href="#ref-Cerny1997" role="doc-biblioref">Cerny 1997</a>; <a href="#ref-Genschel2002" role="doc-biblioref">Genschel 2002</a>)</span> effect on the welfare state</li>
+<li><code>womenpar</code>: The share of female members of parliament. This reflects the theory that a better representation of women in politics could have effects on the welfare state <span class="citation" data-cites="Iversen2010 Morgan2013">(e.g., <a href="#ref-Iversen2010" role="doc-biblioref">Iversen and Rosenbluth 2010</a>; <a href="#ref-Morgan2013" role="doc-biblioref">Morgan 2013</a>)</span>.</li>
+<li><code>prop</code>: The type of electoral system (single-member district vs.&nbsp;proportional representation), reflecting the theory that political institutions affect welfare state development <span class="citation" data-cites="Iversen2006">(<a href="#ref-Iversen2006" role="doc-biblioref">Iversen and Soskice 2006</a>)</span></li>
+</ul>
+<p>The CPDS dataset covers both the “traditional” Western democracies of Europe, North America, and Australasia, but also the formerly communist countries of Central and Eastern Europe. Unfortunately, since the latter were not real democracies before 1990, the CPDS covers them only after 1990 or in some cases 1995. This means that our “panel” of countries is “unbalanced”: We have more observations for some countries than for others. This is not a massive problem, but it is generally preferrable to have “balanced” panel data <span class="citation" data-cites="Bailey2011">(see <a href="#ref-Bailey2011" role="doc-biblioref">Bailey and Katz 2011, sec. 3.2</a>)</span>. To keep things simple, we focus the analysis on the “traditional” Western countries.</p>
+<section id="model-selection" class="level3">
+<h3 class="anchored" data-anchor-id="model-selection">Model selection</h3>
+<p>Most of the independent variables vary over time, but we know that the <code>prop</code> variable does not (or only in a few instances). This should inform our modelling strategy. Specifically, to model the effect of a stable political institution like the electoral system, we should use a between-effects model. Since this model basically eliminates the time-dimension in the data and corresponds to a regular OLS estimation, we do not need to worry about lagged dependent variables or different types of standard errors.</p>
+<p>When it comes to the other variables, we need to make sure that we are not running into Simpson’s Paradox and confuse stable differences between countries with over-time changes within countries. The fixed-effects or “within” model is a reasonable choice here. In this case, we actively use the time-dimension in the dataset, which means we need to deal with the problem of serial correlation in the data. We do this by including a lagged dependent variable as a predictor into the model <span class="citation" data-cites="Beck1996">(<a href="#ref-Beck1996" role="doc-biblioref">Beck and Katz 1996</a>)</span>. In addition, we follow standard practice and convert the standard errors to PCSEs <span class="citation" data-cites="Beck1995">(<a href="#ref-Beck1995" role="doc-biblioref">Beck and Katz 1995</a>)</span>.</p>
+</section>
+<section id="data-management" class="level3">
+<h3 class="anchored" data-anchor-id="data-management">Data management</h3>
+<section id="creating-a-lagged-dependent-variable" class="level4">
+<h4 class="anchored" data-anchor-id="creating-a-lagged-dependent-variable">Creating a lagged dependent variable</h4>
+<p>The first thing we want to do is to create a lagged dependent variable. We can do this with the <code>lag()</code> function from <code>dplyr</code> within <code>mutate()</code>. In this case, it makes sense to be explicit in our code that we want to use the <code>lag()</code> function from <code>dplyr</code> because there are other packages that also have functions called <code>lag()</code> and which sometimes work a bit differently. We want to be sure we use the correct function. The CPDS dataset should normally be sorted by country and year, but manually sorting it again is easy (and getting this wrong is costly), so we do that before creating the lag. We also need to make sure to group the data by country. Otherwise, the last observation from one country would become the lag for the following country, which is obviously not what we want.</p>
+<p>The code below does all this in one swoop: It sorts and groups the data, creates the lag, and ungroups the data again:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">|&gt;</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(country,year) <span class="sc">|&gt;</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span> </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag_sstran =</span> dplyr<span class="sc">::</span><span class="fu">lag</span>(sstran)) <span class="sc">|&gt;</span> </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="ot">-&gt;</span> cpds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="dummy-coding-the-electoral-system-variable" class="level4">
+<h4 class="anchored" data-anchor-id="dummy-coding-the-electoral-system-variable">Dummy-coding the electoral system variable</h4>
+<p>Next, we change the <code>prop</code> variable a bit. It is saved as a numeric variable in the dataset, but since the type of electoral system is fundamentally a categorical variable, it should also be stored in <code>R</code> as one (i.e., as a factor). Also, the original <code>prop</code> variable has three categories (0 for “single member district”, 1 for “modified proportional”, 2 for “proportional”) and it makes sense to group the first two categories together to be more in line with the analysis by Iversen &amp; Soskice <span class="citation" data-cites="Iversen2006">(<a href="#ref-Iversen2006" role="doc-biblioref">2006</a>)</span>.</p>
+<p>Here, we use <code>if_else()</code> to create a dummy variable called <code>elsys</code> that distinguishes proportional (“PR”) versus majoritarian (“SMD”) electoral systems</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">elsys =</span> <span class="fu">if_else</span>(prop<span class="sc">==</span><span class="dv">2</span>,<span class="st">"PR"</span>,<span class="st">"SMD"</span>)) <span class="ot">-&gt;</span> cpds </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="selecting-relevant-countries" class="level4">
+<h4 class="anchored" data-anchor-id="selecting-relevant-countries">Selecting relevant countries</h4>
+<p>Finally, we limit the analysis to the “traditional” Western democracies. To do so, we use a variable called <code>cpds1</code>, which indicates the countries that were covered in the original version of the CPDS dataset – which were only the countries we are interested in here:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">|&gt;</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cpds1 <span class="sc">==</span> <span class="dv">1</span>) <span class="ot">-&gt;</span> cpds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="between-effects-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="between-effects-analysis">Between-effects analysis</h3>
+<p>We start the regression analysis with the simplest part, the between-effects model to test the effect of the electoral system on social security transfers. As shown earlier, we use the <code>plm()</code> function with the <code>model</code> set to “between”:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>be <span class="ot">&lt;-</span> <span class="fu">plm</span>(sstran <span class="sc">~</span> elsys,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> cpds,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"country"</span>,<span class="st">"year"</span>),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">model =</span> <span class="st">"between"</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(be)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oneway (individual) effect Between Model
+
+Call:
+plm(formula = sstran ~ elsys, data = cpds, model = "between", 
+    index = c("country", "year"))
+
+Unbalanced Panel: n = 23, T = 45-62, N = 1363
+Observations used in estimation: 23
+
+Residuals:
+    Min.  1st Qu.   Median  3rd Qu.     Max. 
+-7.27390 -1.24600  0.22216  1.49289  6.52699 
+
+Coefficients:
+            Estimate Std. Error t-value  Pr(&gt;|t|)    
+(Intercept) 13.67514    0.72446 18.8762 1.188e-14 ***
+elsysSMD    -3.01171    1.37756 -2.1863   0.04026 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    213.93
+Residual Sum of Squares: 174.26
+R-Squared:      0.18541
+Adj. R-Squared: 0.14662
+F-statistic: 4.77972 on 1 and 21 DF, p-value: 0.040261</code></pre>
+</div>
+</div>
+<p>We find that countries with majoritarian electoral systems spend on average around 3% less of their GDP on social security transfers than countries with proportional representation systems. This is in line with the findings by Iversen &amp; Soskice <span class="citation" data-cites="Iversen2006">(<a href="#ref-Iversen2006" role="doc-biblioref">2006</a>)</span>. Notice also the information about the data that went into the model. In principle, the dataset includes 1363 (valid) observations, but the model aggregates them to 23 country-by-country average values that are actually used in the estimation.</p>
+</section>
+<section id="fixed-effects-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-effects-analysis">Fixed-effects analysis</h3>
+<p>Next, we move to the more complex part of the analysis where we use the fixed effects model. Just to show again that there are different ways of getting to the correct results, we specify this model in three ways: as a regular OLS model (with <code>lm()</code>) including country dummies, as a “pooling” model with <code>plm()</code> also including country dummies, and as a “within” model with <code>plm()</code> that does not include country dummies. All models include the lagged dependent variable that we created earlier</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ols <span class="ot">&lt;-</span> <span class="fu">lm</span>(sstran <span class="sc">~</span> lag_sstran <span class="sc">+</span> realgdpgr <span class="sc">+</span> ud <span class="sc">+</span> openc <span class="sc">+</span> elderly <span class="sc">+</span> womenpar <span class="sc">+</span> <span class="fu">factor</span>(country),</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> cpds)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> <span class="fu">plm</span>(sstran <span class="sc">~</span> lag_sstran <span class="sc">+</span> realgdpgr <span class="sc">+</span> ud <span class="sc">+</span> openc <span class="sc">+</span> elderly <span class="sc">+</span> womenpar <span class="sc">+</span> <span class="fu">factor</span>(country),</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> cpds,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"country"</span>,<span class="st">"year"</span>),</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">model =</span> <span class="st">"pooling"</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>fe <span class="ot">&lt;-</span> <span class="fu">plm</span>(sstran <span class="sc">~</span> lag_sstran <span class="sc">+</span> realgdpgr <span class="sc">+</span> ud <span class="sc">+</span> openc <span class="sc">+</span> elderly <span class="sc">+</span> womenpar,</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> cpds,</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"country"</span>,<span class="st">"year"</span>),</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(ols,pool,fe),</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"OLS w. country dummies"</span>,<span class="st">"Pooling w. country dummies"</span>,<span class="st">"Within model"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+===============================================================================================
+                               OLS w. country dummies  Pooling w. country dummies  Within model
+-----------------------------------------------------------------------------------------------
+(Intercept)                       1.31 ***                1.31 ***                             
+                                 (0.20)                  (0.20)                                
+lag_sstran                        0.90 ***                0.90 ***                    0.90 *** 
+                                 (0.01)                  (0.01)                      (0.01)    
+realgdpgr                        -0.18 ***               -0.18 ***                   -0.18 *** 
+                                 (0.01)                  (0.01)                      (0.01)    
+ud                                0.01 **                 0.01 **                     0.01 **  
+                                 (0.00)                  (0.00)                      (0.00)    
+openc                            -0.00 ***               -0.00 ***                   -0.00 *** 
+                                 (0.00)                  (0.00)                      (0.00)    
+elderly                          -0.01                   -0.01                       -0.01     
+                                 (0.01)                  (0.01)                      (0.01)    
+womenpar                         -0.00                   -0.00                       -0.00     
+                                 (0.00)                  (0.00)                      (0.00)    
+factor(country)Austria            1.02 ***                1.02 ***                             
+                                 (0.16)                  (0.16)                                
+factor(country)Belgium            1.00 ***                1.00 ***                             
+                                 (0.17)                  (0.17)                                
+factor(country)Canada             0.22                    0.22                                 
+                                 (0.14)                  (0.14)                                
+factor(country)Denmark            0.61 ***                0.61 ***                             
+                                 (0.17)                  (0.17)                                
+factor(country)Finland            0.62 ***                0.62 ***                             
+                                 (0.17)                  (0.17)                                
+factor(country)France             1.18 ***                1.18 ***                             
+                                 (0.19)                  (0.19)                                
+factor(country)Germany            0.89 ***                0.89 ***                             
+                                 (0.16)                  (0.16)                                
+factor(country)Greece             0.28                    0.28                                 
+                                 (0.22)                  (0.22)                                
+factor(country)Iceland           -0.39                   -0.39                                 
+                                 (0.24)                  (0.24)                                
+factor(country)Ireland            0.91 ***                0.91 ***                             
+                                 (0.17)                  (0.17)                                
+factor(country)Italy              0.81 ***                0.81 ***                             
+                                 (0.15)                  (0.15)                                
+factor(country)Japan              0.40 **                 0.40 **                              
+                                 (0.15)                  (0.15)                                
+factor(country)Luxembourg         1.95 ***                1.95 ***                             
+                                 (0.29)                  (0.29)                                
+factor(country)Netherlands        0.94 ***                0.94 ***                             
+                                 (0.17)                  (0.17)                                
+factor(country)New Zealand        0.39 *                  0.39 *                               
+                                 (0.16)                  (0.16)                                
+factor(country)Norway             0.64 ***                0.64 ***                             
+                                 (0.15)                  (0.15)                                
+factor(country)Portugal           0.44 *                  0.44 *                               
+                                 (0.20)                  (0.20)                                
+factor(country)Spain              0.82 ***                0.82 ***                             
+                                 (0.17)                  (0.17)                                
+factor(country)Sweden             0.52 **                 0.52 **                              
+                                 (0.18)                  (0.18)                                
+factor(country)Switzerland        0.42 **                 0.42 **                              
+                                 (0.15)                  (0.15)                                
+factor(country)United Kingdom     0.42 **                 0.42 **                              
+                                 (0.14)                  (0.14)                                
+factor(country)USA                0.43 *                  0.43 *                               
+                                 (0.17)                  (0.17)                                
+-----------------------------------------------------------------------------------------------
+R^2                               0.97                    0.97                        0.94     
+Adj. R^2                          0.97                    0.97                        0.94     
+Num. obs.                      1129                    1129                        1129        
+===============================================================================================
+*** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+</div>
+</div>
+<p>The table at the end shows that we get the exact same results regardless of which specification we use. The only difference is that the first two models include an intercept and, obviously, coefficients for the country dummy variables.</p>
+<p>Before we interpret the results, we first have to correct the standard errors. The results above use the regular OLS standard errors, which can be misleading. To fix this issue, we calculate PCSEs using the Beck &amp; Katz <span class="citation" data-cites="Beck1995">(<a href="#ref-Beck1995" role="doc-biblioref">1995</a>)</span> procedure as described above.</p>
+<p>This procedure is implemented in the <code>lmtest</code> package, which is directly compatible with the <code>plm</code> package <span class="citation" data-cites="Millo2017">(<a href="#ref-Millo2017" role="doc-biblioref">Millo 2017</a>)</span>. The package can be installed via <em>CRAN</em> with <code>install.packages()</code> and then loaded with <code>library()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("lmtest")</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: zoo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+</div>
+<p>We use the <code>coeftest()</code> function from the package to convert the standard errors from the “within” model (<code>fe</code>). We specify that we want the Beck/Katz correction with <code>vcovBK</code>, that the data should be clustered by time (this makes sure that we really correct for panel-heteroscedasticity and not for serial correlation). The rest follows the example of Urdinez &amp; Cruz <span class="citation" data-cites="Urdinez2020">(<a href="#ref-Urdinez2020" role="doc-biblioref">2020, 171</a>)</span>. We save the corrected results as <code>pcse</code> and can then use <code>screenreg()</code> to directly compare the original and corrected results (or, later, to present the results in a table):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>pcse <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(fe, <span class="at">vcov =</span> vcovBK, <span class="at">type =</span> <span class="st">"HC1"</span>, <span class="at">cluster =</span> <span class="st">"time"</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(fe,pcse), <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">stars =</span> <span class="fl">0.05</span>,</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"Within model"</span>,<span class="st">"Within model (PCSE)"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=============================================
+            Within model  Within model (PCSE)
+---------------------------------------------
+lag_sstran     0.904 *     0.904 *           
+              (0.009)     (0.013)            
+realgdpgr     -0.180 *    -0.180 *           
+              (0.009)     (0.011)            
+ud             0.008 *     0.008 *           
+              (0.003)     (0.003)            
+openc         -0.004 *    -0.004 *           
+              (0.001)     (0.001)            
+elderly       -0.013      -0.013             
+              (0.012)     (0.012)            
+womenpar      -0.000      -0.000             
+              (0.003)     (0.004)            
+---------------------------------------------
+R^2            0.938                         
+Adj. R^2       0.936                         
+Num. obs.   1129                             
+=============================================
+* p &lt; 0.05</code></pre>
+</div>
+</div>
+<p>If you take a careful look at the standard errors under the coefficients, you notice that the PCSEs are generally a bit larger than the original ones. For example, the SE for the coefficient of the lagged dependent variable goes up from 0.009 to 0.013, and the SE for the coefficient on real GDP growth increases from 0.009 to 0.011.</p>
+<p>Now we can interpret the results: The lagged dependent variable indicates the extent of serial correlation in the dependent variable, which is clearly high (0.9) and statistically significant. GDP growth has a significant and negative effect, which means that every additional percent GDP growth lowers spending on social security transfers by 0.18 percentage points. This makes sense: More economic growth means fewer people who are unemployed or otherwise financially in trouble, which lowers spending on the welfare state.</p>
+<p>The strength of trade unions (<code>ud</code>) has a small but positive effect, which indicates that every additional percent of trade union members in the economically active population increases social security spending by 0.01 percentage points. We also find a significant negative effect of greater economic openness, but this effect is very, very small. Interestingly, the share of elderly in the population and the share of female members of parliament do not have significant effects.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This was one of the longer posts in this blog and, to be fair, the issues and methods we covered here are a bit more advanced than a standard linear regression. Still, you should ideally have taken away that seemingly cryptic methods like “within” or “between” estimations are really not that complicated: They are just different ways of “slicing” a panel or TSCS dataset to extract different forms of variation and co-variation in the data. Adjusting regression standard errors is also, strictly speaking, a quite technical affair, but we do have software that does this for us with a few lines of code and thus makes this easy for those of us who are willing to trust the experts.</p>
+<p>You now have the basic skills you need to conduct your own TSCS regression analyses, at least as long as your dependent variable is numeric. You might, of course, also run into a situation where you work with TSCS data but your dependent variable is binary (e.g., “peace” vs.&nbsp;“war”). In that case, you can refer to the articles by Beck et al. <span class="citation" data-cites="Beck1998a">(<a href="#ref-Beck1998a" role="doc-biblioref">1998</a>)</span> and Carter &amp; Signorino <span class="citation" data-cites="Carter2010">(<a href="#ref-Carter2010" role="doc-biblioref">2010</a>)</span>. The first shows that you can use logistic regression (<code>glm()</code>) to analyze these data as long as you account for the temporal dynamics in the data. The second article shows that you can do that very easily by simply including different polynomials of time into your model. For example, if your time-variable is called <code>year</code>, then your model specification will be:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(dummy_var <span class="sc">~</span> indepvars <span class="sc">+</span> year <span class="sc">+</span> <span class="fu">I</span>(year<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(year<span class="sc">^</span><span class="dv">3</span>),</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> your_dataset,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You may also get to a point where you want to study over-time dynamics in your data more systematically, for example to see if some variables have both short-term and long-term effects and over which time horizon the long-term effects really work. If that is the case, you can read the articles by DeBoef &amp; Keele <span class="citation" data-cites="DeBoef2008">(<a href="#ref-DeBoef2008" role="doc-biblioref">2008</a>)</span> and Beck &amp; Katz <span class="citation" data-cites="Beck2011">(<a href="#ref-Beck2011" role="doc-biblioref">2011</a>)</span>, who explain how you can model these things with TSCS data. You should now have the necessary background to understand how to implement the models they suggest in practice.</p>
+</section>
+<section id="references" class="level2">
+
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Adema2009" class="csl-entry" role="listitem">
+Adema, Willem, and Maxime Ladaique. 2009. <span>“How Expensive Is the Welfare State?: Gross and Net Indicators in the <span>OECD Social Expenditure Database (SOCX)</span>.”</span> <em>OECD Social, Employment and Migration Working Papers</em> 92.
+</div>
+<div id="ref-ArellanoBond" class="csl-entry" role="listitem">
+Arellano, Manuel, and Stephen Bond. 1991. <span>“Some Tests of Specification for Panel Data: Monte Carlo Evidence and an Application to Employment Equations.”</span> <em>The Review of Economic Studies</em> 58 (2): 277–97.
+</div>
+<div id="ref-Arellano1995" class="csl-entry" role="listitem">
+Arellano, Manuel, and Olympia Bover. 1995. <span>“Another Look at the Instrumental Variable Estimation of Error-Components Models.”</span> <em>Journal of Econometrics</em> 68 (1): 29–51.
+</div>
+<div id="ref-CPDS24" class="csl-entry" role="listitem">
+Armingeon, Klaus, Sarah Engler, Lucas Leemann, and David Weisstanner. 2024. <em>Comparative Political Data Set 1960-2022</em>. Zurich, Lueneburg, &amp; Lucerne: University of Zurich, Leuphana University Lueneburg,; University of Lucerne.
+</div>
+<div id="ref-Bailey2011" class="csl-entry" role="listitem">
+Bailey, Delia, and Jonathan N. Katz. 2011. <span>“Implementing Panel Corrected Standard Errors in r: The Pcse Package.”</span> <em>Journal of Statistical Software</em> 42 (CS1): 1–11.
+</div>
+<div id="ref-Beck2001" class="csl-entry" role="listitem">
+Beck, Nathaniel. 2001. <span>“Time-Series-Cross-Section Data: What Have We Learned in the Past Few Years?”</span> <em>Annual Review of Political Science</em> 4: 271–93.
+</div>
+<div id="ref-Beck2008" class="csl-entry" role="listitem">
+———. 2008. <span>“Time-Series Cross-Section Methods.”</span> In <em>The Oxford Handbook of Political Methodology</em>, edited by Janet M. Box-Steffensmeier, Henry E. Brady, and David Collier, 475–93. Oxford: Oxford University Press.
+</div>
+<div id="ref-Beck2011" class="csl-entry" role="listitem">
+———. 2011. <span>“Of Fixed-Effects and Time-Invariant Variables.”</span> <em>Political Analysis</em> 19 (2): 119–22.
+</div>
+<div id="ref-Becketal2006" class="csl-entry" role="listitem">
+Beck, Nathaniel, Kristian Skrede Gleditsch, and Kyle Beardsley. 2006. <span>“Space Is More Than Geography: Using Spatial Econometrics in the Study of Political Economy.”</span> <em>International Studies Quarterly</em> 50 (1): 27–44.
+</div>
+<div id="ref-Beck1995" class="csl-entry" role="listitem">
+Beck, Nathaniel, and Jonathan N. Katz. 1995. <span>“What to Do (and Not Do Do) with Time-Series Cross-Section Data.”</span> <em>American Political Science Review</em> 89 (3): 634–47.
+</div>
+<div id="ref-Beck1996" class="csl-entry" role="listitem">
+———. 1996. <span>“Nuisance Vs. Substance: Specifying and Estimating Time-Series-Cross-Section Models.”</span> <em>Political Analysis</em> 6 (1): 1–36.
+</div>
+<div id="ref-Beck1998a" class="csl-entry" role="listitem">
+Beck, Nathaniel, Jonathan N. Katz, and Richard Tucker. 1998. <span>“Taking Time Seriously: Time-Series-Cross-Section Analysis with a Binary Dependent Variable.”</span> <em>American Journal of Political Science</em> 42 (4): 1260–88.
+</div>
+<div id="ref-Blundell1998" class="csl-entry" role="listitem">
+Blundell, Richard, and Stephen Bond. 1998. <span>“Initial Conditions and Moment Restrictions in Dynamic Panel Data Models.”</span> <em>Journal of Econometrics</em> 87 (1): 115–43.
+</div>
+<div id="ref-Bonoli2001" class="csl-entry" role="listitem">
+Bonoli, Giuliano. 2001. <span>“Political Institutions, Veto Points, and the Process of Welfare State Adaptation.”</span> In <em>The New Politics of the Welfare State</em>, edited by Paul Pierson, 237–64. Oxford: Oxford University Press.
+</div>
+<div id="ref-Box-Steffensmeieretal2014" class="csl-entry" role="listitem">
+Box-Steffensmeier, Janet M., John R. Freeman, Matthew P. Hitt, and Jon C. Pevehouse. 2014. <em>Time Series Analysis for the Social Sciences</em>. Cambridge: Cambridge University Press.
+</div>
+<div id="ref-Box-Steffensmeier2016" class="csl-entry" role="listitem">
+Box-Steffensmeier, Janet, and Agnar Freyr Helgason. 2016. <span>“Introduction to Symposium on Time Series Error Correction Methods in Political Science.”</span> <em>Political Analysis</em> 24 (1): 1–2.
+</div>
+<div id="ref-Brady2005a" class="csl-entry" role="listitem">
+Brady, David, Jason Beckfield, and Martin Seeleib-Kaiser. 2005. <span>“Economic Globalization and the Welfare State in Affluent Democracies, 1975-2001.”</span> <em>American Sociological Review</em> 70 (6): 921–48.
+</div>
+<div id="ref-Burgoon2001" class="csl-entry" role="listitem">
+Burgoon, Brian. 2001. <span>“Globalization and Welfare Compensation: Disentangling the Ties That Bind.”</span> <em>International Organization</em> 55 (3): 509–51.
+</div>
+<div id="ref-Cameron1978" class="csl-entry" role="listitem">
+Cameron, David R. 1978. <span>“The Expansion of the Public Economy: A Comparative Analysis.”</span> <em>American Political Science Review</em> 72 (4): 1243–61.
+</div>
+<div id="ref-Carter2010" class="csl-entry" role="listitem">
+Carter, David B., and Curtis S. Signorino. 2010. <span>“Back to the Future: Modeling Time Dependence in Binary Data.”</span> <em>Political Analysis</em> 18 (3): 271–92.
+</div>
+<div id="ref-Castles2007" class="csl-entry" role="listitem">
+Castles, Francis G., and Herbert Obinger. 2007. <span>“Social Expenditure and the Politics of Redistribution.”</span> <em>Journal of European Social Policy</em> 17 (3): 206–22.
+</div>
+<div id="ref-Cerny1997" class="csl-entry" role="listitem">
+Cerny, Philip G. 1997. <span>“Paradoxes of the Competition State: The Dynamics of Political Globalization.”</span> <em>Government and Opposition</em> 32 (2): 251–74.
+</div>
+<div id="ref-Croissant2008" class="csl-entry" role="listitem">
+Croissant, Yves, and Giovanni Millo. 2008. <span>“Panel Data Econometrics in <span>R</span>: The <span class="nocase">plm</span> Package.”</span> <em>Journal of Statistical Software</em> 27 (2): 1–43.
+</div>
+<div id="ref-DeBoef2008" class="csl-entry" role="listitem">
+De Boef, Suzanna, and Luke Keele. 2008. <span>“Taking Time Seriously.”</span> <em>American Journal of Political Science</em> 52 (1): 184–200.
+</div>
+<div id="ref-Ennsetal2016" class="csl-entry" role="listitem">
+Enns, Peter K, Nathan J. Kelly, Takaaki Masaki, and Patrick C. Wohlfarth. 2016. <span>“Don’t Jettison the General Error Correction Model Just yet: A Practical Guide to Avoiding Spurious Regression with the GECM.”</span> <em>Research &amp; Politics</em> 3 (2): 1–13.
+</div>
+<div id="ref-Esping-Andersen1990" class="csl-entry" role="listitem">
+Esping-Andersen, Gøsta. 1990. <em>The Three Worlds of Welfare Capitalism</em>. Cambridge: Polity Press.
+</div>
+<div id="ref-Garrett2001" class="csl-entry" role="listitem">
+Garrett, Geoffrey, and Deborah Mitchell. 2001. <span>“Globalization, Government Spending and Taxation in the <span>OECD</span>.”</span> <em>European Journal of Political Research</em> 39 (2): 145–77.
+</div>
+<div id="ref-Genschel2002" class="csl-entry" role="listitem">
+Genschel, Philipp. 2002. <span>“Globalization, Tax Competition, and the Welfare State.”</span> <em>Politics &amp; Society</em> 30 (2): 245–75.
+</div>
+<div id="ref-Grant2016" class="csl-entry" role="listitem">
+Grant, Taylor, and Matthew J. Lebo. 2016. <span>“Error Correction Methods with Political Time Series.”</span> <em>Political Analysis</em> 24 (1): 3–30.
+</div>
+<div id="ref-Heiss2020" class="csl-entry" role="listitem">
+Heiss, Florian. 2020. <em>Using <span>R</span> for Introductory Econometrics</em>. 2nd ed. Düsseldorf.
+</div>
+<div id="ref-Huber1993" class="csl-entry" role="listitem">
+Huber, Evelyne, Charles Ragin, and John D. Stephens. 1993. <span>“Social Democracy, <span>Christian</span> Democracy, Constitutional Structure, and the Welfare State.”</span> <em>American Journal of Sociology</em> 99 (3): 711–49.
+</div>
+<div id="ref-Huber2000" class="csl-entry" role="listitem">
+Huber, Evelyne, and John D. Stephens. 2000. <span>“Partisan Governance, Women’s Employment, and the <span>Social Democratic</span> Service State.”</span> <em>American Sociological Review</em> 65 (3): 323–42.
+</div>
+<div id="ref-Huber2001" class="csl-entry" role="listitem">
+———. 2001. <em>Development and Crisis of the Welfare State</em>. Chicago: Chicago University Press.
+</div>
+<div id="ref-Immergut1990" class="csl-entry" role="listitem">
+Immergut, Ellen M. 1990. <span>“Institutions, Veto Points, and Policy Results: A Comparative Analysis of Health Care.”</span> <em>Journal of Public Policy</em> 10 (4): 391–416.
+</div>
+<div id="ref-Immergut1992a" class="csl-entry" role="listitem">
+Immergut, Ellen M. 1992. <em>Health Politics: Interests and Institutions in Western Europe</em>. Cambridge: Cambridge University Press.
+</div>
+<div id="ref-Iversen2000" class="csl-entry" role="listitem">
+Iversen, Torben, and Thomas R. Cusack. 2000. <span>“The Causes of Welfare State Expansion: Deindustrialization or Globalization?”</span> <em>World Politics</em> 52 (3): 313–49.
+</div>
+<div id="ref-Iversen2010" class="csl-entry" role="listitem">
+Iversen, Torben, and Frances Rosenbluth. 2010. <em>Women, Work, &amp; Politics: The Political Economy of Gender Inequality</em>. New Haven; London: Yale University Press.
+</div>
+<div id="ref-Iversen2006" class="csl-entry" role="listitem">
+Iversen, Torben, and David Soskice. 2006. <span>“Electoral Institutions and the Politics of Coalitions: Why Some Democracies Redistribute More Than Others.”</span> <em>American Political Science Review</em> 100 (2): 165–81.
+</div>
+<div id="ref-Kellstedt2018" class="csl-entry" role="listitem">
+Kellstedt, Paul M, and Guy D Whitten. 2018. <em>The Fundamentals of Political Science Research</em>. Cambridge: Cambridge University Press.
+</div>
+<div id="ref-Korpi1989" class="csl-entry" role="listitem">
+Korpi, Walter. 1989. <span>“Power, Politics, and State Autonomy in the Development of Social Citizenship: Social Rights During Sickness in Eighteen <span>OECD</span> Countries Since 1930.”</span> <em>American Sociological Review</em> 54 (3): 309–28.
+</div>
+<div id="ref-Lebo2017" class="csl-entry" role="listitem">
+Lebo, Matthew J., and Patrick W. Kraft. 2017. <span>“The General Error Correction Model in Practice.”</span> <em>Research &amp; Politics</em> 4 (2): 1–13.
+</div>
+<div id="ref-Leifeld2013" class="csl-entry" role="listitem">
+Leifeld, Philip. 2013. <span>“Texreg: Conversion of Statistical Model Output in r to LATEX and HTML Tables.”</span> <em>Journal of Statistical Software</em> 55 (8): 1–24.
+</div>
+<div id="ref-Lindbergetal2014" class="csl-entry" role="listitem">
+Lindberg, Staffan I, Michael Coppedge, John Gerring, and Jan Teorell. 2014. <span>“<span>V-Dem</span>: A New Way to Measure Democracy.”</span> <em>Journal of Democracy</em> 25 (3): 159–69.
+</div>
+<div id="ref-Millo2017" class="csl-entry" role="listitem">
+Millo, Giovanni. 2017. <span>“Robust Standard Error Estimators for Panel Models: A Unifying Approach.”</span> <em>Journal of Statistical Software</em> 82: 1–27.
+</div>
+<div id="ref-Morgan2013" class="csl-entry" role="listitem">
+Morgan, Kimberly J. 2013. <span>“Path Shifting of the Welfare State: Electoral Competition and the Expansion of Work-Family Policies in <span>Western Europe</span>.”</span> <em>World Politics</em> 65 (1): 73–115.
+</div>
+<div id="ref-Murray1994" class="csl-entry" role="listitem">
+Murray, Michael P. 1994. <span>“A Drunk and Her Dog: An Illustration of Cointegration and Error Correction.”</span> <em>The American Statistician</em> 48 (1): 37–39.
+</div>
+<div id="ref-Nickell1981" class="csl-entry" role="listitem">
+Nickell, Stephen. 1981. <span>“Biases in Dynamic Models with Fixed Effects.”</span> <em>Econometrica</em> 49 (6): 1417–26.
+</div>
+<div id="ref-Obama2016" class="csl-entry" role="listitem">
+Obama, Barack. 2016. <span>“<span>United States</span> Health Care Reform. Progress to Date and Next Steps.”</span> <em>Journal of the American Medical Association</em> 316 (5): 525–32.
+</div>
+<div id="ref-Obinger2002" class="csl-entry" role="listitem">
+Obinger, Herbert. 2002. <span>“<span class="nocase">Föderalismus und wohlfahrtsstaatliche Entwicklung. Österreich und die Schweiz im Vergleich</span>.”</span> <em>Politische Vierteljahresschrift</em> 43 (2): 235–71.
+</div>
+<div id="ref-Plumpertroeger2007" class="csl-entry" role="listitem">
+Plümper, Thomas, and Vera E. Troeger. 2007. <span>“Efficient Estimation of Time-Invariant and Rarely Changing Variables in Finite Sample Panel Analysis with Unit Fixed Effects.”</span> <em>Political Analysis</em> 15 (2): 124–39.
+</div>
+<div id="ref-Plumperetal2005" class="csl-entry" role="listitem">
+Plümper, Thomas, Vera E. Troeger, and Philip Manow. 2005. <span>“Panel Data Analysis in Comparative Politics: Linking Method to Theory.”</span> <em>European Journal of Political Research</em> 44 (2): 327–254.
+</div>
+<div id="ref-Sassen1996" class="csl-entry" role="listitem">
+Sassen, Saskia. 1996. <em>Losing Control?: Sovereignty in the Age of Globalization</em>. New York: Columbia University Press.
+</div>
+<div id="ref-Stimson1985" class="csl-entry" role="listitem">
+Stimson, James A. 1985. <span>“Regression in Space and Time: A Statistical Essay.”</span> <em>American Journal of Political Science</em> 29 (4): 914–47.
+</div>
+<div id="ref-Swank2001" class="csl-entry" role="listitem">
+Swank, Duane. 2001. <span>“Political Institutions and Welfare State Restructuring: The Impact of Institutions on Social Policy Change in Developed Democracies.”</span> In <em>The New Politics of the Welfare State</em>, edited by Paul Pierson, 197–237. Oxford: Oxford University Press.
+</div>
+<div id="ref-Tsebelis2002" class="csl-entry" role="listitem">
+Tsebelis, George. 2002. <em>Veto Players: How Political Institutions Work</em>. Princeton: Princeton University Press.
+</div>
+<div id="ref-Urdinez2020" class="csl-entry" role="listitem">
+Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. Boca Raton; others: CRC Press.
+</div>
+<div id="ref-Walter2010" class="csl-entry" role="listitem">
+Walter, Stefanie. 2010. <span>“Globalization and the Welfare State: Testing the Microfoundations of the Compensation Hypothesis.”</span> <em>International Studies Quarterly</em> 54 (2): 403–26.
+</div>
+<div id="ref-Wilensky1958" class="csl-entry" role="listitem">
+Wilensky, Harold L., and Charles Nathan Lebeaux. 1958. <em>Industrial Society and Social Walfare: The Impact of Industrialization on the Supply and Organization of Social Welfare Services in the United States</em>. New York: Russell Sage.
+</div>
+<div id="ref-Wilson2007" class="csl-entry" role="listitem">
+Wilson, Sven E., and Daniel M. Butler. 2007. <span>“A Lot More to Do: The Sensitivity of Time-Series Cross-Section Analyses to Simple Alternative Specifications.”</span> <em>Political Analysis</em> 15 (2): 101–23.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The discussion among political science methodologists on how to correctly analyze TSCS data was strongly based on techniques for panel data analysis <span class="citation" data-cites="Beck2001 Beck1995 Beck1996 Beck2011 Beck1998a Becketal2006 Beck2008 Beck2011 Stimson1985 Plumperetal2005 Plumpertroeger2007 DeBoef2008 Wilson2007">(see <a href="#ref-Beck2001" role="doc-biblioref">Beck 2001</a>, <a href="#ref-Beck2011" role="doc-biblioref">2011</a>, <a href="#ref-Beck2008" role="doc-biblioref">2008</a>, <a href="#ref-Beck2011" role="doc-biblioref">2011</a>; <a href="#ref-Beck1995" role="doc-biblioref">Beck and Katz 1995</a>, <a href="#ref-Beck1996" role="doc-biblioref">1996</a>; <a href="#ref-Beck1998a" role="doc-biblioref">Beck, Katz, and Tucker 1998</a>; <a href="#ref-Becketal2006" role="doc-biblioref">Beck, Gleditsch, and Beardsley 2006</a>; <a href="#ref-Stimson1985" role="doc-biblioref">Stimson 1985</a>; <a href="#ref-Plumperetal2005" role="doc-biblioref">Plümper, Troeger, and Manow 2005</a>; <a href="#ref-Plumpertroeger2007" role="doc-biblioref">Plümper and Troeger 2007</a>; <a href="#ref-DeBoef2008" role="doc-biblioref">De Boef and Keele 2008</a>; <a href="#ref-Wilson2007" role="doc-biblioref">Wilson and Butler 2007, Kittel1999, Kittel2005</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>De Doef &amp; Keele <span class="citation" data-cites="DeBoef2008">(<a href="#ref-DeBoef2008" role="doc-biblioref">2008</a>)</span> and Beck &amp; Katz <span class="citation" data-cites="Beck2011">(<a href="#ref-Beck2011" role="doc-biblioref">2011</a>)</span> show how you can deal with non-stationary variables in a regression analysis <span class="citation" data-cites="Box-Steffensmeier2016 Ennsetal2016 Grant2016 Lebo2017">(see also <a href="#ref-Box-Steffensmeier2016" role="doc-biblioref">J. Box-Steffensmeier and Helgason 2016</a>; <a href="#ref-Ennsetal2016" role="doc-biblioref">Enns et al. 2016</a>; <a href="#ref-Grant2016" role="doc-biblioref">Grant and Lebo 2016</a>; <a href="#ref-Lebo2017" role="doc-biblioref">Lebo and Kraft 2017</a>)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I saved the dataset as <code>cpds_2024.dta</code>. You might have saved it under a different name, in which case you obviously need to adjust that in your code.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I used <em>ChatGPT</em> to generate this graph.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>The main complicating factor is that TSCS data also have many of the characteristics of longer time series, meaning trends and the above-mentioned degrees of stationarity or integration. This means that analysts also have to think about how to model these features of the data <span class="citation" data-cites="DeBoef2008">Beck (<a href="#ref-Beck2011" role="doc-biblioref">2011</a>)</span>. This is less of a problem when working with “shorter” panel data.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>You might remember that we make a similar adjustment when we calculate the standard deviation of a variable, where we also “use up” information in the first step by calculating the variable’s mean <span class="citation" data-cites="Kellstedt2018">(<a href="#ref-Kellstedt2018" role="doc-biblioref">Kellstedt and Whitten 2018, 137</a>)</span>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>As Wilson and Butler <span class="citation" data-cites="Wilson2007">(<a href="#ref-Wilson2007" role="doc-biblioref">2007, 108</a>)</span> point out, the between-effects is in these cases an “honest” model because it does not artificially inflate the number of observations in your dataset.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>See e.g., <span class="citation" data-cites="Bonoli2001">Bonoli (<a href="#ref-Bonoli2001" role="doc-biblioref">2001</a>)</span> or <span class="citation" data-cites="Swank2001">Swank (<a href="#ref-Swank2001" role="doc-biblioref">2001</a>)</span>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>The data are from <span class="citation" data-cites="CPDS24">(<a href="#ref-CPDS24" role="doc-biblioref">Armingeon et al. 2024</a>)</span>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Although not necessarily its degree of “decommodification” <span class="citation" data-cites="Esping-Andersen1990">(<a href="#ref-Esping-Andersen1990" role="doc-biblioref">Esping-Andersen 1990</a>)</span>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

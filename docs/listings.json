@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/tscs_regs/index.html",
       "/posts/merging/index.html",
       "/posts/llms/index.html",
       "/posts/conflict/index.html",
