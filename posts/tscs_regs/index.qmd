@@ -322,6 +322,7 @@ When we visualize the patterns in the data (see @fig-pandat), we see that this i
 #| echo: false
 #| eval: true
 #| warning: false
+#| classes: preview-image
 
 pandat |> 
   ggplot(aes(x = x, y = y)) +
