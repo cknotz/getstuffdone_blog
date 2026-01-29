@@ -274,7 +274,7 @@ In principle, the "naive" OLS model is not really wrong -- there *is* a negative
 
 The following section introduces regression models that can achieve this.
 
-## Fixed-, random-, and between-effects models
+## Pooled, fixed-effects, and between-effects models
 
 Statisticians have developed three basic regression model specifications for data that contain repeated observations of some group of units over time. Originally, they were developed for *panel survey* data, where researchers follow a larger (and often representative) sample of people over some period of time (often only a few weeks, months, or years) -- i.e., data where we have many units but few time points. The models can in principle also be applied to TSCS data, where we usually have observations for many years but only a few countries -- i.e., few units, but many time points [see also @Beck2001, 273].^[The main complicating factor is that TSCS data also have many of the characteristics of longer time series, meaning trends and the above-mentioned degrees of stationarity or integration. This means that analysts also have to think about how to model these features of the data [@DeBoef2008,@Beck2011]. This is less of a problem when working with "shorter" panel data.]
 
