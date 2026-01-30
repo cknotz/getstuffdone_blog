@@ -6,6 +6,8 @@ format:
   html:
     toc: true
 date: "2025-03-08"
+citation:
+  url: https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/
 lightbox: true
 categories:
   - Survey data

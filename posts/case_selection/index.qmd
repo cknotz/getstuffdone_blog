@@ -6,6 +6,8 @@ date: "2025-06-09"
 bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
 image: thumbnail.png
 image-alt: "Photo by Jon Tyson on Unsplash"
+citation:
+  url: https://cknotz.github.io/getstuffdone_blog/posts/case_selection/
 format:
   html:
     toc: true

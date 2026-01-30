@@ -8,6 +8,8 @@ format:
     toc-depth: 4
 date: "2026-01-26"
 lightbox: true
+citation:
+  url: https://cknotz.github.io/getstuffdone_blog/posts/tscs_regs/
 lang: en
 categories:
   - Macro

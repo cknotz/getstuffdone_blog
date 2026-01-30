@@ -7,6 +7,8 @@ format:
   html:
     toc: true
 lightbox: true
+citation: 
+  url: https://cknotz.github.io/getstuffdone_blog/posts/globalization/
 categories:
   - Survey data
   - Globalization

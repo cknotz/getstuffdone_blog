@@ -8,6 +8,8 @@ format:
   html:
     toc: true
 lightbox: true
+citation:
+  url: https://cknotz.github.io/getstuffdone_blog/posts/case_selection2/
 tbl-cap-location: top
 categories:
   - Case selection

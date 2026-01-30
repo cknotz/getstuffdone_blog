@@ -8,6 +8,8 @@ format:
     toc-depth: 4
 date: "2025-10-10"
 lightbox: true
+citation:
+  url: https://cknotz.github.io/getstuffdone_blog/posts/merging/
 lang: en
 categories:
   - Macro

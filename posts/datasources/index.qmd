@@ -8,6 +8,8 @@ format:
     toc: true
 toc-depth: 4
 link-external-newwindow: true
+citation:
+  url: https://cknotz.github.io/getstuffdone_blog/posts/datasources/
 lightbox: true
 image: "thumbnail.jpg"
 categories:

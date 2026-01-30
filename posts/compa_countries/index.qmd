@@ -7,6 +7,8 @@ format:
     toc: true
 date: "2025-03-30"
 lightbox: true
+citation:
+  url: https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/
 lang: en
 categories:
   - Macro
