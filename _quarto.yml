@@ -6,6 +6,7 @@ website:
   title: "Testing big ideas with simple methods"
   navbar:
     right:
+      - cite.qmd
       - about.qmd
 format:
   html:

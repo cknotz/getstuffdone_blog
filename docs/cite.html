@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About this blog – Testing big ideas with simple methods</title>
+<title>How to cite this – Testing big ideas with simple methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,6 +35,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -258,11 +259,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./cite.html"> 
+    <a class="nav-link active" href="./cite.html" aria-current="page"> 
 <span class="menu-text">How to cite this</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About this blog</span></a>
   </li>  
 </ul>
@@ -279,44 +280,39 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-jolla">
- <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About this blog</h1>
+<h1 class="title">How to cite this</h1>
 </div>
+
+
+
 <div class="quarto-title-meta">
+
+    
+  
+    
   </div>
-</header><main class="content" id="quarto-document-content">
-
-<p><strong>Hi!</strong></p>
-<p>My name is Carlo and I teach political science, including data analysis, at the <a href="https://www.uis.no/nb/profile/carlo-michael-knotz-0">University of Stavanger</a> in Norway.</p>
-<p>I often find that students have quite smart ideas that they want to test in a course paper or thesis project and which <em>could</em> be tested with a relatively simple quantitative analysis – but they don’t know how to actually go about this (and might also be intimidated by quantitative methods/coding).</p>
-<p>The aim of this blog is to show these students how they can <strong>test big ideas</strong> – e.g., about the role of class, social norms, political institutions, or gender – <strong>with relatively simple methods</strong> that they should be familiar with from their introductory statistics course and with the free and open-source <code>R</code> statistical programming language.</p>
-<p>The posts are very much focussed on explaining the general logic of an analysis and assume that readers are at least a bit familiar with the basic of statistics and data analysis methods and how to work with <code>R</code>. Each post also gives pointers to more advanced resources (textbooks, journal articles) on quantitative methods.</p>
+  
 
 
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://cknotz.github.io" class="about-link" rel="" target="">
-    <i class="bi bi-globe"></i>
-     <span class="about-link-text">My main website</span>
-  </a>
-  <a href="https://www.linkedin.com/in/cknotz" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-  <a href="https://github.com/cknotz" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
-  <a href="mailto:carlo.knotz@uis.no" class="about-link" rel="" target="">
-    <i class="bi bi-envelope"></i>
-     <span class="about-link-text">Mail</span>
-  </a>
-</div>
-</div>
- <!-- /main -->
+</header>
+
+
+<p>The main purpose of this blog is to be used, be it in a term paper assignment or a BA thesis.</p>
+<p>However, I do ask that you give proper attribution to whatever content you use by citing it appropriately in your text.</p>
+<p><strong>You can find suggested citations at the very bottom of each post.</strong></p>
+<p>To cite the entire blog, please use:</p>
+<blockquote class="blockquote">
+<p>Knotz, Carlo. 2026. <em>Testing big ideas with simple methods</em>. <a href="cknotz.github.io/getstuffdone_blog/">cknotz.github.io/getstuffdone_blog/</a></p>
+</blockquote>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -332,6 +328,13 @@ ul.task-list li input[type="checkbox"] {
       window.document.body.appendChild(a);
     }
     setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

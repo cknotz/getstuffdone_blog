@@ -1,0 +1,17 @@
+---
+title: "How to cite this"
+---
+
+The main purpose of this blog is to be used, be it in a term paper assignment or a BA thesis. 
+
+However, I do ask that you give proper attribution to whatever content you use by citing it appropriately in your text.
+
+**You can find suggested citations at the very bottom of each post.**
+
+To cite the entire blog, please use:
+
+> Knotz, Carlo. 2026. *Testing big ideas with simple methods*. [cknotz.github.io/getstuffdone_blog/](cknotz.github.io/getstuffdone_blog/)
+
+
+
+
