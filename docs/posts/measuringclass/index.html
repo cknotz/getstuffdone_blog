@@ -437,9 +437,9 @@ div.csl-indent {
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ ggplot2   4.0.0     ✔ tibble    3.2.1
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
+✔ purrr     1.2.0     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -614,7 +614,7 @@ NAP (Code 3 in WORK; NZ: Code 2-9 MAINSTAT)
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> NEMPLOY)) <span class="sc">+</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 46996 rows containing non-finite outside the scale range
@@ -635,7 +635,7 @@ NAP (Code 3 in WORK; NZ: Code 2-9 MAINSTAT)
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> NEMPLOY)) <span class="sc">+</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -730,7 +730,22 @@ NAP (Code 3 in WORK; NZ: Code 2-9 MAINSTAT)
 </section>
 <section id="example-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="example-analysis">Example analysis</h2>
-<p>Let’s say we wanted to find out if people’s class has an effect on how they think about the welfare state, specifically whether the government should do more to support the unemployed. As mentioned earlier, the ISSP includes a variable that measures these attitudes and which looks like this:</p>
+<p>Let’s say we wanted to find out if people’s class has an effect on how they think about the welfare state, specifically whether the government should do more to support the unemployed. As mentioned earlier, the ISSP includes a variable that measures these attitudes.</p>
+<p>This variable measures responses to the following question:</p>
+<blockquote class="blockquote">
+<p>Listed below are various areas of government spending. Please show whether you would like to see more or less government spending in each area.</p>
+<p>Unemployment benefits</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>1 Spend much more<br>
+2 Spend more<br>
+3 Spend the same as now<br>
+4 Spend less<br>
+5 Spend much less<br>
+8 Can’t choose<br>
+9 No answer</p>
+</blockquote>
+<p>The variable and the responses look like this:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(issp<span class="sc">$</span>v19)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -747,7 +762,7 @@ Spend the same as now            Spend less       Spend much less
                     0                     0 </code></pre>
 </div>
 </div>
-<p>The variable is stored as a factor (i.e., as a categorical variable), but it has five categories – so we can, sort of, get away with treating it as if it were numeric <span class="citation" data-cites="Thewissen2019">(this is what <a href="#ref-Thewissen2019" role="doc-biblioref">Thewissen and Rueda 2019</a> also do)</span>. To be able to do that, we first have to check how it looks internally and then convert it:</p>
+<p>Fortunately, the missing catetories (<em>8</em> &amp; <em>9</em>) are empty, so we do not have to recode these. The variable is currently stored as a factor (i.e., as a categorical variable), but it has five categories – so we can, sort of, get away with treating it as if it were numeric <span class="citation" data-cites="Thewissen2019">(this is what <a href="#ref-Thewissen2019" role="doc-biblioref">Thewissen and Rueda 2019</a> also do)</span>. To be able to do that, we first have to check how it looks internally and then convert it:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>bst290<span class="sc">::</span><span class="fu">visfactor</span>(<span class="at">dataset =</span> issp,</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">variable =</span> <span class="st">"v19"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

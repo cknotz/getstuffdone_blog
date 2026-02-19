@@ -233,13 +233,29 @@ And we have what we want: Two class schemes, one simpler and the other a bit mor
 \newpage
 ## Example analysis
 
-Let's say we wanted to find out if people's class has an effect on how they think about the welfare state, specifically whether the government should do more to support the unemployed. As mentioned earlier, the ISSP includes a variable that measures these attitudes and which looks like this:
+Let's say we wanted to find out if people's class has an effect on how they think about the welfare state, specifically whether the government should do more to support the unemployed. As mentioned earlier, the ISSP includes a variable that measures these attitudes.
+
+This variable measures responses to the following question:
+
+> Listed below are various areas of government spending. Please show whether you would like to see more or less government spending in each area.
+>
+> Unemployment benefits
+
+> 1 Spend much more  
+> 2 Spend more  
+> 3 Spend the same as now  
+> 4 Spend less  
+> 5 Spend much less  
+> 8 Can't choose  
+> 9 No answer  
+
+The variable and the responses look like this:
 ```{r}
 class(issp$v19)
 table(issp$v19)
 ```
 
-The variable is stored as a factor (i.e., as a categorical variable), but it has five categories -- so we can, sort of, get away with treating it as if it were numeric [this is what @Thewissen2019 also do]. To be able to do that, we first have to check how it looks internally and then convert it:
+Fortunately, the missing catetories (*8* & *9*) are empty, so we do not have to recode these. The variable is currently stored as a factor (i.e., as a categorical variable), but it has five categories -- so we can, sort of, get away with treating it as if it were numeric [this is what @Thewissen2019 also do]. To be able to do that, we first have to check how it looks internally and then convert it:
 ```{r}
 bst290::visfactor(dataset = issp,
                   variable = "v19")
