@@ -28,7 +28,7 @@ Links to most data sources are provided, those without links should be easy to f
 
 ## Other (better?) overviews over available data
 
-Erik Gahner's excellent [*Dataset of Political Datasets*](https://github.com/erikgahner/PolData){target="_blank"} provides a great overview over datasets that are relevant for political science research.
+Erik Gahner's excellent [*Dataset of Political Datasets*](https://github.com/erikgahner/PolData){target="_blank"} provides a great overview over datasets that are relevant for political science research. His list includes a lot of datasets that are relevant for **international relations and peace & conflict research** (see <https://github.com/erikgahner/PolData?tab=readme-ov-file#international-relations>).
 
 In addition, *Google* has a dedicated search tool for research datasets: <https://datasetsearch.research.google.com/>. Be aware, though, that this tool is not specific to political science or other social sciences -- depending on what you look for, your search results may include lots of datasets from medical or biological research, which will most likely not be relevant for your project. You can use a filter function to limit the results to datasets from social and political science.
 
