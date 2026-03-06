@@ -1,5 +1,5 @@
 ---
-title: "Using LLMs to work with Twitter data"
+title: "Using LLMs to work with text data"
 author: "Carlo Knotz"
 bibliography: /Users/carloknotz/Documents/BibDesk_library/library.bib
 date: "2025-09-10"
@@ -19,7 +19,7 @@ categories:
 
 ## Text, media, and large language models
 
-When people interact and communicate with each other in the political, social, or economic spheres, they often use written text. Politicians and political parties, for example, use election manifestos and campaign flyers to communicate with potential voters, and these have long been used to measure their ideological positions [@Volkensetal2014;@Laveretal2003;@Slapin2008]. Newspapers, secondly, routinely report on economic developments, and the underlying sentiment or "tone" of these reportings can be used to get a sense of how the economy overall is developing [@Ozgun2021]. And, finally, a lot of social interaction now happens online on social media sites, where users post and engage with others' posts. All of this taken together provides a vast amount of data [e.g., @Hilbert2011] that can be used to study and explain political, social, and economic behavior.
+When people interact and communicate with each other in the political, social, or economic spheres, they often use written text. Politicians and political parties, for example, use election manifestos and campaign flyers to communicate with potential voters, and these have long been used to measure their ideological positions [@Volkensetal2014;@Laveretal2003;@Slapin2008]. Newspapers, secondly, routinely report on economic developments, and the underlying sentiment or "tone" of these reportings can be used to get a sense of how the economy overall is developing [@Ozgun2021]. And, finally, a lot of social interaction now happens online on social media sites, where users post and engage with others' posts. All of this taken together provides a vast amount of text data [e.g., @Hilbert2011] that can be used to study and explain political, social, and economic behavior.
 
 The catch, however, is that someone needs to analyze all this data. According to one estimate, *Twitter* (now *X*) alone produces somehwere between 500'000 and almost 5'000'000 *tweets* on a single day [@Ulizkoetal2021], and even a fraction of this is much more information than any individual human can process in a reasonable amount of time. Plus, the sheer amount of text data that is now available is only one of the problems one runs into. Another one is that people obviously communicate in many different languages -- English, French, Chinese, German, Spanish, Russian, and so on -- and most individuals are only capable of reading and analyzing a small number of languages.
 
