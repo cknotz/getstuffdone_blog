@@ -55,6 +55,7 @@ Finally, there are also a number of data repositories and archives that contain 
 ### Election/voter survey data
 
  - Comparative Study of Electoral Systems (<http://www.cses.org/>): Standardized election surveys from several countries and elections
+ - Comparative National Elections Project (CNEP; <https://www.upf.edu/web/cnep>): coordinated election studies across diverse political systems worldwide, using a common core questionnaire to achieve comparability. It includes 74 surveys from the 1990s to 2025 in 30 different countries and Hong Kong, spanning five continents with a focus on traditional voting behavior measures and the role of intermediaries. The data focus in particular on political polarization, populism, support for democracy and political intermediation.
  - American National Election Study (<http://www.electionstudies.org/>)
  - Norwegian National Election Study/Norsk Valgundersøkelser (available via NSD; see above)
  - US [VOTER](https://www.voterstudygroup.org/data) survey data: Unique longitudinal survey data allowing for deep exploration of public opinion on the issues and values that drive voter behavior.
