@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,6 +12,9 @@
 
 <title>Case selection with macro-level data – Testing big ideas with simple methods</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -62,7 +65,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -90,19 +92,18 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-5100b8561cd7f6cd8c35657ed6fe7ee7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-4d72738a521f03bda770c6fbcc444206.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -307,8 +308,6 @@ div.csl-indent {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Testing big ideas with simple methods</span>
     </a>
@@ -417,13 +416,13 @@ div.csl-indent {
 <section id="rules-and-strategies-for-case-studies" class="level2">
 <h2 class="anchored" data-anchor-id="rules-and-strategies-for-case-studies">Rules and strategies for case studies</h2>
 <p>A case study is only as good as the evidence (the newspaper articles, interviews, etc.) <em>and</em> the case selection strategy (a.k.a., research design) it builds on. As I explain in this other post on <a href="https://cknotz.github.io/getstuffdone_blog/posts/case_selection/">case selection and bullshit</a>, <em>the cases you choose affect the answers you get</em> <span class="citation" data-cites="Geddes1990">(<a href="#ref-Geddes1990" role="doc-biblioref">Geddes 1990</a>)</span>, and if you select your cases in a faulty way, you get faulty, misleading, and ultimately useless answers – you produce bullshit, whether you want to or not.</p>
-<p>Fortunately, there are a number of different rules and strategies that you can use to select your cases in a way that minimizes the risk that your study produces flawed evidence <span class="citation" data-cites="Seawright2008 Przeworski1970 King1994 Geddes1990 Ringdal2018">(see e.g., <a href="#ref-Seawright2008" role="doc-biblioref">Seawright and Gerring 2008</a>; <a href="#ref-Przeworski1970" role="doc-biblioref">Przeworski and Teune 1970</a>; <a href="#ref-King1994" role="doc-biblioref">King, Keohane, and Verba 1994</a>; <a href="#ref-Geddes1990" role="doc-biblioref">Geddes 1990</a>; <a href="#ref-Ringdal2018" role="doc-biblioref">Ringdal 2018</a>)</span>.</p>
+<p>Fortunately, there are a number of different rules and strategies that you can use to select your cases in a way that minimizes the risk that your study produces flawed evidence <span class="citation" data-cites="Seawright2008 Przeworski1970 King1994 Geddes1990 Ringdal2018">(see e.g., <a href="#ref-Seawright2008" role="doc-biblioref">Seawright and Gerring 2008</a>; <a href="#ref-Przeworski1970" role="doc-biblioref">Przeworski and Teune 1970</a>; <a href="#ref-King1994" role="doc-biblioref">King et al. 1994</a>; <a href="#ref-Geddes1990" role="doc-biblioref">Geddes 1990</a>; <a href="#ref-Ringdal2018" role="doc-biblioref">Ringdal 2018</a>)</span>.</p>
 <section id="what-not-to-do" class="level3">
 <h3 class="anchored" data-anchor-id="what-not-to-do">What <em>not</em> to do</h3>
 <p>Two important rules are:</p>
 <ol type="1">
 <li>Do not select on the dependent variable <span class="citation" data-cites="Geddes1990">(<a href="#ref-Geddes1990" role="doc-biblioref">Geddes 1990</a>)</span>. You always need positive <em>and</em> negative or “high” <em>and</em> “low” cases. For example, if you want find out why countries go to war, you need to compare countries that fight wars to similar ones who do not fight wars so that you can see what makes the difference.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
-<li>Make sure that you have enough cases. As a general rule, you need at least one more case than you have explanatory variables <span class="citation" data-cites="King1994">(<a href="#ref-King1994" role="doc-biblioref">King, Keohane, and Verba 1994</a>)</span>. For example, if you think that civil wars are caused by <em>two</em> variables, say economic deprivation and a hilly terrain <span class="citation" data-cites="Fearon2003">(<a href="#ref-Fearon2003" role="doc-biblioref">Fearon and Laitin 2003</a>)</span>, then you need at least <em>three</em> cases to be able to have a chance to see if this is actually true.</li>
+<li>Make sure that you have enough cases. As a general rule, you need at least one more case than you have explanatory variables <span class="citation" data-cites="King1994">(<a href="#ref-King1994" role="doc-biblioref">King et al. 1994</a>)</span>. For example, if you think that civil wars are caused by <em>two</em> variables, say economic deprivation and a hilly terrain <span class="citation" data-cites="Fearon2003">(<a href="#ref-Fearon2003" role="doc-biblioref">Fearon and Laitin 2003</a>)</span>, then you need at least <em>three</em> cases to be able to have a chance to see if this is actually true.</li>
 </ol>
 </section>
 <section id="what-do-to" class="level3">
@@ -600,7 +599,7 @@ Table&nbsp;1: Example case selection strategies
 <section id="selecting-cases-for-an-mssd-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="selecting-cases-for-an-mssd-strategy">Selecting cases for an MSSD strategy</h3>
 <p>Let’s say we want to find two cases for the MSSD strategy that was described earlier, where we want <em>different</em> electoral systems but otherwise equality or at least similarity on all other variables.</p>
-<p>A good start is to get an overview over which countries have which type of electoral system. The <em>CPDS</em> contains a variable called <code>prop</code> <span class="citation" data-cites="Huber1993">(see also <a href="#ref-Huber1993" role="doc-biblioref">Huber, Ragin, and Stephens 1993</a>)</span>, which is a categorical variable that measures whether a country has a single-member, plurality (“first-past-the-post”) electoral system (<code>0</code>), a modified proportional or mixed system (<code>1</code>), or a proportional electoral system (<code>2</code>).</p>
+<p>A good start is to get an overview over which countries have which type of electoral system. The <em>CPDS</em> contains a variable called <code>prop</code> <span class="citation" data-cites="Huber1993">(see also <a href="#ref-Huber1993" role="doc-biblioref">Huber et al. 1993</a>)</span>, which is a categorical variable that measures whether a country has a single-member, plurality (“first-past-the-post”) electoral system (<code>0</code>), a modified proportional or mixed system (<code>1</code>), or a proportional electoral system (<code>2</code>).</p>
 <p>To get this overview, we can calculate the average scores of this variable per country and visualize the result:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cpds <span class="sc">%&gt;%</span> </span>
@@ -833,18 +832,18 @@ Table&nbsp;1: Example case selection strategies
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Alter1994" class="csl-entry" role="listitem">
 Alter, Karen J, and Sophie Meunier-Aitsahalia. 1994. <span>“Judicial Politics in the <span>European Community</span>: <span>European</span> Integration and the Pathbreaking <span class="nocase">Cassis de Dijon</span> Decision.”</span> <em>Comparative Political Studies</em> 26 (4): 535–61.
 </div>
 <div id="ref-CPDS24" class="csl-entry" role="listitem">
-Armingeon, Klaus, Sarah Engler, Lucas Leemann, and David Weisstanner. 2024. <em>Comparative Political Data Set 1960-2022</em>. Zurich, Lueneburg, &amp; Lucerne: University of Zurich, Leuphana University Lueneburg,; University of Lucerne.
+Armingeon, Klaus, Sarah Engler, Lucas Leemann, and David Weisstanner. 2024. <em>Comparative Political Data Set 1960-2022</em>. University of Zurich, Leuphana University Lueneburg,; University of Lucerne.
 </div>
 <div id="ref-Castles1993" class="csl-entry" role="listitem">
-Castles, Francis G., ed. 1993. <em>Families of Nations: Patterns of Public Policy in Western Democracies</em>. Aldershot: Dartmouth Publishing Co.
+Castles, Francis G., ed. 1993. <em>Families of Nations: Patterns of Public Policy in Western Democracies</em>. Dartmouth Publishing Co.
 </div>
 <div id="ref-Esping-Andersen1990" class="csl-entry" role="listitem">
-Esping-Andersen, Gøsta. 1990. <em>The Three Worlds of Welfare Capitalism</em>. Cambridge: Polity Press.
+Esping-Andersen, Gøsta. 1990. <em>The Three Worlds of Welfare Capitalism</em>. Polity Press.
 </div>
 <div id="ref-Fearon2003" class="csl-entry" role="listitem">
 Fearon, James D., and David D. Laitin. 2003. <span>“Ethnicity, Insurgency, and Civil War.”</span> <em>American Political Science Review</em> 97 (1): 75–90.
@@ -862,7 +861,7 @@ Golden, Miriam. 2005. <span>“Single Country Studies: What Can We Learn?”</sp
 Huber, Evelyne, Charles Ragin, and John D. Stephens. 1993. <span>“Social Democracy, <span>Christian</span> Democracy, Constitutional Structure, and the Welfare State.”</span> <em>American Journal of Sociology</em> 99 (3): 711–49.
 </div>
 <div id="ref-King1994" class="csl-entry" role="listitem">
-King, Gary, Robert O. Keohane, and Sidney Verba. 1994. <em>Designing Social Inquiry. Scientific Inference in Qualitative Research</em>. Princeton: Princeton University Press.
+King, Gary, Robert O. Keohane, and Sidney Verba. 1994. <em>Designing Social Inquiry. Scientific Inference in Qualitative Research</em>. Princeton University Press.
 </div>
 <div id="ref-Lindstrom2010" class="csl-entry" role="listitem">
 Lindstrom, Nicole. 2010. <span>“Service Liberalization in the Enlarged <span>EU</span>: A Race to the Bottom or the Emergence of Transnational Political Conflict?”</span> <em>Journal of Common Market Studies</em> 48 (5): 1307–27.
@@ -871,19 +870,19 @@ Lindstrom, Nicole. 2010. <span>“Service Liberalization in the Enlarged <span>E
 Picot, Georg. 2009. <span>“Party Competition and Reforms of Unemployment Benefits in Germany: How a Small Change in Electoral Demand Can Make a Big Difference.”</span> <em>German Politics</em> 18 (2): 155–79.
 </div>
 <div id="ref-Przeworski1970" class="csl-entry" role="listitem">
-Przeworski, Adam, and Henry Teune. 1970. <em>The Logic of Comparative Social Inquiry</em>. New York: Wiley.
+Przeworski, Adam, and Henry Teune. 1970. <em>The Logic of Comparative Social Inquiry</em>. Wiley.
 </div>
 <div id="ref-Ringdal2018" class="csl-entry" role="listitem">
-Ringdal, Kristen. 2018. <em>Enhet Og Mangfold: Samfunnsvitenskapelig Forskning Og Kvantitativ Metode</em>. 4. ed. Bergen: Fagbokforlaget.
+Ringdal, Kristen. 2018. <em>Enhet Og Mangfold: Samfunnsvitenskapelig Forskning Og Kvantitativ Metode</em>. 4. Fagbokforlaget.
 </div>
 <div id="ref-Ruane1996" class="csl-entry" role="listitem">
-Ruane, Joseph, and Jennifer Todd. 1996. <em>The Dynamics of Conflict in Northern Ireland: Power, Conflict and Emancipation</em>. Cambridge: Cambridge University Press.
+Ruane, Joseph, and Jennifer Todd. 1996. <em>The Dynamics of Conflict in Northern Ireland: Power, Conflict and Emancipation</em>. Cambridge University Press.
 </div>
 <div id="ref-Seawright2008" class="csl-entry" role="listitem">
 Seawright, Jason, and John Gerring. 2008. <span>“Case Selection Techniques in Case Study Research.”</span> <em>Political Research Quarterly</em> 61 (2): 294–308.
 </div>
 <div id="ref-Venn2009" class="csl-entry" role="listitem">
-Venn, Danielle. 2009. <span>“Legislation, Collective Bargaining and Enforcement: Updating the OECD Employment Protection Indicators.”</span> <em>OECD Social, Employment and Migration Working Papers</em> 89.
+Venn, Danielle. 2009. <span>“Legislation, Collective Bargaining and Enforcement: Updating the OECD Employment Protection Indicators.”</span> <em>OECD Social, Employment and Migration Working Papers</em> (Paris) 89.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
@@ -900,7 +899,7 @@ Venn, Danielle. 2009. <span>“Legislation, Collective Bargaining and Enforcemen
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-knotz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
 Knotz, Carlo. 2025. <span>“Case Selection with Macro-Level Data.”</span>
-June 10, 2025. <a href="https://cknotz.github.io/getstuffdone_blog/posts/case_selection2/">https://cknotz.github.io/getstuffdone_blog/posts/case_selection2/</a>.
+June 10. <a href="https://cknotz.github.io/getstuffdone_blog/posts/case_selection2/">https://cknotz.github.io/getstuffdone_blog/posts/case_selection2/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

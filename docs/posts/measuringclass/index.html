@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>Measuring class with survey data – Testing big ideas with simple methods</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -61,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,19 +91,18 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-5100b8561cd7f6cd8c35657ed6fe7ee7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-4d72738a521f03bda770c6fbcc444206.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -306,8 +307,6 @@ div.csl-indent {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Testing big ideas with simple methods</span>
     </a>
@@ -405,7 +404,7 @@ div.csl-indent {
 <section id="class-still-matters" class="level2">
 <h2 class="anchored" data-anchor-id="class-still-matters">Class (still) matters</h2>
 <p>Class is a key concept in the social and political sciences, and it explains many important phenomena, from party preferences and voting over social attitudes to health outcomes <span class="citation" data-cites="Elo2009 Gingrich2017 Schwander2013 Hausermannetal2022 Evans2000">(e.g., <a href="#ref-Elo2009" role="doc-biblioref">Elo 2009</a>; <a href="#ref-Gingrich2017" role="doc-biblioref">Gingrich 2017</a>; <a href="#ref-Schwander2013" role="doc-biblioref">Schwander and Häusermann 2013</a>; <a href="#ref-Hausermannetal2022" role="doc-biblioref">Häusermann et al. 2022</a>; <a href="#ref-Evans2000" role="doc-biblioref">Evans 2000</a>)</span>. Therefore, it is important for every empirical social and political researcher to know how to measure people’s positions in class structures.</p>
-<p>Sociologists have spent a lot of time on developing <em>class schemes</em> that make the abstract concept of “class” empirically measurable. The probably most famous class scheme is the Erikson-Goldthorpe-Portocarero (EGP) class scheme that was developed in the 1970s <span class="citation" data-cites="Eriksonetal1979">(<a href="#ref-Eriksonetal1979" role="doc-biblioref">Erikson, Goldthorpe, and Portocarero 1979</a>)</span>, but there are also more recent schemes that take into account the fact that, as a result of technological change, increased educational attainment, and other factors, societies and labor markets in the 21st century look quite different than they did in the 1970s or 1980s. Daniel Oesch’s <span class="citation" data-cites="Oesch2006a">(<a href="#ref-Oesch2006a" role="doc-biblioref">2006</a>)</span> scheme is an important modern class scheme.</p>
+<p>Sociologists have spent a lot of time on developing <em>class schemes</em> that make the abstract concept of “class” empirically measurable. The probably most famous class scheme is the Erikson-Goldthorpe-Portocarero (EGP) class scheme that was developed in the 1970s <span class="citation" data-cites="Eriksonetal1979">(<a href="#ref-Eriksonetal1979" role="doc-biblioref">Erikson et al. 1979</a>)</span>, but there are also more recent schemes that take into account the fact that, as a result of technological change, increased educational attainment, and other factors, societies and labor markets in the 21st century look quite different than they did in the 1970s or 1980s. Daniel Oesch’s <span class="citation" data-cites="Oesch2006a">(<a href="#ref-Oesch2006a" role="doc-biblioref">2006</a>)</span> scheme is an important modern class scheme.</p>
 <p>The basis for class schemes is generally <strong>occupation</strong> – what job does someone have? For example, someone who is a medical doctor would typically be seen as a “higher-skilled professional”, whereas a welder would usually be classified as a “skilled manual worker”. People’s occupations are usually measured with occupational classification schemes, the most widely used is the International Labour Organization’s (ILO) <em>International Standard Classification of Occupations</em> (ISCO) scheme.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> This scheme comes in different versions reflecting the years they were adopted: ISCO-68, ISCO-88, and ISCO-08.</p>
 <p>There are of course some people who’s occupation is being <strong>self-employed</strong> – they run their own businesses, which can be a small one-person business (e.g., a shop) but it can also be a medium-sized company with 500 employees. Obviously, this has effects on their class membership: A small shop owner would often be considered to be a member of the “petite bourgeoisie”, while someone who owns a larger company might be considered a “capital owner”.</p>
 </section>
@@ -870,7 +869,7 @@ F-statistic: 19.54 on 4 and 939 DF,  p-value: 1.842e-15</code></pre>
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Elo2009" class="csl-entry" role="listitem">
 Elo, Irma T. 2009. <span>“Social Class Differentials in Health and Mortality: <span>Patterns</span> and Explanations in Comparative Perspective.”</span> <em>Annual Review of Sociology</em> 35 (1): 553–72.
 </div>
@@ -887,7 +886,7 @@ Gingrich, Jane. 2017. <span>“A New Progressive Coalition? <span>The European</
 Häusermann, Silja, Michael Pinggera, Macarena Ares, and Matthias Enggist. 2022. <span>“Class and Social Policy in the Knowledge Economy.”</span> <em>European Journal of Political Research</em> 61 (2): 462–84.
 </div>
 <div id="ref-Oesch2006a" class="csl-entry" role="listitem">
-Oesch, Daniel. 2006. <em>Redrawing the Class Map. Stratification and Institutions in Britain, Germany, Sweden and Switzerland</em>. Basingstoke: Palgrave Macmillan.
+Oesch, Daniel. 2006. <em>Redrawing the Class Map. Stratification and Institutions in Britain, Germany, Sweden and Switzerland</em>. Palgrave Macmillan.
 </div>
 <div id="ref-Schwander2013" class="csl-entry" role="listitem">
 Schwander, Hanna, and Silja Häusermann. 2013. <span>“Who Is in and Who Is Out? <span>A</span> Risk-Based Conceptualization of Insiders and Outsiders.”</span> <em>Journal of European Social Policy</em> 23 (3): 248–69.
@@ -912,7 +911,7 @@ Thewissen, Stefan, and David Rueda. 2019. <span>“Automation and the Welfare St
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-knotz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
 Knotz, Carlo. 2025. <span>“Measuring Class with Survey Data.”</span>
-March 8, 2025. <a href="https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/">https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/</a>.
+March 8. <a href="https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/">https://cknotz.github.io/getstuffdone_blog/posts/measuringclass/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>Comparing countries with macro-level data – Testing big ideas with simple methods</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -61,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,19 +91,18 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-5100b8561cd7f6cd8c35657ed6fe7ee7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-4d72738a521f03bda770c6fbcc444206.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -306,8 +307,6 @@ div.csl-indent {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Testing big ideas with simple methods</span>
     </a>
@@ -404,7 +403,7 @@ div.csl-indent {
 
 <section id="why-we-do-macro-level-comparisons" class="level2">
 <h2 class="anchored" data-anchor-id="why-we-do-macro-level-comparisons">Why we do macro-level comparisons</h2>
-<p>Many important questions that political scientists, sociologists, or economists are asking are about patterns at the <em>macro</em>- or country-level: Why do some countries have bigger welfare states than others <span class="citation" data-cites="Esping-Andersen1990 Allan2004 Korpi2003a Iversen2006">(<a href="#ref-Esping-Andersen1990" role="doc-biblioref">Esping-Andersen 1990</a>; <a href="#ref-Allan2004" role="doc-biblioref">Allan and Scruggs 2004</a>; <a href="#ref-Korpi2003a" role="doc-biblioref">Korpi and Palme 2003</a>; <a href="#ref-Iversen2006" role="doc-biblioref">Iversen and Soskice 2006</a>)</span> or how do the political structures of a country affect its economic or environmental performance <span class="citation" data-cites="Roller2005 Acemogluetal2001 Scruggs2003">(<a href="#ref-Roller2005" role="doc-biblioref">Roller 2005</a>; <a href="#ref-Acemogluetal2001" role="doc-biblioref">Acemoglu, Johnson, and Robinson 2001</a>; <a href="#ref-Scruggs2003" role="doc-biblioref">Scruggs 2003</a>)</span>? Answering these questions usually requires some form of cross-country comparison with macro-level data on the size and shape of welfare states, political institutions, environmental performance, or economic growth. This analysis <em>can</em> be quantitative — also known as a <em>time series cross-sectional regression analysis</em> <span class="citation" data-cites="Beck2001">(see e.g., <a href="#ref-Beck2001" role="doc-biblioref">Beck 2001</a>)</span> — but it can also be a qualitative comparative case study — and even in the latter case, a few nice graphs that show relevant developments, patterns, and trends at the country-level can make the case study much more convincing and easy to follow.</p>
+<p>Many important questions that political scientists, sociologists, or economists are asking are about patterns at the <em>macro</em>- or country-level: Why do some countries have bigger welfare states than others <span class="citation" data-cites="Esping-Andersen1990 Allan2004 Korpi2003a Iversen2006">(<a href="#ref-Esping-Andersen1990" role="doc-biblioref">Esping-Andersen 1990</a>; <a href="#ref-Allan2004" role="doc-biblioref">Allan and Scruggs 2004</a>; <a href="#ref-Korpi2003a" role="doc-biblioref">Korpi and Palme 2003</a>; <a href="#ref-Iversen2006" role="doc-biblioref">Iversen and Soskice 2006</a>)</span> or how do the political structures of a country affect its economic or environmental performance <span class="citation" data-cites="Roller2005 Acemogluetal2001 Scruggs2003">(<a href="#ref-Roller2005" role="doc-biblioref">Roller 2005</a>; <a href="#ref-Acemogluetal2001" role="doc-biblioref">Acemoglu et al. 2001</a>; <a href="#ref-Scruggs2003" role="doc-biblioref">Scruggs 2003</a>)</span>? Answering these questions usually requires some form of cross-country comparison with macro-level data on the size and shape of welfare states, political institutions, environmental performance, or economic growth. This analysis <em>can</em> be quantitative — also known as a <em>time series cross-sectional regression analysis</em> <span class="citation" data-cites="Beck2001">(see e.g., <a href="#ref-Beck2001" role="doc-biblioref">Beck 2001</a>)</span> — but it can also be a qualitative comparative case study — and even in the latter case, a few nice graphs that show relevant developments, patterns, and trends at the country-level can make the case study much more convincing and easy to follow.</p>
 <p>Luckily, we are now sitting on a mountain of (usually) freely available macro-level data on all kinds of economic, social, political, or environmental aspects for many countries and over long periods of time. To name just a few examples:</p>
 <ul>
 <li>International institutions such as the <a href="https://data.worldbank.org/" target="_blank"><em>World Bank</em></a>, the <a href="https://www.oecd.org/en/data.html" target="_blank"><em>OECD</em></a>, the <a href="https://ec.europa.eu/eurostat/web/main/data/database" target="_blank"><em>European Union</em></a>, or the <a href="https://data.un.org/" target="_blank"><em>UN</em></a> offer free data on a vast number of economic, social, environmental, and political variables for their member countries.</li>
@@ -492,7 +491,7 @@ Important
 4 Sweden           0.755         -1.15          -1.16 </code></pre>
 </div>
 </div>
-<p>If you do have a dataset that looks like this, you need to learn how to <em>pivot</em> or <em>reshape</em> your dataset. Here, the <code>pivot_longer()</code> and <code>pivot_wider()</code> functions from the <code>tidyr</code> package (included in the <code>tidyverse</code>) are your best friends <span class="citation" data-cites="Urdinez2020">(see also <a href="#ref-Urdinez2020" role="doc-biblioref">Urdinez and Cruz 2020, chap. 2.5.1</a>)</span>.</p>
+<p>If you do have a dataset that looks like this, you need to learn how to <em>pivot</em> or <em>reshape</em> your dataset. Here, the <code>pivot_longer()</code> and <code>pivot_wider()</code> functions from the <code>tidyr</code> package (included in the <code>tidyverse</code>) are your best friends <span class="citation" data-cites="Urdinez2020">(see also <a href="#ref-Urdinez2020" role="doc-biblioref">Urdinez and Cruz 2020, 2.5.1</a>)</span>.</p>
 </section>
 <section id="importing-the-cpds-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="importing-the-cpds-dataset">Importing the <em>CPDS</em> dataset</h2>
@@ -870,7 +869,7 @@ Important
 <li>Get more of an overview over what macro-level datasets there are out there (see also the sources above).</li>
 <li>Learn how to combine (“merge”) different datasets. This is not as difficult as it might sound. Since all these datasets have the same underlying country-year structure, you just need to figure out how to work with the <code>left_join()</code> function to merge datasets (see also the <a href="https://cknotz.github.io/getstuffdone_blog/posts/globalization/" target="_blank">post on how to measure globalization exposure</a>), and probably also how to convert different country codes and names between each other with the <code>countrycode</code> package <span class="citation" data-cites="Urdinez2020">(see also <a href="#ref-Urdinez2020" role="doc-biblioref">Urdinez and Cruz 2020, chap. 11</a>)</span>.</li>
 <li>Explore other types of macro-level datasets. Relevant examples are the <em>Manifesto Project Database</em>, which provides quantitative estimates of the ideological positions of political parties in different countries (here, the unit of observation is a party at a given election or “party-election”) or different peace &amp; conflict datasets <span class="citation" data-cites="Raleighetal2010 UCDP2014 Gibler2023 Vogtetal2015">(e.g., <a href="#ref-Raleighetal2010" role="doc-biblioref">Raleigh et al. 2010</a>; <a href="#ref-UCDP2014" role="doc-biblioref">Uppsala Conflict Data Program 2014</a>; <a href="#ref-Gibler2023" role="doc-biblioref">Gibler and Miller 2023</a>; <a href="#ref-Vogtetal2015" role="doc-biblioref">Vogt et al. 2015</a>)</span>.</li>
-<li>Learn how to do multivariate regression analyses with these datasets. Relevant works to read are Beck and Katz <span class="citation" data-cites="Beck1995 Beck1996 Beck2011a">(<a href="#ref-Beck1995" role="doc-biblioref">1995</a>, <a href="#ref-Beck1996" role="doc-biblioref">1996</a>, <a href="#ref-Beck2011a" role="doc-biblioref">2011</a>)</span>, <span class="citation" data-cites="Beck1998a">Beck, Katz, and Tucker (<a href="#ref-Beck1998a" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Beck2001">Beck (<a href="#ref-Beck2001" role="doc-biblioref">2001</a>)</span>, <span class="citation" data-cites="DeBoef2008">De Boef and Keele (<a href="#ref-DeBoef2008" role="doc-biblioref">2008</a>)</span>, <span class="citation" data-cites="Wilson2007">Wilson and Butler (<a href="#ref-Wilson2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="Carter2010">Carter and Signorino (<a href="#ref-Carter2010" role="doc-biblioref">2010</a>)</span>, <span class="citation" data-cites="Honaker2010">Honaker and King (<a href="#ref-Honaker2010" role="doc-biblioref">2010</a>)</span>, <span class="citation" data-cites="Birkel2014">Birkel (<a href="#ref-Birkel2014" role="doc-biblioref">2014</a>)</span>, and for more advanced methods see <span class="citation" data-cites="Blackwell2018">Blackwell and Glynn (<a href="#ref-Blackwell2018" role="doc-biblioref">2018</a>)</span>. Urdinez and Cruz <span class="citation" data-cites="Urdinez2020">(<a href="#ref-Urdinez2020" role="doc-biblioref">2020, chap. 7</a>)</span> and <span class="citation" data-cites="Croissant2008">Croissant and Millo (<a href="#ref-Croissant2008" role="doc-biblioref">2008</a>)</span> show how to implement the main techniques in <code>R</code>.</li>
+<li>Learn how to do multivariate regression analyses with these datasets. Relevant works to read are Beck and Katz <span class="citation" data-cites="Beck1995 Beck1996 Beck2011a">(<a href="#ref-Beck1995" role="doc-biblioref">1995</a>, <a href="#ref-Beck1996" role="doc-biblioref">1996</a>, <a href="#ref-Beck2011a" role="doc-biblioref">2011</a>)</span>, <span class="citation" data-cites="Beck1998a">Beck et al. (<a href="#ref-Beck1998a" role="doc-biblioref">1998</a>)</span>, <span class="citation" data-cites="Beck2001">Beck (<a href="#ref-Beck2001" role="doc-biblioref">2001</a>)</span>, <span class="citation" data-cites="DeBoef2008">De Boef and Keele (<a href="#ref-DeBoef2008" role="doc-biblioref">2008</a>)</span>, <span class="citation" data-cites="Wilson2007">Wilson and Butler (<a href="#ref-Wilson2007" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="Carter2010">Carter and Signorino (<a href="#ref-Carter2010" role="doc-biblioref">2010</a>)</span>, <span class="citation" data-cites="Honaker2010">Honaker and King (<a href="#ref-Honaker2010" role="doc-biblioref">2010</a>)</span>, <span class="citation" data-cites="Birkel2014">Birkel (<a href="#ref-Birkel2014" role="doc-biblioref">2014</a>)</span>, and for more advanced methods see <span class="citation" data-cites="Blackwell2018">Blackwell and Glynn (<a href="#ref-Blackwell2018" role="doc-biblioref">2018</a>)</span>. Urdinez and Cruz <span class="citation" data-cites="Urdinez2020">(<a href="#ref-Urdinez2020" role="doc-biblioref">2020, chap. 7</a>)</span> and <span class="citation" data-cites="Croissant2008">Croissant and Millo (<a href="#ref-Croissant2008" role="doc-biblioref">2008</a>)</span> show how to implement the main techniques in <code>R</code>.</li>
 </ol>
 
 
@@ -878,9 +877,9 @@ Important
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Acemogluetal2001" class="csl-entry" role="listitem">
-Acemoglu, Daron, Simon Johnson, and James A. Robinson. 2001. <span>“The Colonial Origins of Comparative Development: An Empirical Investigation.”</span> <em>American Economic Review</em> 91 (5): 1369–1401.
+Acemoglu, Daron, Simon Johnson, and James A. Robinson. 2001. <span>“The Colonial Origins of Comparative Development: An Empirical Investigation.”</span> <em>American Economic Review</em> 91 (5): 1369–401.
 </div>
 <div id="ref-Allan2004" class="csl-entry" role="listitem">
 Allan, James B., and Lyle Scruggs. 2004. <span>“Political Partisanship and Welfare State Reform in Advanced Industrial Societies.”</span> <em>American Journal of Political Science</em> 48 (3): 496–512.
@@ -892,10 +891,10 @@ Beck, Nathaniel. 2001. <span>“Time-Series-Cross-Section Data: What Have We Lea
 Beck, Nathaniel, and Jonathan N. Katz. 1995. <span>“What to Do (and Not Do Do) with Time-Series Cross-Section Data.”</span> <em>American Political Science Review</em> 89 (3): 634–47.
 </div>
 <div id="ref-Beck1996" class="csl-entry" role="listitem">
-———. 1996. <span>“Nuisance Vs. Substance: Specifying and Estimating Time-Series-Cross-Section Models.”</span> <em>Political Analysis</em> 6 (1): 1–36.
+Beck, Nathaniel, and Jonathan N. Katz. 1996. <span>“Nuisance Vs. Substance: Specifying and Estimating Time-Series-Cross-Section Models.”</span> <em>Political Analysis</em> 6 (1): 1–36.
 </div>
 <div id="ref-Beck2011a" class="csl-entry" role="listitem">
-———. 2011. <span>“Modeling Dynamics in Time-Series Cross-Section Political Data.”</span> <em>Annual Review of Political Science</em> 14: 331–52.
+Beck, Nathaniel, and Jonathan N. Katz. 2011. <span>“Modeling Dynamics in Time-Series Cross-Section Political Data.”</span> <em>Annual Review of Political Science</em> 14: 331–52.
 </div>
 <div id="ref-Beck1998a" class="csl-entry" role="listitem">
 Beck, Nathaniel, Jonathan N. Katz, and Richard Tucker. 1998. <span>“Taking Time Seriously: Time-Series-Cross-Section Analysis with a Binary Dependent Variable.”</span> <em>American Journal of Political Science</em> 42 (4): 1260–88.
@@ -916,7 +915,7 @@ Croissant, Yves, and Giovanni Millo. 2008. <span>“Panel Data Econometrics in <
 De Boef, Suzanna, and Luke Keele. 2008. <span>“Taking Time Seriously.”</span> <em>American Journal of Political Science</em> 52 (1): 184–200.
 </div>
 <div id="ref-Esping-Andersen1990" class="csl-entry" role="listitem">
-Esping-Andersen, Gøsta. 1990. <em>The Three Worlds of Welfare Capitalism</em>. Cambridge: Polity Press.
+Esping-Andersen, Gøsta. 1990. <em>The Three Worlds of Welfare Capitalism</em>. Polity Press.
 </div>
 <div id="ref-Gibler2023" class="csl-entry" role="listitem">
 Gibler, Douglas M, and Steven V Miller. 2023. <span>“The <span>Militarized Interstate Events (MIE)</span> Dataset, 1816–2014.”</span> <em>Conflict Management and Peace Science</em> forth.
@@ -934,16 +933,16 @@ Korpi, Walter, and Joakim Palme. 2003. <span>“New Politics and Class Politics 
 Raleigh, Clionadh, Andrew Linke, Håvard Hegre, and Joakim Karlsen. 2010. <span>“Introducing <span>ACLED</span>: An Armed Conflict Location and Event Dataset.”</span> <em>Journal of Peace Research</em> 47 (5): 651–60.
 </div>
 <div id="ref-Roller2005" class="csl-entry" role="listitem">
-Roller, Edeltraud. 2005. <em>The Performance of Democracies: Political Institutions and Public Policies</em>. Oxford: Oxford University Press.
+Roller, Edeltraud. 2005. <em>The Performance of Democracies: Political Institutions and Public Policies</em>. Oxford University Press.
 </div>
 <div id="ref-Scruggs2003" class="csl-entry" role="listitem">
-Scruggs, Lyle. 2003. <em>Sustaining Abundance: Environmental Performance in Industrial Democracies</em>. Cambridge: Cambridge University Press.
+Scruggs, Lyle. 2003. <em>Sustaining Abundance: Environmental Performance in Industrial Democracies</em>. Cambridge University Press.
 </div>
 <div id="ref-UCDP2014" class="csl-entry" role="listitem">
-Uppsala Conflict Data Program. 2014. <em>UCDP/PRIO Armed Conflict Dataset</em>. Uppsala: The Uppsala Conflict Data Program.
+Uppsala Conflict Data Program. 2014. <em>UCDP/PRIO Armed Conflict Dataset</em>. The Uppsala Conflict Data Program.
 </div>
 <div id="ref-Urdinez2020" class="csl-entry" role="listitem">
-Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. Boca Raton; others: CRC Press.
+Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. CRC Press.
 </div>
 <div id="ref-Vogtetal2015" class="csl-entry" role="listitem">
 Vogt, Manuel, Nils-Christian Bormann, Seraina Rüegger, Lars-Erik Cederman, Philipp Hunziker, and Luc Girardin. 2015. <span>“Integrating Data on Ethnicity, Geography, and Conflict: The Ethnic Power Relations Data Set Family.”</span> <em>Journal of Conflict Resolution</em> 59 (7): 1327–42.
@@ -969,7 +968,7 @@ Wilson, Sven E., and Daniel M. Butler. 2007. <span>“A Lot More to Do: The Sens
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-knotz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
 Knotz, Carlo. 2025. <span>“Comparing Countries with Macro-Level
-Data.”</span> March 30, 2025. <a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/">https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/</a>.
+Data.”</span> March 30. <a href="https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/">https://cknotz.github.io/getstuffdone_blog/posts/compa_countries/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

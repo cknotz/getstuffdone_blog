@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>‘I can’t find any data!’ – Testing big ideas with simple methods</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -26,7 +29,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -54,19 +56,18 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-5100b8561cd7f6cd8c35657ed6fe7ee7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-4d72738a521f03bda770c6fbcc444206.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -268,8 +269,6 @@ div.csl-indent {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Testing big ideas with simple methods</span>
     </a>
@@ -481,20 +480,20 @@ div.csl-indent {
 <li>MISSOC: Qualitative information on social security and assistance schemes in EU countries (<a href="https://www.missoc.org/" class="uri">https://www.missoc.org/</a>)</li>
 <li><a href="http://www.oecd.org/els/soc/benefitsandwagescountryspecificinformation.htm">OECD Benefits &amp; Wages</a>: Qualitative information on social security and social assistance schemes in OECD countries): Qualitative information on social security and social assistance schemes in OECD countries</li>
 <li>International Network on Leave Policies &amp; Research: Qualitative reports on maternal, paternal, and parental leave schemes (<a href="https://www.leavenetwork.org/annual-review-reports/" class="uri">https://www.leavenetwork.org/annual-review-reports/</a>)</li>
-<li>European Parenting Leave Policies Dataset (<a href="https://eplp-dataset.org/">EPLP</a>): harmonised data on maternity, co-parent, paid parental, and job-protected leave regulations across 21 European countries from 1970 to 2024 <span class="citation" data-cites="Spitzeretal2025">(<a href="#ref-Spitzeretal2025" role="doc-biblioref">Spitzer et al. 2025</a>)</span></li>
+<li>European Parenting Leave Policies Dataset (<a href="https://eplp-dataset.org/">EPLP</a>): harmonised data on maternity, co-parent, paid parental, and job-protected leave regulations across 21 European countries from 1970 to 2024 <span class="citation" data-cites="Spitzeretal2025">(<a href="#ref-Spitzeretal2025" role="doc-biblioref"><span class="nocase">Spitzer et al.</span> 2025</a>)</span></li>
 <li>European Trade Union Institute (ETUI) <a href="https://www.etui.org/outils/keywords/reforms-watch"><em>Reforms Watch</em></a>: Individual EU country dossiers with fact-based information on the state of labour market reforms, the state of pension reforms, developments in legislation on strikes and data on strike activities</li>
 <li>Social Assistance in Developing Countries Database: Summary information on social assistance interventions in developing countries (<a href="https://www.social-protection.org/gimi/gess/ShowRessource.action?ressource.ressourceId=9491" class="uri">https://www.social-protection.org/gimi/gess/ShowRessource.action?ressource.ressourceId=9491</a>)</li>
 <li>Global Welfare (<a href="https://glow.ku.edu.tr/">GLOW</a>): The database includes 381 variables on 61 countries from years between 1989 and 2015. The database has four main categories of data: welfare, development, economy and politics</li>
-<li>Education Policies and Systems across Modern History <a href="https://doi.org/10.7910/DVN/MNM5Q5">EPSM</a> dataset: measures on compulsory education, ideological guidance and content of education, governmental intervention and level of education centralization, and teacher training covering 157 countries with populations exceeding 1 million people from 1789 to the present <span class="citation" data-cites="delRioetal2024">(see also <a href="#ref-delRioetal2024" role="doc-biblioref">Del Rı́o, Knutsen, and Lutscher 2024</a>)</span></li>
+<li>Education Policies and Systems across Modern History <a href="https://doi.org/10.7910/DVN/MNM5Q5">EPSM</a> dataset: measures on compulsory education, ideological guidance and content of education, governmental intervention and level of education centralization, and teacher training covering 157 countries with populations exceeding 1 million people from 1789 to the present <span class="citation" data-cites="delRioetal2024">(see also <a href="#ref-delRioetal2024" role="doc-biblioref">Del Rı́o et al. 2024</a>)</span></li>
 <li>Global Tax Expenditures Database <a href="https://gted.net/">GTED</a>: Information on preferential tax treatments such as exemptions, deductions, credits, deferrals and reduced tax rates that are implemented by governments worldwide to promote different policy goals.</li>
 <li><a href="http://barrolee.com/">Barro-Lee Educational Attainment data</a>: Data on educational attainment per country across the world between 1950 and 2010 <span class="citation" data-cites="Barro2013">(see also <a href="#ref-Barro2013" role="doc-biblioref">Barro and Lee 2013</a>)</span></li>
-<li>See also <span class="citation" data-cites="Clasen2007a">Clasen and Siegel (<a href="#ref-Clasen2007a" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="Clasen2016">Clasen, Clegg, and Goerne (<a href="#ref-Clasen2016" role="doc-biblioref">2016</a>)</span>, and a special issue in the <em>Journal of European Public Policy</em> <span class="citation" data-cites="Wenzelburgeretal2013 Danforth2013 Scruggs2013a">(<a href="#ref-Wenzelburgeretal2013" role="doc-biblioref">Wenzelburger, Zohlnhöfer, and Wolf 2013</a>; <a href="#ref-Danforth2013" role="doc-biblioref">Danforth and Stephens 2013</a>; <a href="#ref-Scruggs2013a" role="doc-biblioref">Scruggs 2013</a>)</span> on the “dependent variable problem” in comparative social policy research</li>
+<li>See also <span class="citation" data-cites="Clasen2007a">Clasen and Siegel (<a href="#ref-Clasen2007a" role="doc-biblioref">2007</a>)</span>, <span class="citation" data-cites="Clasen2016">Clasen et al. (<a href="#ref-Clasen2016" role="doc-biblioref">2016</a>)</span>, and a special issue in the <em>Journal of European Public Policy</em> <span class="citation" data-cites="Wenzelburgeretal2013 Danforth2013 Scruggs2013a">(<a href="#ref-Wenzelburgeretal2013" role="doc-biblioref">Wenzelburger et al. 2013</a>; <a href="#ref-Danforth2013" role="doc-biblioref">Danforth and Stephens 2013</a>; <a href="#ref-Scruggs2013a" role="doc-biblioref">Scruggs 2013</a>)</span> on the “dependent variable problem” in comparative social policy research</li>
 </ul>
 </section>
 <section id="immigration-immigrant-integration" class="level3">
 <h3 class="anchored" data-anchor-id="immigration-immigrant-integration">Immigration &amp; immigrant integration</h3>
 <ul>
-<li>Citizenship rights of immigrants <span class="citation" data-cites="Koopmansetal2012">(see also <a href="#ref-Koopmansetal2012" role="doc-biblioref">Koopmans, Michalowski, and Waibel 2012</a>)</span></li>
+<li>Citizenship rights of immigrants <span class="citation" data-cites="Koopmansetal2012">(see also <a href="#ref-Koopmansetal2012" role="doc-biblioref">Koopmans et al. 2012</a>)</span></li>
 <li>Migrant Integration Policy Index <a href="http://www.mipex.eu">MIPEX</a></li>
 <li><a href="https://migrationdataportal.org/blog/impic-new-and-more-comprehensive-way-measure-immigration-policies">Migration Data Portal</a>: information on the degree of restrictiveness of immigration policies in 33 OECD countries for the period 1980–2010</li>
 <li><a href="http://www.impic-project.eu/">Immigration Policies in Comparison</a>: Quantitative indices to measure immigration policies in all OECD countries and for the time period 1980-2010. See also <span class="citation" data-cites="Helbling2013">Helbling (<a href="#ref-Helbling2013" role="doc-biblioref">2013</a>)</span> and <span class="citation" data-cites="Helbling2017">Helbling and Michalowski (<a href="#ref-Helbling2017" role="doc-biblioref">2017</a>)</span></li>
@@ -506,8 +505,8 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="technology-technological-change">Technology &amp; technological change</h3>
 <ul>
 <li>OECD <a href="https://www.oecd.org/social/risks-that-matter.htm">Risks that Matter</a> surveys: Cross-country comparative survey data, incl.&nbsp;questions on perceived vulnerability to technological change <span class="citation" data-cites="Busemeyeretal2023 Knotzetal2024b Knotz2025">(see e.g., <a href="#ref-Busemeyeretal2023" role="doc-biblioref">Busemeyer et al. 2023</a>; <a href="#ref-Knotzetal2024b" role="doc-biblioref">Knotz et al. 2024</a>; <a href="#ref-Knotz2025" role="doc-biblioref">Knotz 2025</a>)</span></li>
-<li><a href="https://euklems.eu/">EU KLEMS</a>: Economic dataset that includes data on ICT investment for many countries and years <span class="citation" data-cites="Gallegoetal2022">(used by e.g., <a href="#ref-Gallegoetal2022" role="doc-biblioref">Gallego, Kurer, and Schöll 2022</a>)</span></li>
-<li><a href="https://github.com/AIOE-Data/AIOE">AI exposure indicators</a>: Indicators measuring exposure to AI at the occupational, industry, and regional (for US) level; see <span class="citation" data-cites="Feltenetal2021">Felten, Raj, and Seamans (<a href="#ref-Feltenetal2021" role="doc-biblioref">2021</a>)</span> for details</li>
+<li><a href="https://euklems.eu/">EU KLEMS</a>: Economic dataset that includes data on ICT investment for many countries and years <span class="citation" data-cites="Gallegoetal2022">(used by e.g., <a href="#ref-Gallegoetal2022" role="doc-biblioref">Gallego et al. 2022</a>)</span></li>
+<li><a href="https://github.com/AIOE-Data/AIOE">AI exposure indicators</a>: Indicators measuring exposure to AI at the occupational, industry, and regional (for US) level; see <span class="citation" data-cites="Feltenetal2021">Felten et al. (<a href="#ref-Feltenetal2021" role="doc-biblioref">2021</a>)</span> for details</li>
 <li><a href="https://www.knowledge-economy-index.com/">Knowledge Economy Index</a>: An index that measures the degree to which countries have transitioned toward a knowledge-based economy. The index covers 22 economically advanced countries between 1995 and 2019 <span class="citation" data-cites="Diessneretal2025">(see also <a href="#ref-Diessneretal2025" role="doc-biblioref">Diessner et al. 2025</a>)</span>.</li>
 </ul>
 </section>
@@ -523,7 +522,7 @@ div.csl-indent {
 <ul>
 <li>Database on Institutional Characteristics of Trade Unions, Wage Setting, State Intervention and Social Pacts <a href="https://www.oecd.org/en/data/datasets/oecdaias-ictwss-database.html">ICTWSS</a></li>
 <li><a href="http://www.ewcdb.eu/">European Works Councils Database</a>: Information on works councils in European and multinational companies, on EU and national-level works council legislation, and on relevant court cases (EU and national level)</li>
-<li><a href="https://doi.org/10.5255/UKDA-Series-200012">European Company Survey</a>: Comparative survey on businesses in Europe <span class="citation" data-cites="Lehretal2023">(see also <a href="#ref-Lehretal2023" role="doc-biblioref">Lehr, Jansen, and Brandl 2023</a>)</span></li>
+<li><a href="https://doi.org/10.5255/UKDA-Series-200012">European Company Survey</a>: Comparative survey on businesses in Europe <span class="citation" data-cites="Lehretal2023">(see also <a href="#ref-Lehretal2023" role="doc-biblioref">Lehr et al. 2023</a>)</span></li>
 <li>European Observatory of Working Life (<a href="http://www.eurofound.europa.eu/observatories/eurwork">EurWORK</a>)</li>
 </ul>
 
@@ -533,7 +532,7 @@ div.csl-indent {
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Barro2013" class="csl-entry" role="listitem">
 Barro, Robert J, and Jong Wha Lee. 2013. <span>“A New Data Set of Educational Attainment in the World, 1950–2010.”</span> <em>Journal of Development Economics</em> 104: 184–98.
 </div>
@@ -547,7 +546,7 @@ Busemeyer, Marius R., Mia Gandenberger, Carlo Knotz, and Tobias Tober. 2023. <sp
 Clasen, Jochen, Daniel Clegg, and Alexander Goerne. 2016. <span>“Comparative Social Policy Analysis and Active Labour Market Policy: Putting Quality Before Quantity.”</span> <em>Journal of Social Policy</em> 45 (1): 21–38.
 </div>
 <div id="ref-Clasen2007a" class="csl-entry" role="listitem">
-Clasen, Jochen, and Nico A. Siegel, eds. 2007. <em>Investigating Welfare State Change: The <span>“Dependent Variable Problem”</span> in Comparative Analysis</em>. Cheltenham: Edward Elgar.
+Clasen, Jochen, and Nico A. Siegel, eds. 2007. <em>Investigating Welfare State Change: The <span>“Dependent Variable Problem”</span> in Comparative Analysis</em>. Edward Elgar.
 </div>
 <div id="ref-Danforth2013" class="csl-entry" role="listitem">
 Danforth, Benjamin, and John D. Stephens. 2013. <span>“Measuring Social Citizenship: Achievements and Future Challenges.”</span> <em>Journal of European Public Policy</em> 20 (9): 1285–98.
@@ -565,10 +564,10 @@ Diessner, Sebastian, Niccolo Durazzi, Federico Filetti, David Hope, Hanna Kleide
 Fafalios, Pavlos, Vasileios Iosifidis, Eirini Ntoutsi, and Stefan Dietze. 2018. <span>“Tweets<span>KB</span>: <span>A</span> Public and Large-Scale <span>RDF</span> Corpus of Annotated Tweets.”</span> <em>arXiv Preprint</em> 1810.10308.
 </div>
 <div id="ref-Feltenetal2021" class="csl-entry" role="listitem">
-Felten, Edward, Manav Raj, and Robert Seamans. 2021. <span>“Occupational, Industry, and Geographic Exposure to Artificial Intelligence: A Novel Dataset and Its Potential Uses.”</span> <em>Strategic Management Journal</em> 42 (12): 2195–2217.
+Felten, Edward, Manav Raj, and Robert Seamans. 2021. <span>“Occupational, Industry, and Geographic Exposure to Artificial Intelligence: A Novel Dataset and Its Potential Uses.”</span> <em>Strategic Management Journal</em> 42 (12): 2195–217.
 </div>
 <div id="ref-Finneyetal2023" class="csl-entry" role="listitem">
-Finney, Nissa, James Nazroo, Laia Bécares, Dharmi Kapadia, and Natalie Shlomo, eds. 2023. <em>Racism and Ethnic Inequality in a Time of Crisis</em>. Bristol: Policy Press.
+Finney, Nissa, James Nazroo, Laia Bécares, Dharmi Kapadia, and Natalie Shlomo, eds. 2023. <em>Racism and Ethnic Inequality in a Time of Crisis</em>. Policy Press.
 </div>
 <div id="ref-Gallegoetal2022" class="csl-entry" role="listitem">
 Gallego, Aina, Thomas Kurer, and Nikolas Schöll. 2022. <span>“Neither Left Behind nor Superstar: Ordinary Winners of Digitalization at the Ballot Box.”</span> <em>The Journal of Politics</em> 84 (1): 418–36.
@@ -601,19 +600,19 @@ Lehr, Alex, Giedo Jansen, and Bernd Brandl. 2023. <span>“All about Power After
 Nyrup, Jacob, and Stuart Bramwell. 2020. <span>“Who Governs? A New Global Dataset on Members of Cabinets.”</span> <em>American Political Science Review</em> 114 (4): 1366–74.
 </div>
 <div id="ref-Piketty2014" class="csl-entry" role="listitem">
-Piketty, Thomas. 2014. <em>Capital in the Twenty-First Century</em>. Cambridge, MA; London: The Belknap Press of Harvard University Press.
+Piketty, Thomas. 2014. <em>Capital in the Twenty-First Century</em>. The Belknap Press of Harvard University Press.
 </div>
 <div id="ref-Scruggs2013a" class="csl-entry" role="listitem">
 Scruggs, Lyle. 2013. <span>“Measuring and Validating Social Program Replacement Rates.”</span> <em>Journal of European Public Policy</em> 20 (9): 1267–84.
 </div>
 <div id="ref-Solano2022a" class="csl-entry" role="listitem">
-Solano, Giacomo, and Thomas Huddleston. 2022. <span>“Migration Policy Indicators.”</span> In <em>Introduction to Migration Studies: An Interactive Guide to the Literatures on Migration and Diversity</em>, edited by Peter Scholten, 389–407. Cham: Springer.
+Solano, Giacomo, and Thomas Huddleston. 2022. <span>“Migration Policy Indicators.”</span> In <em>Introduction to Migration Studies: An Interactive Guide to the Literatures on Migration and Diversity</em>, edited by Peter Scholten. Springer.
 </div>
 <div id="ref-Spitzeretal2025" class="csl-entry" role="listitem">
-Spitzer, Sonja, Adèle Lemoine, Zhanxiong Song, Claudia Reiter, Angela Greulich, Angela Herlitz, Alžběta Bártová, et al. 2025. <em><span>The European Parenting Leave Policies (EPLP) Dataset</span></em>. Vienna Institute of Demography, Austrian Academy of Sciences.
+<span class="nocase">Spitzer, Sonja, Adèle Lemoine, Zhanxiong Song, et al.</span> 2025. <em><span>The European Parenting Leave Policies (EPLP) Dataset</span></em>. Vienna Institute of Demography, Austrian Academy of Sciences.
 </div>
 <div id="ref-Turneretal2022" class="csl-entry" role="listitem">
-Turner-Zwinkels, Tomas, Oliver Huwyler, Elena Frech, Philip Manow, Stefanie Bailer, Niels D Goet, and Simon Hug. 2022. <span>“Parliaments Day-by-Day: A New <span>Open Source</span> Database to Answer the Question of Who Was in What Parliament, Party, and Party-Group, and When.”</span> <em>Legislative Studies Quarterly</em> 47 (3): 761–84.
+Turner-Zwinkels, Tomas, Oliver Huwyler, Elena Frech, et al. 2022. <span>“Parliaments Day-by-Day: A New <span>Open Source</span> Database to Answer the Question of Who Was in What Parliament, Party, and Party-Group, and When.”</span> <em>Legislative Studies Quarterly</em> 47 (3): 761–84.
 </div>
 <div id="ref-Wenzelburgeretal2013" class="csl-entry" role="listitem">
 Wenzelburger, Georg, Reimut Zohlnhöfer, and Frieder Wolf. 2013. <span>“Implications of Dataset Choice in Comparative Welfare State Research.”</span> <em>Journal of European Public Policy</em> 20 (9): 1229–50.
@@ -633,7 +632,7 @@ Wenzelburger, Georg, Reimut Zohlnhöfer, and Frieder Wolf. 2013. <span>“Implic
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-knotz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
 Knotz, Carlo. 2025. <span>“<span>‘I Can’t Find Any Data!’</span>”</span>
-April 6, 2025. <a href="https://cknotz.github.io/getstuffdone_blog/posts/datasources/">https://cknotz.github.io/getstuffdone_blog/posts/datasources/</a>.
+April 6. <a href="https://cknotz.github.io/getstuffdone_blog/posts/datasources/">https://cknotz.github.io/getstuffdone_blog/posts/datasources/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

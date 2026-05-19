@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>Regression analyses with macro-level data – Testing big ideas with simple methods</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -61,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,19 +91,18 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-5100b8561cd7f6cd8c35657ed6fe7ee7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-4d72738a521f03bda770c6fbcc444206.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -134,7 +135,7 @@ div.csl-indent {
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -335,8 +336,6 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Testing big ideas with simple methods</span>
     </a>
@@ -465,13 +464,13 @@ window.Quarto = {
 <li>Fixed- vs.&nbsp;random- vs.&nbsp;between-effects regression models</li>
 <li>Integration &amp; cointegration (or, relatedly, unit roots and stationarity/non-stationarity)</li>
 </ul>
-<p>The last ones, integration and co-integration, are concepts from time series analysis methods <span class="citation" data-cites="Box-Steffensmeieretal2014">(see e.g., <a href="#ref-Box-Steffensmeieretal2014" role="doc-biblioref">J. M. Box-Steffensmeier et al. 2014</a>)</span> and they refer, simply put, to how variables change over time: Some variables change smoothly over time and tend to return to a given stable equilibrium value, while others behave erratically and change in sudden (seemingly random) “fits and starts”. The former are considered “stationary”, the latter are considered to have “unit roots”. There is an older (and very short) article that illustrates the concept of unit roots, integration, and co-integration brilliantly with an analogy of a drunk and her dog <span class="citation" data-cites="Murray1994">(<a href="#ref-Murray1994" role="doc-biblioref">Murray 1994</a>)</span>, and I would refer you to that one for further reading.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>The last ones, integration and co-integration, are concepts from time series analysis methods <span class="citation" data-cites="Box-Steffensmeieretal2014">(see e.g., <a href="#ref-Box-Steffensmeieretal2014" role="doc-biblioref">Box-Steffensmeier et al. 2014</a>)</span> and they refer, simply put, to how variables change over time: Some variables change smoothly over time and tend to return to a given stable equilibrium value, while others behave erratically and change in sudden (seemingly random) “fits and starts”. The former are considered “stationary”, the latter are considered to have “unit roots”. There is an older (and very short) article that illustrates the concept of unit roots, integration, and co-integration brilliantly with an analogy of a drunk and her dog <span class="citation" data-cites="Murray1994">(<a href="#ref-Murray1994" role="doc-biblioref">Murray 1994</a>)</span>, and I would refer you to that one for further reading.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>The rest of this post will therefore go over the other three aspects with a focus on the main regression models for TSCS and the ideas behind them. You’ll also learn about <em>panel-corrected standard errors</em> (PCSEs), a key element in (political science) analyses of TSCS data <span class="citation" data-cites="Beck1995">Beck and Katz (<a href="#ref-Beck1996" role="doc-biblioref">1996</a>)</span>. First, however, we will go over the structure of TSCS data and the types of variation they contain. We will use both artificial data and the <em>Comparative Political Data Set</em> <span class="citation" data-cites="CPDS24">(<a href="#ref-CPDS24" role="doc-biblioref">Armingeon et al. 2024</a>)</span> to illustrate the main points.</p>
 <p>I should add that there are already other (excellent) introductory explanations of how to work with TSCS data in <code>R</code> by Urdinez &amp; Cruz <span class="citation" data-cites="Urdinez2020">(<a href="#ref-Urdinez2020" role="doc-biblioref">2020, chap. 7</a>)</span> and Heiss <span class="citation" data-cites="Heiss2020">(<a href="#ref-Heiss2020" role="doc-biblioref">2020, chap. 13</a> &amp; 14)</span>, but they lack (in my opinion) a user-friendly and easy conceptual introduction to the ideas behind the main regression models for TSCS and panel data. Working with these models and TSCS data becomes a lot easier once one understands these ideas (and the relatively simple math) behind these regression models.</p>
 </section>
 <section id="variation-in-tscs-data" class="level2">
 <h2 class="anchored" data-anchor-id="variation-in-tscs-data">Variation in TSCS data</h2>
-<p>Time series cross-sectional data contain observations of multiple <em>units</em> (usually countries) over some period of <em>time</em> (usually years). This means that this type of data can capture two basic forms of variation <span class="citation" data-cites="Kellstedt2018">(see also <a href="#ref-Kellstedt2018" role="doc-biblioref">Kellstedt and Whitten 2018, chap. 2.3</a>)</span>:</p>
+<p>Time series cross-sectional data contain observations of multiple <em>units</em> (usually countries) over some period of <em>time</em> (usually years). This means that this type of data can capture two basic forms of variation <span class="citation" data-cites="Kellstedt2018">(see also <a href="#ref-Kellstedt2018" role="doc-biblioref">Kellstedt and Whitten 2018, 2.3</a>)</span>:</p>
 <ul>
 <li>Differences between <em>units</em>: Cross-sectional variation</li>
 <li>Changes over <em>time</em>: Longitudinal variation</li>
@@ -485,7 +484,7 @@ window.Quarto = {
 </div>
 <p>We will focus on two variables from the dataset for now:</p>
 <ul>
-<li><code>structur</code>, which measures the “rigidity” of countries’ political instititions, a.k.a., the number of “checks and balances” that make introducing reforms easier or more difficult <span class="citation" data-cites="Huber1993 Immergut1992a Immergut1990 Tsebelis2002">(see also <a href="#ref-Huber1993" role="doc-biblioref">Huber, Ragin, and Stephens 1993</a>; <a href="#ref-Immergut1992a" role="doc-biblioref">Ellen M. Immergut 1992</a>; <a href="#ref-Immergut1990" role="doc-biblioref">Ellen M. Immergut 1990</a>; <a href="#ref-Tsebelis2002" role="doc-biblioref">Tsebelis 2002</a>)</span></li>
+<li><code>structur</code>, which measures the “rigidity” of countries’ political instititions, a.k.a., the number of “checks and balances” that make introducing reforms easier or more difficult <span class="citation" data-cites="Huber1993 Immergut1992a Immergut1990 Tsebelis2002">(see also <a href="#ref-Huber1993" role="doc-biblioref">Huber et al. 1993</a>; <a href="#ref-Immergut1992a" role="doc-biblioref">Immergut 1992</a>; <a href="#ref-Immergut1990" role="doc-biblioref">Immergut 1990</a>; <a href="#ref-Tsebelis2002" role="doc-biblioref">Tsebelis 2002</a>)</span></li>
 <li><code>oldage_pmp</code>, which measures the amount of government spending on old-age pensions in percent of countries’ gross domestic product <span class="citation" data-cites="Adema2009 Castles2007">(see also <a href="#ref-Adema2009" role="doc-biblioref">Adema and Ladaique 2009</a>; <a href="#ref-Castles2007" role="doc-biblioref">Castles and Obinger 2007</a>)</span></li>
 </ul>
 <section id="cross-sectional-variation" class="level3">
@@ -1114,15 +1113,15 @@ Num. obs.     9                        9                    9
 </ul>
 <p>Because these models focus on different types of variation, you use them for different types of analyses. As always, <strong>which model you use depends on the theory or hypothesis you want to test</strong>.</p>
 <p>First, you might be interested in stable differences between countries or in the effects of variables that rarely or never change over time. Political institutions are the textbook example for the latter (as shown above). They basically never change, which means they are a stable <em>cross-sectional</em> feature of different countries.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> In such cases, <strong>when you are interested in stable cross-sectional variation, you should use the between-effects model</strong>. For example, Iversen and Soskice <span class="citation" data-cites="Iversen2006">(<a href="#ref-Iversen2006" role="doc-biblioref">2006</a>)</span> used the between-effects regression model in their study of the effects of electoral systems on government redistribution.</p>
-<p>A second scenario is that you are interested in <strong>longitudinal/over-time changes</strong>. For example, an older literature in political science and sociology was interested in how economic globalization (increases in international trade and financial transactions across countries) affects the welfare state <span class="citation" data-cites="Cerny1997 Sassen1996 Iversen2000 Burgoon2001 Garrett2001 Brady2005a">(<a href="#ref-Cerny1997" role="doc-biblioref">Cerny 1997</a>; <a href="#ref-Sassen1996" role="doc-biblioref">Sassen 1996</a>; <a href="#ref-Iversen2000" role="doc-biblioref">Iversen and Cusack 2000</a>; <a href="#ref-Burgoon2001" role="doc-biblioref">Burgoon 2001</a>; <a href="#ref-Garrett2001" role="doc-biblioref">Garrett and Mitchell 2001</a>; <a href="#ref-Brady2005a" role="doc-biblioref">Brady, Beckfield, and Seeleib-Kaiser 2005</a>)</span>. In that case, <strong>the fixed-effects model would be a natural choice</strong> because it focuses the analysis on over-time changes (how increased globalization leads to changes in welfare state institutions or outcomes) and removes the effects of stable country differences. You can estimate the fixed-effects model either by including dummy-variables for your countries (or other cross-sectional units) or with the “official” <em>within</em> estimator built into the <code>plm</code> package (as shown above.)</p>
-<p>Third, there are some who still prefer the “pooling” model <span class="citation" data-cites="Huber1993 Huber2000 Huber2001">(e.g., <a href="#ref-Huber1993" role="doc-biblioref">Huber, Ragin, and Stephens 1993</a>; <a href="#ref-Huber2000" role="doc-biblioref">Huber and Stephens 2000</a>, <a href="#ref-Huber2001" role="doc-biblioref">2001</a>)</span>, and it can indeed be an appropriate model for some types of analyses. One case would be when you are doing analyses that look at between-country and longitudinal variation <em>simultaneously</em> (e.g., when you are interested in how patterns of change differ between countries). For example, you might be interested in how the effect of globalization on welfare states (longitudinal variation) <em>depends on</em> political institutions (cross-sectional variation).<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> Still, you need to be cautious when you use the “pooling” model <span class="citation" data-cites="Wilson2007">(see also <a href="#ref-Wilson2007" role="doc-biblioref">Wilson and Butler 2007, 104–5</a>)</span>.</p>
+<p>A second scenario is that you are interested in <strong>longitudinal/over-time changes</strong>. For example, an older literature in political science and sociology was interested in how economic globalization (increases in international trade and financial transactions across countries) affects the welfare state <span class="citation" data-cites="Cerny1997 Sassen1996 Iversen2000 Burgoon2001 Garrett2001 Brady2005a">(<a href="#ref-Cerny1997" role="doc-biblioref">Cerny 1997</a>; <a href="#ref-Sassen1996" role="doc-biblioref">Sassen 1996</a>; <a href="#ref-Iversen2000" role="doc-biblioref">Iversen and Cusack 2000</a>; <a href="#ref-Burgoon2001" role="doc-biblioref">Burgoon 2001</a>; <a href="#ref-Garrett2001" role="doc-biblioref">Garrett and Mitchell 2001</a>; <a href="#ref-Brady2005a" role="doc-biblioref">Brady et al. 2005</a>)</span>. In that case, <strong>the fixed-effects model would be a natural choice</strong> because it focuses the analysis on over-time changes (how increased globalization leads to changes in welfare state institutions or outcomes) and removes the effects of stable country differences. You can estimate the fixed-effects model either by including dummy-variables for your countries (or other cross-sectional units) or with the “official” <em>within</em> estimator built into the <code>plm</code> package (as shown above.)</p>
+<p>Third, there are some who still prefer the “pooling” model <span class="citation" data-cites="Huber1993 Huber2000 Huber2001">(e.g., <a href="#ref-Huber1993" role="doc-biblioref">Huber et al. 1993</a>; <a href="#ref-Huber2000" role="doc-biblioref">Huber and Stephens 2000</a>, <a href="#ref-Huber2001" role="doc-biblioref">2001</a>)</span>, and it can indeed be an appropriate model for some types of analyses. One case would be when you are doing analyses that look at between-country and longitudinal variation <em>simultaneously</em> (e.g., when you are interested in how patterns of change differ between countries). For example, you might be interested in how the effect of globalization on welfare states (longitudinal variation) <em>depends on</em> political institutions (cross-sectional variation).<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> Still, you need to be cautious when you use the “pooling” model <span class="citation" data-cites="Wilson2007">(see also <a href="#ref-Wilson2007" role="doc-biblioref">Wilson and Butler 2007, 104–5</a>)</span>.</p>
 </section>
 </section>
 <section id="estimation-issues-panel-corrected-standard-errors" class="level2">
 <h2 class="anchored" data-anchor-id="estimation-issues-panel-corrected-standard-errors">Estimation issues &amp; <em>panel-corrected standard errors</em></h2>
 <section id="ols-assumptions-and-why-they-will-usually-not-hold-in-the-case-of-tscs-data" class="level3">
 <h3 class="anchored" data-anchor-id="ols-assumptions-and-why-they-will-usually-not-hold-in-the-case-of-tscs-data">OLS assumptions and why they will usually not hold in the case of TSCS data</h3>
-<p>You might remember that a standard linear regression (OLS) model is based on a few critical assumptions about the underlying data <span class="citation" data-cites="Kellstedt2018">(see e.g., <a href="#ref-Kellstedt2018" role="doc-biblioref">Kellstedt and Whitten 2018, chap. 9.5</a>)</span>. One of these assumptions is <em>no autocorrelation</em>: Two different observations in your dataset cannot be related to each other. In a survey dataset, where all observations are individual and randomly sampled people from different parts of a given country, this assumption is plausible: Respondent #1 is not directly connected to respondent #2, so the data from respondent #1 are not correlated with those from respondent number #2.</p>
+<p>You might remember that a standard linear regression (OLS) model is based on a few critical assumptions about the underlying data <span class="citation" data-cites="Kellstedt2018">(see e.g., <a href="#ref-Kellstedt2018" role="doc-biblioref">Kellstedt and Whitten 2018, 9.5</a>)</span>. One of these assumptions is <em>no autocorrelation</em>: Two different observations in your dataset cannot be related to each other. In a survey dataset, where all observations are individual and randomly sampled people from different parts of a given country, this assumption is plausible: Respondent #1 is not directly connected to respondent #2, so the data from respondent #1 are not correlated with those from respondent number #2.</p>
 <p>A second assumption is that of <em>homoscedasticity</em>, meaning that there cannot any form of pattern in the residuals (usually called <span class="math inline">\(\epsilon_i\)</span>) from the regression model, i.e., the unexplained variation that the model does not pick up. No regression model will fit a given dataset perfectly, and there are always some observations that are well-explained by the model and that lie on or close to the regression line, and other observations that are “weird” and lie far away from the regression line. This is not a problem as long as there is no systematic pattern to these deviations from the regression line. The graph on the left in <a href="#fig-homo" class="quarto-xref">Figure&nbsp;5</a> visualizes this ideal case.</p>
 <div id="fig-homo" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1460,7 +1459,7 @@ Num. obs.   1129
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Adema2009" class="csl-entry" role="listitem">
 Adema, Willem, and Maxime Ladaique. 2009. <span>“How Expensive Is the Welfare State?: Gross and Net Indicators in the <span>OECD Social Expenditure Database (SOCX)</span>.”</span> <em>OECD Social, Employment and Migration Working Papers</em> 92.
 </div>
@@ -1471,7 +1470,7 @@ Arellano, Manuel, and Stephen Bond. 1991. <span>“Some Tests of Specification f
 Arellano, Manuel, and Olympia Bover. 1995. <span>“Another Look at the Instrumental Variable Estimation of Error-Components Models.”</span> <em>Journal of Econometrics</em> 68 (1): 29–51.
 </div>
 <div id="ref-CPDS24" class="csl-entry" role="listitem">
-Armingeon, Klaus, Sarah Engler, Lucas Leemann, and David Weisstanner. 2024. <em>Comparative Political Data Set 1960-2022</em>. Zurich, Lueneburg, &amp; Lucerne: University of Zurich, Leuphana University Lueneburg,; University of Lucerne.
+Armingeon, Klaus, Sarah Engler, Lucas Leemann, and David Weisstanner. 2024. <em>Comparative Political Data Set 1960-2022</em>. University of Zurich, Leuphana University Lueneburg,; University of Lucerne.
 </div>
 <div id="ref-Bailey2011" class="csl-entry" role="listitem">
 Bailey, Delia, and Jonathan N. Katz. 2011. <span>“Implementing Panel Corrected Standard Errors in <span>R</span>: The <span class="nocase">pcse</span> Package.”</span> <em>Journal of Statistical Software</em> 42 (CS1): 1–11.
@@ -1480,10 +1479,10 @@ Bailey, Delia, and Jonathan N. Katz. 2011. <span>“Implementing Panel Corrected
 Beck, Nathaniel. 2001. <span>“Time-Series-Cross-Section Data: What Have We Learned in the Past Few Years?”</span> <em>Annual Review of Political Science</em> 4: 271–93.
 </div>
 <div id="ref-Beck2008" class="csl-entry" role="listitem">
-———. 2008. <span>“Time-Series Cross-Section Methods.”</span> In <em>The Oxford Handbook of Political Methodology</em>, edited by Janet M. Box-Steffensmeier, Henry E. Brady, and David Collier, 475–93. Oxford: Oxford University Press.
+Beck, Nathaniel. 2008. <span>“Time-Series Cross-Section Methods.”</span> In <em>The Oxford Handbook of Political Methodology</em>, edited by Janet M. Box-Steffensmeier, Henry E. Brady, and David Collier. Oxford University Press.
 </div>
 <div id="ref-Beck2011" class="csl-entry" role="listitem">
-———. 2011. <span>“Of Fixed-Effects and Time-Invariant Variables.”</span> <em>Political Analysis</em> 19 (2): 119–22.
+Beck, Nathaniel. 2011. <span>“Of Fixed-Effects and Time-Invariant Variables.”</span> <em>Political Analysis</em> 19 (2): 119–22.
 </div>
 <div id="ref-Becketal2006" class="csl-entry" role="listitem">
 Beck, Nathaniel, Kristian Skrede Gleditsch, and Kyle Beardsley. 2006. <span>“Space Is More Than Geography: Using Spatial Econometrics in the Study of Political Economy.”</span> <em>International Studies Quarterly</em> 50 (1): 27–44.
@@ -1492,7 +1491,7 @@ Beck, Nathaniel, Kristian Skrede Gleditsch, and Kyle Beardsley. 2006. <span>“S
 Beck, Nathaniel, and Jonathan N. Katz. 1995. <span>“What to Do (and Not Do Do) with Time-Series Cross-Section Data.”</span> <em>American Political Science Review</em> 89 (3): 634–47.
 </div>
 <div id="ref-Beck1996" class="csl-entry" role="listitem">
-———. 1996. <span>“Nuisance Vs. Substance: Specifying and Estimating Time-Series-Cross-Section Models.”</span> <em>Political Analysis</em> 6 (1): 1–36.
+Beck, Nathaniel, and Jonathan N. Katz. 1996. <span>“Nuisance Vs. Substance: Specifying and Estimating Time-Series-Cross-Section Models.”</span> <em>Political Analysis</em> 6 (1): 1–36.
 </div>
 <div id="ref-Beck1998a" class="csl-entry" role="listitem">
 Beck, Nathaniel, Jonathan N. Katz, and Richard Tucker. 1998. <span>“Taking Time Seriously: Time-Series-Cross-Section Analysis with a Binary Dependent Variable.”</span> <em>American Journal of Political Science</em> 42 (4): 1260–88.
@@ -1501,10 +1500,10 @@ Beck, Nathaniel, Jonathan N. Katz, and Richard Tucker. 1998. <span>“Taking Tim
 Blundell, Richard, and Stephen Bond. 1998. <span>“Initial Conditions and Moment Restrictions in Dynamic Panel Data Models.”</span> <em>Journal of Econometrics</em> 87 (1): 115–43.
 </div>
 <div id="ref-Bonoli2001" class="csl-entry" role="listitem">
-Bonoli, Giuliano. 2001. <span>“Political Institutions, Veto Points, and the Process of Welfare State Adaptation.”</span> In <em>The New Politics of the Welfare State</em>, edited by Paul Pierson, 237–64. Oxford: Oxford University Press.
+Bonoli, Giuliano. 2001. <span>“Political Institutions, Veto Points, and the Process of Welfare State Adaptation.”</span> In <em>The New Politics of the Welfare State</em>, edited by Paul Pierson. Oxford University Press.
 </div>
 <div id="ref-Box-Steffensmeieretal2014" class="csl-entry" role="listitem">
-Box-Steffensmeier, Janet M., John R. Freeman, Matthew P. Hitt, and Jon C. Pevehouse. 2014. <em>Time Series Analysis for the Social Sciences</em>. Cambridge: Cambridge University Press.
+Box-Steffensmeier, Janet M., John R. Freeman, Matthew P. Hitt, and Jon C. Pevehouse. 2014. <em>Time Series Analysis for the Social Sciences</em>. Cambridge University Press.
 </div>
 <div id="ref-Box-Steffensmeier2016" class="csl-entry" role="listitem">
 Box-Steffensmeier, Janet, and Agnar Freyr Helgason. 2016. <span>“Introduction to Symposium on Time Series Error Correction Methods in Political Science.”</span> <em>Political Analysis</em> 24 (1): 1–2.
@@ -1537,7 +1536,7 @@ De Boef, Suzanna, and Luke Keele. 2008. <span>“Taking Time Seriously.”</span
 Enns, Peter K, Nathan J. Kelly, Takaaki Masaki, and Patrick C. Wohlfarth. 2016. <span>“Don’t Jettison the General Error Correction Model Just yet: A Practical Guide to Avoiding Spurious Regression with the GECM.”</span> <em>Research &amp; Politics</em> 3 (2): 1–13.
 </div>
 <div id="ref-Esping-Andersen1990" class="csl-entry" role="listitem">
-Esping-Andersen, Gøsta. 1990. <em>The Three Worlds of Welfare Capitalism</em>. Cambridge: Polity Press.
+Esping-Andersen, Gøsta. 1990. <em>The Three Worlds of Welfare Capitalism</em>. Polity Press.
 </div>
 <div id="ref-Garrett2001" class="csl-entry" role="listitem">
 Garrett, Geoffrey, and Deborah Mitchell. 2001. <span>“Globalization, Government Spending and Taxation in the <span>OECD</span>.”</span> <em>European Journal of Political Research</em> 39 (2): 145–77.
@@ -1558,25 +1557,25 @@ Huber, Evelyne, Charles Ragin, and John D. Stephens. 1993. <span>“Social Democ
 Huber, Evelyne, and John D. Stephens. 2000. <span>“Partisan Governance, Women’s Employment, and the <span>Social Democratic</span> Service State.”</span> <em>American Sociological Review</em> 65 (3): 323–42.
 </div>
 <div id="ref-Huber2001" class="csl-entry" role="listitem">
-———. 2001. <em>Development and Crisis of the Welfare State</em>. Chicago: Chicago University Press.
+Huber, Evelyne, and John D. Stephens. 2001. <em>Development and Crisis of the Welfare State</em>. Chicago University Press.
 </div>
 <div id="ref-Immergut1990" class="csl-entry" role="listitem">
 Immergut, Ellen M. 1990. <span>“Institutions, Veto Points, and Policy Results: A Comparative Analysis of Health Care.”</span> <em>Journal of Public Policy</em> 10 (4): 391–416.
 </div>
 <div id="ref-Immergut1992a" class="csl-entry" role="listitem">
-Immergut, Ellen M. 1992. <em>Health Politics: Interests and Institutions in Western Europe</em>. Cambridge: Cambridge University Press.
+Immergut, Ellen M. 1992. <em>Health Politics: Interests and Institutions in Western Europe</em>. Cambridge University Press.
 </div>
 <div id="ref-Iversen2000" class="csl-entry" role="listitem">
 Iversen, Torben, and Thomas R. Cusack. 2000. <span>“The Causes of Welfare State Expansion: Deindustrialization or Globalization?”</span> <em>World Politics</em> 52 (3): 313–49.
 </div>
 <div id="ref-Iversen2010" class="csl-entry" role="listitem">
-Iversen, Torben, and Frances Rosenbluth. 2010. <em>Women, Work, &amp; Politics: The Political Economy of Gender Inequality</em>. New Haven; London: Yale University Press.
+Iversen, Torben, and Frances Rosenbluth. 2010. <em>Women, Work, &amp; Politics: The Political Economy of Gender Inequality</em>. Yale University Press.
 </div>
 <div id="ref-Iversen2006" class="csl-entry" role="listitem">
 Iversen, Torben, and David Soskice. 2006. <span>“Electoral Institutions and the Politics of Coalitions: Why Some Democracies Redistribute More Than Others.”</span> <em>American Political Science Review</em> 100 (2): 165–81.
 </div>
 <div id="ref-Kellstedt2018" class="csl-entry" role="listitem">
-Kellstedt, Paul M, and Guy D Whitten. 2018. <em>The Fundamentals of Political Science Research</em>. Cambridge: Cambridge University Press.
+Kellstedt, Paul M, and Guy D Whitten. 2018. <em>The Fundamentals of Political Science Research</em>. Cambridge University Press.
 </div>
 <div id="ref-Korpi1989" class="csl-entry" role="listitem">
 Korpi, Walter. 1989. <span>“Power, Politics, and State Autonomy in the Development of Social Citizenship: Social Rights During Sickness in Eighteen <span>OECD</span> Countries Since 1930.”</span> <em>American Sociological Review</em> 54 (3): 309–28.
@@ -1615,25 +1614,25 @@ Plümper, Thomas, and Vera E. Troeger. 2007. <span>“Efficient Estimation of Ti
 Plümper, Thomas, Vera E. Troeger, and Philip Manow. 2005. <span>“Panel Data Analysis in Comparative Politics: Linking Method to Theory.”</span> <em>European Journal of Political Research</em> 44 (2): 327–254.
 </div>
 <div id="ref-Sassen1996" class="csl-entry" role="listitem">
-Sassen, Saskia. 1996. <em>Losing Control?: Sovereignty in the Age of Globalization</em>. New York: Columbia University Press.
+Sassen, Saskia. 1996. <em>Losing Control?: Sovereignty in the Age of Globalization</em>. Columbia University Press.
 </div>
 <div id="ref-Stimson1985" class="csl-entry" role="listitem">
 Stimson, James A. 1985. <span>“Regression in Space and Time: A Statistical Essay.”</span> <em>American Journal of Political Science</em> 29 (4): 914–47.
 </div>
 <div id="ref-Swank2001" class="csl-entry" role="listitem">
-Swank, Duane. 2001. <span>“Political Institutions and Welfare State Restructuring: The Impact of Institutions on Social Policy Change in Developed Democracies.”</span> In <em>The New Politics of the Welfare State</em>, edited by Paul Pierson, 197–237. Oxford: Oxford University Press.
+Swank, Duane. 2001. <span>“Political Institutions and Welfare State Restructuring: The Impact of Institutions on Social Policy Change in Developed Democracies.”</span> In <em>The New Politics of the Welfare State</em>, edited by Paul Pierson. Oxford University Press.
 </div>
 <div id="ref-Tsebelis2002" class="csl-entry" role="listitem">
-Tsebelis, George. 2002. <em>Veto Players: How Political Institutions Work</em>. Princeton: Princeton University Press.
+Tsebelis, George. 2002. <em>Veto Players: How Political Institutions Work</em>. Princeton University Press.
 </div>
 <div id="ref-Urdinez2020" class="csl-entry" role="listitem">
-Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. Boca Raton; others: CRC Press.
+Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. CRC Press.
 </div>
 <div id="ref-Walter2010" class="csl-entry" role="listitem">
 Walter, Stefanie. 2010. <span>“Globalization and the Welfare State: Testing the Microfoundations of the Compensation Hypothesis.”</span> <em>International Studies Quarterly</em> 54 (2): 403–26.
 </div>
 <div id="ref-Wilensky1958" class="csl-entry" role="listitem">
-Wilensky, Harold L., and Charles Nathan Lebeaux. 1958. <em>Industrial Society and Social Walfare: The Impact of Industrialization on the Supply and Organization of Social Welfare Services in the United States</em>. New York: Russell Sage.
+Wilensky, Harold L., and Charles Nathan Lebeaux. 1958. <em>Industrial Society and Social Walfare: The Impact of Industrialization on the Supply and Organization of Social Welfare Services in the United States</em>. Russell Sage.
 </div>
 <div id="ref-Wilson2007" class="csl-entry" role="listitem">
 Wilson, Sven E., and Daniel M. Butler. 2007. <span>“A Lot More to Do: The Sensitivity of Time-Series Cross-Section Analyses to Simple Alternative Specifications.”</span> <em>Political Analysis</em> 15 (2): 101–23.
@@ -1641,8 +1640,8 @@ Wilson, Sven E., and Daniel M. Butler. 2007. <span>“A Lot More to Do: The Sens
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>The discussion among political science methodologists on how to correctly analyze TSCS data was strongly based on techniques for panel data analysis <span class="citation" data-cites="Beck2001 Beck1995 Beck1996 Beck2011 Beck1998a Becketal2006 Beck2008 Beck2011 Stimson1985 Plumperetal2005 Plumpertroeger2007 DeBoef2008 Wilson2007">(see <a href="#ref-Beck2001" role="doc-biblioref">Beck 2001</a>, <a href="#ref-Beck2011" role="doc-biblioref">2011</a>, <a href="#ref-Beck2008" role="doc-biblioref">2008</a>, <a href="#ref-Beck2011" role="doc-biblioref">2011</a>; <a href="#ref-Beck1995" role="doc-biblioref">Beck and Katz 1995</a>, <a href="#ref-Beck1996" role="doc-biblioref">1996</a>; <a href="#ref-Beck1998a" role="doc-biblioref">Beck, Katz, and Tucker 1998</a>; <a href="#ref-Becketal2006" role="doc-biblioref">Beck, Gleditsch, and Beardsley 2006</a>; <a href="#ref-Stimson1985" role="doc-biblioref">Stimson 1985</a>; <a href="#ref-Plumperetal2005" role="doc-biblioref">Plümper, Troeger, and Manow 2005</a>; <a href="#ref-Plumpertroeger2007" role="doc-biblioref">Plümper and Troeger 2007</a>; <a href="#ref-DeBoef2008" role="doc-biblioref">De Boef and Keele 2008</a>; <a href="#ref-Wilson2007" role="doc-biblioref">Wilson and Butler 2007, Kittel1999, Kittel2005</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>De Doef &amp; Keele <span class="citation" data-cites="DeBoef2008">(<a href="#ref-DeBoef2008" role="doc-biblioref">2008</a>)</span> and Beck &amp; Katz <span class="citation" data-cites="Beck2011">(<a href="#ref-Beck2011" role="doc-biblioref">2011</a>)</span> show how you can deal with non-stationary variables in a regression analysis <span class="citation" data-cites="Box-Steffensmeier2016 Ennsetal2016 Grant2016 Lebo2017">(see also <a href="#ref-Box-Steffensmeier2016" role="doc-biblioref">J. Box-Steffensmeier and Helgason 2016</a>; <a href="#ref-Ennsetal2016" role="doc-biblioref">Enns et al. 2016</a>; <a href="#ref-Grant2016" role="doc-biblioref">Grant and Lebo 2016</a>; <a href="#ref-Lebo2017" role="doc-biblioref">Lebo and Kraft 2017</a>)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The discussion among political science methodologists on how to correctly analyze TSCS data was strongly based on techniques for panel data analysis <span class="citation" data-cites="Beck2001 Beck1995 Beck1996 Beck2011 Beck1998a Becketal2006 Beck2008 Beck2011 Stimson1985 Plumperetal2005 Plumpertroeger2007 DeBoef2008 Wilson2007">(see <a href="#ref-Beck2001" role="doc-biblioref">Beck 2001</a>, <a href="#ref-Beck2011" role="doc-biblioref">2011</a>, <a href="#ref-Beck2008" role="doc-biblioref">2008</a>, <a href="#ref-Beck2011" role="doc-biblioref">2011</a>; <a href="#ref-Beck1995" role="doc-biblioref">Beck and Katz 1995</a>, <a href="#ref-Beck1996" role="doc-biblioref">1996</a>; <a href="#ref-Beck1998a" role="doc-biblioref">Beck et al. 1998</a>, <a href="#ref-Becketal2006" role="doc-biblioref">2006</a>; <a href="#ref-Stimson1985" role="doc-biblioref">Stimson 1985</a>; <a href="#ref-Plumperetal2005" role="doc-biblioref">Plümper et al. 2005</a>; <a href="#ref-Plumpertroeger2007" role="doc-biblioref">Plümper and Troeger 2007</a>; <a href="#ref-DeBoef2008" role="doc-biblioref">De Boef and Keele 2008</a>; <a href="#ref-Wilson2007" role="doc-biblioref">Wilson and Butler 2007, Kittel1999, Kittel2005</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>De Doef &amp; Keele <span class="citation" data-cites="DeBoef2008">(<a href="#ref-DeBoef2008" role="doc-biblioref">2008</a>)</span> and Beck &amp; Katz <span class="citation" data-cites="Beck2011">(<a href="#ref-Beck2011" role="doc-biblioref">2011</a>)</span> show how you can deal with non-stationary variables in a regression analysis <span class="citation" data-cites="Box-Steffensmeier2016 Ennsetal2016 Grant2016 Lebo2017">(see also <a href="#ref-Box-Steffensmeier2016" role="doc-biblioref">Box-Steffensmeier and Helgason 2016</a>; <a href="#ref-Ennsetal2016" role="doc-biblioref">Enns et al. 2016</a>; <a href="#ref-Grant2016" role="doc-biblioref">Grant and Lebo 2016</a>; <a href="#ref-Lebo2017" role="doc-biblioref">Lebo and Kraft 2017</a>)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>I saved the dataset as <code>cpds_2024.dta</code>. You might have saved it under a different name, in which case you obviously need to adjust that in your code.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>I used <em>ChatGPT</em> to generate this graph.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>The main complicating factor is that TSCS data also have many of the characteristics of longer time series, meaning trends and the above-mentioned degrees of stationarity or integration. This means that analysts also have to think about how to model these features of the data <span class="citation" data-cites="DeBoef2008">Beck (<a href="#ref-Beck2011" role="doc-biblioref">2011</a>)</span>. This is less of a problem when working with “shorter” panel data.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -1661,7 +1660,7 @@ Wilson, Sven E., and Daniel M. Butler. 2007. <span>“A Lot More to Do: The Sens
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-knotz2026" class="csl-entry quarto-appendix-citeas" role="listitem">
 Knotz, Carlo. 2026. <span>“Regression Analyses with Macro-Level
-Data.”</span> January 26, 2026. <a href="https://cknotz.github.io/getstuffdone_blog/posts/tscs_regs/">https://cknotz.github.io/getstuffdone_blog/posts/tscs_regs/</a>.
+Data.”</span> January 26. <a href="https://cknotz.github.io/getstuffdone_blog/posts/tscs_regs/">https://cknotz.github.io/getstuffdone_blog/posts/tscs_regs/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

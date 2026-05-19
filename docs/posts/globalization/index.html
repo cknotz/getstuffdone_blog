@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>How vulnerable are workers to globalization (and what effects does this have)? – Testing big ideas with simple methods</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -61,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,19 +91,18 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-5100b8561cd7f6cd8c35657ed6fe7ee7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-4d72738a521f03bda770c6fbcc444206.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -306,8 +307,6 @@ div.csl-indent {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Testing big ideas with simple methods</span>
     </a>
@@ -405,14 +404,14 @@ div.csl-indent {
 
 <section id="the-losers-of-globalization-and-trade" class="level2">
 <h2 class="anchored" data-anchor-id="the-losers-of-globalization-and-trade">The losers of globalization and trade</h2>
-<p>Free trade and globalization are back on the political agenda. Starting with the <em>Brexit</em> campaign in 2015 and the UK’s subsequent actual exit from the European Union and now, in 2025, with Donald Trump taking the US into a trade war with essentially the rest of the world, there is a new discussion about the benefits but also drawbacks of free trade <span class="citation" data-cites="Colantone2018 Colantone2018a Colantone2019 Agnolinetal2025">(see also <a href="#ref-Colantone2018" role="doc-biblioref">Colantone and Stanig 2018b</a>, <a href="#ref-Colantone2018a" role="doc-biblioref">2018a</a>, <a href="#ref-Colantone2019" role="doc-biblioref">2019</a>; <a href="#ref-Agnolinetal2025" role="doc-biblioref">Agnolin, Colantone, and Stanig 2025</a>)</span>.</p>
-<p>And, indeed, even though free trade is generally beneficial for economic growth and development, there are usually some workers who are negatively affected by increased competition from abroad <span class="citation" data-cites="Autoretal2013 Heckscher1919 Ohlin1933">(<a href="#ref-Autoretal2013" role="doc-biblioref">Autor, Dorn, and Hanson 2013</a>; <a href="#ref-Heckscher1919" role="doc-biblioref">Heckscher 1919</a>; <a href="#ref-Ohlin1933" role="doc-biblioref">Ohlin 1933</a>)</span>. These negative economic effects can then also have further political and social effects, for example in the form of increased demands for social protection <span class="citation" data-cites="Walter2010">(<a href="#ref-Walter2010" role="doc-biblioref">Walter 2010</a>)</span>, increased political polarization and conflict <span class="citation" data-cites="Autoretal2020">(<a href="#ref-Autoretal2020" role="doc-biblioref">Autor et al. 2020</a>)</span>, or rising rates of child poverty, out-of-wedlock births, and premature deaths among men <span class="citation" data-cites="Autoretal2019">(<a href="#ref-Autoretal2019" role="doc-biblioref">Autor, Dorn, and Hanson 2019</a>)</span>.</p>
+<p>Free trade and globalization are back on the political agenda. Starting with the <em>Brexit</em> campaign in 2015 and the UK’s subsequent actual exit from the European Union and now, in 2025, with Donald Trump taking the US into a trade war with essentially the rest of the world, there is a new discussion about the benefits but also drawbacks of free trade <span class="citation" data-cites="Colantone2018 Colantone2018a Colantone2019 Agnolinetal2025">(see also <a href="#ref-Colantone2018" role="doc-biblioref">Colantone and Stanig 2018b</a>, <a href="#ref-Colantone2018a" role="doc-biblioref">2018a</a>, <a href="#ref-Colantone2019" role="doc-biblioref">2019</a>; <a href="#ref-Agnolinetal2025" role="doc-biblioref">Agnolin et al. 2025</a>)</span>.</p>
+<p>And, indeed, even though free trade is generally beneficial for economic growth and development, there are usually some workers who are negatively affected by increased competition from abroad <span class="citation" data-cites="Autoretal2013 Heckscher1919 Ohlin1933">(<a href="#ref-Autoretal2013" role="doc-biblioref">Autor et al. 2013</a>; <a href="#ref-Heckscher1919" role="doc-biblioref">Heckscher 1919</a>; <a href="#ref-Ohlin1933" role="doc-biblioref">Ohlin 1933</a>)</span>. These negative economic effects can then also have further political and social effects, for example in the form of increased demands for social protection <span class="citation" data-cites="Walter2010">(<a href="#ref-Walter2010" role="doc-biblioref">Walter 2010</a>)</span>, increased political polarization and conflict <span class="citation" data-cites="Autoretal2020">(<a href="#ref-Autoretal2020" role="doc-biblioref">Autor et al. 2020</a>)</span>, or rising rates of child poverty, out-of-wedlock births, and premature deaths among men <span class="citation" data-cites="Autoretal2019">(<a href="#ref-Autoretal2019" role="doc-biblioref">Autor et al. 2019</a>)</span>.</p>
 <p>To be able to study these (and potentially other) effects, researchers use measurements of how exposed and vulnerable workers are to the negative effects of trade and international competition. One way to measure this is with <strong>indicators of ‘offshoreability’</strong> — how easy or difficult is it to move the work done by people in different occupations to other countries? Different such indicators have been developed, but one that is relatively widely used are the indicators of offshoreability by Blinder &amp; Krueger <span class="citation" data-cites="Blinder2013">(<a href="#ref-Blinder2013" role="doc-biblioref">2013</a>)</span>. They use a survey-based approach, where they ask workers about their perceptions of how easy it would be to move their jobs abroad and confirm this with a second survey of experts.</p>
 <p>The rest of this post will show you how you can access measures of worker’s vulnerability to trade and globalization, how you import them into <code>R</code>, and how you merge them with data from round 7 (2014) of the <em>European Social Survey</em> so that you can analyze how vulnerability to globalization affects people’s attitudes and behavior.</p>
 </section>
 <section id="accessing-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="accessing-the-data">Accessing the data</h2>
-<p>The Blinder/Krueger measurements of vulnerability to trade (i.e., <em>“offshoreability”</em>) are publicly available as part of the <em>replication data package</em> of a second (important) research article, which compares the effects of globalization and technological change on workers <span class="citation" data-cites="Goosetal2014">(<a href="#ref-Goosetal2014" role="doc-biblioref">Goos, Manning, and Salomons 2014</a>)</span>. Goos et al.&nbsp;have archived the research data they use in the <em>ICPSR</em> Data Archive: <a href="https://doi.org/10.3886/E112846V1" target="_blank">https://doi.org/10.3886/E112846V1</a>. There, under <em>Data</em>, is the <code>task.dta</code> dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology <span class="citation" data-cites="Autoretal2003 Thewissen2019">(from <a href="#ref-Autoretal2003" role="doc-biblioref">Autor, Levy, and Murnane 2003</a>; used by e.g., <a href="#ref-Thewissen2019" role="doc-biblioref">Thewissen and Rueda 2019</a>)</span>. You can download the dataset for free, after a quick login.</p>
+<p>The Blinder/Krueger measurements of vulnerability to trade (i.e., <em>“offshoreability”</em>) are publicly available as part of the <em>replication data package</em> of a second (important) research article, which compares the effects of globalization and technological change on workers <span class="citation" data-cites="Goosetal2014">(<a href="#ref-Goosetal2014" role="doc-biblioref">Goos et al. 2014</a>)</span>. Goos et al.&nbsp;have archived the research data they use in the <em>ICPSR</em> Data Archive: <a href="https://doi.org/10.3886/E112846V1" target="_blank">https://doi.org/10.3886/E112846V1</a>. There, under <em>Data</em>, is the <code>task.dta</code> dataset, which contains the offshoreability scores and, as a bonus, also additional scores on how exposed workers are to losing their jobs to robots and other automated technology <span class="citation" data-cites="Autoretal2003 Thewissen2019">(from <a href="#ref-Autoretal2003" role="doc-biblioref">Autor et al. 2003</a>; used by e.g., <a href="#ref-Thewissen2019" role="doc-biblioref">Thewissen and Rueda 2019</a>)</span>. You can download the dataset for free, after a quick login.</p>
 </section>
 <section id="importing-and-merging-the-data-with-ess-data" class="level2">
 <h2 class="anchored" data-anchor-id="importing-and-merging-the-data-with-ess-data">Importing and merging the data with <em>ESS</em> data</h2>
@@ -480,7 +479,7 @@ div.csl-indent {
 <ul>
 <li><code>RTI_alm_isco_77</code> is an indicator of vulnerability to automation (“routine task intensity”) that was developed by Autor, Levy, and Murnane <span class="citation" data-cites="Autoretal2003">(<a href="#ref-Autoretal2003" role="doc-biblioref">2003</a>)</span>;</li>
 <li><code>BK</code> is the indicator of offshoreability by Blinder &amp; Krueger <span class="citation" data-cites="Blinder2013">(<a href="#ref-Blinder2013" role="doc-biblioref">2013</a>)</span>;</li>
-<li><code>OFF1_ffl</code> to <code>OFF3_ffl</code> are alternative indicators of offshoreability by Firpo et al. <span class="citation" data-cites="Firpoetal2011">(see their paper for details: <a href="#ref-Firpoetal2011" role="doc-biblioref">Firpo, Fortin, and Lemieux 2011</a>)</span>;</li>
+<li><code>OFF1_ffl</code> to <code>OFF3_ffl</code> are alternative indicators of offshoreability by Firpo et al. <span class="citation" data-cites="Firpoetal2011">(see their paper for details: <a href="#ref-Firpoetal2011" role="doc-biblioref">Firpo et al. 2011</a>)</span>;</li>
 <li><code>OFF_gms</code> is the <code>BK</code> indicator in a normalized (“rescaled”) version;</li>
 </ul>
 <p>Let’s take a closer look at the <code>BK</code> indicator:</p>
@@ -717,7 +716,7 @@ div.csl-indent {
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-Agnolinetal2025" class="csl-entry" role="listitem">
 Agnolin, Paolo, Italo Colantone, and Piero Stanig. 2025. <span>“In Search of the Causes of the Globalization Backlash: Methodological Considerations on Post-Treatment Bias.”</span> <em>Comparative Political Studies</em> 58 (8): 1603–35.
 </div>
@@ -731,7 +730,7 @@ Autor, David H., David Dorn, and Gordon H Hanson. 2013. <span>“<span class="no
 Autor, David H., David Dorn, Gordon Hanson, and Kaveh Majlesi. 2020. <span>“Importing Political Polarization? <span>The</span> Electoral Consequences of Rising Trade Exposure.”</span> <em>American Economic Review</em> 110 (10): 3139–83.
 </div>
 <div id="ref-Autoretal2003" class="csl-entry" role="listitem">
-Autor, David H., Frank Levy, and Richard J. Murnane. 2003. <span>“The Skill Content of Recent Technological Change: An Empirical Exploration.”</span> <em>Quarterly Journal of Economics</em> 118 (4): 1279–1333.
+Autor, David H., Frank Levy, and Richard J. Murnane. 2003. <span>“The Skill Content of Recent Technological Change: An Empirical Exploration.”</span> <em>Quarterly Journal of Economics</em> 118 (4): 1279–333.
 </div>
 <div id="ref-Blinder2013" class="csl-entry" role="listitem">
 Blinder, Alan S, and Alan B Krueger. 2013. <span>“Alternative Measures of Offshorability: A Survey Approach.”</span> <em>Journal of Labor Economics</em> 31 (S1): S97–128.
@@ -740,10 +739,10 @@ Blinder, Alan S, and Alan B Krueger. 2013. <span>“Alternative Measures of Offs
 Colantone, Italo, and Piero Stanig. 2018a. <span>“Global Competition and <span>Brexit</span>.”</span> <em>American Political Science Review</em> 112 (2): 201–18.
 </div>
 <div id="ref-Colantone2018" class="csl-entry" role="listitem">
-———. 2018b. <span>“The Trade Origins of Economic Nationalism: Import Competition and Voting Behavior in <span>Western Europe</span>.”</span> <em>American Journal of Political Science</em> 62 (4): 936–53.
+Colantone, Italo, and Piero Stanig. 2018b. <span>“The Trade Origins of Economic Nationalism: Import Competition and Voting Behavior in <span>Western Europe</span>.”</span> <em>American Journal of Political Science</em> 62 (4): 936–53.
 </div>
 <div id="ref-Colantone2019" class="csl-entry" role="listitem">
-———. 2019. <span>“The Surge of Economic Nationalism in <span>Western Europe</span>.”</span> <em>Journal of Economic Perspectives</em> 33 (4): 128–51.
+Colantone, Italo, and Piero Stanig. 2019. <span>“The Surge of Economic Nationalism in <span>Western Europe</span>.”</span> <em>Journal of Economic Perspectives</em> 33 (4): 128–51.
 </div>
 <div id="ref-Firpoetal2011" class="csl-entry" role="listitem">
 Firpo, Sergio, Nicole M Fortin, and Thomas Lemieux. 2011. <span>“Occupational Tasks and Changes in the Wage Structure.”</span> <em>IZA Discussion Paper</em> 5542.
@@ -755,13 +754,13 @@ Goos, Maarten, Alan Manning, and Anna Salomons. 2014. <span>“Explaining Job Po
 Heckscher, Eli F. 1919. <span>“Utrikeshandelns Verkan p<span>å</span> Inkomstf<span>ö</span>rdelningen. N<span>å</span>gra Teoretiska Grundlinjer.”</span> <em>Ekonomisk Tidskrift</em> 21: 1–31.
 </div>
 <div id="ref-Ohlin1933" class="csl-entry" role="listitem">
-Ohlin, Bertil. 1933. <em>Interregional and International Trade</em>. Cambridge, MA: Harvard University Press.
+Ohlin, Bertil. 1933. <em>Interregional and International Trade</em>. Harvard University Press.
 </div>
 <div id="ref-Thewissen2019" class="csl-entry" role="listitem">
 Thewissen, Stefan, and David Rueda. 2019. <span>“Automation and the Welfare State: Technological Change as a Determinant of Redistribution Preferences.”</span> <em>Comparative Political Studies</em> 52 (2): 171–208.
 </div>
 <div id="ref-Urdinez2020" class="csl-entry" role="listitem">
-Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. Boca Raton; others: CRC Press.
+Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. CRC Press.
 </div>
 <div id="ref-Walter2010" class="csl-entry" role="listitem">
 Walter, Stefanie. 2010. <span>“Globalization and the Welfare State: Testing the Microfoundations of the Compensation Hypothesis.”</span> <em>International Studies Quarterly</em> 54 (2): 403–26.
@@ -783,7 +782,7 @@ Walter, Stefanie. 2010. <span>“Globalization and the Welfare State: Testing th
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-knotz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
 Knotz, Carlo. 2025. <span>“How Vulnerable Are Workers to Globalization
-(and What Effects Does This Have)?”</span> March 10, 2025. <a href="https://cknotz.github.io/getstuffdone_blog/posts/globalization/">https://cknotz.github.io/getstuffdone_blog/posts/globalization/</a>.
+(and What Effects Does This Have)?”</span> March 10. <a href="https://cknotz.github.io/getstuffdone_blog/posts/globalization/">https://cknotz.github.io/getstuffdone_blog/posts/globalization/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

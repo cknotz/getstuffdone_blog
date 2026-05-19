@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,6 +11,9 @@
 
 <title>Merging macro-level data – Testing big ideas with simple methods</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -61,7 +64,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,19 +91,18 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-5100b8561cd7f6cd8c35657ed6fe7ee7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-f93c2b1f3f0577f377aefa4848a86a36.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-4d72738a521f03bda770c6fbcc444206.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -306,8 +307,6 @@ div.csl-indent {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Testing big ideas with simple methods</span>
     </a>
@@ -414,8 +413,8 @@ div.csl-indent {
 
 <section id="more" class="level2">
 <h2 class="anchored" data-anchor-id="more">1 + 1 = more</h2>
-<p>Being able to combine or merge different datasets is a critical skill for any (social, political, or economic) data analyst because, more often than not, the variables you need for your analysis are spread over different datasets. For example, many available datasets from peace &amp; conflict research on fatalities related to wars and other types of conflict (as looked at in <a href="https://cknotz.github.io/getstuffdone_blog/posts/conflict/">this post</a>) contain just that – information about conflicts and their intensity. What they do not contain is variables that could potentially <em>explain</em> the incidence and intensity of conflicts, for example how democratic countries are <span class="citation" data-cites="Maoz1993 Oneal1997">(<a href="#ref-Maoz1993" role="doc-biblioref">Maoz and Russett 1993</a>; <a href="#ref-Oneal1997" role="doc-biblioref">Oneal and Russett 1997</a>)</span> — which are available in other datasets <span class="citation" data-cites="Lindbergetal2014 Boix2013">(e.g., <a href="#ref-Lindbergetal2014" role="doc-biblioref">Lindberg et al. 2014</a>; <a href="#ref-Boix2013" role="doc-biblioref">Boix, Miller, and Rosato 2013</a>)</span>. To be able to analyze these two variables, conflicts and democracy, and their relationships, you need to be able to merge the two datasets into one.</p>
-<p>Fortunately, <em>merging datasets is not as difficult as it might seem at first sight</em> – functions like <code>merge()</code> from <code>base R</code> or <code>left_join()</code> and the other joining functions from <code>dplyr()</code> take care of most of the work <span class="citation" data-cites="Urdinez2020">(see also <a href="#ref-Urdinez2020" role="doc-biblioref">Urdinez and Cruz 2020, chap. 11.2</a>)</span>. You as the data analyst in charge really only need to take care of two things:</p>
+<p>Being able to combine or merge different datasets is a critical skill for any (social, political, or economic) data analyst because, more often than not, the variables you need for your analysis are spread over different datasets. For example, many available datasets from peace &amp; conflict research on fatalities related to wars and other types of conflict (as looked at in <a href="https://cknotz.github.io/getstuffdone_blog/posts/conflict/">this post</a>) contain just that – information about conflicts and their intensity. What they do not contain is variables that could potentially <em>explain</em> the incidence and intensity of conflicts, for example how democratic countries are <span class="citation" data-cites="Maoz1993 Oneal1997">(<a href="#ref-Maoz1993" role="doc-biblioref">Maoz and Russett 1993</a>; <a href="#ref-Oneal1997" role="doc-biblioref">Oneal and Russett 1997</a>)</span> — which are available in other datasets <span class="citation" data-cites="Lindbergetal2014 Boix2013">(e.g., <a href="#ref-Lindbergetal2014" role="doc-biblioref">Lindberg et al. 2014</a>; <a href="#ref-Boix2013" role="doc-biblioref">Boix et al. 2013</a>)</span>. To be able to analyze these two variables, conflicts and democracy, and their relationships, you need to be able to merge the two datasets into one.</p>
+<p>Fortunately, <em>merging datasets is not as difficult as it might seem at first sight</em> – functions like <code>merge()</code> from <code>base R</code> or <code>left_join()</code> and the other joining functions from <code>dplyr()</code> take care of most of the work <span class="citation" data-cites="Urdinez2020">(see also <a href="#ref-Urdinez2020" role="doc-biblioref">Urdinez and Cruz 2020, 11.2</a>)</span>. You as the data analyst in charge really only need to take care of two things:</p>
 <ol type="1">
 <li>You need to understand the structure of your datasets and which variable (or variable<strong>s</strong>) uniquely identity each observation.</li>
 <li>You need to make sure that these identifying variables are exactly identical in each of the datasets you want to merge.</li>
@@ -948,7 +947,7 @@ div.csl-indent {
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-countrycode" class="csl-entry" role="listitem">
 Arel-Bundock, Vincent, Nils Enevoldsen, and CJ Yetman. 2018. <span>“<span class="nocase">countrycode: An R package to convert country names and country codes</span>.”</span> <em>Journal of Open Source Software</em> 3 (28): 848.
 </div>
@@ -959,7 +958,7 @@ Beck, Nathaniel. 2001. <span>“Time-Series-Cross-Section Data: What Have We Lea
 Boix, Carles, Michael Miller, and Sebastian Rosato. 2013. <span>“A Complete Data Set of Political Regimes, 1800–2007.”</span> <em>Comparative Political Studies</em> 46 (12): 1523–54.
 </div>
 <div id="ref-QOGB2025" class="csl-entry" role="listitem">
-Dahlberg, Stefan, Aksel Sundström, Sören Holmberg, Bo Rothstein, Natalia Alvarado Pachon, Cem Mert Dalli, Rafael Lopez Valverde, Victor Saidi Phiri, and Lauren Gerber. 2025. <em>The Quality of Government Basic Dataset, Version Jan25</em>. Gothenburg: The Quality of Government Institute, University of Gothenburg.
+Dahlberg, Stefan, Aksel Sundström, Sören Holmberg, et al. 2025. <em>The Quality of Government Basic Dataset, Version Jan25</em>. The Quality of Government Institute, University of Gothenburg.
 </div>
 <div id="ref-Daviesetal2025" class="csl-entry" role="listitem">
 Davies, Shawn, Therése Pettersson, Margareta Sollenberg, and Magnus Öberg. 2025. <span>“Organized Violence 1989–2024, and the Challenges of Identifying Civilian Victims.”</span> <em>Journal of Peace Research</em> 62 (4).
@@ -980,10 +979,10 @@ Oneal, John R., and Bruce M. Russett. 1997. <span>“The Classical Liberals Were
 Sundberg, Ralph, and Erik Melander. 2013. <span>“Introducing the <span>UCDP</span> Georeferenced Event Dataset.”</span> <em>Journal of Peace Research</em> 50 (4): 523–32.
 </div>
 <div id="ref-QOG2025" class="csl-entry" role="listitem">
-Teorell, Jan, Aksel Sundström, Sören Holmberg, Bo Rothstein, Natalia Alvarado Pachon, Cem Mert Dalli, Rafael Lopez Valverde, Victor Saidi Phiri, and Lauren Gerber. 2025. <em>The Quality of Government Standard Dataset, v. Jan25</em>. Gothenburg: The Quality of Government Institute, University of Gothenburg.
+Teorell, Jan, Aksel Sundström, Sören Holmberg, et al. 2025. <em>The Quality of Government Standard Dataset, v. Jan25</em>. The Quality of Government Institute, University of Gothenburg.
 </div>
 <div id="ref-Urdinez2020" class="csl-entry" role="listitem">
-Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. Boca Raton; others: CRC Press.
+Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A Practical Guide</em>. CRC Press.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
@@ -1002,8 +1001,8 @@ Urdinez, Francisco, and Andres Cruz. 2020. <em>R for Political Data Science: A P
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-knotz2025" class="csl-entry quarto-appendix-citeas" role="listitem">
-Knotz, Carlo. 2025. <span>“Merging Macro-Level Data.”</span> October 10,
-2025. <a href="https://cknotz.github.io/getstuffdone_blog/posts/merging/">https://cknotz.github.io/getstuffdone_blog/posts/merging/</a>.
+Knotz, Carlo. 2025. <span>“Merging Macro-Level Data.”</span> October 10.
+<a href="https://cknotz.github.io/getstuffdone_blog/posts/merging/">https://cknotz.github.io/getstuffdone_blog/posts/merging/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
