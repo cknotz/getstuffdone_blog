@@ -91,6 +91,7 @@ Finally, there are also a number of data repositories and archives that contain 
 ### Comparative politics: Governments, parliaments, parties, institutions, elections
 
  - Manifesto Project Database: Ideological positions of political parties (<https://manifestoproject.wzb.eu/>)
+ - Political Party Database: Quantitative data on party resources, party decision processes, and the outcome of decision-making procedures for parties in many representative democracies, and archived party statutes (<https://www.politicalpartydb.org/>).
  - Integrated Party Organization Dataset (<http://dx.doi.org/10.7910/DVN/PE8TWP>)
  - PARTY FACTS: Repository of comparative and historical data on political parties in around 200 countries (<https://partyfacts.herokuapp.com/>)
  - Parliament and government composition (PARLGOV; <https://www.parlgov.org/>) database
