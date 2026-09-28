@@ -68,9 +68,12 @@ Finally, there are also a number of data repositories and archives that contain 
  
 ### Technology & AI
 
- - [AI exposure indicators](https://github.com/AIOE-Data/AIOE): Indicators measuring exposure to AI at the occupational, industry, and regional (for US) level; see @Feltenetal2021 for details
- - [Exposure to Generative AI](https://github.com/pgmyrek/2025_GenAI_scores_ISCO08): Indicators measuring exposure to generative AI for ISCO-08 occupations (can be merged with e.g., data from the *European Social Survey* or *International Social Survey Program*). See also @Gmyreketal2025 and @Gmyreketal2023 for details.
- - OECD [Risks that Matter](https://www.oecd.org/social/risks-that-matter.htm) surveys: Cross-country comparative survey data, incl. questions on perceived vulnerability to technological change [see e.g., @Busemeyeretal2023; @Knotzetal2024b; @Knotz2025]
+* **Indicators of workers' exposure to AI**
+  + [AI Occupational Exposure (AIOE)](https://github.com/AIOE-Data/AIOE): Indicators measuring exposure to AI at the occupational, industry, and regional (for US) level; see @Feltenetal2021 for details
+  + [Exposure to Generative AI](https://github.com/pgmyrek/2025_GenAI_scores_ISCO08): Indicators measuring exposure to generative AI for ISCO-08 occupations (can be merged with e.g., data from the *European Social Survey* or *International Social Survey Program*). See also @Gmyreketal2025 and @Gmyreketal2023 for details
+  + [Occupational impact of AI](https://github.com/nandomp/AIlabour): an indicator of occupational exposure to AI; see Tolan et al. [-@Tolanetal2021] for details
+* **Subjective perceptions of vulnerability to AI**: 
+  + OECD [Risks that Matter](https://www.oecd.org/social/risks-that-matter.htm) surveys: Cross-country comparative survey data, incl. questions on perceived vulnerability to technological change [see e.g., @Busemeyeretal2023; @Knotzetal2024b; @Knotz2025]
  
 ### Other
 
